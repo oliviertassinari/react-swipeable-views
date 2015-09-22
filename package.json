@@ -1,0 +1,11 @@
+{
+  "name": "react-slider-material",
+  "version": "0.1.0",
+  "description": "A React component for swipeable views",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
