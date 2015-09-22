@@ -2,3 +2,5 @@
 *.sublime-project
 *.sublime-workspace
 
+# npm
+/node_modules

@@ -1,11 +1,28 @@
 {
-  "name": "react-slider-material",
+  "name": "react-swipeable-views",
   "version": "0.1.0",
   "description": "A React component for swipeable views",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "exit 0"
   },
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oliviertassinari/react-swipeable-views.git"
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "swipe",
+    "swipeable",
+    "tabs"
+  ],
+  "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
+  "bugs": {
+    "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
+  },
+  "peerDependencies": {
+    "react": "^0.13.0"
+  },
+  "license": "MIT"
 }
