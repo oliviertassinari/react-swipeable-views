@@ -4,3 +4,5 @@
 
 # npm
 /node_modules
+
+/lib

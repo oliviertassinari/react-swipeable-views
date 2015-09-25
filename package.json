@@ -1,10 +1,12 @@
 {
   "name": "react-swipeable-views",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A React component for swipeable views",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "exit 0"
+    "test": "exit 0",
+    "build": "babel src --out-dir lib --stage 0",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -24,5 +26,8 @@
   "peerDependencies": {
     "react": "^0.13.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^5.8.23"
+  }
 }
