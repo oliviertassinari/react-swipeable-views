@@ -1,6 +1,6 @@
 {
   "name": "react-swipeable-views",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A React component for swipeable views",
   "main": "lib/index.js",
   "scripts": {
@@ -24,7 +24,8 @@
     "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
   },
   "peerDependencies": {
-    "react": "^0.13.0"
+    "react": "^0.13.0",
+    "react-motion": "^0.2.7"
   },
   "license": "MIT",
   "devDependencies": {
