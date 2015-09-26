@@ -42,7 +42,7 @@ const Main = React.createClass({
   },
   renderSupportsTouch: function() {
     return !supportsTouch && <span className="pl-id">
-        <br />You need a touch device to swipe between the 3 tabs.
+        <br />You need a touch device to swipe between the 3 slides.
       </span>;
   },
   onChangeTabs: function(value) {
