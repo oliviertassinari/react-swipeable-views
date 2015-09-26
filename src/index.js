@@ -63,14 +63,15 @@ const SwipeableViews = React.createClass({
     this.startIndex = this.state.index;
     this.startX = touch.pageX;
     this.lastX = touch.pageX;
-    this.dX = 0;
+    this.deltaX = 0;
     this.startY = touch.pageY;
-    this.isScroll = null;
+    this.isScroll = undefined;
   },
   handleTouchMove: function(event) {
     const touch = event.touches[0];
 
-    if (this.isScroll === null) {
+    // This is a one time test
+    if (this.isScroll === undefined) {
       this.isScroll = Math.abs(this.startY - touch.pageY) > Math.abs(this.startX - touch.pageX);
     }
 
@@ -78,9 +79,10 @@ const SwipeableViews = React.createClass({
       return;
     }
 
+    // Prevent native scrolling
     event.preventDefault();
 
-    this.dX = touch.pageX - this.lastX;
+    this.deltaX = touch.pageX - this.lastX;
     this.lastX = touch.pageX;
 
     const indexMax = React.Children.count(this.props.children) - 1;
@@ -105,8 +107,8 @@ const SwipeableViews = React.createClass({
 
     let indexNew;
 
-    if (Math.abs(this.dX) > 14) {
-      if (this.dX > 0) {
+    if (Math.abs(this.deltaX) > 14) {
+      if (this.deltaX > 0) {
         indexNew = Math.floor(this.state.index);
       } else {
         indexNew = Math.ceil(this.state.index);
