@@ -15,9 +15,12 @@ require('github-light.less');
 const supportsTouch = 'ontouchstart' in window;
 
 const styles = {
+  slideContainer: {
+    height: 80,
+  },
   slide: {
     padding: 15,
-    height: 80,
+    minHeight: 80,
     color: '#fff',
   },
   slide1: {
@@ -57,6 +60,14 @@ const Main = React.createClass({
       index,
     } = this.state;
 
+    const list = [];
+
+    for (let i = 0; i < 20; i++) {
+      list.push(<div>
+          {'item n°' + (i + 1)}
+        </div>);
+    }
+
     return (
       <div>
         <section className="page-header">
@@ -79,15 +90,15 @@ const Main = React.createClass({
             Simple case without header.
             {this.renderSupportsTouch()}
           </p>
-          <SwipeableViews>
+          <SwipeableViews style={styles.slideContainer}>
             <div style={Object.assign({}, styles.slide, styles.slide1)}>
-              tab n°1
+              slide n°1
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide2)}>
-              tab n°2
+              slide n°2
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide3)}>
-              tab n°3
+              slide n°3
             </div>
           </SwipeableViews>
 
@@ -101,15 +112,33 @@ const Main = React.createClass({
             <Tab label="tab n°2" value="1" />
             <Tab label="tab n°3" value="2" />
           </Tabs>
-          <SwipeableViews index={index} onChangeIndex={this.onChangeIndex}>
+          <SwipeableViews index={index} onChangeIndex={this.onChangeIndex}
+            style={styles.slideContainer}>
             <div style={Object.assign({}, styles.slide, styles.slide1)}>
-              tab n°1
+              slide n°1
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide2)}>
-              tab n°2
+              slide n°2
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide3)}>
-              tab n°3
+              slide n°3
+            </div>
+          </SwipeableViews>
+
+          <h3>Demo 3</h3>
+          <p>
+            The swipe and the scroll behavior works in harmony.
+            {this.renderSupportsTouch()}
+          </p>
+          <SwipeableViews style={styles.slideContainer}>
+            <div style={Object.assign({}, styles.slide, styles.slide1)}>
+              {list}
+            </div>
+            <div style={Object.assign({}, styles.slide, styles.slide2)}>
+              slide n°2
+            </div>
+            <div style={Object.assign({}, styles.slide, styles.slide3)}>
+              slide n°3
             </div>
           </SwipeableViews>
 
