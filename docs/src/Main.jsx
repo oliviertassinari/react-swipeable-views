@@ -2,6 +2,11 @@
 
 const React = require('react');
 const SwipeableViews = require('../../src/index');
+const Tabs = require('material-ui/lib/tabs/tabs');
+const Tab = require('material-ui/lib/tabs/tab');
+const injectTapEventPlugin = require('react-tap-event-plugin');
+
+injectTapEventPlugin();
 
 require('normalize.less');
 require('stylesheet.less');
@@ -27,12 +32,31 @@ const styles = {
 };
 
 const Main = React.createClass({
+  getInitialState: function() {
+    return {
+      index: 0,
+    };
+  },
   renderSupportsTouch: function() {
     return !supportsTouch && <span className="pl-id">
         <br />You need a touch device to swipe between the 3 tabs.
       </span>;
   },
+  onChangeTabs: function(value) {
+    this.setState({
+      index: parseInt(value, 10),
+    });
+  },
+  onChangeIndex: function(index) {
+    this.setState({
+      index: index,
+    });
+  },
   render: function() {
+    const {
+      index,
+    } = this.state;
+
     return (
       <div>
         <section className="page-header">
@@ -72,6 +96,23 @@ const Main = React.createClass({
             Now, let's add a header.
             {this.renderSupportsTouch()}
           </p>
+
+          <Tabs onChange={this.onChangeTabs} value={index + ''}>
+            <Tab label="tab n°1" value="0" />
+            <Tab label="tab n°2" value="1" />
+            <Tab label="tab n°3" value="2" />
+          </Tabs>
+          <SwipeableViews index={index} onChangeIndex={this.onChangeIndex}>
+            <div style={Object.assign({}, styles.slide, styles.slide1)}>
+              tab n°1
+            </div>
+            <div style={Object.assign({}, styles.slide, styles.slide2)}>
+              tab n°2
+            </div>
+            <div style={Object.assign({}, styles.slide, styles.slide3)}>
+              tab n°3
+            </div>
+          </SwipeableViews>
 
           <footer className="site-footer">
             <span className="site-footer-owner">
