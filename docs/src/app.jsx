@@ -1,5 +1,6 @@
 'use strict';
 
-require('normalize.less');
-require('stylesheet.less');
-require('github-light.less');
+const React = require('react');
+const Main = require('Main');
+
+React.render(<Main />, document.getElementById('main'));
