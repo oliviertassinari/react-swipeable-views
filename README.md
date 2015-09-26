@@ -41,6 +41,14 @@ const MyComponent = React.createClass({
 module.exports = MyComponent;
 ```
 
+## Props
+
+- **index** Integer, *default=0* - This is the index of the slide to show. This is useful when you want to change the default slide shown. Or when you have tabs linked to each slide.
+
+- **onChangeIndex** Function(index) - This is callback prop. It's call by the component when the shown slide change after a swipe made by the user. This is useful when you have tabs linked to each slide.
+
+- **style** Object, *default={}* - This is the inlined style that will be apply to each slide container.
+
 ## License
 
 MIT
