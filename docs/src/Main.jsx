@@ -16,11 +16,11 @@ const supportsTouch = 'ontouchstart' in window;
 
 const styles = {
   slideContainer: {
-    height: 80,
+    height: 100,
   },
   slide: {
     padding: 15,
-    minHeight: 80,
+    minHeight: 100,
     color: '#fff',
   },
   slide1: {
@@ -75,12 +75,6 @@ const Main = React.createClass({
           <h2 className="project-tagline">A React component for swipeable views</h2>
           <a href="https://github.com/oliviertassinari/react-swipeable-views" className="btn">
             View on GitHub
-          </a>
-          <a href="https://github.com/oliviertassinari/react-swipeable-views/zipball/master" className="btn">
-            Download .zip
-          </a>
-          <a href="https://github.com/oliviertassinari/react-swipeable-views/tarball/master" className="btn">
-            Download .tar.gz
           </a>
         </section>
 
