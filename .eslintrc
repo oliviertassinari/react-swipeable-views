@@ -1,0 +1,92 @@
+---
+parser: babel-eslint
+
+env:
+  browser: true
+  node: true
+  mocha: true
+  es6: true
+
+plugins:
+  - react
+
+ecmaFeatures:
+  jsx: true
+
+globals:
+  cordova: false
+  emit: false
+  browser: true
+  VERSION: false
+  CONFIG_NAME: false
+  PLATFORM: false
+
+rules:
+  # Errors
+  max-len: [2, 120, 4]
+  indent: [2, 2, {SwitchCase: 1}]
+  quotes: [2, single, avoid-escape]
+  comma-dangle: [2, always-multiline]
+  brace-style: 2
+  consistent-this: [2, self]
+  space-after-keywords: [2, always]
+  space-before-blocks: [2, always]
+  space-before-function-paren: [2, never]
+  space-before-keywords: [2, always]
+  space-infix-ops: 2
+  space-return-throw-case: 2
+  eol-last: 2
+  eqeqeq: [2, smart]
+  yoda: 2
+  no-unused-expressions: 2
+  no-unused-vars: 2
+  strict: [2, global]
+  dot-notation: 2
+  dot-location: [2, property]
+  consistent-return: 2
+  no-shadow: 2
+  no-extra-semi: 2
+  no-spaced-func: 2
+  no-multi-spaces: 2
+  no-undef: 2
+  key-spacing: 2
+  semi: [2, always]
+  new-cap: [2, {capIsNew: true, newIsCap: true}]
+  no-trailing-spaces: 2
+  comma-style: [2, last]
+  no-unreachable: 2
+  no-var: 2
+  prefer-const: 2
+  jsx-quotes: [2, prefer-double]
+
+  # Disabled
+  camelcase: 0
+  no-underscore-dangle: 0
+  handle-callback-err: 0
+
+  # React errors
+  react/display-name: [2, {acceptTranspilerName: true}]
+  react/jsx-boolean-value: [2, always]
+  react/jsx-curly-spacing: 2
+  react/jsx-indent-props: [2, 2]
+  react/jsx-max-props-per-line: [2, {maximum: 4}]
+  react/jsx-no-duplicate-props: 2
+  react/jsx-no-undef: 2
+  react/jsx-sort-prop-types: 2
+  react/jsx-uses-react: 2
+  react/jsx-uses-vars: 2
+  react/no-danger: 2
+  react/no-did-mount-set-state: 2
+  react/no-did-update-set-state: 2
+  react/no-multi-comp: 2
+  react/no-unknown-property: 2
+  react/prop-types: 2
+  react/react-in-jsx-scope: 2
+  react/require-extension: 2
+  react/self-closing-comp: 2
+  react/sort-comp: 2
+
+  # Disabled
+  react/jsx-sort-props: 0
+  react/no-set-state: 0
+  react/wrap-multilines: 0
