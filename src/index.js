@@ -107,15 +107,20 @@ const SwipeableViews = React.createClass({
 
     let indexNew;
 
-    if (Math.abs(this.deltaX) > 14) {
+    // Quick movement
+    if (Math.abs(this.deltaX) > 10) {
       if (this.deltaX > 0) {
         indexNew = Math.floor(this.state.index);
       } else {
         indexNew = Math.ceil(this.state.index);
       }
     } else {
-      // TODO add some hysteresis with startIndex
-      indexNew = Math.round(this.state.index);
+      // Some hysteresis with startIndex
+      if (Math.abs(this.startIndex - this.state.index) > 0.6) {
+        indexNew = Math.round(this.state.index);
+      } else {
+        indexNew = this.startIndex;
+      }
     }
 
     this.setState({
