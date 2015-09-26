@@ -23,7 +23,6 @@ const SwipeableViews = React.createClass({
     children: React.PropTypes.node,
     index: React.PropTypes.number,
     onChangeIndex: React.PropTypes.func,
-    onChangeScroll: React.PropTypes.func,
     style: React.PropTypes.object,
   },
   mixins: [
@@ -51,7 +50,7 @@ const SwipeableViews = React.createClass({
       index,
     } = nextProps;
 
-    if (typeof index === 'number') {
+    if (typeof index === 'number' && index !== this.props.index) {
       this.setState({
         index: index,
       });

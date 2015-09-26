@@ -96,7 +96,6 @@ const Main = React.createClass({
             Now, let's add a header.
             {this.renderSupportsTouch()}
           </p>
-
           <Tabs onChange={this.onChangeTabs} value={index + ''}>
             <Tab label="tab n°1" value="0" />
             <Tab label="tab n°2" value="1" />

@@ -58,11 +58,9 @@ rules:
   no-var: 2
   prefer-const: 2
   jsx-quotes: [2, prefer-double]
-
-  # Disabled
-  camelcase: 0
-  no-underscore-dangle: 0
-  handle-callback-err: 0
+  camelcase: 2
+  no-underscore-dangle: 2
+  handle-callback-err: 2
 
   # React errors
   react/display-name: [2, {acceptTranspilerName: true}]
@@ -76,7 +74,6 @@ rules:
   react/jsx-uses-react: 2
   react/jsx-uses-vars: 2
   react/no-danger: 2
-  react/no-did-mount-set-state: 2
   react/no-did-update-set-state: 2
   react/no-multi-comp: 2
   react/no-unknown-property: 2
@@ -87,6 +84,7 @@ rules:
   react/sort-comp: 2
 
   # Disabled
+  react/no-did-mount-set-state: 0
   react/jsx-sort-props: 0
   react/no-set-state: 0
   react/wrap-multilines: 0
