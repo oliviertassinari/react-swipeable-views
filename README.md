@@ -15,6 +15,7 @@ npm install --save react-swipeable-views
 ```
 
 ## Usage
+![alt tag](docs/usage.gif)
 
 ```js
 const React = require('react')
