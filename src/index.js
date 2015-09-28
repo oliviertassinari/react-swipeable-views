@@ -3,6 +3,7 @@
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const {Spring} = require('react-motion');
+const objectAssign = require('object-assign');
 
 const styles = {
   root: {
@@ -154,7 +155,7 @@ const SwipeableViews = React.createClass({
       });
     }
 
-    return <div style={Object.assign({
+    return <div style={objectAssign({
       WebkitTransform: `translate3d(${translate}px, 0, 0)`,
       transform: `translate3d(-${translate}%, 0, 0)`,
     }, styles.container, style)}>
