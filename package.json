@@ -1,11 +1,11 @@
 {
   "name": "react-swipeable-views",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A React component for swipeable views",
   "main": "lib/index.js",
   "scripts": {
     "test": "exit 0",
-    "build": "rm lib && mkdir lib && babel src --out-dir lib --stage 0",
+    "build": "rm -r lib && mkdir lib && babel src --out-dir lib --stage 0",
     "docs:start": "cd docs && grunt build",
     "docs:dist": "cd docs && grunt dist",
     "prepublish": "npm run build"
