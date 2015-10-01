@@ -63,7 +63,7 @@ const Main = React.createClass({
     const list = [];
 
     for (let i = 0; i < 20; i++) {
-      list.push(<div>
+      list.push(<div key={i}>
           {'item n°' + (i + 1)}
         </div>);
     }
