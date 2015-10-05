@@ -19,7 +19,7 @@
     "react-component",
     "swipe",
     "swipeable",
-    "tabs"
+    "slider"
   ],
   "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
   "bugs": {
@@ -30,7 +30,7 @@
   },
   "peerDependencies": {
     "react": "^0.13.0 || ^0.14.0-rc1",
-    "react-motion": "^0.2.7"
+    "react-motion": "^0.3.0"
   },
   "license": "MIT",
   "devDependencies": {

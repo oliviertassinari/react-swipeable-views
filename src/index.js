@@ -2,7 +2,7 @@
 
 const React = require('react');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
-const {Spring} = require('react-motion');
+const {Motion, spring} = require('react-motion');
 const objectAssign = require('object-assign');
 
 const styles = {
@@ -168,16 +168,17 @@ const SwipeableViews = React.createClass({
       isDragging,
     } = this.state;
 
-    const endValue = {
-      val: index * 100,
-      config: isDragging ? [3000, 50] : [300, 30],
+    const springConfig = isDragging ? [3000, 50] : [300, 30];
+
+    const style = {
+      translate: spring(index * 100, springConfig),
     };
 
     return <div style={styles.root}
       onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} onTouchEnd={this.handleTouchEnd}>
-        <Spring endValue={endValue}>
-          {interpolated => this.renderContainer(interpolated.val)}
-        </Spring>
+        <Motion style={style}>
+          {value => this.renderContainer(value.translate)}
+        </Motion>
       </div>;
   },
 });
