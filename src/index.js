@@ -92,8 +92,10 @@ const SwipeableViews = React.createClass({
 
     if (index < 0) {
       index = 0;
+      this.startX = touch.pageX;
     } else if (index > indexMax) {
       index = indexMax;
+      this.startX = touch.pageX;
     }
 
     this.setState({
