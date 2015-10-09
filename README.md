@@ -72,6 +72,9 @@ This is useful when you have tabs linked to each slide.
 - **style** *Object, default={}* - This is the inlined style that will be applied
 to each slide container.
 
+- **threshold** *Integer, default=5* - This is the threshold used for detectinga quick swipe.
+If the computed speed is above this value, the index change.
+
 ## License
 
 MIT

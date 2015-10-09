@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "exit 0",
-    "build": "rm -r lib && mkdir lib && babel src --out-dir lib --stage 0",
+    "build": "rm -r lib && mkdir lib && babel src --out-dir lib",
     "docs:start": "cd docs && grunt build",
     "docs:dist": "cd docs && grunt dist",
     "prepublish": "npm run build"

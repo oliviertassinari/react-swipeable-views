@@ -22,9 +22,32 @@ const styles = {
 const SwipeableViews = React.createClass({
   propTypes: {
     children: React.PropTypes.node,
+
+    /**
+     * This is the index of the slide to show.
+     * This is useful when you want to change the default slide shown.
+     * Or when you have tabs linked to each slide
+     */
     index: React.PropTypes.number,
+
+    /**
+     * This is callback prop. It's call by the
+     * component when the shown slide change after a swipe made by the user.
+     * This is useful when you have tabs linked to each slide.
+     */
     onChangeIndex: React.PropTypes.func,
+
+    /**
+     * This is the inlined style that will be applied
+     * to each slide container.
+     */
     style: React.PropTypes.object,
+
+    /**
+     * This is the threshold used for detecting a quick swipe.
+     * If the computed speed is above this value, the index change.
+     */
+    threshold: React.PropTypes.number,
   },
   mixins: [
     PureRenderMixin,
@@ -32,6 +55,7 @@ const SwipeableViews = React.createClass({
   getDefaultProps: function() {
     return {
       index: 0,
+      threshold: 5,
     };
   },
   getInitialState: function() {
@@ -111,7 +135,7 @@ const SwipeableViews = React.createClass({
     let indexNew;
 
     // Quick movement
-    if (Math.abs(this.deltaX) > 10) {
+    if (Math.abs(this.deltaX) > this.props.threshold) {
       if (this.deltaX > 0) {
         indexNew = Math.floor(this.state.index);
       } else {
@@ -151,18 +175,22 @@ const SwipeableViews = React.createClass({
       childrenToRender = children[0];
     } else {
       childrenToRender = React.Children.map(children, (element) => {
-        return <div style={styles.slide}>
+        return (
+          <div style={styles.slide}>
             {element}
-          </div>;
+          </div>
+        );
       });
     }
 
-    return <div style={objectAssign({
-      WebkitTransform: `translate3d(${translate}px, 0, 0)`,
-      transform: `translate3d(-${translate}%, 0, 0)`,
-    }, styles.container, style)}>
+    return (
+      <div style={objectAssign({
+        WebkitTransform: `translate3d(${translate}px, 0, 0)`,
+        transform: `translate3d(-${translate}%, 0, 0)`,
+      }, styles.container, style)}>
         {childrenToRender}
-      </div>;
+      </div>
+    );
   },
   render: function() {
     const {
@@ -176,12 +204,14 @@ const SwipeableViews = React.createClass({
       translate: spring(index * 100, springConfig),
     };
 
-    return <div style={styles.root}
-      onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} onTouchEnd={this.handleTouchEnd}>
+    return (
+      <div style={styles.root}
+        onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} onTouchEnd={this.handleTouchEnd}>
         <Motion style={style}>
           {value => this.renderContainer(value.translate)}
         </Motion>
-      </div>;
+      </div>
+    );
   },
 });
 
