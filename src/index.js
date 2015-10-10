@@ -107,7 +107,7 @@ const SwipeableViews = React.createClass({
     // Prevent native scrolling
     event.preventDefault();
 
-    this.deltaX = touch.pageX - this.lastX;
+    this.deltaX = this.deltaX * 0.5 + (touch.pageX - this.lastX) * 0.5;
     this.lastX = touch.pageX;
 
     const indexMax = React.Children.count(this.props.children) - 1;
