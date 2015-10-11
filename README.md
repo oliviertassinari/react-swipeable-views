@@ -22,7 +22,7 @@ const React = require('react')
 const SwipeableViews = require('react-swipeable-views')
 
 const MyComponent = React.createClass({
-    render: function () {
+    render() {
         return (
           <SwipeableViews>
             <div style={Object.assign({}, styles.slide, styles.slide1)}>
@@ -36,7 +36,7 @@ const MyComponent = React.createClass({
             </div>
           </SwipeableViews>
         );
-    }
+    },
 });
 
 const styles = {
