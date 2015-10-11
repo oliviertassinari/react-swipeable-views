@@ -52,25 +52,25 @@ const SwipeableViews = React.createClass({
   mixins: [
     PureRenderMixin,
   ],
-  getDefaultProps: function() {
+  getDefaultProps() {
     return {
       index: 0,
       threshold: 5,
     };
   },
-  getInitialState: function() {
+  getInitialState() {
     return {
       index: this.props.index,
       isDragging: false,
       isFirstRender: true,
     };
   },
-  componentDidMount: function() {
+  componentDidMount() {
     this.setState({
       isFirstRender: false,
     });
   },
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     const {
       index,
     } = nextProps;
@@ -81,7 +81,7 @@ const SwipeableViews = React.createClass({
       });
     }
   },
-  handleTouchStart: function(event) {
+  handleTouchStart(event) {
     const touch = event.touches[0];
 
     this.startWidth = React.findDOMNode(this).getBoundingClientRect().width;
@@ -92,7 +92,7 @@ const SwipeableViews = React.createClass({
     this.startY = touch.pageY;
     this.isScroll = undefined;
   },
-  handleTouchMove: function(event) {
+  handleTouchMove(event) {
     const touch = event.touches[0];
 
     // This is a one time test
@@ -127,7 +127,7 @@ const SwipeableViews = React.createClass({
       index: index,
     });
   },
-  handleTouchEnd: function() {
+  handleTouchEnd() {
     if (this.isScroll) {
       return;
     }
@@ -159,7 +159,7 @@ const SwipeableViews = React.createClass({
       this.props.onChangeIndex(indexNew);
     }
   },
-  renderContainer: function(translate) {
+  renderContainer(translate) {
     const {
       children,
       style,
@@ -192,7 +192,7 @@ const SwipeableViews = React.createClass({
       </div>
     );
   },
-  render: function() {
+  render() {
     const {
       index,
       isDragging,

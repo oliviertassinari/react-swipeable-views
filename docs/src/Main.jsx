@@ -35,37 +35,39 @@ const styles = {
 };
 
 const Main = React.createClass({
-  getInitialState: function() {
+  getInitialState() {
     return {
       index: 0,
     };
   },
-  renderSupportsTouch: function() {
+  renderSupportsTouch() {
     return !supportsTouch && <span className="pl-id">
         <br />You need a touch device to swipe between the 3 slides.
       </span>;
   },
-  onChangeTabs: function(value) {
+  onChangeTabs(value) {
     this.setState({
       index: parseInt(value, 10),
     });
   },
-  onChangeIndex: function(index) {
+  onChangeIndex(index) {
     this.setState({
       index: index,
     });
   },
-  render: function() {
+  render() {
     const {
       index,
     } = this.state;
 
     const list = [];
 
-    for (let i = 0; i < 20; i++) {
-      list.push(<div key={i}>
+    for (let i = 0; i < 30; i++) {
+      list.push(
+        <div key={i}>
           {'item n°' + (i + 1)}
-        </div>);
+        </div>
+      );
     }
 
     return (
