@@ -29,7 +29,7 @@
     "object-assign": "^4.0.1"
   },
   "peerDependencies": {
-    "react": "^0.13.0 || ^0.14.0-rc1",
+    "react": "^0.13.0 || ^0.14.0",
     "react-motion": "^0.3.0"
   },
   "license": "MIT",
