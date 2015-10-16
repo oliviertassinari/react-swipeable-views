@@ -18,8 +18,8 @@ npm install --save react-swipeable-views
 ![alt tag](docs/usage.gif)
 
 ```js
-const React = require('react')
-const SwipeableViews = require('react-swipeable-views')
+const React = require('react');
+const SwipeableViews = require('react-swipeable-views');
 
 const MyComponent = React.createClass({
     render() {
