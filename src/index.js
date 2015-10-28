@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const ReactDOM = require('react-dom');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const {Motion, spring} = require('react-motion');
 const objectAssign = require('object-assign');
@@ -84,7 +85,7 @@ const SwipeableViews = React.createClass({
   handleTouchStart(event) {
     const touch = event.touches[0];
 
-    this.startWidth = React.findDOMNode(this).getBoundingClientRect().width;
+    this.startWidth = ReactDOM.findDOMNode(this).getBoundingClientRect().width;
     this.startIndex = this.state.index;
     this.startX = touch.pageX;
     this.lastX = touch.pageX;
