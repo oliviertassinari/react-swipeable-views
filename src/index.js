@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const ReactDOM = require('react-dom');
 const PureRenderMixin = require('react/lib/ReactComponentWithPureRenderMixin');
 const {Motion, spring} = require('react-motion');
 const objectAssign = require('object-assign');
@@ -15,8 +16,8 @@ const styles = {
   slide: {
     width: '100%',
     flexShrink: 0,
-    overflow: 'auto',
-  },
+    overflow: 'auto'
+  }
 };
 
 const SwipeableViews = React.createClass({
@@ -55,7 +56,7 @@ const SwipeableViews = React.createClass({
   getDefaultProps() {
     return {
       index: 0,
-      threshold: 5,
+      threshold: 5
     };
   },
   getInitialState() {
@@ -77,14 +78,14 @@ const SwipeableViews = React.createClass({
 
     if (typeof index === 'number' && index !== this.props.index) {
       this.setState({
-        index: index,
+        index: index
       });
     }
   },
   handleTouchStart(event) {
     const touch = event.touches[0];
 
-    this.startWidth = React.findDOMNode(this).getBoundingClientRect().width;
+    this.startWidth = ReactDOM.findDOMNode(this).getBoundingClientRect().width;
     this.startIndex = this.state.index;
     this.startX = touch.pageX;
     this.lastX = touch.pageX;
@@ -124,7 +125,7 @@ const SwipeableViews = React.createClass({
 
     this.setState({
       isDragging: true,
-      index: index,
+      index: index
     });
   },
   handleTouchEnd() {
@@ -152,7 +153,7 @@ const SwipeableViews = React.createClass({
 
     this.setState({
       index: indexNew,
-      isDragging: false,
+      isDragging: false
     });
 
     if (this.props.onChangeIndex && indexNew !== this.startIndex) {
@@ -201,7 +202,7 @@ const SwipeableViews = React.createClass({
     const springConfig = isDragging ? [3000, 50] : [300, 30];
 
     const style = {
-      translate: spring(index * 100, springConfig),
+      translate: spring(index * 100, springConfig)
     };
 
     return (
@@ -212,7 +213,7 @@ const SwipeableViews = React.createClass({
         </Motion>
       </div>
     );
-  },
+  }
 });
 
 module.exports = SwipeableViews;
