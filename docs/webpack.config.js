@@ -69,10 +69,6 @@ module.exports = function(options) {
     webpackConfig.module.loaders = [
       {
         test: /\.(js|jsx)$/,
-        loader: 'react-hot-loader',
-      },
-      {
-        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {

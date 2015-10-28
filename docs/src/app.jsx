@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const ReactDOM = require('react-dom');
 const Main = require('Main');
 
-React.render(<Main />, document.getElementById('main'));
+ReactDOM.render(<Main />, document.getElementById('main'));
