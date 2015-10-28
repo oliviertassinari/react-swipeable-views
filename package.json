@@ -7,7 +7,7 @@
     "test": "exit 0",
     "build": "rm -rf lib && mkdir lib && babel src --out-dir lib",
     "docs:start": "cd docs && grunt build",
-    "docs:dist": "cd docs && grunt dist",
+    "docs:dist": "cd docs && NODE_ENV=production grunt dist",
     "prepublish": "NODE_ENV=production npm run build"
   },
   "repository": {
