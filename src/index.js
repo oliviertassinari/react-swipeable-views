@@ -186,7 +186,7 @@ const SwipeableViews = React.createClass({
 
     return (
       <div style={objectAssign({
-        WebkitTransform: `translate3d(${translate}px, 0, 0)`,
+        WebkitTransform: `translate3d(-${translate}%, 0, 0)`,
         transform: `translate3d(-${translate}%, 0, 0)`,
       }, styles.container, style)}>
         {childrenToRender}
