@@ -68,10 +68,12 @@ const SwipeableViews = React.createClass({
   getInitialState() {
     return {
       index: this.props.index,
+      targetIndex: this.props.index,
       isDragging: false,
       isFirstRender: true,
     };
   },
+  _slides: [],
   componentDidMount() {
     this.setState({
       isFirstRender: false,
@@ -159,6 +161,7 @@ const SwipeableViews = React.createClass({
 
     this.setState({
       index: indexNew,
+      targetIndex: indexNew,
       isDragging: false,
     });
 
@@ -166,7 +169,16 @@ const SwipeableViews = React.createClass({
       this.props.onChangeIndex(indexNew);
     }
   },
-  renderContainer(translate) {
+  getTargetHeight() {
+    let slide = this._slides[this.state.targetIndex];
+    if (slide != undefined) {
+      let child = slide.children[0];
+      if (child !== undefined)
+        return child.clientHeight;
+    }
+    return 0;
+  },
+  renderContainer(motion) {
     const {
       children,
       style,
@@ -176,14 +188,23 @@ const SwipeableViews = React.createClass({
       isFirstRender,
     } = this.state;
 
+    this._slides = [];
+    var i = 0;
     let childrenToRender;
 
     if (isFirstRender) {
-      childrenToRender = children[0];
+      childrenToRender = (
+        <div ref={(s) => this._slides[0] = s} style={styles.slide}>
+          {React.Children.toArray(children)[0]}
+        </div>
+      );
     } else {
       childrenToRender = React.Children.map(children, (element) => {
         return (
-          <div style={styles.slide}>
+          <div ref={ (s) => {
+            if (s !== null)
+              this._slides[i++] = s
+            } } style={styles.slide}>
             {element}
           </div>
         );
@@ -192,8 +213,9 @@ const SwipeableViews = React.createClass({
 
     return (
       <div style={objectAssign({
-        WebkitTransform: `translate3d(-${translate}%, 0, 0)`,
-        transform: `translate3d(-${translate}%, 0, 0)`,
+        WebkitTransform: `translate3d(-${motion.translate}%, 0, 0)`,
+        transform: `translate3d(-${motion.translate}%, 0, 0)`,
+        height: motion.height
       }, styles.container, style)}>
         {childrenToRender}
       </div>
@@ -211,8 +233,10 @@ const SwipeableViews = React.createClass({
 
     const springConfig = isDragging ? [3000, 50] : [300, 30];
 
+    let targetHeight = this.getTargetHeight();
     const style = {
       translate: spring(index * 100, springConfig),
+      height: spring(targetHeight)
     };
 
     const touchEvents = disabled ? {} : {
@@ -224,7 +248,7 @@ const SwipeableViews = React.createClass({
     return (
       <div style={styles.root} {...touchEvents}>
         <Motion style={style}>
-          {value => this.renderContainer(value.translate)}
+          {styles => this.renderContainer(styles)}
         </Motion>
       </div>
     );
