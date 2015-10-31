@@ -25,6 +25,11 @@ const SwipeableViews = React.createClass({
     children: React.PropTypes.node,
 
     /**
+     * If true disable touch events
+     */
+    disabled: React.PropTypes.bool,
+
+    /**
      * This is the index of the slide to show.
      * This is useful when you want to change the default slide shown.
      * Or when you have tabs linked to each slide
@@ -57,6 +62,7 @@ const SwipeableViews = React.createClass({
     return {
       index: 0,
       threshold: 5,
+      disabled: false,
     };
   },
   getInitialState() {
@@ -195,6 +201,10 @@ const SwipeableViews = React.createClass({
   },
   render() {
     const {
+      disabled,
+    } = this.props;
+
+    const {
       index,
       isDragging,
     } = this.state;
@@ -205,9 +215,14 @@ const SwipeableViews = React.createClass({
       translate: spring(index * 100, springConfig),
     };
 
+    const touchEvents = disabled ? {} : {
+      onTouchStart: this.handleTouchStart,
+      onTouchMove: this.handleTouchMove,
+      onTouchEnd: this.handleTouchEnd,
+    };
+
     return (
-      <div style={styles.root}
-        onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} onTouchEnd={this.handleTouchEnd}>
+      <div style={styles.root} {...touchEvents}>
         <Motion style={style}>
           {value => this.renderContainer(value.translate)}
         </Motion>

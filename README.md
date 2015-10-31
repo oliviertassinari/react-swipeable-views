@@ -61,6 +61,9 @@ module.exports = MyComponent;
 
 ## Props
 
+- **disabled** *Boolean, default=false* - If true, will disable touch events.
+This is useful when you want to prohibit the user from changing slides.
+
 - **index** *Integer, default=0* - This is the index of the slide to show.
 This is useful when you want to change the default slide shown.
 Or when you have tabs linked to each slide.
