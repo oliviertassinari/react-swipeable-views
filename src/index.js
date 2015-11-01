@@ -68,7 +68,7 @@ const SwipeableViews = React.createClass({
   getInitialState() {
     return {
       index: this.props.index,
-      targetIndex: this.props.index,
+      indexLatest: this.props.index,
       isDragging: false,
       isFirstRender: true,
     };
@@ -161,7 +161,7 @@ const SwipeableViews = React.createClass({
 
     this.setState({
       index: indexNew,
-      targetIndex: indexNew,
+      indexLatest: indexNew,
       isDragging: false,
     });
 
@@ -169,16 +169,17 @@ const SwipeableViews = React.createClass({
       this.props.onChangeIndex(indexNew);
     }
   },
-  getTargetHeight() {
-    const slide = this.slides[this.state.targetIndex];
+  getHeightLatestSlide() {
+    const slide = this.slides[this.state.indexLatest];
     if (slide !== undefined) {
       const child = slide.children[0];
-      if (child !== undefined)
+      if (child !== undefined) {
         return child.clientHeight;
+      }
     }
     return 0;
   },
-  renderContainer(motion) {
+  renderContainer(interpolatedStyle) {
     const {
       children,
       style,
@@ -189,7 +190,6 @@ const SwipeableViews = React.createClass({
     } = this.state;
 
     this.slides = [];
-    let i = 0;
     let childrenToRender;
 
     if (isFirstRender) {
@@ -199,6 +199,8 @@ const SwipeableViews = React.createClass({
         </div>
       );
     } else {
+      let i = 0;
+
       childrenToRender = React.Children.map(children, (element) => {
         return (
           <div ref={(s) => {
@@ -213,9 +215,9 @@ const SwipeableViews = React.createClass({
 
     return (
       <div style={objectAssign({
-        WebkitTransform: `translate3d(-${motion.translate}%, 0, 0)`,
-        transform: `translate3d(-${motion.translate}%, 0, 0)`,
-        height: motion.height,
+        WebkitTransform: `translate3d(-${interpolatedStyle.translate}%, 0, 0)`,
+        transform: `translate3d(-${interpolatedStyle.translate}%, 0, 0)`,
+        height: interpolatedStyle.height,
       }, styles.container, style)}>
         {childrenToRender}
       </div>
@@ -231,12 +233,9 @@ const SwipeableViews = React.createClass({
       isDragging,
     } = this.state;
 
-    const springConfig = isDragging ? [3000, 50] : [300, 30];
-
-    const targetHeight = this.getTargetHeight();
     const style = {
-      translate: spring(index * 100, springConfig),
-      height: spring(targetHeight),
+      translate: isDragging ? index * 100 : spring(index * 100, [300, 30]),
+      height: spring(this.getHeightLatestSlide()),
     };
 
     const touchEvents = disabled ? {} : {
@@ -248,7 +247,7 @@ const SwipeableViews = React.createClass({
     return (
       <div style={styles.root} {...touchEvents}>
         <Motion style={style}>
-          {values => this.renderContainer(values)}
+          {interpolatedStyle => this.renderContainer(interpolatedStyle)}
         </Motion>
       </div>
     );

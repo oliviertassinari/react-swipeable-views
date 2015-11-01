@@ -146,13 +146,13 @@ const Main = React.createClass({
           </p>
           <SwipeableViews>
             <div style={Object.assign({}, styles.slide, styles.slide1)}>
-              {list}
+              {list.slice(0, 10)}
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide2)}>
-              {list.slice(0, 20)}
+              {list.slice(0, 7)}
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide3)}>
-              {list.slice(0, 10)}
+              {list.slice(0, 3)}
             </div>
           </SwipeableViews>
 
