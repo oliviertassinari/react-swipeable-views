@@ -81,6 +81,7 @@ const Main = React.createClass({
         </section>
 
         <section className="main-content">
+
           <h3>Demo 1</h3>
           <p>
             Simple case without header.
@@ -123,7 +124,7 @@ const Main = React.createClass({
 
           <h3>Demo 3</h3>
           <p>
-            The swipe and the scroll behavior works in harmony.
+            Set a constant height and let the swipe and scroll behavior work in harmony.
             {this.renderSupportsTouch()}
           </p>
           <SwipeableViews style={styles.slideContainer}>
@@ -135,6 +136,23 @@ const Main = React.createClass({
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide3)}>
               slide n°3
+            </div>
+          </SwipeableViews>
+
+          <h3>Demo 4</h3>
+          <p>
+            Or let the container respond dynamically to its children.
+            {this.renderSupportsTouch()}
+          </p>
+          <SwipeableViews>
+            <div style={Object.assign({}, styles.slide, styles.slide1)}>
+              {list}
+            </div>
+            <div style={Object.assign({}, styles.slide, styles.slide2)}>
+              {list.slice(0, 20)}
+            </div>
+            <div style={Object.assign({}, styles.slide, styles.slide3)}>
+              {list.slice(0, 10)}
             </div>
           </SwipeableViews>
 
