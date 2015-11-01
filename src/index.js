@@ -169,8 +169,8 @@ const SwipeableViews = React.createClass({
       this.props.onChangeIndex(indexNew);
     }
   },
-  getHeightLatestSlide() {
-    const slide = this.slides[this.state.indexLatest];
+  getHeightSlide(index) {
+    const slide = this.slides[index];
     if (slide !== undefined) {
       const child = slide.children[0];
       if (child !== undefined) {
@@ -199,14 +199,9 @@ const SwipeableViews = React.createClass({
         </div>
       );
     } else {
-      let i = 0;
-
-      childrenToRender = React.Children.map(children, (element) => {
+      childrenToRender = React.Children.map(children, (element, i) => {
         return (
-          <div ref={(s) => {
-            if (s !== null)
-              this.slides[i++] = s;
-          }} style={styles.slide}>
+          <div ref={(s) => this.slides[i] = s} style={styles.slide}>
             {element}
           </div>
         );
@@ -226,16 +221,29 @@ const SwipeableViews = React.createClass({
   render() {
     const {
       disabled,
+      style,
     } = this.props;
 
     const {
       index,
+      indexLatest,
       isDragging,
     } = this.state;
 
-    const style = {
-      translate: isDragging ? index * 100 : spring(index * 100, [300, 30]),
-      height: spring(this.getHeightLatestSlide()),
+    const translate = index * 100;
+
+    let height = 0;
+    // There is no point to animate if we already provide a height
+    if (!style || !style.height) {
+      height = this.getHeightSlide(indexLatest);
+    }
+
+    const motionStyle = isDragging ? {
+      translate: translate,
+      height: height,
+    } : {
+      translate: spring(translate, [300, 30]),
+      height: height !== 0 ? spring(height, [300, 30]) : 0,
     };
 
     const touchEvents = disabled ? {} : {
@@ -246,7 +254,7 @@ const SwipeableViews = React.createClass({
 
     return (
       <div style={styles.root} {...touchEvents}>
-        <Motion style={style}>
+        <Motion style={motionStyle}>
           {interpolatedStyle => this.renderContainer(interpolatedStyle)}
         </Motion>
       </div>
