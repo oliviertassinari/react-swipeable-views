@@ -86,6 +86,7 @@ const SwipeableViews = React.createClass({
     if (typeof index === 'number' && index !== this.props.index) {
       this.setState({
         index: index,
+        indexLatest: index,
       });
     }
   },
