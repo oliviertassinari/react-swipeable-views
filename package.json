@@ -4,7 +4,7 @@
   "description": "A React component for swipeable views",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint --ext .js .jsx .",
+    "lint": "eslint --ext .js,.jsx .",
     "test": "exit 0",
     "build": "rm -rf lib && mkdir lib && babel src --out-dir lib",
     "docs:start": "cd docs && grunt build",
