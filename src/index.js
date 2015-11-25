@@ -1,10 +1,8 @@
-'use strict';
-
-const React = require('react');
-const ReactDOM = require('react-dom');
-const PureRenderMixin = require('react-addons-pure-render-mixin');
-const {Motion, spring} = require('react-motion');
-const objectAssign = require('object-assign');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import {Motion, spring} from 'react-motion';
+import objectAssign from 'object-assign';
 
 const styles = {
   root: {
@@ -263,4 +261,4 @@ const SwipeableViews = React.createClass({
   },
 });
 
-module.exports = SwipeableViews;
+export default SwipeableViews;

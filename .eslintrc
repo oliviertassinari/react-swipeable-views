@@ -47,7 +47,6 @@ rules:
   yoda: 2
   no-unused-expressions: 2
   no-unused-vars: 2
-  strict: [2, global]
   dot-notation: 2
   dot-location: [2, property]
   consistent-return: 2
@@ -56,6 +55,7 @@ rules:
   no-spaced-func: 2
   no-multi-spaces: 2
   no-undef: 2
+  no-empty-pattern: 2
   key-spacing: 2
   semi: [2, always]
   new-cap: [2, {capIsNew: true, newIsCap: true}]
@@ -65,13 +65,15 @@ rules:
   no-var: 2
   prefer-const: 2
   jsx-quotes: [2, prefer-double]
-  camelcase: 2
-  no-underscore-dangle: 2
-  handle-callback-err: 2
   object-curly-spacing: [2, never]
-  camelcase: 2
-  no-underscore-dangle: 2
-  handle-callback-err: 2
+  prefer-arrow-callback: 2
+
+  # Disabled
+  no-magic-numbers: 0
+  camelcase: 0
+  no-underscore-dangle: 0
+  handle-callback-err: 0
+  strict: 0
 
   # React errors
   react/display-name: [2, {acceptTranspilerName: true}]
@@ -97,8 +99,9 @@ rules:
   react/wrap-multilines: 2
 
   # Disabled
-  react/jsx-no-literals: 0
   react/no-did-mount-set-state: 0
-  react/jsx-sort-props: 0
+  react/jsx-no-literals: 0
+  react/jsx-no-bind: 0
+  react/jsx-closing-bracket-location: 0
+  react/jsx-sort-props: 2
   react/no-set-state: 0
-  react/wrap-multilines: 0

@@ -1,10 +1,8 @@
-'use strict';
-
-const React = require('react');
-const SwipeableViews = require('../../src/index');
-const Tabs = require('material-ui/lib/tabs/tabs');
-const Tab = require('material-ui/lib/tabs/tab');
-const injectTapEventPlugin = require('react-tap-event-plugin');
+import React from 'react';
+import SwipeableViews from '../../src/index';
+import Tabs from 'material-ui/lib/tabs/tabs';
+import Tab from 'material-ui/lib/tabs/tab';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
 
@@ -75,7 +73,7 @@ const Main = React.createClass({
         <section className="page-header">
           <h1 className="project-name">React swipeable views</h1>
           <h2 className="project-tagline">A React component for swipeable views</h2>
-          <a href="https://github.com/oliviertassinari/react-swipeable-views" className="btn">
+          <a className="btn" href="https://github.com/oliviertassinari/react-swipeable-views">
             View on GitHub
           </a>
         </section>
@@ -181,4 +179,4 @@ const Main = React.createClass({
   },
 });
 
-module.exports = Main;
+export default Main;
