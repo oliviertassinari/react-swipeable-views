@@ -191,21 +191,17 @@ const SwipeableViews = React.createClass({
     this.slides = [];
     let childrenToRender;
 
-    if (isFirstRender) {
-      childrenToRender = (
-        <div ref={(s) => this.slides[0] = s} style={styles.slide}>
-          {React.Children.toArray(children)[0]}
+    childrenToRender = React.Children.map(children, (element, i) => {
+      if (isFirstRender && i > 0) {
+        return null;
+      }
+
+      return (
+        <div ref={(s) => this.slides[i] = s} style={styles.slide}>
+          {element}
         </div>
       );
-    } else {
-      childrenToRender = React.Children.map(children, (element, i) => {
-        return (
-          <div ref={(s) => this.slides[i] = s} style={styles.slide}>
-            {element}
-          </div>
-        );
-      });
-    }
+    });
 
     return (
       <div style={objectAssign({
