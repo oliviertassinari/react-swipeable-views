@@ -19,25 +19,25 @@ npm install --save react-swipeable-views
 ![alt tag](docs/usage.gif)
 
 ```js
-const React = require('react');
-const SwipeableViews = require('react-swipeable-views');
+import React from 'react';
+import SwipeableViews from 'react-swipeable-views';
 
 const MyComponent = React.createClass({
-    render() {
-        return (
-          <SwipeableViews>
-            <div style={Object.assign({}, styles.slide, styles.slide1)}>
-              slide n°1
-            </div>
-            <div style={Object.assign({}, styles.slide, styles.slide2)}>
-              slide n°2
-            </div>
-            <div style={Object.assign({}, styles.slide, styles.slide3)}>
-              slide n°3
-            </div>
-          </SwipeableViews>
-        );
-    },
+  render() {
+    return (
+      <SwipeableViews>
+        <div style={Object.assign({}, styles.slide, styles.slide1)}>
+          slide n°1
+        </div>
+        <div style={Object.assign({}, styles.slide, styles.slide2)}>
+          slide n°2
+        </div>
+        <div style={Object.assign({}, styles.slide, styles.slide3)}>
+          slide n°3
+        </div>
+      </SwipeableViews>
+    );
+  },
 });
 
 const styles = {
@@ -57,10 +57,10 @@ const styles = {
   },
 };
 
-module.exports = MyComponent;
+export default MyComponent;
 ```
 
-## Props
+## Properties
 
 - **disabled** *Boolean, default=false* - If true, it will disable touch events.
 This is useful when you want to prohibit the user from changing slides.

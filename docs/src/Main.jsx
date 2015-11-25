@@ -156,7 +156,7 @@ const Main = React.createClass({
 
           <h3>Demo 5</h3>
           <p>
-            Add a resistance bounds effet.
+            Add a resistance bounds effet on the edges.
             {this.renderSupportsTouch()}
           </p>
           <SwipeableViews style={styles.slideContainer} resistance={true}>
