@@ -62,7 +62,7 @@ module.exports = MyComponent;
 
 ## Props
 
-- **disabled** *Boolean, default=false* - If true, will disable touch events.
+- **disabled** *Boolean, default=false* - If true, it will disable touch events.
 This is useful when you want to prohibit the user from changing slides.
 
 - **index** *Integer, default=0* - This is the index of the slide to show.
@@ -72,6 +72,8 @@ Or when you have tabs linked to each slide.
 - **onChangeIndex** *Function(index)* - This is callback prop. It's call by the
 component when the shown slide change after a swipe made by the user.
 This is useful when you have tabs linked to each slide.
+
+- **resitance** *Boolean, default=false* - If true, it will add bounds effect on the edges.
 
 - **style** *Object, default={}* - This is the inlined style that will be applied
 to each slide container.

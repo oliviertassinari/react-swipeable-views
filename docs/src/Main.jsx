@@ -154,6 +154,23 @@ const Main = React.createClass({
             </div>
           </SwipeableViews>
 
+          <h3>Demo 5</h3>
+          <p>
+            Add a resistance bounds effet.
+            {this.renderSupportsTouch()}
+          </p>
+          <SwipeableViews style={styles.slideContainer} resistance={true}>
+            <div style={Object.assign({}, styles.slide, styles.slide1)}>
+              slide n°1
+            </div>
+            <div style={Object.assign({}, styles.slide, styles.slide2)}>
+              slide n°2
+            </div>
+            <div style={Object.assign({}, styles.slide, styles.slide3)}>
+              slide n°3
+            </div>
+          </SwipeableViews>
+
           <footer className="site-footer">
             <span className="site-footer-owner">
               <a href="https://github.com/oliviertassinari/react-swipeable-views">

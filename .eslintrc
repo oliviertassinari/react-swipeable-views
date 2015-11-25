@@ -103,5 +103,5 @@ rules:
   react/jsx-no-literals: 0
   react/jsx-no-bind: 0
   react/jsx-closing-bracket-location: 0
-  react/jsx-sort-props: 2
+  react/jsx-sort-props: 0
   react/no-set-state: 0

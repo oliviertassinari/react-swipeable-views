@@ -18,19 +18,22 @@ const styles = {
   },
 };
 
+const resistanceCoef = 0.7;
+
 const SwipeableViews = React.createClass({
   propTypes: {
     children: React.PropTypes.node,
 
     /**
-     * If true disable touch events
+     * If true, it will disable touch events.
+     * This is useful when you want to prohibit the user from changing slides.
      */
     disabled: React.PropTypes.bool,
 
     /**
      * This is the index of the slide to show.
      * This is useful when you want to change the default slide shown.
-     * Or when you have tabs linked to each slide
+     * Or when you have tabs linked to each slide.
      */
     index: React.PropTypes.number,
 
@@ -40,6 +43,11 @@ const SwipeableViews = React.createClass({
      * This is useful when you have tabs linked to each slide.
      */
     onChangeIndex: React.PropTypes.func,
+
+    /**
+     * If true, it will add bounds effect on the edges.
+     */
+    resistance: React.PropTypes.bool,
 
     /**
      * This is the inlined style that will be applied
@@ -60,6 +68,7 @@ const SwipeableViews = React.createClass({
     return {
       index: 0,
       threshold: 5,
+      resistance: false,
       disabled: false,
     };
   },
@@ -98,17 +107,17 @@ const SwipeableViews = React.createClass({
     this.lastX = touch.pageX;
     this.deltaX = 0;
     this.startY = touch.pageY;
-    this.isScroll = undefined;
+    this.isScrolling = undefined;
   },
   handleTouchMove(event) {
     const touch = event.touches[0];
 
     // This is a one time test
-    if (this.isScroll === undefined) {
-      this.isScroll = Math.abs(this.startY - touch.pageY) > Math.abs(this.startX - touch.pageX);
+    if (this.isScrolling === undefined) {
+      this.isScrolling = Math.abs(this.startY - touch.pageY) > Math.abs(this.startX - touch.pageX);
     }
 
-    if (this.isScroll) {
+    if (this.isScrolling) {
       return;
     }
 
@@ -122,12 +131,20 @@ const SwipeableViews = React.createClass({
 
     let index = this.startIndex + (this.startX - touch.pageX) / this.startWidth;
 
-    if (index < 0) {
-      index = 0;
-      this.startX = touch.pageX;
-    } else if (index > indexMax) {
-      index = indexMax;
-      this.startX = touch.pageX;
+    if (!this.props.resistance) {
+      if (index < 0) {
+        index = 0;
+        this.startX = touch.pageX;
+      } else if (index > indexMax) {
+        index = indexMax;
+        this.startX = touch.pageX;
+      }
+    } else {
+      if (index < 0) {
+        index = Math.exp(index * resistanceCoef) - 1;
+      } else if (index > indexMax) {
+        index = indexMax + 1 - Math.exp((indexMax - index) * resistanceCoef);
+      }
     }
 
     this.setState({
@@ -136,7 +153,7 @@ const SwipeableViews = React.createClass({
     });
   },
   handleTouchEnd() {
-    if (this.isScroll) {
+    if (this.isScrolling) {
       return;
     }
 
@@ -156,6 +173,14 @@ const SwipeableViews = React.createClass({
       } else {
         indexNew = this.startIndex;
       }
+    }
+
+    const indexMax = React.Children.count(this.props.children) - 1;
+
+    if (indexNew < 0) {
+      indexNew = 0;
+    } else if (indexNew > indexMax) {
+      indexNew = indexMax;
     }
 
     this.setState({
@@ -203,10 +228,12 @@ const SwipeableViews = React.createClass({
       );
     });
 
+    const translate = -interpolatedStyle.translate;
+
     return (
       <div style={objectAssign({
-        WebkitTransform: `translate3d(-${interpolatedStyle.translate}%, 0, 0)`,
-        transform: `translate3d(-${interpolatedStyle.translate}%, 0, 0)`,
+        WebkitTransform: `translate3d(${translate}%, 0, 0)`,
+        transform: `translate3d(${translate}%, 0, 0)`,
         height: interpolatedStyle.height,
       }, styles.container, style)}>
         {childrenToRender}
