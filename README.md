@@ -88,7 +88,7 @@ If the computed speed is above this value, the index change.
 The following error `Module build failed: ReferenceError: Unknown plugin "react-display-name"`
 happens if you use babel to parse the source code of this project in a development mode.
 You have two options to fix it. Either prevent babel from parsing the source code, or install
-`babel-plugin-react-display-name`. (#17)
+`babel-plugin-react-display-name`. [#17](https://github.com/oliviertassinari/react-swipeable-views/issues/17)
 
 ## License
 
