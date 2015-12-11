@@ -154,7 +154,9 @@ const SwipeableViews = React.createClass({
       }
     }
 
-    this.props.onSwitching && this.props.onSwitching( index );
+    if (this.props.onSwitching) {
+      this.props.onSwitching(index);
+    }
 
     this.setState({
       isDragging: true,
@@ -198,7 +200,9 @@ const SwipeableViews = React.createClass({
       isDragging: false,
     });
 
-    this.props.onSwitching && this.props.onSwitching( indexNew );
+    if (this.props.onSwitching) {
+      this.props.onSwitching(indexNew);
+    }
 
     if (this.props.onChangeIndex && indexNew !== this.startIndex) {
       this.props.onChangeIndex(indexNew, this.startIndex);
