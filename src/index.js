@@ -45,6 +45,13 @@ const SwipeableViews = React.createClass({
     onChangeIndex: React.PropTypes.func,
 
     /**
+     * This is callback prop. It's called by the
+     * component when the slide switching.
+     * This is useful when you want to implement something corresponding to the current slide position.
+     */
+    onSwitching: React.PropTypes.func,
+
+    /**
      * If true, it will add bounds effect on the edges.
      */
     resistance: React.PropTypes.bool,
@@ -147,6 +154,10 @@ const SwipeableViews = React.createClass({
       }
     }
 
+    if (this.props.onSwitching) {
+      this.props.onSwitching(index);
+    }
+
     this.setState({
       isDragging: true,
       index: index,
@@ -189,8 +200,12 @@ const SwipeableViews = React.createClass({
       isDragging: false,
     });
 
+    if (this.props.onSwitching) {
+      this.props.onSwitching(indexNew);
+    }
+
     if (this.props.onChangeIndex && indexNew !== this.startIndex) {
-      this.props.onChangeIndex(indexNew);
+      this.props.onChangeIndex(indexNew, this.startIndex);
     }
   },
   getHeightSlide(index) {
