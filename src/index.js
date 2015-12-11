@@ -85,6 +85,7 @@ const SwipeableViews = React.createClass({
       indexLatest: this.props.index,
       isDragging: false,
       isFirstRender: true,
+      heightLatest: 0,
     };
   },
   componentDidMount() {
@@ -104,7 +105,6 @@ const SwipeableViews = React.createClass({
       });
     }
   },
-  slides: [],
   handleTouchStart(event) {
     const touch = event.touches[0];
 
@@ -208,15 +208,20 @@ const SwipeableViews = React.createClass({
       this.props.onChangeIndex(indexNew, this.startIndex);
     }
   },
-  getHeightSlide(index) {
-    const slide = this.slides[index];
-    if (slide !== undefined) {
-      const child = slide.children[0];
-      if (child !== undefined) {
-        return child.clientHeight;
+  updateHeight(ref, index) {
+    if (ref !== null && index === this.state.indexLatest) {
+      const style = this.props.style;
+
+      // There is no point to animate if we already provide a height
+      if (!style || !style.height) {
+        const child = ref.children[0];
+        if (child !== undefined && this.state.heightLatest !== child.clientHeight) {
+          this.setState({
+            heightLatest: child.clientHeight,
+          });
+        }
       }
     }
-    return 0;
   },
   renderContainer(interpolatedStyle) {
     const {
@@ -228,7 +233,6 @@ const SwipeableViews = React.createClass({
       isFirstRender,
     } = this.state;
 
-    this.slides = [];
     let childrenToRender;
 
     childrenToRender = React.Children.map(children, (element, i) => {
@@ -237,7 +241,7 @@ const SwipeableViews = React.createClass({
       }
 
       return (
-        <div ref={(s) => this.slides[i] = s} style={styles.slide}>
+        <div ref={(s) => this.updateHeight(s, i)} style={styles.slide}>
           {element}
         </div>
       );
@@ -258,22 +262,17 @@ const SwipeableViews = React.createClass({
   render() {
     const {
       disabled,
-      style,
     } = this.props;
 
     const {
       index,
-      indexLatest,
       isDragging,
+      heightLatest,
     } = this.state;
 
     const translate = index * 100;
 
-    let height = 0;
-    // There is no point to animate if we already provide a height
-    if (!style || !style.height) {
-      height = this.getHeightSlide(indexLatest);
-    }
+    const height = heightLatest;
 
     const motionStyle = isDragging ? {
       translate: translate,
