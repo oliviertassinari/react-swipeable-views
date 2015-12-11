@@ -69,9 +69,13 @@ This is useful when you want to prohibit the user from changing slides.
 This is useful when you want to change the default slide shown.
 Or when you have tabs linked to each slide.
 
-- **onChangeIndex** *Function(index)* - This is callback prop. It's call by the
+- **onChangeIndex** *Function(index, fromIndex )* - This is callback prop. It's call by the
 component when the shown slide change after a swipe made by the user.
 This is useful when you have tabs linked to each slide.
+
+- **onSwitching** *Function(index)* - This is callback prop. It's called by the
+component when the slide switching.
+This is useful when you want to implement something corresponding to the current slide position.
 
 - **resitance** *Boolean, default=false* - If true, it will add bounds effect on the edges.
 
