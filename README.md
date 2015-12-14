@@ -69,7 +69,7 @@ This is useful when you want to prohibit the user from changing slides.
 This is useful when you want to change the default slide shown.
 Or when you have tabs linked to each slide.
 
-- **onChangeIndex** *Function(index, fromIndex )* - This is callback prop. It's call by the
+- **onChangeIndex** *Function(index, fromIndex)* - This is callback prop. It's call by the
 component when the shown slide change after a swipe made by the user.
 This is useful when you have tabs linked to each slide.
 
