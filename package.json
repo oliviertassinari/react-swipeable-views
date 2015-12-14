@@ -58,7 +58,7 @@
     "jit-grunt": "^0.9.1",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
-    "material-ui": "^0.13.0",
+    "material-ui": "^0.14.0-rc1",
     "react": "^0.14.0",
     "react-addons-pure-render-mixin": "^0.14.0",
     "react-dom": "^0.14.0",
