@@ -8,7 +8,7 @@
     "test": "exit 0",
     "build": "rm -rf lib && mkdir lib && babel src --out-dir lib",
     "docs:development": "cd docs && grunt build",
-    "docs:production": "cd docs && NODE_ENV=production grunt dist",
+    "docs:production": "cd docs && NODE_ENV=docs-production grunt dist",
     "prepublish": "NODE_ENV=production npm run build"
   },
   "repository": {
@@ -64,7 +64,7 @@
     "jit-grunt": "^0.9.1",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
-    "material-ui": "^0.14.0-rc1",
+    "material-ui": "^0.14.0",
     "react": "^0.14.0",
     "react-addons-pure-render-mixin": "^0.14.0",
     "react-dom": "^0.14.0",
