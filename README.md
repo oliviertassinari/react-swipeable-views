@@ -85,15 +85,6 @@ to each slide container.
 - **threshold** *Integer, default=5* - This is the threshold used for detectinga quick swipe.
 If the computed speed is above this value, the index change.
 
-## Troubleshooting
-
-### When the build fails
-
-The following error `Module build failed: ReferenceError: Unknown plugin "react-display-name"`
-happens if you use babel to parse the source code of this project in a development mode.
-You have two options to fix it. Either prevent babel from parsing the source code, or install
-`babel-plugin-react-display-name`. [#17](https://github.com/oliviertassinari/react-swipeable-views/issues/17)
-
 ## License
 
 MIT
