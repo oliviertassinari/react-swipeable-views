@@ -71,9 +71,6 @@ module.exports = function(options) {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        query: {
-          optional: ['runtime'],
-        },
       },
       {
         test: /\.less$/,
@@ -109,9 +106,6 @@ module.exports = function(options) {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        query: {
-          optional: ['runtime'],
-        },
       },
       {
         test: /\.less$/,
