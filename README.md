@@ -77,7 +77,7 @@ This is useful when you have tabs linked to each slide.
 component when the slide switching.
 This is useful when you want to implement something corresponding to the current slide position.
 
-- **resitance** *Boolean, default=false* - If true, it will add bounds effect on the edges.
+- **resistance** *Boolean, default=false* - If true, it will add bounds effect on the edges.
 
 - **style** *Object, default={}* - This is the inlined style that will be applied
 to each slide container.
