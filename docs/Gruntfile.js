@@ -10,19 +10,12 @@ module.exports = function(grunt) {
   });
 
   grunt.initConfig({
-    src: {
-      dir: 'src',
-    },
-    dist: {
-      dir: 'dist',
-    },
-
     /**
      * The directories to delete.
      */
     clean: {
       dist: [
-        '<%= dist.dir %>',
+        'dist',
       ],
     },
 
@@ -37,8 +30,8 @@ module.exports = function(grunt) {
       },
       src: {
         src: [
-          '<%= src.dir %>/**/*.js',
-          '<%= src.dir %>/**/*.jsx',
+          'src/**/*.js',
+          'src/**/*.jsx',
         ],
       },
       build: {
@@ -49,7 +42,7 @@ module.exports = function(grunt) {
     connect: {
       server: {
         options: {
-          base: '<%= dist.dir %>',
+          base: 'dist',
           port: 8001,
           open: true,
           hostname: '*',
