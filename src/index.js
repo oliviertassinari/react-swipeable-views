@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Motion, spring} from 'react-motion';
-import objectAssign from 'object-assign';
 
 const styles = {
   root: {
@@ -250,7 +249,7 @@ const SwipeableViews = React.createClass({
     const translate = -interpolatedStyle.translate;
 
     return (
-      <div style={objectAssign({
+      <div style={Object.assign({
         WebkitTransform: `translate3d(${translate}%, 0, 0)`,
         transform: `translate3d(${translate}%, 0, 0)`,
         height: interpolatedStyle.height,

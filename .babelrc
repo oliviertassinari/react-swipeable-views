@@ -1,5 +1,8 @@
 {
   "presets": ["es2015", "react"],
+  "plugins": [
+    "transform-object-assign"
+  ],
   "env": {
     "development": {
       "plugins": [

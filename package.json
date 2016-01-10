@@ -26,9 +26,6 @@
   "bugs": {
     "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
   },
-  "dependencies": {
-    "object-assign": "^4.0.1"
-  },
   "peerDependencies": {
     "react": "^0.14.0",
     "react-addons-pure-render-mixin": "^0.14.0",
@@ -44,6 +41,7 @@
     "babel-loader": "^6.2.0",
     "babel-plugin-react-display-name": "^2.0.0",
     "babel-plugin-react-transform": "^2.0.0",
+    "babel-plugin-transform-object-assign": "^6.3.13",
     "babel-plugin-transform-react-constant-elements": "^6.3.13",
     "babel-plugin-transform-react-inline-elements": "^6.3.13",
     "babel-plugin-transform-react-remove-prop-types": "^0.1.0",
