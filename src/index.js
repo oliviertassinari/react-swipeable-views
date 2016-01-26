@@ -19,76 +19,28 @@ const styles = {
 
 const resistanceCoef = 0.7;
 
-const SwipeableViews = React.createClass({
-  propTypes: {
-    children: React.PropTypes.node,
+class SwipeableViews extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleTouchEnd = this.handleTouchEnd.bind(this);
+    this.handleTouchMove = this.handleTouchMove.bind(this);
+    this.handleTouchStart = this.handleTouchStart.bind(this);
 
-    /**
-     * If true, it will disable touch events.
-     * This is useful when you want to prohibit the user from changing slides.
-     */
-    disabled: React.PropTypes.bool,
-
-    /**
-     * This is the index of the slide to show.
-     * This is useful when you want to change the default slide shown.
-     * Or when you have tabs linked to each slide.
-     */
-    index: React.PropTypes.number,
-
-    /**
-     * This is callback prop. It's call by the
-     * component when the shown slide change after a swipe made by the user.
-     * This is useful when you have tabs linked to each slide.
-     */
-    onChangeIndex: React.PropTypes.func,
-
-    /**
-     * This is callback prop. It's called by the
-     * component when the slide switching.
-     * This is useful when you want to implement something corresponding to the current slide position.
-     */
-    onSwitching: React.PropTypes.func,
-
-    /**
-     * If true, it will add bounds effect on the edges.
-     */
-    resistance: React.PropTypes.bool,
-
-    /**
-     * This is the inlined style that will be applied
-     * to each slide container.
-     */
-    style: React.PropTypes.object,
-
-    /**
-     * This is the threshold used for detecting a quick swipe.
-     * If the computed speed is above this value, the index change.
-     */
-    threshold: React.PropTypes.number,
-  },
-  getDefaultProps() {
-    return {
-      index: 0,
-      threshold: 5,
-      resistance: false,
-      disabled: false,
-    };
-  },
-  getInitialState() {
-    return {
-      index: this.props.index,
-      indexLatest: this.props.index,
+    this.state = {
+      index: props.index,
+      indexLatest: props.index,
       isDragging: false,
       isFirstRender: true,
       heightLatest: 0,
     };
-  },
+  }
+
   componentDidMount() {
     this.setState({
       isFirstRender: false,
     });
-  },
+  }
+
   componentWillReceiveProps(nextProps) {
     const {
       index,
@@ -100,7 +52,8 @@ const SwipeableViews = React.createClass({
         indexLatest: index,
       });
     }
-  },
+  }
+
   handleTouchStart(event) {
     const touch = event.touches[0];
 
@@ -111,7 +64,8 @@ const SwipeableViews = React.createClass({
     this.deltaX = 0;
     this.startY = touch.pageY;
     this.isScrolling = undefined;
-  },
+  }
+
   handleTouchMove(event) {
     const touch = event.touches[0];
 
@@ -158,7 +112,8 @@ const SwipeableViews = React.createClass({
       isDragging: true,
       index: index,
     });
-  },
+  }
+
   handleTouchEnd() {
     if (this.isScrolling) {
       return;
@@ -203,7 +158,8 @@ const SwipeableViews = React.createClass({
     if (this.props.onChangeIndex && indexNew !== this.startIndex) {
       this.props.onChangeIndex(indexNew, this.startIndex);
     }
-  },
+  }
+
   updateHeight(ref, index) {
     if (ref !== null && index === this.state.indexLatest) {
       const style = this.props.style;
@@ -218,7 +174,8 @@ const SwipeableViews = React.createClass({
         }
       }
     }
-  },
+  }
+
   renderContainer(interpolatedStyle) {
     const {
       children,
@@ -254,7 +211,8 @@ const SwipeableViews = React.createClass({
         {childrenToRender}
       </div>
     );
-  },
+  }
+
   render() {
     const {
       disabled,
@@ -291,7 +249,62 @@ const SwipeableViews = React.createClass({
         </Motion>
       </div>
     );
-  },
-});
+  }
+}
+
+SwipeableViews.defaultProps = {
+  index: 0,
+  threshold: 5,
+  resistance: false,
+  disabled: false,
+};
+
+SwipeableViews.propTypes = {
+  children: React.PropTypes.node,
+
+  /**
+   * If true, it will disable touch events.
+   * This is useful when you want to prohibit the user from changing slides.
+   */
+  disabled: React.PropTypes.bool,
+
+  /**
+   * This is the index of the slide to show.
+   * This is useful when you want to change the default slide shown.
+   * Or when you have tabs linked to each slide.
+   */
+  index: React.PropTypes.number,
+
+  /**
+   * This is callback prop. It's call by the
+   * component when the shown slide change after a swipe made by the user.
+   * This is useful when you have tabs linked to each slide.
+   */
+  onChangeIndex: React.PropTypes.func,
+
+  /**
+   * This is callback prop. It's called by the
+   * component when the slide switching.
+   * This is useful when you want to implement something corresponding to the current slide position.
+   */
+  onSwitching: React.PropTypes.func,
+
+  /**
+   * If true, it will add bounds effect on the edges.
+   */
+  resistance: React.PropTypes.bool,
+
+  /**
+   * This is the inlined style that will be applied
+   * to each slide container.
+   */
+  style: React.PropTypes.object,
+
+  /**
+   * This is the threshold used for detecting a quick swipe.
+   * If the computed speed is above this value, the index change.
+   */
+  threshold: React.PropTypes.number,
+};
 
 export default pure(SwipeableViews);
