@@ -232,8 +232,14 @@ class SwipeableViews extends React.Component {
       translate: translate,
       height: height,
     } : {
-      translate: spring(translate, [300, 30]),
-      height: height !== 0 ? spring(height, [300, 30]) : 0,
+      translate: spring(translate, {
+        stiffness: 300,
+        damping: 30,
+      }),
+      height: height !== 0 ? spring(height, {
+        stiffness: 300,
+        damping: 30,
+      }) : 0,
     };
 
     const touchEvents = disabled ? {} : {
