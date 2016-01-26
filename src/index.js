@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import pure from 'recompose/pure';
 import {Motion, spring} from 'react-motion';
 
 const styles = {
@@ -67,9 +67,6 @@ const SwipeableViews = React.createClass({
      */
     threshold: React.PropTypes.number,
   },
-  mixins: [
-    PureRenderMixin,
-  ],
   getDefaultProps() {
     return {
       index: 0,
@@ -297,4 +294,4 @@ const SwipeableViews = React.createClass({
   },
 });
 
-export default SwipeableViews;
+export default pure(SwipeableViews);

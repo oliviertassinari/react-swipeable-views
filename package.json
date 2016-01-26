@@ -26,9 +26,11 @@
   "bugs": {
     "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
   },
+  "dependencies": {
+    "recompose": "^0.14.5"
+  },
   "peerDependencies": {
     "react": "^0.14.0",
-    "react-addons-pure-render-mixin": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-motion": "^0.3.0"
   },
@@ -63,7 +65,6 @@
     "less-loader": "^2.2.1",
     "material-ui": "^0.14.0",
     "react": "^0.14.0",
-    "react-addons-pure-render-mixin": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-motion": "^0.3.0",
     "react-tap-event-plugin": "^0.2.1",
