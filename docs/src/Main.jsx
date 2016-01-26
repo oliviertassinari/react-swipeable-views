@@ -85,7 +85,7 @@ const Main = React.createClass({
             Simple case without header.
             {this.renderSupportsTouch()}
           </p>
-          <SwipeableViews style={styles.slideContainer}>
+          <SwipeableViews containerStyle={styles.slideContainer}>
             <div style={Object.assign({}, styles.slide, styles.slide1)}>
               slide n°1
             </div>
@@ -107,8 +107,11 @@ const Main = React.createClass({
             <Tab label="tab n°2" value="1" />
             <Tab label="tab n°3" value="2" />
           </Tabs>
-          <SwipeableViews index={index} onChangeIndex={this.onChangeIndex}
-            style={styles.slideContainer}>
+          <SwipeableViews
+            index={index}
+            onChangeIndex={this.onChangeIndex}
+            containerStyle={styles.slideContainer}
+          >
             <div style={Object.assign({}, styles.slide, styles.slide1)}>
               slide n°1
             </div>
@@ -125,7 +128,7 @@ const Main = React.createClass({
             Set a constant height and let the swipe and scroll behavior work in harmony.
             {this.renderSupportsTouch()}
           </p>
-          <SwipeableViews style={styles.slideContainer}>
+          <SwipeableViews containerStyle={styles.slideContainer}>
             <div style={Object.assign({}, styles.slide, styles.slide1)}>
               {list}
             </div>
@@ -159,7 +162,7 @@ const Main = React.createClass({
             Add a resistance bounds effet on the edges.
             {this.renderSupportsTouch()}
           </p>
-          <SwipeableViews style={styles.slideContainer} resistance={true}>
+          <SwipeableViews containerStyle={styles.slideContainer} resistance={true}>
             <div style={Object.assign({}, styles.slide, styles.slide1)}>
               slide n°1
             </div>

@@ -61,6 +61,11 @@ export default MyComponent;
 
 ## Properties
 
+- **children** *Node* - Use this property to provide your slides.
+
+- **containerStyle** *Object, default={}* - This is the inlined style that will be applied
+to each slide container.
+
 - **disabled** *Boolean, default=false* - If true, it will disable touch events.
 This is useful when you want to prohibit the user from changing slides.
 
@@ -79,10 +84,12 @@ This is useful when you want to implement something corresponding to the current
 - **resistance** *Boolean, default=false* - If true, it will add bounds effect on the edges.
 
 - **style** *Object, default={}* - This is the inlined style that will be applied
-to each slide container.
+on the root component.
 
 - **threshold** *Integer, default=5* - This is the threshold used for detectinga quick swipe.
 If the computed speed is above this value, the index change.
+
+Any other properties like `className` will be applied to the root component.
 
 ## License
 

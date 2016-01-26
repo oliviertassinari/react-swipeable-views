@@ -162,10 +162,10 @@ class SwipeableViews extends React.Component {
 
   updateHeight(ref, index) {
     if (ref !== null && index === this.state.indexLatest) {
-      const style = this.props.style;
+      const containerStyle = this.props.containerStyle;
 
       // There is no point to animate if we already provide a height
-      if (!style || !style.height) {
+      if (!containerStyle || !containerStyle.height) {
         const child = ref.children[0];
         if (child !== undefined && this.state.heightLatest !== child.clientHeight) {
           this.setState({
@@ -179,7 +179,7 @@ class SwipeableViews extends React.Component {
   renderContainer(interpolatedStyle) {
     const {
       children,
-      style,
+      containerStyle,
     } = this.props;
 
     const {
@@ -207,7 +207,7 @@ class SwipeableViews extends React.Component {
         WebkitTransform: `translate3d(${translate}%, 0, 0)`,
         transform: `translate3d(${translate}%, 0, 0)`,
         height: interpolatedStyle.height,
-      }, styles.container, style)}>
+      }, styles.container, containerStyle)}>
         {childrenToRender}
       </div>
     );
@@ -215,7 +215,16 @@ class SwipeableViews extends React.Component {
 
   render() {
     const {
+      children,
+      containerStyle,
       disabled,
+      index,
+      onChangeIndex,
+      onSwitching,
+      resistance,
+      style,
+      threshold,
+      ...other,
     } = this.props;
 
     const {
@@ -249,7 +258,11 @@ class SwipeableViews extends React.Component {
     };
 
     return (
-      <div style={styles.root} {...touchEvents}>
+      <div
+        {...other}
+        style={Object.assign({}, styles.root, style)}
+        {...touchEvents}
+      >
         <Motion style={motionStyle}>
           {interpolatedStyle => this.renderContainer(interpolatedStyle)}
         </Motion>
@@ -266,7 +279,16 @@ SwipeableViews.defaultProps = {
 };
 
 SwipeableViews.propTypes = {
+  /**
+   * Use this property to provide your slides.
+   */
   children: React.PropTypes.node,
+
+  /**
+   * This is the inlined style that will be applied
+   * to each slide container.
+   */
+  containerStyle: React.PropTypes.object,
 
   /**
    * If true, it will disable touch events.
@@ -302,7 +324,7 @@ SwipeableViews.propTypes = {
 
   /**
    * This is the inlined style that will be applied
-   * to each slide container.
+   * on the root component.
    */
   style: React.PropTypes.object,
 
