@@ -203,11 +203,13 @@ class SwipeableViews extends React.Component {
     const translate = -interpolatedStyle.translate;
 
     return (
-      <div style={Object.assign({
-        WebkitTransform: `translate3d(${translate}%, 0, 0)`,
-        transform: `translate3d(${translate}%, 0, 0)`,
-        height: interpolatedStyle.height,
-      }, styles.container, containerStyle)}>
+      <div
+        style={Object.assign({
+          WebkitTransform: `translate3d(${translate}%, 0, 0)`,
+          transform: `translate3d(${translate}%, 0, 0)`,
+          height: interpolatedStyle.height,
+        }, styles.container, containerStyle)}
+      >
         {childrenToRender}
       </div>
     );

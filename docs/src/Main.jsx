@@ -32,27 +32,37 @@ const styles = {
   },
 };
 
-const Main = React.createClass({
-  getInitialState() {
-    return {
+class Main extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleChangeIndex = this.handleChangeIndex.bind(this);
+    this.handleChangeTabs = this.handleChangeTabs.bind(this);
+
+    this.state = {
       index: 0,
     };
-  },
+  }
+
   renderSupportsTouch() {
-    return !supportsTouch && <span className="pl-id">
+    return (
+      !supportsTouch && <span className="pl-id">
         <br />You need a touch device to swipe between the 3 slides.
-      </span>;
-  },
-  onChangeTabs(value) {
+      </span>
+    );
+  }
+
+  handleChangeTabs(value) {
     this.setState({
       index: parseInt(value, 10),
     });
-  },
-  onChangeIndex(index) {
+  }
+
+  handleChangeIndex(index) {
     this.setState({
       index: index,
     });
-  },
+  }
+
   render() {
     const {
       index,
@@ -102,14 +112,14 @@ const Main = React.createClass({
             Now, let's add a header.
             {this.renderSupportsTouch()}
           </p>
-          <Tabs onChange={this.onChangeTabs} value={index + ''}>
+          <Tabs onChange={this.handleChangeTabs} value={index + ''}>
             <Tab label="tab n°1" value="0" />
             <Tab label="tab n°2" value="1" />
             <Tab label="tab n°3" value="2" />
           </Tabs>
           <SwipeableViews
             index={index}
-            onChangeIndex={this.onChangeIndex}
+            onChangeIndex={this.handleChangeIndex}
             containerStyle={styles.slideContainer}
           >
             <div style={Object.assign({}, styles.slide, styles.slide1)}>
@@ -196,7 +206,7 @@ const Main = React.createClass({
         </section>
       </div>
     );
-  },
-});
+  }
+}
 
 export default Main;

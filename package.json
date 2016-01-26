@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint --ext .js,.jsx .",
-    "test": "exit 0",
+    "test": "npm run lint",
     "build": "rm -rf lib && mkdir lib && NODE_ENV=production babel src --out-dir lib",
     "docs:development": "cd docs && grunt build",
     "docs:production": "cd docs && NODE_ENV=docs-production grunt dist",

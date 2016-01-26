@@ -15,26 +15,51 @@ plugins:
 ecmaFeatures:
   jsx: true
 
-globals:
-  cordova: false
-  emit: false
-  browser: true
-  VERSION: false
-  CONFIG_NAME: false
-  PLATFORM: false
+extends: eslint:recommended
 
 rules:
   # Errors
   array-bracket-spacing: [2, never]
   arrow-spacing: 2
   block-spacing: [2, always]
-  max-len: [2, 120, 4]
-  indent: [2, 2, {SwitchCase: 1}]
-  quotes: [2, single, avoid-escape]
-  comma-dangle: [2, always-multiline]
-  computed-property-spacing: [2, never]
   brace-style: 2
+  comma-dangle: [2, always-multiline]
+  comma-style: [2, last]
+  comma-spacing: [2, {before: false, after: true}]
+  computed-property-spacing: [2, never]
   consistent-this: [2, self]
+  consistent-return: 2
+  dot-notation: 2
+  dot-location: [2, property]
+  eqeqeq: [2, smart]
+  eol-last: 2
+  indent: [2, 2, {SwitchCase: 1}]
+  jsx-quotes: [2, prefer-double]
+  key-spacing: 2
+  max-len: [2, 120, 4]
+  new-cap: [2, {capIsNew: true, newIsCap: true}]
+  no-unused-expressions: 2
+  no-unused-vars: 2
+  no-shadow: 2
+  no-spaced-func: 2
+  no-multi-spaces: 2
+  no-undef: 2
+  no-empty-pattern: 2
+  no-dupe-keys: 2
+  no-dupe-args: 2
+  no-duplicate-case: 2
+  no-cond-assign: 2
+  no-extra-semi: 2
+  no-extra-boolean-cast: 2
+  no-trailing-spaces: 2
+  no-unreachable: 2
+  no-var: 2
+  object-curly-spacing: [2, never]
+  one-var: [2, never]
+  prefer-arrow-callback: 2
+  prefer-const: 2
+  quotes: [2, single, avoid-escape]
+  semi: [2, always]
   space-after-keywords: [2, always]
   space-before-blocks: [2, always]
   space-before-function-paren: [2, never]
@@ -42,47 +67,29 @@ rules:
   space-infix-ops: 2
   space-return-throw-case: 2
   space-unary-ops: [1, { words: true, nonwords: false }]
-  eol-last: 2
-  eqeqeq: [2, smart]
   yoda: 2
-  no-unused-expressions: 2
-  no-unused-vars: 2
-  dot-notation: 2
-  dot-location: [2, property]
-  consistent-return: 2
-  no-shadow: 2
-  no-extra-semi: 2
-  no-spaced-func: 2
-  no-multi-spaces: 2
-  no-undef: 2
-  no-empty-pattern: 2
-  key-spacing: 2
-  semi: [2, always]
-  new-cap: [2, {capIsNew: true, newIsCap: true}]
-  no-trailing-spaces: 2
-  comma-style: [2, last]
-  no-unreachable: 2
-  no-var: 2
-  prefer-const: 2
-  jsx-quotes: [2, prefer-double]
-  object-curly-spacing: [2, never]
-  prefer-arrow-callback: 2
 
   # Disabled
+  strict: 0
+  no-console: 0
   no-magic-numbers: 0
   camelcase: 0
   no-underscore-dangle: 0
   handle-callback-err: 0
-  strict: 0
 
   # React errors
   react/display-name: [2, {acceptTranspilerName: true}]
   react/jsx-boolean-value: [2, always]
+  react/jsx-closing-bracket-location: 2
   react/jsx-curly-spacing: 2
+  react/jsx-equals-spacing: 2
+  react/jsx-handler-names: 2
   react/jsx-indent-props: [2, 2]
-  react/jsx-max-props-per-line: [2, {maximum: 4}]
+  react/jsx-indent: [2, 2]
+  react/jsx-max-props-per-line: [2, {maximum: 3}]
   react/jsx-no-duplicate-props: 2
   react/jsx-no-undef: 2
+  react/jsx-pascal-case: 2
   react/jsx-sort-prop-types: 2
   react/jsx-uses-react: 2
   react/jsx-uses-vars: 2
@@ -90,8 +97,10 @@ rules:
   react/no-did-update-set-state: 2
   react/no-direct-mutation-state: 2
   react/no-multi-comp: 2
+  react/no-is-mounted: 2
   react/no-unknown-property: 2
   react/prop-types: 2
+  react/prefer-es6-class: 2
   react/react-in-jsx-scope: 2
   react/require-extension: 2
   react/self-closing-comp: 2
@@ -101,7 +110,7 @@ rules:
   # Disabled
   react/no-did-mount-set-state: 0
   react/jsx-no-literals: 0
+
   react/jsx-no-bind: 0
-  react/jsx-closing-bracket-location: 0
   react/jsx-sort-props: 0
   react/no-set-state: 0
