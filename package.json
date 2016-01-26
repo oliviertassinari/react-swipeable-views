@@ -9,7 +9,7 @@
     "build": "rm -rf lib && mkdir lib && NODE_ENV=production babel src --out-dir lib",
     "docs:development": "cd docs && grunt build",
     "docs:production": "cd docs && NODE_ENV=docs-production grunt dist",
-    "prepublish": "run build"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -32,7 +32,7 @@
   "peerDependencies": {
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "react-motion": "^0.3.0"
+    "react-motion": "^0.4.0"
   },
   "license": "MIT",
   "devDependencies": {

@@ -27,7 +27,7 @@ class SwipeableViews extends React.Component {
     this.handleTouchStart = this.handleTouchStart.bind(this);
 
     this.state = {
-      index: props.index,
+      indexCurrent: props.index,
       indexLatest: props.index,
       isDragging: false,
       isFirstRender: true,
@@ -48,7 +48,7 @@ class SwipeableViews extends React.Component {
 
     if (typeof index === 'number' && index !== this.props.index) {
       this.setState({
-        index: index,
+        indexCurrent: index,
         indexLatest: index,
       });
     }
@@ -58,7 +58,7 @@ class SwipeableViews extends React.Component {
     const touch = event.touches[0];
 
     this.startWidth = ReactDOM.findDOMNode(this).getBoundingClientRect().width;
-    this.startIndex = this.state.index;
+    this.startIndex = this.state.indexCurrent;
     this.startX = touch.pageX;
     this.lastX = touch.pageX;
     this.deltaX = 0;
@@ -110,7 +110,7 @@ class SwipeableViews extends React.Component {
 
     this.setState({
       isDragging: true,
-      index: index,
+      indexCurrent: index,
     });
   }
 
@@ -124,14 +124,14 @@ class SwipeableViews extends React.Component {
     // Quick movement
     if (Math.abs(this.deltaX) > this.props.threshold) {
       if (this.deltaX > 0) {
-        indexNew = Math.floor(this.state.index);
+        indexNew = Math.floor(this.state.indexCurrent);
       } else {
-        indexNew = Math.ceil(this.state.index);
+        indexNew = Math.ceil(this.state.indexCurrent);
       }
     } else {
       // Some hysteresis with startIndex
-      if (Math.abs(this.startIndex - this.state.index) > 0.6) {
-        indexNew = Math.round(this.state.index);
+      if (Math.abs(this.startIndex - this.state.indexCurrent) > 0.6) {
+        indexNew = Math.round(this.state.indexCurrent);
       } else {
         indexNew = this.startIndex;
       }
@@ -146,7 +146,7 @@ class SwipeableViews extends React.Component {
     }
 
     this.setState({
-      index: indexNew,
+      indexCurrent: indexNew,
       indexLatest: indexNew,
       isDragging: false,
     });
@@ -219,12 +219,12 @@ class SwipeableViews extends React.Component {
     } = this.props;
 
     const {
-      index,
+      indexCurrent,
       isDragging,
       heightLatest,
     } = this.state;
 
-    const translate = index * 100;
+    const translate = indexCurrent * 100;
 
     const height = heightLatest;
 
