@@ -1,9 +1,6 @@
-# Sublime Text
+# IDE
 *.sublime-project
 *.sublime-workspace
-
-# WebStorm
-.idea
 
 # npm
 /node_modules
