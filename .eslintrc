@@ -21,6 +21,7 @@ rules:
   # Errors
   array-bracket-spacing: [2, never]
   arrow-spacing: 2
+  arrow-parens: 2
   block-spacing: [2, always]
   brace-style: 2
   comma-dangle: [2, always-multiline]
@@ -53,11 +54,13 @@ rules:
   no-extra-boolean-cast: 2
   no-trailing-spaces: 2
   no-unreachable: 2
+  no-unneeded-ternary: 2
   no-var: 2
   object-curly-spacing: [2, never]
   one-var: [2, never]
   prefer-arrow-callback: 2
   prefer-const: 2
+  prefer-template: 2
   quotes: [2, single, avoid-escape]
   semi: [2, always]
   space-after-keywords: [2, always]
@@ -110,7 +113,6 @@ rules:
   # Disabled
   react/no-did-mount-set-state: 0
   react/jsx-no-literals: 0
-
   react/jsx-no-bind: 0
   react/jsx-sort-props: 0
   react/no-set-state: 0

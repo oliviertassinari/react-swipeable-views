@@ -30,6 +30,9 @@ const styles = {
   slide3: {
     background: '#6AC0FF',
   },
+  divider: {
+    height: 50,
+  },
 };
 
 class Main extends React.Component {
@@ -53,7 +56,7 @@ class Main extends React.Component {
 
   handleChangeTabs(value) {
     this.setState({
-      index: parseInt(value, 10),
+      index: value,
     });
   }
 
@@ -73,7 +76,7 @@ class Main extends React.Component {
     for (let i = 0; i < 30; i++) {
       list.push(
         <div key={i}>
-          {'item n°' + (i + 1)}
+          {`item n°${i + 1}`}
         </div>
       );
     }
@@ -112,10 +115,10 @@ class Main extends React.Component {
             Now, let's add a header.
             {this.renderSupportsTouch()}
           </p>
-          <Tabs onChange={this.handleChangeTabs} value={index + ''}>
-            <Tab label="tab n°1" value="0" />
-            <Tab label="tab n°2" value="1" />
-            <Tab label="tab n°3" value="2" />
+          <Tabs onChange={this.handleChangeTabs} value={index}>
+            <Tab label="tab n°1" value={0} />
+            <Tab label="tab n°2" value={1} />
+            <Tab label="tab n°3" value={2} />
           </Tabs>
           <SwipeableViews
             index={index}
@@ -181,6 +184,29 @@ class Main extends React.Component {
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide3)}>
               slide n°3
+            </div>
+          </SwipeableViews>
+
+          <h3>Demo 6</h3>
+          <p>
+            You can also nest this component.
+            {this.renderSupportsTouch()}
+          </p>
+          <SwipeableViews containerStyle={{}}>
+            <div style={Object.assign({}, styles.slide, styles.slide1)}>
+              slide n°1
+              <div style={styles.divider} />
+              <SwipeableViews containerStyle={styles.slideContainer}>
+                <div style={Object.assign({}, styles.slide, styles.slide2)}>
+                  nested slide n°1
+                </div>
+                <div style={Object.assign({}, styles.slide, styles.slide3)}>
+                  nested slide n°2
+                </div>
+              </SwipeableViews>
+            </div>
+            <div style={Object.assign({}, styles.slide, styles.slide2)}>
+              slide n°2
             </div>
           </SwipeableViews>
 

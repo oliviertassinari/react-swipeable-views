@@ -53,7 +53,7 @@ module.exports = function(options) {
     const ip = require('ip');
 
     webpackConfig.entry = [
-      'webpack-dev-server/client?http://' + ip.address() + ':8000', // WebpackDevServer
+      `webpack-dev-server/client?http://${ip.address()}:8000`, // WebpackDevServer
       'webpack/hot/only-dev-server',
       './src/app.jsx',
     ];

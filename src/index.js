@@ -134,11 +134,10 @@ class SwipeableViews extends React.Component {
   handleTouchMove(event) {
     const touch = event.touches[0];
 
-    console.log('handleTouchMove', event.defaultPrevented);
-
     // This is a one time test
     if (this.isScrolling === undefined) {
-      this.isScrolling = Math.abs(this.startY - touch.pageY) > Math.abs(this.startX - touch.pageX);
+      this.isScrolling = Math.abs(this.startY - touch.pageY) > Math.abs(this.startX - touch.pageX) ||
+       event.defaultPrevented;
     }
 
     if (this.isScrolling) {
@@ -333,7 +332,7 @@ class SwipeableViews extends React.Component {
         {...touchEvents}
       >
         <Motion style={motionStyle}>
-          {interpolatedStyle => this.renderContainer(interpolatedStyle)}
+          {(interpolatedStyle) => this.renderContainer(interpolatedStyle)}
         </Motion>
       </div>
     );
