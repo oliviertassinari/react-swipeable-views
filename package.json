@@ -27,7 +27,7 @@
     "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
   },
   "dependencies": {
-    "recompose": "^0.14.5"
+    "recompose": "^0.15.0"
   },
   "peerDependencies": {
     "react": "^0.14.0",
@@ -49,14 +49,14 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.2.1",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
-    "babel-preset-stage-2": "^6.3.13",
+    "babel-preset-stage-1": "^6.3.13",
     "babel-runtime": "^6.3.19",
     "css-loader": "^0.23.0",
     "eslint": "^1.5.1",
     "eslint-plugin-react": "^3.4.2",
     "extract-text-webpack-plugin": "^1.0.1",
     "grunt": "^0.4.5",
-    "grunt-contrib-clean": "^0.7.0",
+    "grunt-contrib-clean": "^1.0.0",
     "grunt-eslint": "^17.2.0",
     "grunt-webpack": "^1.0.11",
     "html-webpack-plugin": "^2.7.2",

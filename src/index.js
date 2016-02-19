@@ -20,6 +20,71 @@ const styles = {
 const resistanceCoef = 0.7;
 
 class SwipeableViews extends React.Component {
+
+  static propTypes = {
+    /**
+     * Use this property to provide your slides.
+     */
+    children: React.PropTypes.node,
+
+    /**
+     * This is the inlined style that will be applied
+     * to each slide container.
+     */
+    containerStyle: React.PropTypes.object,
+
+    /**
+     * If true, it will disable touch events.
+     * This is useful when you want to prohibit the user from changing slides.
+     */
+    disabled: React.PropTypes.bool,
+
+    /**
+     * This is the index of the slide to show.
+     * This is useful when you want to change the default slide shown.
+     * Or when you have tabs linked to each slide.
+     */
+    index: React.PropTypes.number,
+
+    /**
+     * This is callback prop. It's call by the
+     * component when the shown slide change after a swipe made by the user.
+     * This is useful when you have tabs linked to each slide.
+     */
+    onChangeIndex: React.PropTypes.func,
+
+    /**
+     * This is callback prop. It's called by the
+     * component when the slide switching.
+     * This is useful when you want to implement something corresponding to the current slide position.
+     */
+    onSwitching: React.PropTypes.func,
+
+    /**
+     * If true, it will add bounds effect on the edges.
+     */
+    resistance: React.PropTypes.bool,
+
+    /**
+     * This is the inlined style that will be applied
+     * on the root component.
+     */
+    style: React.PropTypes.object,
+
+    /**
+     * This is the threshold used for detecting a quick swipe.
+     * If the computed speed is above this value, the index change.
+     */
+    threshold: React.PropTypes.number,
+  };
+
+  static defaultProps = {
+    index: 0,
+    threshold: 5,
+    resistance: false,
+    disabled: false,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
@@ -68,6 +133,8 @@ class SwipeableViews extends React.Component {
 
   handleTouchMove(event) {
     const touch = event.touches[0];
+
+    console.log('handleTouchMove', event.defaultPrevented);
 
     // This is a one time test
     if (this.isScrolling === undefined) {
@@ -272,69 +339,5 @@ class SwipeableViews extends React.Component {
     );
   }
 }
-
-SwipeableViews.defaultProps = {
-  index: 0,
-  threshold: 5,
-  resistance: false,
-  disabled: false,
-};
-
-SwipeableViews.propTypes = {
-  /**
-   * Use this property to provide your slides.
-   */
-  children: React.PropTypes.node,
-
-  /**
-   * This is the inlined style that will be applied
-   * to each slide container.
-   */
-  containerStyle: React.PropTypes.object,
-
-  /**
-   * If true, it will disable touch events.
-   * This is useful when you want to prohibit the user from changing slides.
-   */
-  disabled: React.PropTypes.bool,
-
-  /**
-   * This is the index of the slide to show.
-   * This is useful when you want to change the default slide shown.
-   * Or when you have tabs linked to each slide.
-   */
-  index: React.PropTypes.number,
-
-  /**
-   * This is callback prop. It's call by the
-   * component when the shown slide change after a swipe made by the user.
-   * This is useful when you have tabs linked to each slide.
-   */
-  onChangeIndex: React.PropTypes.func,
-
-  /**
-   * This is callback prop. It's called by the
-   * component when the slide switching.
-   * This is useful when you want to implement something corresponding to the current slide position.
-   */
-  onSwitching: React.PropTypes.func,
-
-  /**
-   * If true, it will add bounds effect on the edges.
-   */
-  resistance: React.PropTypes.bool,
-
-  /**
-   * This is the inlined style that will be applied
-   * on the root component.
-   */
-  style: React.PropTypes.object,
-
-  /**
-   * This is the threshold used for detecting a quick swipe.
-   * If the computed speed is above this value, the index change.
-   */
-  threshold: React.PropTypes.number,
-};
 
 export default pure(SwipeableViews);
