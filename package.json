@@ -34,6 +34,10 @@
     "react-dom": "^0.14.0",
     "react-motion": "^0.4.0"
   },
+  "files": [
+    "lib",
+    "src"
+  ],
   "license": "MIT",
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
