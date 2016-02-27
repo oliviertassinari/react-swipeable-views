@@ -226,16 +226,9 @@ class SwipeableViews extends React.Component {
     }
   }
 
-  updateHeight(ref, index) {
-    if (ref !== null && index === this.state.indexLatest) {
-      const containerStyle = this.props.containerStyle;
-
-      // There is no point to animate if we already provide a height
-      if (containerStyle && (containerStyle.height || containerStyle.minHeight)) {
-        return;
-      }
-
-      const child = ref.children[0];
+  updateHeight(node, index) {
+    if (node !== null && index === this.state.indexLatest) {
+      const child = node.children[0];
       if (child !== undefined && this.state.heightLatest !== child.clientHeight) {
         this.setState({
           heightLatest: child.clientHeight,
@@ -254,28 +247,44 @@ class SwipeableViews extends React.Component {
       isFirstRender,
     } = this.state;
 
-    const childrenToRender = React.Children.map(children, (element, i) => {
-      if (isFirstRender && i > 0) {
+
+    const translate = -interpolatedStyle.translate;
+
+    let updateHeight = true;
+    // There is no point to animate if we already provide a height
+    if (containerStyle && (containerStyle.height || containerStyle.minHeight)) {
+      updateHeight = false;
+    }
+
+    const childrenToRender = React.Children.map(children, (element, index) => {
+      if (isFirstRender && index > 0) {
         return null;
       }
 
+      let ref;
+
+      if (updateHeight) {
+        ref = (node) => this.updateHeight(node, index);
+      }
+
       return (
-        <div ref={(s) => this.updateHeight(s, i)} style={styles.slide}>
+        <div ref={ref} style={styles.slide}>
           {element}
         </div>
       );
     });
 
-    const translate = -interpolatedStyle.translate;
+    const styleNew = {
+      WebkitTransform: `translate3d(${translate}%, 0, 0)`,
+      transform: `translate3d(${translate}%, 0, 0)`,
+    };
+
+    if (updateHeight) {
+      styleNew.height = interpolatedStyle.height;
+    }
 
     return (
-      <div
-        style={Object.assign({
-          WebkitTransform: `translate3d(${translate}%, 0, 0)`,
-          transform: `translate3d(${translate}%, 0, 0)`,
-          height: interpolatedStyle.height,
-        }, styles.container, containerStyle)}
-      >
+      <div style={Object.assign(styleNew, styles.container, containerStyle)}>
         {childrenToRender}
       </div>
     );
