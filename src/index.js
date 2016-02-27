@@ -252,9 +252,7 @@ class SwipeableViews extends React.Component {
       isFirstRender,
     } = this.state;
 
-    let childrenToRender;
-
-    childrenToRender = React.Children.map(children, (element, i) => {
+    const childrenToRender = React.Children.map(children, (element, i) => {
       if (isFirstRender && i > 0) {
         return null;
       }
