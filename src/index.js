@@ -237,7 +237,7 @@ class SwipeableViews extends React.Component {
     }
   }
 
-  renderContainer(interpolatedStyle) {
+  renderContainer(interpolatedStyle, updateHeight) {
     const {
       children,
       containerStyle,
@@ -247,14 +247,7 @@ class SwipeableViews extends React.Component {
       isFirstRender,
     } = this.state;
 
-
     const translate = -interpolatedStyle.translate;
-
-    let updateHeight = true;
-    // There is no point to animate if we already provide a height
-    if (containerStyle && (containerStyle.height || containerStyle.minHeight)) {
-      updateHeight = false;
-    }
 
     const childrenToRender = React.Children.map(children, (element, index) => {
       if (isFirstRender && index > 0) {
@@ -334,6 +327,12 @@ class SwipeableViews extends React.Component {
       onTouchEnd: this.handleTouchEnd,
     };
 
+    let updateHeight = true;
+    // There is no point to animate if we already provide a height
+    if (containerStyle && (containerStyle.height || containerStyle.maxHeight || containerStyle.minHeight)) {
+      updateHeight = false;
+    }
+
     return (
       <div
         {...other}
@@ -341,7 +340,7 @@ class SwipeableViews extends React.Component {
         {...touchEvents}
       >
         <Motion style={motionStyle}>
-          {(interpolatedStyle) => this.renderContainer(interpolatedStyle)}
+          {(interpolatedStyle) => this.renderContainer(interpolatedStyle, updateHeight)}
         </Motion>
       </div>
     );
