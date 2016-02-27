@@ -231,13 +231,15 @@ class SwipeableViews extends React.Component {
       const containerStyle = this.props.containerStyle;
 
       // There is no point to animate if we already provide a height
-      if (!containerStyle || !containerStyle.height) {
-        const child = ref.children[0];
-        if (child !== undefined && this.state.heightLatest !== child.clientHeight) {
-          this.setState({
-            heightLatest: child.clientHeight,
-          });
-        }
+      if (containerStyle && (containerStyle.height || containerStyle.minHeight)) {
+        return;
+      }
+
+      const child = ref.children[0];
+      if (child !== undefined && this.state.heightLatest !== child.clientHeight) {
+        this.setState({
+          heightLatest: child.clientHeight,
+        });
       }
     }
   }
