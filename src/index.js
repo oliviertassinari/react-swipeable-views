@@ -256,6 +256,8 @@ class SwipeableViews extends React.Component {
 
     const translate = -interpolatedStyle.translate;
 
+    const slideStyleObj = Object.assign({}, styles.slide, slideStyle);
+
     const childrenToRender = React.Children.map(children, (element, index) => {
       if (isFirstRender && index > 0) {
         return null;
@@ -268,7 +270,7 @@ class SwipeableViews extends React.Component {
       }
 
       return (
-        <div ref={ref} style={Object.assign(styles.slide, slideStyle)}>
+        <div ref={ref} style={slideStyleObj}>
           {element}
         </div>
       );
