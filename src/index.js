@@ -67,6 +67,12 @@ class SwipeableViews extends React.Component {
 
     /**
      * This is the inlined style that will be applied
+     * on the slide component.
+     */
+    slideStyle: React.PropTypes.object,
+
+    /**
+     * This is the inlined style that will be applied
      * on the root component.
      */
     style: React.PropTypes.object,
@@ -241,6 +247,7 @@ class SwipeableViews extends React.Component {
     const {
       children,
       containerStyle,
+      slideStyle,
     } = this.props;
 
     const {
@@ -261,7 +268,7 @@ class SwipeableViews extends React.Component {
       }
 
       return (
-        <div ref={ref} style={styles.slide}>
+        <div ref={ref} style={Object.assign(styles.slide, slideStyle)}>
           {element}
         </div>
       );
@@ -287,6 +294,7 @@ class SwipeableViews extends React.Component {
     const {
       children,
       containerStyle,
+      slideStyle,
       disabled,
       index,
       onChangeIndex,
