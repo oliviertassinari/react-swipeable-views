@@ -71,7 +71,7 @@ export default MyComponent;
 | onSwitching | Function(index) |  | This is callback prop. It's called by the component when the slide switching. This is useful when you want to implement something corresponding to the current slide position. |
 | resistance | bool | false | If true, it will add bounds effect on the edges. |
 | style | object | {} | This is the inlined style that will be applied on the root component. |
-| styleSlide | object | {} | This is the inlined style that will be applied on the slide component. |
+| slideStyle | object | {} | This is the inlined style that will be applied on the slide component. |
 | threshold | integer | 5 | This is the threshold used for detectinga quick swipe. If the computed speed is above this value, the index change. |
 
 Any other properties like `className` will be applied to the root component.

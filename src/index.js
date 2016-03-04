@@ -243,38 +243,12 @@ class SwipeableViews extends React.Component {
     }
   }
 
-  renderContainer(interpolatedStyle, updateHeight) {
+  renderContainer(interpolatedStyle, updateHeight, childrenToRender) {
     const {
-      children,
       containerStyle,
-      slideStyle,
     } = this.props;
 
-    const {
-      isFirstRender,
-    } = this.state;
-
     const translate = -interpolatedStyle.translate;
-
-    const slideStyleObj = Object.assign({}, styles.slide, slideStyle);
-
-    const childrenToRender = React.Children.map(children, (element, index) => {
-      if (isFirstRender && index > 0) {
-        return null;
-      }
-
-      let ref;
-
-      if (updateHeight) {
-        ref = (node) => this.updateHeight(node, index);
-      }
-
-      return (
-        <div ref={ref} style={slideStyleObj}>
-          {element}
-        </div>
-      );
-    });
 
     const styleNew = {
       WebkitTransform: `translate3d(${translate}%, 0, 0)`,
@@ -310,6 +284,7 @@ class SwipeableViews extends React.Component {
     const {
       indexCurrent,
       isDragging,
+      isFirstRender,
       heightLatest,
     } = this.state;
 
@@ -343,6 +318,26 @@ class SwipeableViews extends React.Component {
       updateHeight = false;
     }
 
+    const slideStyleObj = Object.assign({}, styles.slide, slideStyle);
+
+    const childrenToRender = React.Children.map(children, (element, index2) => {
+      if (isFirstRender && index2 > 0) {
+        return null;
+      }
+
+      let ref;
+
+      if (updateHeight) {
+        ref = (node) => this.updateHeight(node, index2);
+      }
+
+      return (
+        <div ref={ref} style={slideStyleObj}>
+          {element}
+        </div>
+      );
+    });
+
     return (
       <div
         {...other}
@@ -350,7 +345,7 @@ class SwipeableViews extends React.Component {
         {...touchEvents}
       >
         <Motion style={motionStyle}>
-          {(interpolatedStyle) => this.renderContainer(interpolatedStyle, updateHeight)}
+          {(interpolatedStyle) => this.renderContainer(interpolatedStyle, updateHeight, childrenToRender)}
         </Motion>
       </div>
     );
