@@ -59,6 +59,17 @@ const styles = {
 export default MyComponent;
 ```
 
+## Supported platform
+
+### Browser
+![alt tag](docs/platformBrowser.gif)
+
+### iOS
+![alt tag](docs/platformIOS.gif)
+
+### Android
+![alt tag](docs/platformAndroid.gif)
+
 ## Properties
 
 | Name | Type | Default | Description |
