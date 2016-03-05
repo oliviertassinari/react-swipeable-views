@@ -2,16 +2,13 @@ import React, {
   StyleSheet,
   Text,
   View,
-  Platform,
 } from 'react-native';
-
-const margin = 35;
 
 const styles = StyleSheet.create({
   root: {
     backgroundColor: '#155799',
-    paddingTop: margin + (Platform.OS === 'ios' ? 10 : 0),
-    paddingBottom: margin,
+    paddingTop: 45,
+    paddingBottom: 35,
   },
   name: {
     textAlign: 'center',

@@ -59,7 +59,10 @@ const styles = {
 export default MyComponent;
 ```
 
-## Supported platform
+## Supported platforms
+
+The API is as consistent as possible between the three platforms so
+the same component can be used independently on where it's running.
 
 ### Browser
 ![alt tag](docs/platformBrowser.gif)

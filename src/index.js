@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import pure from 'recompose/pure';
 import {Motion, spring} from 'react-motion';
 
 const styles = {
@@ -17,7 +16,7 @@ const styles = {
   },
 };
 
-const resistanceCoef = 0.7;
+const RESISTANCE_COEF = 0.7;
 
 class SwipeableViews extends React.Component {
 
@@ -167,9 +166,9 @@ class SwipeableViews extends React.Component {
       }
     } else {
       if (index < 0) {
-        index = Math.exp(index * resistanceCoef) - 1;
+        index = Math.exp(index * RESISTANCE_COEF) - 1;
       } else if (index > indexMax) {
-        index = indexMax + 1 - Math.exp((indexMax - index) * resistanceCoef);
+        index = indexMax + 1 - Math.exp((indexMax - index) * RESISTANCE_COEF);
       }
     }
 
@@ -349,4 +348,4 @@ class SwipeableViews extends React.Component {
   }
 }
 
-export default pure(SwipeableViews);
+export default SwipeableViews;

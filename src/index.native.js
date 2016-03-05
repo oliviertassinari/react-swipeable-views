@@ -8,50 +8,60 @@ import React, {
 } from 'react-native';
 
 const {
-  width,
-  height,
+  width: windowWidth,
+  height: windowHeight,
 } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'transparent',
-    position: 'relative',
+  root: {
   },
-  wrapper: {
-    backgroundColor: 'transparent',
+  container: {
   },
   slide: {
-    backgroundColor: 'transparent',
   },
 });
 
 class SwipeableViews extends React.Component {
   static propTypes = {
-    automaticallyAdjustContentInsets: React.PropTypes.bool,
-    bounces: React.PropTypes.bool,
-    children: React.PropTypes.node.isRequired,
-    horizontal: React.PropTypes.bool,
+    /**
+     * Use this property to provide your slides.
+     */
+    children: React.PropTypes.node,
+
+    /**
+     * This is the inlined style that will be applied
+     * to each slide container.
+     */
+    containerStyle: React.PropTypes.object,
+
+    /**
+     * This is the index of the slide to show.
+     * This is useful when you want to change the default slide shown.
+     * Or when you have tabs linked to each slide.
+     */
     index: React.PropTypes.number,
-    pagingEnabled: React.PropTypes.bool,
-    removeClippedSubviews: React.PropTypes.bool,
-    scrollsToTop: React.PropTypes.bool,
-    showsHorizontalScrollIndicator: React.PropTypes.bool,
-    showsPagination: React.PropTypes.bool,
-    showsVerticalScrollIndicator: React.PropTypes.bool,
+
+    /**
+     * If true, it will add bounds effect on the edges.
+     */
+    resistance: React.PropTypes.bool,
+
+    /**
+     * This is the inlined style that will be applied
+     * on the slide component.
+     */
+    slideStyle: React.PropTypes.object,
+
+    /**
+     * This is the inlined style that will be applied
+     * on the root component.
+     */
     style: View.propTypes.style,
   };
 
   static defaultProps = {
-    horizontal: true,
-    pagingEnabled: true,
-    showsHorizontalScrollIndicator: false,
-    showsVerticalScrollIndicator: false,
-    bounces: false,
-    scrollsToTop: false,
-    removeClippedSubviews: true,
-    automaticallyAdjustContentInsets: false,
-    showsPagination: true,
     index: 0,
+    resistance: false,
   };
 
   constructor(props, context) {
@@ -60,200 +70,112 @@ class SwipeableViews extends React.Component {
     this.state = this.initState(this.props);
   }
 
-  componentWillMount() {
-    this.props = Platform.OS === 'ios' ? this.injectState(this.props) : this.injectStateAndroid(this.props);
-  }
-
   componentWillReceiveProps(props) {
     this.setState(this.initState(props));
   }
 
   initState(props) {
     const initState = {
-      isScrolling: false,
+      index: props.index,
+      width: props.width || windowWidth,
+      height: props.height || windowHeight,
     };
 
-    initState.total = props.children ? props.children.length || 1 : 0;
-    initState.index = initState.total > 1 ? Math.min(props.index, initState.total - 1) : 0;
-
-    initState.dir = props.horizontal === false ? 'y' : 'x';
-    initState.width = props.width || width;
-    initState.height = props.height || height;
-
     //android not use offset
-    if (Platform.OS === 'ios' && initState.total > 1) {
-      initState.offset = {};
-      const setup = initState.index;
-      initState.offset[initState.dir] = initState.dir === 'y'
-        ? initState.height * setup
-        : initState.width * setup;
+    if (Platform.OS === 'ios') {
+      initState.offset = {
+        x: initState.width * initState.index,
+      };
     }
+
     return initState;
   }
 
-  handleScrollBegin = () => {
-    // update scroll state
-    this.setState({
-      isScrolling: true,
-    });
-  };
+  handleScrollEndIOS = (event) => {
+    const offset = event.nativeEvent.contentOffset;
 
-  handleScrollEnd = (event) => {
-    // update scroll state
     this.setState({
-      isScrolling: false,
+      index: this.state.index + (offset.x - this.state.offset.x) / this.state.width,
+      offset: offset,
     });
-
-    this.updateIndexIOS(event.nativeEvent.contentOffset, this.state.dir);
   };
 
   handleScrollEndAndroid = (event) => {
-    // update scroll state
     this.setState({
-      isScrolling: false,
+      index: event.nativeEvent.position - 1,
     });
-
-    this.updateIndexAndroid(event.nativeEvent.position, this.state.dir);
   };
 
-  updateIndexAndroid(position) {
-    this.setState({
-      index: position - 1,
-    });
-  }
-
-  updateIndexIOS(offset, dir) {
-    const state = this.state;
-    let index = state.index;
-    const diff = offset[dir] - state.offset[dir];
-    const step = dir === 'x' ? state.width : state.height;
-
-    // Do nothing if offset no change.
-    if (!diff) return;
-
-    // Note: if touch very very quickly and continuous,
-    // the variation of `index` more than 1.
-    index = index + diff / step;
-
-    this.setState({
-      index: index,
-      offset: offset,
-    });
-  }
-
-  scrollTo(index) {
-    if (this.state.total < 2) return;
-    const state = this.state;
-    const diff = index + this.state.index;
-    let x = 0;
-    let y = 0;
-    if (state.dir === 'x') x = diff * state.width;
-    if (state.dir === 'y') y = diff * state.height;
-    if (Platform.OS === 'ios') {
-      if (this.state.isScrolling) return;
-      if (this.refs.scrollView) {
-        this.refs.scrollView.scrollTo(y, x);
-      }
-    } else {
-      this.updateIndexAndroid(diff);
-      if (this.refs.scrollView) {
-        this.refs.scrollView.setPage(diff);
-      }
-    }
-
-    this.setState({
-      isScrolling: true,
-    });
-  }
-
-  renderScrollView(pages) {
-    if (Platform.OS === 'ios') {
-      return (
-        <ScrollView ref="scrollView"
-          {...this.props}
-          contentContainerStyle={[styles.wrapper, this.props.style]}
-          contentOffset={this.state.offset}
-          onScrollBeginDrag={this.handleScrollBegin}
-          onMomentumScrollEnd={this.handleScrollEnd}
-        >
-          {pages}
-        </ScrollView>
-      );
-    } else {
-      return (
-        <ViewPagerAndroid
-          ref="scrollView"
-          style={{flex: 1}}
-          {...this.props}
-          index={this.state.index}
-          onPageSelected={this.handleScrollEndAndroid}
-          initialPage={1}
-        >
-        {pages}
-        </ViewPagerAndroid>
-      );
-    }
-  }
-
-  injectState(props) {
-    for (const prop in props) {
-      if (typeof props[prop] === 'function') {
-        const originResponder = props[prop];
-        props[prop] = (event) => originResponder(event, this.state, this);
-      }
-    }
-
-    return props;
-  }
-
-  injectStateAndroid(props) {
-    for (const prop in props) {
-      if (typeof props[prop] === 'function'
-        && prop !== 'onPageSelected'
-      ) {
-        const originResponder = props[prop];
-        props[prop] = (event) => originResponder(event, this.state, this);
-      }
-    }
-
-    return props;
-  }
-
   render() {
-    const state = this.state;
-    const props = this.props;
-    const children = props.children;
-    const total = state.total;
+    const {
+      resistance,
+      children,
+      slideStyle,
+      style,
+      containerStyle,
+      ...other,
+    } = this.props;
 
-    let pages = [];
-    const pageStyle = [
+    const {
+      width,
+      height,
+      index,
+    } = this.state;
+
+    const slideStyleObj = [
       {
-        width: state.width,
-        height: state.height,
+        width: width,
+        height: height / 4,
       },
       styles.slide,
+      slideStyle,
     ];
 
-    // For make infinite at least total > 0
-    if (total > 0) {
-      // Re-design a loop model for avoid img flickering
-      pages = Object.keys(children);
-
-      pages = pages.map((page, i) =>
-        <View style={pageStyle} key={i}>{children[page]}</View>
+    const childrenToRender = React.Children.map(children, (element) => {
+      return (
+        <View style={slideStyleObj}>
+          {element}
+        </View>
       );
-    } else {
-      pages = <View style={pageStyle}>{children}</View>;
-    }
+    });
 
     return (
       <View
-        style={[styles.container, {
-          width: state.width,
-          height: state.height,
-        }]}
+        style={[
+          styles.root,
+          {
+            width: width,
+            height: height / 4,
+          },
+          style,
+        ]}
       >
-        {this.renderScrollView(pages)}
+        {(Platform.OS === 'ios') ? (
+          <ScrollView
+            {...other}
+            ref="scrollView"
+            horizontal={true}
+            pagingEnabled={true}
+            scrollsToTop={false}
+            bounces={resistance}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={[styles.container, containerStyle]}
+            contentOffset={this.state.offset}
+            onMomentumScrollEnd={this.handleScrollEndIOS}
+          >
+            {childrenToRender}
+          </ScrollView>
+        ) : (
+          <ViewPagerAndroid
+            {...other}
+            ref="scrollView"
+            style={[{flex: 1}, containerStyle]}
+            initialPage={index}
+            onPageSelected={this.handleScrollEndAndroid}
+          >
+            {childrenToRender}
+          </ViewPagerAndroid>
+        )}
       </View>
     );
   }
