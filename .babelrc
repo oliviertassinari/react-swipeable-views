@@ -1,11 +1,9 @@
 {
-  "presets": ["es2015", "react", "stage-1"],
-  "plugins": [
-    "transform-object-assign"
-  ],
   "env": {
-    "development": {
+    "docs-browser-development": {
+      "presets": ["es2015", "react", "stage-1"],
       "plugins": [
+        "transform-object-assign",
         "transform-react-display-name",
         [
           "react-transform",
@@ -21,16 +19,27 @@
                 "imports": ["react", "redbox-react"]
               }
             ]
-          },
-        ],
+          }
+        ]
       ]
     },
-    "docs-production": {
+    release: {
+      "presets": ["es2015", "react", "stage-1"],
       "plugins": [
+        "transform-object-assign"
+      ]
+    },
+    "docs-browser-production": {
+      "presets": ["es2015", "react", "stage-1"],
+      "plugins": [
+        "transform-object-assign",
         "transform-react-remove-prop-types",
         "transform-react-constant-elements",
         "transform-react-inline-elements"
       ]
     },
+    "docs-native-development": {
+      "presets": ["react-native"]
+    }
   }
 }

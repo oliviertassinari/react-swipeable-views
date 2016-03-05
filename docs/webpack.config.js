@@ -18,7 +18,7 @@ module.exports = function(options) {
       'cordova/exec',
     ],
     resolve: {
-      extensions: ['', '.js', '.jsx'],
+      extensions: ['', '.js'],
       root: path.join(__dirname, 'src'),
     },
     plugins: [
@@ -55,7 +55,7 @@ module.exports = function(options) {
     webpackConfig.entry = [
       `webpack-dev-server/client?http://${ip.address()}:8000`, // WebpackDevServer
       'webpack/hot/only-dev-server',
-      './src/app.jsx',
+      './src/app.js',
     ];
 
     webpackConfig.plugins = webpackConfig.plugins.concat([
@@ -63,12 +63,17 @@ module.exports = function(options) {
       new UnusedFilesWebpackPlugin({
         failOnUnused: options.config.failOnUnusedFile,
         pattern: 'src/**/*.*',
+        globOptions: {
+          ignore: [
+            'src/**/*.native.js',
+          ],
+        },
       }),
     ]);
 
     webpackConfig.module.loaders = [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
@@ -84,7 +89,7 @@ module.exports = function(options) {
     ];
   } else if (options.config.environment === 'production') {
     webpackConfig.entry = [
-      './src/app.jsx',
+      './src/app.js',
     ];
 
     webpackConfig.plugins = webpackConfig.plugins.concat([
@@ -103,7 +108,7 @@ module.exports = function(options) {
 
     webpackConfig.module.loaders = [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
       },

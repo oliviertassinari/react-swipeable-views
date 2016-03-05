@@ -93,9 +93,6 @@ class SwipeableViews extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    this.handleTouchEnd = this.handleTouchEnd.bind(this);
-    this.handleTouchMove = this.handleTouchMove.bind(this);
-    this.handleTouchStart = this.handleTouchStart.bind(this);
 
     this.state = {
       indexCurrent: props.index,
@@ -125,7 +122,7 @@ class SwipeableViews extends React.Component {
     }
   }
 
-  handleTouchStart(event) {
+  handleTouchStart = (event) => {
     const touch = event.touches[0];
 
     this.startWidth = ReactDOM.findDOMNode(this).getBoundingClientRect().width;
@@ -135,9 +132,9 @@ class SwipeableViews extends React.Component {
     this.deltaX = 0;
     this.startY = touch.pageY;
     this.isScrolling = undefined;
-  }
+  };
 
-  handleTouchMove(event) {
+  handleTouchMove = (event) => {
     const touch = event.touches[0];
 
     // This is a one time test
@@ -184,9 +181,9 @@ class SwipeableViews extends React.Component {
       isDragging: true,
       indexCurrent: index,
     });
-  }
+  };
 
-  handleTouchEnd() {
+  handleTouchEnd = () => {
     if (this.isScrolling) {
       return;
     }
@@ -230,7 +227,7 @@ class SwipeableViews extends React.Component {
     if (this.props.onChangeIndex && indexNew !== this.startIndex) {
       this.props.onChangeIndex(indexNew, this.startIndex);
     }
-  }
+  };
 
   updateHeight(node, index) {
     if (node !== null && index === this.state.indexLatest) {
