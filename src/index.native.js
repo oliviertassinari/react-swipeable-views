@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
   root: {
   },
   container: {
+    flex: 1,
   },
   slide: {
   },
@@ -40,6 +41,20 @@ class SwipeableViews extends React.Component {
      * Or when you have tabs linked to each slide.
      */
     index: React.PropTypes.number,
+
+    /**
+     * This is callback prop. It's call by the
+     * component when the shown slide change after a swipe made by the user.
+     * This is useful when you have tabs linked to each slide.
+     */
+    onChangeIndex: React.PropTypes.func,
+
+    /**
+     * This is callback prop. It's called by the
+     * component when the slide switching.
+     * This is useful when you want to implement something corresponding to the current slide position.
+     */
+    onSwitching: React.PropTypes.func,
 
     /**
      * If true, it will add bounds effect on the edges.
@@ -76,7 +91,7 @@ class SwipeableViews extends React.Component {
 
   initState(props) {
     const initState = {
-      index: props.index,
+      indexLatest: props.index,
       width: props.width || windowWidth,
       height: props.height || windowHeight,
     };
@@ -84,26 +99,52 @@ class SwipeableViews extends React.Component {
     //android not use offset
     if (Platform.OS === 'ios') {
       initState.offset = {
-        x: initState.width * initState.index,
+        x: initState.width * initState.indexLatest,
       };
     }
 
     return initState;
   }
 
-  handleScrollEndIOS = (event) => {
+  handleScroll = (event) => {
+    if (this.props.onSwitching) {
+      this.props.onSwitching(event.nativeEvent.contentOffset.x / this.state.width);
+    }
+  };
+
+  handleMomentumScrollEnd = (event) => {
     const offset = event.nativeEvent.contentOffset;
 
+    const indexNew = offset.x / this.state.width;
+    const indexLatest = this.state.indexLatest;
+
     this.setState({
-      index: this.state.index + (offset.x - this.state.offset.x) / this.state.width,
+      indexLatest: indexNew,
       offset: offset,
+    }, () => {
+      if (this.props.onChangeIndex && indexNew !== indexLatest) {
+        this.props.onChangeIndex(indexNew, indexLatest);
+      }
     });
   };
 
-  handleScrollEndAndroid = (event) => {
+  handlePageSelected = (event) => {
+    const indexLatest = this.state.indexLatest;
+    const indexNew = event.nativeEvent.position;
+
     this.setState({
-      index: event.nativeEvent.position - 1,
+      indexLatest: indexNew,
+    }, () => {
+      if (this.props.onChangeIndex) {
+        this.props.onChangeIndex(indexNew, indexLatest);
+      }
     });
+  };
+
+  handlePageScroll = (event) => {
+    if (this.props.onSwitching) {
+      this.props.onSwitching(event.nativeEvent.offset + event.nativeEvent.position);
+    }
   };
 
   render() {
@@ -119,13 +160,13 @@ class SwipeableViews extends React.Component {
     const {
       width,
       height,
-      index,
+      indexLatest,
+      offset,
     } = this.state;
 
     const slideStyleObj = [
       {
         width: width,
-        height: height / 4,
       },
       styles.slide,
       slideStyle,
@@ -154,14 +195,16 @@ class SwipeableViews extends React.Component {
           <ScrollView
             {...other}
             ref="scrollView"
+            style={[styles.container, containerStyle]}
             horizontal={true}
             pagingEnabled={true}
             scrollsToTop={false}
             bounces={resistance}
+            onScroll={this.handleScroll}
+            scrollEventThrottle={200}
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={[styles.container, containerStyle]}
-            contentOffset={this.state.offset}
-            onMomentumScrollEnd={this.handleScrollEndIOS}
+            contentOffset={offset}
+            onMomentumScrollEnd={this.handleMomentumScrollEnd}
           >
             {childrenToRender}
           </ScrollView>
@@ -169,9 +212,10 @@ class SwipeableViews extends React.Component {
           <ViewPagerAndroid
             {...other}
             ref="scrollView"
-            style={[{flex: 1}, containerStyle]}
-            initialPage={index}
-            onPageSelected={this.handleScrollEndAndroid}
+            style={[styles.container, containerStyle]}
+            initialPage={indexLatest}
+            onPageSelected={this.handlePageSelected}
+            onPageScroll={this.handlePageScroll}
           >
             {childrenToRender}
           </ViewPagerAndroid>

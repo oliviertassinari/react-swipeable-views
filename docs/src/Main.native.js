@@ -4,10 +4,12 @@ import React, {
   Text,
   View,
   StatusBar,
+  ScrollView,
 } from 'react-native';
 
 import SwipeableViews from '../../src/index.native';
 import Head from './Head.native';
+import Body from './Body.native';
 import Demo from './Demo.native';
 
 const styles = StyleSheet.create({
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
 class Main extends Component {
   render() {
     return (
-      <View style={styles.root}>
+      <ScrollView style={styles.root}>
         <StatusBar
           backgroundColor="#0F3D6C"
           translucent={true}
@@ -46,51 +48,53 @@ class Main extends Component {
           name="React swipeable views"
           description="A React component for swipeable views"
         />
-        <Demo
-          name="Demo 1"
-          description="Simple case without header."
-        >
-          <SwipeableViews>
-            <View style={[styles.slide, styles.slide1]}>
-              <Text style={styles.text}>
-                slide n°1
-              </Text>
-            </View>
-            <View style={[styles.slide, styles.slide2]}>
-              <Text style={styles.text}>
-                slide n°2
-              </Text>
-            </View>
-            <View style={[styles.slide, styles.slide3]}>
-              <Text style={styles.text}>
-                slide n°3
-              </Text>
-            </View>
-          </SwipeableViews>
-        </Demo>
-        <Demo
-          name="Demo 5"
-          description="Add a resistance bounds effet on the edges."
-        >
-          <SwipeableViews resistance={true}>
-            <View style={[styles.slide, styles.slide1]}>
-              <Text style={styles.text}>
-                slide n°1
-              </Text>
-            </View>
-            <View style={[styles.slide, styles.slide2]}>
-              <Text style={styles.text}>
-                slide n°2
-              </Text>
-            </View>
-            <View style={[styles.slide, styles.slide3]}>
-              <Text style={styles.text}>
-                slide n°3
-              </Text>
-            </View>
-          </SwipeableViews>
-        </Demo>
-      </View>
+        <Body>
+          <Demo
+            name="Demo 1"
+            description="Simple case without header."
+          >
+            <SwipeableViews>
+              <View style={[styles.slide, styles.slide1]}>
+                <Text style={styles.text}>
+                  slide n°1
+                </Text>
+              </View>
+              <View style={[styles.slide, styles.slide2]}>
+                <Text style={styles.text}>
+                  slide n°2
+                </Text>
+              </View>
+              <View style={[styles.slide, styles.slide3]}>
+                <Text style={styles.text}>
+                  slide n°3
+                </Text>
+              </View>
+            </SwipeableViews>
+          </Demo>
+          <Demo
+            name="Demo 5"
+            description="Add a resistance bounds effet on the edges."
+          >
+            <SwipeableViews resistance={true}>
+              <View style={[styles.slide, styles.slide1]}>
+                <Text style={styles.text}>
+                  slide n°1
+                </Text>
+              </View>
+              <View style={[styles.slide, styles.slide2]}>
+                <Text style={styles.text}>
+                  slide n°2
+                </Text>
+              </View>
+              <View style={[styles.slide, styles.slide3]}>
+                <Text style={styles.text}>
+                  slide n°3
+                </Text>
+              </View>
+            </SwipeableViews>
+          </Demo>
+        </Body>
+      </ScrollView>
     );
   }
 }

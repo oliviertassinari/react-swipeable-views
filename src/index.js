@@ -213,19 +213,21 @@ class SwipeableViews extends React.Component {
       indexNew = indexMax;
     }
 
+    const indexLatest = this.state.indexLatest;
+
     this.setState({
       indexCurrent: indexNew,
       indexLatest: indexNew,
       isDragging: false,
+    }, () => {
+      if (this.props.onSwitching) {
+        this.props.onSwitching(indexNew);
+      }
+
+      if (this.props.onChangeIndex && indexNew !== indexLatest) {
+        this.props.onChangeIndex(indexNew, indexLatest);
+      }
     });
-
-    if (this.props.onSwitching) {
-      this.props.onSwitching(indexNew);
-    }
-
-    if (this.props.onChangeIndex && indexNew !== this.startIndex) {
-      this.props.onChangeIndex(indexNew, this.startIndex);
-    }
   };
 
   updateHeight(node, index) {

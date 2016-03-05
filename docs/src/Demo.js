@@ -4,7 +4,16 @@ const supportsTouch = 'ontouchstart' in window;
 
 const styles = {
   name: {
-    marginTop: 20,
+    marginTop: 16,
+    marginBottom: 16,
+    color: '#159957',
+    fontSize: 19,
+    fontWeight: 'normal',
+  },
+  description: {
+    color: '#606c71',
+    fontSize: 16,
+    marginBottom: 16,
   },
 };
 
@@ -20,7 +29,7 @@ const Demo = (props) => {
       <h3 style={styles.name}>
         {name}
       </h3>
-      <p>
+      <p style={styles.description}>
         {description}
         {!supportsTouch &&
           <span className="pl-id">

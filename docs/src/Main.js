@@ -4,6 +4,7 @@ import Tab from 'material-ui/lib/tabs/tab';
 
 import SwipeableViews from '../../src/index';
 import Head from './Head';
+import Body from './Body';
 import Demo from './Demo';
 
 const styles = {
@@ -71,7 +72,7 @@ class Main extends React.Component {
             View on GitHub
           </a>
         </Head>
-        <section className="main-content">
+        <Body>
           <Demo
             name="Demo 1"
             description="Simple case without header."
@@ -202,7 +203,7 @@ class Main extends React.Component {
               <a href="https://twitter.com/jasonlong">Jason Long</a>.
             </span>
           </footer>
-        </section>
+        </Body>
       </div>
     );
   }

@@ -7,7 +7,7 @@ import React, {
 const styles = StyleSheet.create({
   root: {
     backgroundColor: '#155799',
-    paddingTop: 45,
+    paddingTop: 50,
     paddingBottom: 35,
   },
   name: {
