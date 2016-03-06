@@ -2,7 +2,7 @@
 set -e # exit with nonzero exit code if anything fails
 
 # run our compile script
-npm run docs:production
+npm run docs:browser:production
 
 # go to the out directory and create a *new* Git repo
 cd docs/dist
