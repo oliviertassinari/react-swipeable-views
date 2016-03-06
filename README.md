@@ -71,10 +71,12 @@ import React, {
 } from 'react-native';
 import Button from 'react-native-button';
 
-import SwipeableViews from 'react-swipeable-views/lib/index.native';
+import SwipeableViews from 'react-swipeable-views/lib/index.native.animated';
+// There is another version. I'm unsure which one give the best UX.
+// import SwipeableViews from 'react-swipeable-views/lib/index.native.scroll';
 
 const MyComponent = () => (
-  <SwipeableViews>
+  <SwipeableViews style={slideContainer}>
     <View style={[styles.slide, styles.slide1]}>
       <Text style={styles.text}>
         slide n°1
@@ -94,6 +96,9 @@ const MyComponent = () => (
 );
 
 const styles = StyleSheet.create({
+  slideContainer: {
+    height: 100,
+  },
   slide: {
     padding: 15,
     height: 100,

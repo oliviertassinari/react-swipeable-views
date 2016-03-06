@@ -1,3 +1,9 @@
+/**
+ * This is an alternative version that use `ScrollView` and `ViewPagerAndroid`.
+ * I'm not sure what version give the best UX experience.
+ * I'm keeping the two versions here until we figured out.
+ */
+
 import React, {
   StyleSheet,
   View,
@@ -9,16 +15,18 @@ import React, {
 
 const {
   width: windowWidth,
-  height: windowHeight,
 } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   root: {
+    flex: 1,
+    overflow: 'hidden',
   },
   container: {
     flex: 1,
   },
   slide: {
+    flex: 1,
   },
 });
 
@@ -33,7 +41,13 @@ class SwipeableViews extends React.Component {
      * This is the inlined style that will be applied
      * to each slide container.
      */
-    containerStyle: React.PropTypes.object,
+    containerStyle: ScrollView.propTypes.style,
+
+    /**
+     * If true, it will disable touch events.
+     * This is useful when you want to prohibit the user from changing slides.
+     */
+    disabled: React.PropTypes.bool,
 
     /**
      * This is the index of the slide to show.
@@ -65,7 +79,7 @@ class SwipeableViews extends React.Component {
      * This is the inlined style that will be applied
      * on the slide component.
      */
-    slideStyle: React.PropTypes.object,
+    slideStyle: View.propTypes.style,
 
     /**
      * This is the inlined style that will be applied
@@ -77,6 +91,7 @@ class SwipeableViews extends React.Component {
   static defaultProps = {
     index: 0,
     resistance: false,
+    disabled: false,
   };
 
   constructor(props, context) {
@@ -85,21 +100,29 @@ class SwipeableViews extends React.Component {
     this.state = this.initState(this.props);
   }
 
-  componentWillReceiveProps(props) {
-    this.setState(this.initState(props));
+  componentWillReceiveProps(nextProps) {
+    const {
+      index,
+    } = nextProps;
+
+    if (typeof index === 'number' && index !== this.props.index) {
+      this.setState({
+        indexLatest: index,
+      }, () => {
+      });
+    }
   }
 
   initState(props) {
     const initState = {
       indexLatest: props.index,
-      width: props.width || windowWidth,
-      height: props.height || windowHeight,
+      viewWidth: windowWidth,
     };
 
     //android not use offset
     if (Platform.OS === 'ios') {
       initState.offset = {
-        x: initState.width * initState.indexLatest,
+        x: initState.viewWidth * initState.indexLatest,
       };
     }
 
@@ -108,14 +131,14 @@ class SwipeableViews extends React.Component {
 
   handleScroll = (event) => {
     if (this.props.onSwitching) {
-      this.props.onSwitching(event.nativeEvent.contentOffset.x / this.state.width);
+      this.props.onSwitching(event.nativeEvent.contentOffset.x / this.state.viewWidth);
     }
   };
 
   handleMomentumScrollEnd = (event) => {
     const offset = event.nativeEvent.contentOffset;
 
-    const indexNew = offset.x / this.state.width;
+    const indexNew = offset.x / this.state.viewWidth;
     const indexLatest = this.state.indexLatest;
 
     this.setState({
@@ -147,6 +170,18 @@ class SwipeableViews extends React.Component {
     }
   };
 
+  handleLayout = (event) => {
+    const {
+      width,
+    } = event.nativeEvent.layout;
+
+    if (width) {
+      this.setState({
+        viewWidth: width,
+      });
+    }
+  };
+
   render() {
     const {
       resistance,
@@ -154,25 +189,29 @@ class SwipeableViews extends React.Component {
       slideStyle,
       style,
       containerStyle,
+      disabled,
       ...other,
     } = this.props;
 
     const {
-      width,
-      height,
+      viewWidth,
       indexLatest,
       offset,
     } = this.state;
 
     const slideStyleObj = [
-      {
-        width: width,
-      },
       styles.slide,
+      {
+        width: viewWidth,
+      },
       slideStyle,
     ];
 
-    const childrenToRender = React.Children.map(children, (element) => {
+    const childrenToRender = React.Children.map(children, (element, index) => {
+      if (disabled && indexLatest !== index) {
+        return null;
+      }
+
       return (
         <View style={slideStyleObj}>
           {element}
@@ -182,12 +221,9 @@ class SwipeableViews extends React.Component {
 
     return (
       <View
+        onLayout={this.handleLayout}
         style={[
           styles.root,
-          {
-            width: width,
-            height: height / 4,
-          },
           style,
         ]}
       >

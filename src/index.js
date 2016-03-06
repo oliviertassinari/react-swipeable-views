@@ -24,7 +24,7 @@ class SwipeableViews extends React.Component {
     /**
      * Use this property to provide your slides.
      */
-    children: React.PropTypes.node,
+    children: React.PropTypes.node.isRequired,
 
     /**
      * This is the inlined style that will be applied
@@ -90,8 +90,8 @@ class SwipeableViews extends React.Component {
     disabled: false,
   };
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.state = {
       indexCurrent: props.index,
@@ -125,10 +125,10 @@ class SwipeableViews extends React.Component {
     const touch = event.touches[0];
 
     this.startWidth = ReactDOM.findDOMNode(this).getBoundingClientRect().width;
-    this.startIndex = this.state.indexCurrent;
+    this.indexStart = this.state.indexCurrent;
     this.startX = touch.pageX;
     this.lastX = touch.pageX;
-    this.deltaX = 0;
+    this.vx = 0;
     this.startY = touch.pageY;
     this.isScrolling = undefined;
   };
@@ -149,14 +149,15 @@ class SwipeableViews extends React.Component {
     // Prevent native scrolling
     event.preventDefault();
 
-    this.deltaX = this.deltaX * 0.5 + (touch.pageX - this.lastX) * 0.5;
+    this.vx = this.vx * 0.5 + (touch.pageX - this.lastX) * 0.5;
     this.lastX = touch.pageX;
 
     const indexMax = React.Children.count(this.props.children) - 1;
 
-    let index = this.startIndex + (this.startX - touch.pageX) / this.startWidth;
+    let index = this.indexStart + (this.startX - touch.pageX) / this.startWidth;
 
     if (!this.props.resistance) {
+      // Reset the starting point
       if (index < 0) {
         index = 0;
         this.startX = touch.pageX;
@@ -172,13 +173,13 @@ class SwipeableViews extends React.Component {
       }
     }
 
-    if (this.props.onSwitching) {
-      this.props.onSwitching(index);
-    }
-
     this.setState({
       isDragging: true,
       indexCurrent: index,
+    }, () => {
+      if (this.props.onSwitching) {
+        this.props.onSwitching(index);
+      }
     });
   };
 
@@ -190,18 +191,18 @@ class SwipeableViews extends React.Component {
     let indexNew;
 
     // Quick movement
-    if (Math.abs(this.deltaX) > this.props.threshold) {
-      if (this.deltaX > 0) {
+    if (Math.abs(this.vx) > this.props.threshold) {
+      if (this.vx > 0) {
         indexNew = Math.floor(this.state.indexCurrent);
       } else {
         indexNew = Math.ceil(this.state.indexCurrent);
       }
     } else {
-      // Some hysteresis with startIndex
-      if (Math.abs(this.startIndex - this.state.indexCurrent) > 0.6) {
+      // Some hysteresis with indexStart
+      if (Math.abs(this.indexStart - this.state.indexCurrent) > 0.6) {
         indexNew = Math.round(this.state.indexCurrent);
       } else {
-        indexNew = this.startIndex;
+        indexNew = this.indexStart;
       }
     }
 
@@ -318,7 +319,7 @@ class SwipeableViews extends React.Component {
 
     const slideStyleObj = Object.assign({}, styles.slide, slideStyle);
 
-    const childrenToRender = React.Children.map(children, (element, index2) => {
+    const childrenToRender = React.Children.map(children, (child, index2) => {
       if (isFirstRender && index2 > 0) {
         return null;
       }
@@ -331,7 +332,7 @@ class SwipeableViews extends React.Component {
 
       return (
         <div ref={ref} style={slideStyleObj}>
-          {element}
+          {child}
         </div>
       );
     });
