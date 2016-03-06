@@ -7,6 +7,16 @@ import Head from './Head';
 import Body from './Body';
 import Demo from './Demo';
 
+const list = [];
+
+for (let i = 0; i < 30; i++) {
+  list.push(
+    <div key={i}>
+      {`item n°${i + 1}`}
+    </div>
+  );
+}
+
 const styles = {
   slideContainer: {
     height: 100,
@@ -51,16 +61,6 @@ class Main extends React.Component {
     const {
       index,
     } = this.state;
-
-    const list = [];
-
-    for (let i = 0; i < 30; i++) {
-      list.push(
-        <div key={i}>
-          {`item n°${i + 1}`}
-        </div>
-      );
-    }
 
     return (
       <div>
@@ -170,7 +170,7 @@ class Main extends React.Component {
               <div style={Object.assign({}, styles.slide, styles.slide1)}>
                 slide n°1
                 <div style={styles.divider} />
-                <SwipeableViews containerStyle={styles.slideContainer}>
+                <SwipeableViews containerStyle={styles.slideContainer} resistance={true}>
                   <div style={Object.assign({}, styles.slide, styles.slide2)}>
                     nested slide n°1
                   </div>

@@ -21,6 +21,8 @@ npm install react-swipeable-views
 ## Usage
 ![alt tag](docs/usage.gif)
 
+### Browser
+
 ```js
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
@@ -55,6 +57,61 @@ const styles = {
     background: '#6AC0FF',
   },
 };
+
+export default MyComponent;
+```
+
+### Native
+
+```js
+import React, {
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import Button from 'react-native-button';
+
+import SwipeableViews from 'react-swipeable-views/lib/index.native';
+
+const MyComponent = () => (
+  <SwipeableViews>
+    <View style={[styles.slide, styles.slide1]}>
+      <Text style={styles.text}>
+        slide n°1
+      </Text>
+    </View>
+    <View style={[styles.slide, styles.slide2]}>
+      <Text style={styles.text}>
+        slide n°2
+      </Text>
+    </View>
+    <View style={[styles.slide, styles.slide3]}>
+      <Text style={styles.text}>
+        slide n°3
+      </Text>
+    </View>
+  </SwipeableViews>
+);
+
+const styles = StyleSheet.create({
+  slide: {
+    padding: 15,
+    height: 100,
+  },
+  slide1: {
+    backgroundColor: '#FEA900',
+  },
+  slide2: {
+    backgroundColor: '#B3DC4A',
+  },
+  slide3: {
+    backgroundColor: '#6AC0FF',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 16,
+  },
+});
 
 export default MyComponent;
 ```

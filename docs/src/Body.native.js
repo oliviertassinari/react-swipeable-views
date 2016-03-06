@@ -5,7 +5,7 @@ import React, {
 
 const styles = StyleSheet.create({
   root: {
-    // padding: 20,
+    padding: 20,
   },
 });
 
