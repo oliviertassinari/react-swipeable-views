@@ -1,7 +1,5 @@
 import React, {
-  StyleSheet,
-  StatusBar,
-  ScrollView,
+  View,
 } from 'react-native';
 
 import Head from './Head.native';
@@ -14,19 +12,8 @@ import Demo4 from './Demo/Demo4.native';
 import Demo5 from './Demo/Demo5.native';
 import Demo6 from './Demo/Demo6.native';
 
-const styles = StyleSheet.create({
-  root: {
-    backgroundColor: '#fff',
-  },
-});
-
 const Main = () => (
-  <ScrollView style={styles.root}>
-    <StatusBar
-      backgroundColor="#0F3D6C"
-      translucent={true}
-      barStyle="light-content"
-    />
+  <View>
     <Head
       name="React swipeable views"
       description="A React component for swipeable views"
@@ -69,7 +56,7 @@ const Main = () => (
         <Demo6 />
       </Demo>
     </Body>
-  </ScrollView>
+  </View>
 );
 
 export default Main;
