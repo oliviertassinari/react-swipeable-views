@@ -2,7 +2,7 @@ import React from 'react';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
 
-import SwipeableViews from '../../src/index';
+import SwipeableViews from '../../../src/index';
 
 class Demo2 extends React.Component {
   static propTypes = {

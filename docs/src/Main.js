@@ -1,10 +1,14 @@
 import React from 'react';
 
-import SwipeableViews from '../../src/index';
 import Head from './Head';
 import Body from './Body';
-import Demo from './Demo';
-import Demo2 from './Demo2';
+import Demo from './Demo/Demo';
+import Demo1 from './Demo/Demo1';
+import Demo2 from './Demo/Demo2';
+import Demo3 from './Demo/Demo3';
+import Demo4 from './Demo/Demo4';
+import Demo5 from './Demo/Demo5';
+import Demo6 from './Demo/Demo6';
 
 const list = [];
 
@@ -54,17 +58,7 @@ const Main = () => (
         name="Demo 1"
         description="Simple case without header."
       >
-        <SwipeableViews containerStyle={styles.slideContainer}>
-          <div style={Object.assign({}, styles.slide, styles.slide1)}>
-            slide n°1
-          </div>
-          <div style={Object.assign({}, styles.slide, styles.slide2)}>
-            slide n°2
-          </div>
-          <div style={Object.assign({}, styles.slide, styles.slide3)}>
-            slide n°3
-          </div>
-        </SwipeableViews>
+        <Demo1 styles={styles} />
       </Demo>
       <Demo
         name="Demo 2"
@@ -76,71 +70,25 @@ const Main = () => (
         name="Demo 3"
         description="Set a constant height and let the swipe and scroll behavior work in harmony."
       >
-        <SwipeableViews containerStyle={styles.slideContainer}>
-          <div style={Object.assign({}, styles.slide, styles.slide1)}>
-            {list}
-          </div>
-          <div style={Object.assign({}, styles.slide, styles.slide2)}>
-            slide n°2
-          </div>
-          <div style={Object.assign({}, styles.slide, styles.slide3)}>
-            slide n°3
-          </div>
-        </SwipeableViews>
+        <Demo3 styles={styles} list={list} />
       </Demo>
       <Demo
         name="Demo 4"
         description="Or let the container respond dynamically to its children."
       >
-        <SwipeableViews>
-          <div style={Object.assign({}, styles.slide, styles.slide1)}>
-            {list.slice(0, 10)}
-          </div>
-          <div style={Object.assign({}, styles.slide, styles.slide2)}>
-            {list.slice(0, 7)}
-          </div>
-          <div style={Object.assign({}, styles.slide, styles.slide3)}>
-            {list.slice(0, 3)}
-          </div>
-        </SwipeableViews>
+        <Demo4 styles={styles} list={list} />
       </Demo>
       <Demo
         name="Demo 5"
         description="Add a resistance bounds effet on the edges."
       >
-        <SwipeableViews containerStyle={styles.slideContainer} resistance={true}>
-          <div style={Object.assign({}, styles.slide, styles.slide1)}>
-            slide n°1
-          </div>
-          <div style={Object.assign({}, styles.slide, styles.slide2)}>
-            slide n°2
-          </div>
-          <div style={Object.assign({}, styles.slide, styles.slide3)}>
-            slide n°3
-          </div>
-        </SwipeableViews>
+        <Demo5 styles={styles} />
       </Demo>
       <Demo
         name="Demo 6"
         description="You can also nest this component."
       >
-        <SwipeableViews containerStyle={{}}>
-          <div style={Object.assign({}, styles.slide, styles.slide1)}>
-            slide n°1
-            <div style={styles.divider} />
-            <SwipeableViews containerStyle={styles.slideContainer} resistance={true}>
-              <div style={Object.assign({}, styles.slide, styles.slide2)}>
-                nested slide n°1
-              </div>
-              <div style={Object.assign({}, styles.slide, styles.slide3)}>
-                nested slide n°2
-              </div>
-            </SwipeableViews>
-          </div>
-          <div style={Object.assign({}, styles.slide, styles.slide2)}>
-            slide n°2
-          </div>
-        </SwipeableViews>
+        <Demo6 styles={styles} />
       </Demo>
       <footer className="site-footer">
         <span className="site-footer-owner">

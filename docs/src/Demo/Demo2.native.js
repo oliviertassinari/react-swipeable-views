@@ -5,7 +5,7 @@ import React, {
 } from 'react-native';
 import Button from 'react-native-button';
 
-import SwipeableViews from '../../src/index.native.animated';
+import SwipeableViews from '../../../src/index.native.animated';
 
 class Demo2 extends Component {
   static propTypes = {
