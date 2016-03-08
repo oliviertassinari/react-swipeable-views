@@ -1,28 +1,38 @@
 import React from 'react';
 import SwipeableViews from '../../../src/index';
 
-const Demo1 = (props) => {
-  const {
-    styles,
-  } = props;
-
-  return (
-    <SwipeableViews containerStyle={styles.slideContainer}>
-      <div style={Object.assign({}, styles.slide, styles.slide1)}>
-        slide n°1
-      </div>
-      <div style={Object.assign({}, styles.slide, styles.slide2)}>
-        slide n°2
-      </div>
-      <div style={Object.assign({}, styles.slide, styles.slide3)}>
-        slide n°3
-      </div>
-    </SwipeableViews>
-  );
+const styles = {
+  slideContainer: {
+    height: 100,
+  },
+  slide: {
+    padding: 15,
+    minHeight: 100,
+    color: '#fff',
+  },
+  slide1: {
+    backgroundColor: '#FEA900',
+  },
+  slide2: {
+    backgroundColor: '#B3DC4A',
+  },
+  slide3: {
+    backgroundColor: '#6AC0FF',
+  },
 };
 
-Demo1.propTypes = {
-  styles: React.PropTypes.object.isRequired,
-};
+const Demo1 = () => (
+  <SwipeableViews containerStyle={styles.slideContainer}>
+    <div style={Object.assign({}, styles.slide, styles.slide1)}>
+      slide n°1
+    </div>
+    <div style={Object.assign({}, styles.slide, styles.slide2)}>
+      slide n°2
+    </div>
+    <div style={Object.assign({}, styles.slide, styles.slide3)}>
+      slide n°3
+    </div>
+  </SwipeableViews>
+);
 
 export default Demo1;

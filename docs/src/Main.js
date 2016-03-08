@@ -10,39 +10,6 @@ import Demo4 from './Demo/Demo4';
 import Demo5 from './Demo/Demo5';
 import Demo6 from './Demo/Demo6';
 
-const list = [];
-
-for (let i = 0; i < 30; i++) {
-  list.push(
-    <div key={i}>
-      {`item n°${i + 1}`}
-    </div>
-  );
-}
-
-const styles = {
-  slideContainer: {
-    height: 100,
-  },
-  slide: {
-    padding: 15,
-    minHeight: 100,
-    color: '#fff',
-  },
-  slide1: {
-    backgroundColor: '#FEA900',
-  },
-  slide2: {
-    backgroundColor: '#B3DC4A',
-  },
-  slide3: {
-    backgroundColor: '#6AC0FF',
-  },
-  divider: {
-    height: 50,
-  },
-};
-
 const Main = () => (
   <div>
     <Head
@@ -58,37 +25,37 @@ const Main = () => (
         name="Demo 1"
         description="Simple case without header."
       >
-        <Demo1 styles={styles} />
+        <Demo1 />
       </Demo>
       <Demo
         name="Demo 2"
         description="Now, let's add a header."
       >
-        <Demo2 styles={styles} />
+        <Demo2 />
       </Demo>
       <Demo
         name="Demo 3"
         description="Set a constant height and let the swipe and scroll behavior work in harmony."
       >
-        <Demo3 styles={styles} list={list} />
+        <Demo3 />
       </Demo>
       <Demo
         name="Demo 4"
         description="Or let the container respond dynamically to its children."
       >
-        <Demo4 styles={styles} list={list} />
+        <Demo4 />
       </Demo>
       <Demo
         name="Demo 5"
         description="Add a resistance bounds effet on the edges."
       >
-        <Demo5 styles={styles} />
+        <Demo5 />
       </Demo>
       <Demo
         name="Demo 6"
         description="You can also nest this component."
       >
-        <Demo6 styles={styles} />
+        <Demo6 />
       </Demo>
       <footer className="site-footer">
         <span className="site-footer-owner">

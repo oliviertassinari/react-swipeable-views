@@ -1,12 +1,34 @@
 import React from 'react';
 import SwipeableViews from '../../../src/index';
 
-const Demo4 = (props) => {
-  const {
-    list,
-    styles,
-  } = props;
+const styles = {
+  slide: {
+    padding: 15,
+    minHeight: 100,
+    color: '#fff',
+  },
+  slide1: {
+    backgroundColor: '#FEA900',
+  },
+  slide2: {
+    backgroundColor: '#B3DC4A',
+  },
+  slide3: {
+    backgroundColor: '#6AC0FF',
+  },
+};
 
+const list = [];
+
+for (let i = 0; i < 30; i++) {
+  list.push(
+    <div key={i}>
+      {`item n°${i + 1}`}
+    </div>
+  );
+}
+
+const Demo4 = () => {
   return (
     <SwipeableViews>
       <div style={Object.assign({}, styles.slide, styles.slide1)}>
@@ -20,11 +42,6 @@ const Demo4 = (props) => {
       </div>
     </SwipeableViews>
   );
-};
-
-Demo4.propTypes = {
-  list: React.PropTypes.array.isRequired,
-  styles: React.PropTypes.object.isRequired,
 };
 
 export default Demo4;

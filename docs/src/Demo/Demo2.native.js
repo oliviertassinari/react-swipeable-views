@@ -2,16 +2,35 @@ import React, {
   Component,
   Text,
   View,
+  StyleSheet,
 } from 'react-native';
 import Button from 'react-native-button';
-
 import SwipeableViews from '../../../src/index.native.animated';
 
-class Demo2 extends Component {
-  static propTypes = {
-    styles: React.PropTypes.object,
-  };
+const styles = StyleSheet.create({
+  slideContainer: {
+    height: 100,
+  },
+  slide: {
+    padding: 15,
+    height: 100,
+  },
+  slide1: {
+    backgroundColor: '#FEA900',
+  },
+  slide2: {
+    backgroundColor: '#B3DC4A',
+  },
+  slide3: {
+    backgroundColor: '#6AC0FF',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 16,
+  },
+});
 
+class Demo2 extends Component {
   state = {
     index: 0,
   };
@@ -32,10 +51,6 @@ class Demo2 extends Component {
     const {
       index,
     } = this.state;
-
-    const {
-      styles,
-    } = this.props;
 
     return (
       <View>

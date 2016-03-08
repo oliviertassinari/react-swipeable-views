@@ -1,14 +1,30 @@
 import React from 'react';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
-
 import SwipeableViews from '../../../src/index';
 
-class Demo2 extends React.Component {
-  static propTypes = {
-    styles: React.PropTypes.object,
-  };
+const styles = {
+  slideContainer: {
+    height: 100,
+  },
+  slide: {
+    padding: 15,
+    minHeight: 100,
+    color: '#fff',
+  },
+  slide1: {
+    backgroundColor: '#FEA900',
+  },
+  slide2: {
+    backgroundColor: '#B3DC4A',
+  },
+  slide3: {
+    backgroundColor: '#6AC0FF',
+  },
+};
 
+
+class Demo2 extends React.Component {
   state = {
     index: 0,
   };
@@ -29,10 +45,6 @@ class Demo2 extends React.Component {
     const {
       index,
     } = this.state;
-
-    const {
-      styles,
-    } = this.props;
 
     return (
       <div>
