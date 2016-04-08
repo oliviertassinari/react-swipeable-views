@@ -267,16 +267,18 @@ class SwipeableViews extends React.Component {
 
   render() {
     const {
-      children,
-      containerStyle,
-      slideStyle,
-      disabled,
+      /* eslint-disable no-unused-vars */
       index,
       onChangeIndex,
       onSwitching,
       resistance,
-      style,
       threshold,
+      /* eslint-enable no-unused-vars */
+      children,
+      containerStyle,
+      slideStyle,
+      disabled,
+      style,
       ...other,
     } = this.props;
 
