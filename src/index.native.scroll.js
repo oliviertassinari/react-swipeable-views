@@ -110,7 +110,7 @@ class SwipeableViews extends React.Component {
         indexLatest: index,
         offset: {
           x: this.state.viewWidth * index,
-        }
+        },
       }, () => {
       });
     }
