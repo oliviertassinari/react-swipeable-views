@@ -119,7 +119,7 @@ class SwipeableViews extends React.Component {
       viewWidth: windowWidth,
     };
 
-    //android not use offset
+    // android not use offset
     if (Platform.OS === 'ios') {
       initState.offset = {
         x: initState.viewWidth * initState.indexLatest,

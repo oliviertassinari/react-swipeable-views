@@ -103,9 +103,11 @@ class SwipeableViews extends React.Component {
   }
 
   componentDidMount() {
+    /* eslint-disable react/no-did-mount-set-state */
     this.setState({
       isFirstRender: false,
     });
+    /* eslint-enable react/no-did-mount-set-state */
   }
 
   componentWillReceiveProps(nextProps) {
