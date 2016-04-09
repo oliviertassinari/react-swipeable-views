@@ -19,26 +19,6 @@ module.exports = function(grunt) {
       ],
     },
 
-    /**
-     * `eslint` defines the rules of our linter as well as which files we
-     * should check. This file, all javascript sources, and all our unit tests
-     * are linted based on the policies listed in `options`.
-     */
-    eslint: {
-      options: {
-        fix: true,
-      },
-      src: {
-        src: [
-          'src/**/*.js',
-          'src/**/*.jsx',
-        ],
-      },
-      build: {
-        src: ['Gruntfile.js', 'webpack.config.js'],
-      },
-    },
-
     connect: {
       server: {
         options: {
@@ -83,12 +63,10 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('build', [
-    'eslint',
     'webpack-dev-server:server',
   ]);
 
   grunt.registerTask('dist', [
-    'eslint',
     'clean:dist',
     'webpack:dist',
   ]);

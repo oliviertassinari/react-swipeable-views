@@ -4,7 +4,7 @@
   "description": "A React component for swipeable views",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint --ext .js .",
+    "lint": "eslint .",
     "test": "npm run lint",
     "build": "rm -rf lib && mkdir lib && NODE_ENV=release babel src --out-dir lib",
     "docs:browser:development": "cd docs && NODE_ENV=docs-browser-development grunt build",
@@ -62,7 +62,6 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^1.0.0",
-    "grunt-eslint": "^18.0.0",
     "grunt-webpack": "^1.0.11",
     "html-webpack-plugin": "^2.7.2",
     "ip": "^1.0.1",
