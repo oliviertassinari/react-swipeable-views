@@ -108,6 +108,9 @@ class SwipeableViews extends React.Component {
     if (typeof index === 'number' && index !== this.props.index) {
       this.setState({
         indexLatest: index,
+        offset: {
+          x: this.state.viewWidth * index,
+        },
       }, () => {
       });
     }
