@@ -36,8 +36,7 @@ module.exports = function(options) {
         },
       }),
     ],
-    module: {
-    },
+    module: {},
     devtool: (options.config.environment === 'development') ? 'eval' : null,
   };
 
