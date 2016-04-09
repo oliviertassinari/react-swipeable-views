@@ -10,27 +10,6 @@ module.exports = function(grunt) {
   });
 
   grunt.initConfig({
-    /**
-     * The directories to delete.
-     */
-    clean: {
-      dist: [
-        'dist',
-      ],
-    },
-
-    connect: {
-      server: {
-        options: {
-          base: 'dist',
-          port: 8001,
-          open: true,
-          hostname: '*',
-          keepalive: true,
-        },
-      },
-    },
-
     'webpack-dev-server': {
       options: {
         webpack: webpackConfig({
@@ -67,11 +46,6 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('dist', [
-    'clean:dist',
     'webpack:dist',
-  ]);
-
-  grunt.registerTask('default', [
-    'dist',
   ]);
 };

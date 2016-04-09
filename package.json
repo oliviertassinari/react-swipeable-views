@@ -8,7 +8,7 @@
     "test": "npm run lint",
     "build": "rm -rf lib && mkdir lib && NODE_ENV=release babel src --out-dir lib",
     "docs:browser:development": "cd docs && NODE_ENV=docs-browser-development grunt build",
-    "docs:browser:production": "cd docs && NODE_ENV=docs-browser-production grunt dist",
+    "docs:browser:production": "cd docs && rm -rf dist && NODE_ENV=docs-browser-production grunt dist",
     "docs:native:development": "NODE_ENV=docs-native-development ./node_modules/react-native/packager/packager.sh start --reset-cache",
     "prepublish": "npm run build"
   },
@@ -61,7 +61,6 @@
     "eslint-plugin-react": "^4.1.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "grunt": "^0.4.5",
-    "grunt-contrib-clean": "^1.0.0",
     "grunt-webpack": "^1.0.11",
     "html-webpack-plugin": "^2.7.2",
     "ip": "^1.0.1",
