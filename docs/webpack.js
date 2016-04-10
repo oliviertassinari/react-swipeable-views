@@ -11,6 +11,7 @@ const PORT_DEV_WEBPACK = 8001;
 
 if (argv.dev === true) {
   const compiler = webpack(webpackConfig({
+    port: PORT_DEV_WEBPACK,
     config: {
       environment: 'development',
       enableStats: false,
