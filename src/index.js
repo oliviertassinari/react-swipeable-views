@@ -7,7 +7,7 @@ const styles = {
     overflowX: 'hidden',
   },
   container: {
-    display: '-webkit-box; display: flex',
+    display: 'flex',
   },
   slide: {
     width: '100%',

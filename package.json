@@ -30,8 +30,8 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0",
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0",
     "react-motion": "^0.4.0"
   },
   "files": [
@@ -66,8 +66,8 @@
     "less-loader": "^2.2.1",
     "material-ui": "^0.14.0",
     "minimist": "^1.2.0",
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
     "react-motion": "^0.4.1",
     "react-native": "^0.23.1",
     "react-native-button": "^1.4.2",
