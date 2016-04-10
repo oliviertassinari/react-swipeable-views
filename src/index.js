@@ -321,9 +321,15 @@ class SwipeableViews extends React.Component {
       updateHeight = false;
     }
 
-    const slideStyleObj = Object.assign({}, styles.slide, slideStyle);
-
     const childrenToRender = React.Children.map(children, (child, index2) => {
+      const slideTransform = {
+        position: 'absolute',
+        top: 0,
+        overflow: 'hidden',
+        transform: `translateX(${index2 * 100}%)`,
+      };
+      const slideStyleObj = Object.assign({}, styles.slide, slideStyle, slideTransform);
+
       if (isFirstRender && index2 > 0) {
         return null;
       }
