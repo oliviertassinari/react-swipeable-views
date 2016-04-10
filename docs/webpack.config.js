@@ -1,13 +1,11 @@
-'use strict';
+import path from 'path';
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import StatsPlugin from 'stats-webpack-plugin';
+import UnusedFilesWebpackPlugin from 'unused-files-webpack-plugin';
 
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const StatsPlugin = require('stats-webpack-plugin');
-const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin').default;
-
-module.exports = function(options) {
+export default function(options) {
   const webpackConfig = {
     output: {
       path: path.join(__dirname, 'dist'), // No used by webpack dev server
@@ -122,4 +120,4 @@ module.exports = function(options) {
   }
 
   return webpackConfig;
-};
+}

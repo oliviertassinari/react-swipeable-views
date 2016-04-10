@@ -3,27 +3,33 @@ import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
 import webpackConfig from './webpack.config';
 import ProgressPlugin from 'webpack/lib/ProgressPlugin';
+import rimraf from 'rimraf';
 
 const argv = minimist(process.argv.slice(2));
 
+const PORT_DEV_WEBPACK = 8001;
+
 if (argv.dev === true) {
-  const config = webpackConfig({
+  const compiler = webpack(webpackConfig({
     config: {
       environment: 'development',
       enableStats: false,
       failOnUnusedFile: false,
     },
-  });
+  }));
 
-  const server = new WebpackDevServer(webpack(config), {
+  compiler.apply(new ProgressPlugin((percentage, msg) => {
+    console.log(`${Math.floor(percentage * 100)}%`, msg);
+  }));
+
+  const server = new WebpackDevServer(compiler, {
     // webpack-dev-server options
     hot: true,
-    historyApiFallback: false,
+    historyApiFallback: true,
 
     // webpack-dev-middleware options
     quiet: false,
     noInfo: false,
-    filename: 'bundle.js',
     watchOptions: {
       aggregateTimeout: 300,
       poll: 1000,
@@ -36,8 +42,10 @@ if (argv.dev === true) {
     },
   });
 
-  server.listen(8001, 'localhost', () => {});
+  server.listen(PORT_DEV_WEBPACK, undefined, () => {});
 } else {
+  rimraf.sync('dist');
+
   const compiler = webpack(webpackConfig({
     config: {
       environment: 'production',
@@ -45,9 +53,11 @@ if (argv.dev === true) {
       failOnUnusedFile: true,
     },
   }));
+
   compiler.apply(new ProgressPlugin((percentage, msg) => {
-    console.log(`${percentage * 100}%`, msg);
+    console.log(`${Math.floor(percentage * 100)}%`, msg);
   }));
+
   compiler.run((err, stats) => {
     if (err) {
       console.error(err);
