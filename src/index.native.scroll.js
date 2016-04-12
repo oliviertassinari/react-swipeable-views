@@ -105,7 +105,9 @@ class SwipeableViews extends React.Component {
       index,
     } = nextProps;
 
-    if (typeof index === 'number' && index !== this.props.index) {
+    // Sometimes the index can be the same, but the slide
+    // may have changed, so just always set it
+    if (typeof index === 'number') {
       this.setState({
         indexLatest: index,
         offset: {
