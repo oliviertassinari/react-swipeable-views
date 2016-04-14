@@ -133,9 +133,15 @@ class SwipeableViews extends React.Component {
     this.vx = 0;
     this.startY = touch.pageY;
     this.isScrolling = undefined;
+    this.started = true;
   };
 
   handleTouchMove = (event) => {
+    if (!this.started) {
+      this.handleTouchStart(event);
+      return;
+    }
+
     const touch = event.touches[0];
 
     // This is a one time test
@@ -186,6 +192,8 @@ class SwipeableViews extends React.Component {
   };
 
   handleTouchEnd = () => {
+    this.started = false;
+
     if (this.isScrolling) {
       return;
     }
