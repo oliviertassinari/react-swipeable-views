@@ -134,6 +134,8 @@ class SwipeableViews extends React.Component {
   };
 
   handleTouchMove = (event) => {
+    // The touch start event can be cancel.
+    // Makes sure we set a starting point.
     if (!this.started) {
       this.handleTouchStart(event);
       return;
@@ -189,6 +191,12 @@ class SwipeableViews extends React.Component {
   };
 
   handleTouchEnd = () => {
+    // The touch start event can be cancel.
+    // Makes sure that a starting point is set.
+    if (!this.started) {
+      return;
+    }
+
     this.started = false;
 
     if (this.isScrolling) {
