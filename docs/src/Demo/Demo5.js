@@ -1,5 +1,5 @@
 import React from 'react';
-import SwipeableViews from '../../../src/index';
+import SwipeableViews from 'react-swipeable-views';
 
 const styles = {
   slideContainer: {

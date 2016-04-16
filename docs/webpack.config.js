@@ -18,6 +18,9 @@ export default function(options) {
     resolve: {
       extensions: ['', '.js'],
       root: path.join(__dirname, 'src'),
+      alias: {
+        'react-swipeable-views': path.resolve(__dirname, '../src'),
+      },
     },
     plugins: [
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
