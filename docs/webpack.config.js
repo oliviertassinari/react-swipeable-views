@@ -1,13 +1,11 @@
-'use strict';
+import path from 'path';
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import StatsPlugin from 'stats-webpack-plugin';
+import UnusedFilesWebpackPlugin from 'unused-files-webpack-plugin';
 
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const StatsPlugin = require('stats-webpack-plugin');
-const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin').default;
-
-module.exports = function(options) {
+export default function(options) {
   const webpackConfig = {
     output: {
       path: path.join(__dirname, 'dist'), // No used by webpack dev server
@@ -20,6 +18,9 @@ module.exports = function(options) {
     resolve: {
       extensions: ['', '.js'],
       root: path.join(__dirname, 'src'),
+      alias: {
+        'react-swipeable-views': path.resolve(__dirname, '../src'),
+      },
     },
     plugins: [
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
@@ -36,8 +37,7 @@ module.exports = function(options) {
         },
       }),
     ],
-    module: {
-    },
+    module: {},
     devtool: (options.config.environment === 'development') ? 'eval' : null,
   };
 
@@ -53,7 +53,7 @@ module.exports = function(options) {
     const ip = require('ip');
 
     webpackConfig.entry = [
-      `webpack-dev-server/client?http://${ip.address()}:8000`, // WebpackDevServer
+      `webpack-dev-server/client?http://${ip.address()}:${options.port}`, // WebpackDevServer
       'webpack/hot/only-dev-server',
       './src/app.js',
     ];
@@ -123,4 +123,4 @@ module.exports = function(options) {
   }
 
   return webpackConfig;
-};
+}

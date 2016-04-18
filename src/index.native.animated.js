@@ -35,57 +35,54 @@ class SwipeableViews extends Component {
      * Use this property to provide your slides.
      */
     children: React.PropTypes.node.isRequired,
-
     /**
      * This is the inlined style that will be applied
      * to each slide container.
      */
     containerStyle: Animated.View.propTypes.style,
-
     /**
      * If true, it will disable touch events.
      * This is useful when you want to prohibit the user from changing slides.
      */
     disabled: React.PropTypes.bool,
-
     /**
      * This is the index of the slide to show.
      * This is useful when you want to change the default slide shown.
      * Or when you have tabs linked to each slide.
      */
     index: React.PropTypes.number,
-
     /**
      * This is callback prop. It's call by the
      * component when the shown slide change after a swipe made by the user.
      * This is useful when you have tabs linked to each slide.
+     *
+     * @param {integer} index This is the current index of the slide.
+     * @param {integer} fromIndex This is the oldest index of the slide.
      */
     onChangeIndex: React.PropTypes.func,
-
     /**
      * This is callback prop. It's called by the
      * component when the slide switching.
      * This is useful when you want to implement something corresponding to the current slide position.
+     *
+     * @param {integer} index This is the current index of the slide.
+     * @param {string} type Can be either `move` or `end`.
      */
     onSwitching: React.PropTypes.func,
-
     /**
      * If true, it will add bounds effect on the edges.
      */
     resistance: React.PropTypes.bool,
-
     /**
      * This is the inlined style that will be applied
      * on the slide component.
      */
     slideStyle: View.propTypes.style,
-
     /**
      * This is the inlined style that will be applied
      * on the root component.
      */
     style: View.propTypes.style,
-
     /**
      * This is the threshold used for detecting a quick swipe.
      * If the computed speed is above this value, the index change.
@@ -174,7 +171,7 @@ class SwipeableViews extends Component {
     this.state.indexCurrent.setValue(index);
 
     if (this.props.onSwitching) {
-      this.props.onSwitching(index);
+      this.props.onSwitching(index, 'move');
     }
   };
 
@@ -223,7 +220,7 @@ class SwipeableViews extends Component {
       }).start();
 
       if (this.props.onSwitching) {
-        this.props.onSwitching(indexNew);
+        this.props.onSwitching(indexNew, 'end');
       }
 
       if (this.props.onChangeIndex) {

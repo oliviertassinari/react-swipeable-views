@@ -43,6 +43,7 @@ rules:
   no-unused-vars: 2
   no-shadow: 2
   no-spaced-func: 2
+  no-multiple-empty-lines: 2
   no-multi-spaces: 2
   no-undef: 2
   no-empty-pattern: 2
@@ -58,6 +59,7 @@ rules:
   no-var: 2
   object-curly-spacing: [2, never]
   one-var: [2, never]
+  operator-linebreak: [2, "after"]
   padded-blocks: [2, never]
   prefer-arrow-callback: 2
   prefer-const: 2
@@ -69,6 +71,7 @@ rules:
   space-before-function-paren: [2, never]
   space-infix-ops: 2
   space-unary-ops: [2, { words: true, nonwords: false }]
+  spaced-comment: 2
   yoda: 2
 
   # Disabled
@@ -91,12 +94,14 @@ rules:
   react/jsx-indent: [2, 2]
   react/jsx-max-props-per-line: [2, {maximum: 3}]
   react/jsx-no-duplicate-props: 2
+  react/jsx-no-literals: 2
   react/jsx-no-undef: 2
   react/jsx-pascal-case: 2
   react/jsx-space-before-closing: 2
   react/jsx-uses-react: 2
   react/jsx-uses-vars: 2
   react/no-danger: 2
+  react/no-did-mount-set-state: 2
   react/no-did-update-set-state: 2
   react/no-direct-mutation-state: 2
   react/no-multi-comp: 2
@@ -115,7 +120,3 @@ rules:
   react/jsx-no-bind: 0
   react/jsx-sort-props: 0
   react/no-set-state: 0
-
-  # Overide
-  react/no-did-mount-set-state: 0
-  react/jsx-no-literals: 0

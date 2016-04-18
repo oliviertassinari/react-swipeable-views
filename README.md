@@ -137,22 +137,35 @@ the same component can be used independently on where it's running.
 ### Android
 ![alt tag](docs/platformAndroid.gif)
 
-## Properties
+## API
+
+### `<SwipeableViews />`
 
 | Name | Type | Default | Description |
 |:-----|:-----|:--------|:------------|
 | children | node |  | Use this property to provide your slides. |
 | containerStyle | object | {} | Whether or not the auto complete is animated as it is toggled. |
-| disabled | bool | false | If true, it will disable touch events. This is useful when you want to prohibit the user from changing slides. |
+| disabled | bool | false | If `true`, it will disable touch events. This is useful when you want to prohibit the user from changing slides. |
 | index | integer | 0 | This is the index of the slide to show. This is useful when you want to change the default slide shown. Or when you have tabs linked to each slide. |
-| onChangeIndex | Function(index, fromIndex) |  | This is callback prop. It's call by the component when the shown slide change after a swipe made by the user. This is useful when you have tabs linked to each slide. |
-| onSwitching | Function(index) |  | This is callback prop. It's called by the component when the slide switching. This is useful when you want to implement something corresponding to the current slide position. |
+| onChangeIndex | function(index, fromIndex) |  | This is callback prop. It's call by the component when the shown slide change after a swipe made by the user. This is useful when you have tabs linked to each slide. |
+| onSwitching | function(index, type) |  | This is callback prop. It's called by the component when the slide switching. This is useful when you want to implement something corresponding to the current slide position. |
 | resistance | bool | false | If true, it will add bounds effect on the edges. |
 | style | object | {} | This is the inlined style that will be applied on the root component. |
 | slideStyle | object | {} | This is the inlined style that will be applied on the slide component. |
 | threshold | integer | 5 | This is the threshold used for detectinga quick swipe. If the computed speed is above this value, the index change. |
 
 Any other properties like `className` will be applied to the root component.
+
+### `autoPlay`
+
+Extends the properties of `<SwipeableViews />` and add the following ones:
+
+| Name | Type | Default | Description |
+|:-----|:-----|:--------|:------------|
+| autoplay | bool | true | If `false`, the auto play behavior is disabled. |
+| direction | enum:<br>&nbsp;'incremental'<br>&nbsp;'decremental' | 'incremental' | This is the auto play direction. |
+| interval | integer | 3000 | Delay between auto play transitions (in ms). |
+
 
 ## License
 

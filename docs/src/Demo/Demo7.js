@@ -1,9 +1,14 @@
 import React from 'react';
-import Tabs from 'material-ui/lib/tabs/tabs';
-import Tab from 'material-ui/lib/tabs/tab';
 import SwipeableViews from 'react-swipeable-views';
+import autoPlay from '../../../src/autoPlay';
+import Pagination from '../pagination/Pagination';
+
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const styles = {
+  root: {
+    position: 'relative',
+  },
   slideContainer: {
     height: 100,
   },
@@ -23,16 +28,9 @@ const styles = {
   },
 };
 
-
-class Demo2 extends React.Component {
+class Demo7 extends React.Component {
   state = {
     index: 0,
-  };
-
-  handleChangeTabs = (value) => {
-    this.setState({
-      index: value,
-    });
   };
 
   handleChangeIndex = (index) => {
@@ -47,13 +45,8 @@ class Demo2 extends React.Component {
     } = this.state;
 
     return (
-      <div>
-        <Tabs value={index}>
-          <Tab label="tab n°1" value={0} onClick={this.handleChangeTabs.bind(null, 0)} />
-          <Tab label="tab n°2" value={1} onClick={this.handleChangeTabs.bind(null, 1)} />
-          <Tab label="tab n°3" value={2} onClick={this.handleChangeTabs.bind(null, 2)} />
-        </Tabs>
-        <SwipeableViews
+      <div style={styles.root}>
+        <AutoPlaySwipeableViews
           index={index}
           onChangeIndex={this.handleChangeIndex}
           containerStyle={styles.slideContainer}
@@ -67,10 +60,15 @@ class Demo2 extends React.Component {
           <div style={Object.assign({}, styles.slide, styles.slide3)}>
             slide n°3
           </div>
-        </SwipeableViews>
+        </AutoPlaySwipeableViews>
+        <Pagination
+          dots={3}
+          index={index}
+          onChangeIndex={this.handleChangeIndex}
+        />
       </div>
     );
   }
 }
 
-export default Demo2;
+export default Demo7;

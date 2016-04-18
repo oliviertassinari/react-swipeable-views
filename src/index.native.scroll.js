@@ -36,51 +36,49 @@ class SwipeableViews extends React.Component {
      * Use this property to provide your slides.
      */
     children: React.PropTypes.node,
-
     /**
      * This is the inlined style that will be applied
      * to each slide container.
      */
     containerStyle: ScrollView.propTypes.style,
-
     /**
      * If true, it will disable touch events.
      * This is useful when you want to prohibit the user from changing slides.
      */
     disabled: React.PropTypes.bool,
-
     /**
      * This is the index of the slide to show.
      * This is useful when you want to change the default slide shown.
      * Or when you have tabs linked to each slide.
      */
     index: React.PropTypes.number,
-
     /**
      * This is callback prop. It's call by the
      * component when the shown slide change after a swipe made by the user.
      * This is useful when you have tabs linked to each slide.
+     *
+     * @param {integer} index This is the current index of the slide.
+     * @param {integer} fromIndex This is the oldest index of the slide.
      */
     onChangeIndex: React.PropTypes.func,
-
     /**
      * This is callback prop. It's called by the
      * component when the slide switching.
      * This is useful when you want to implement something corresponding to the current slide position.
+     *
+     * @param {integer} index This is the current index of the slide.
+     * @param {string} type Can be either `move` or `end`.
      */
     onSwitching: React.PropTypes.func,
-
     /**
      * If true, it will add bounds effect on the edges.
      */
     resistance: React.PropTypes.bool,
-
     /**
      * This is the inlined style that will be applied
      * on the slide component.
      */
     slideStyle: View.propTypes.style,
-
     /**
      * This is the inlined style that will be applied
      * on the root component.
@@ -124,7 +122,7 @@ class SwipeableViews extends React.Component {
       viewWidth: windowWidth,
     };
 
-    //android not use offset
+    // android not use offset
     if (Platform.OS === 'ios') {
       initState.offset = {
         x: initState.viewWidth * initState.indexLatest,
@@ -136,7 +134,7 @@ class SwipeableViews extends React.Component {
 
   handleScroll = (event) => {
     if (this.props.onSwitching) {
-      this.props.onSwitching(event.nativeEvent.contentOffset.x / this.state.viewWidth);
+      this.props.onSwitching(event.nativeEvent.contentOffset.x / this.state.viewWidth, 'move');
     }
   };
 
@@ -150,6 +148,10 @@ class SwipeableViews extends React.Component {
       indexLatest: indexNew,
       offset: offset,
     }, () => {
+      if (this.props.onSwitching) {
+        this.props.onSwitching(indexNew, 'end');
+      }
+
       if (this.props.onChangeIndex && indexNew !== indexLatest) {
         this.props.onChangeIndex(indexNew, indexLatest);
       }
@@ -163,6 +165,10 @@ class SwipeableViews extends React.Component {
     this.setState({
       indexLatest: indexNew,
     }, () => {
+      if (this.props.onSwitching) {
+        this.props.onSwitching(indexNew, 'end');
+      }
+
       if (this.props.onChangeIndex) {
         this.props.onChangeIndex(indexNew, indexLatest);
       }
@@ -171,7 +177,7 @@ class SwipeableViews extends React.Component {
 
   handlePageScroll = (event) => {
     if (this.props.onSwitching) {
-      this.props.onSwitching(event.nativeEvent.offset + event.nativeEvent.position);
+      this.props.onSwitching(event.nativeEvent.offset + event.nativeEvent.position, 'move');
     }
   };
 

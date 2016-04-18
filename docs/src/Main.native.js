@@ -4,13 +4,15 @@ import React, {
 
 import Head from './Head.native';
 import Body from './Body.native';
-import Demo from './Demo/Demo.native';
-import Demo1 from './Demo/Demo1.native';
-import Demo2 from './Demo/Demo2.native';
-import Demo3 from './Demo/Demo3.native';
-import Demo4 from './Demo/Demo4.native';
-import Demo5 from './Demo/Demo5.native';
-import Demo6 from './Demo/Demo6.native';
+import Demo from './demo/Demo.native';
+import Demo1 from './demo/Demo1.native';
+import Demo2 from './demo/Demo2.native';
+import Demo3 from './demo/Demo3.native';
+import Demo4 from './demo/Demo4.native';
+import Demo5 from './demo/Demo5.native';
+import Demo6 from './demo/Demo6.native';
+import Demo7 from './demo/Demo7.native';
+import Footer from './Footer.native';
 
 const Main = () => (
   <View>
@@ -55,6 +57,18 @@ const Main = () => (
       >
         <Demo6 />
       </Demo>
+      <Demo
+        name="Demo 7"
+        description="You can use the auto play HOC."
+      >
+        <Demo7 />
+      </Demo>
+      <Footer
+        maintainerName="oliviertassinari"
+        maintainerUrl="https://github.com/oliviertassinari"
+        repositoryName="react-swipeable-views"
+        repositoryUrl="https://github.com/oliviertassinari/react-swipeable-views"
+      />
     </Body>
   </View>
 );
