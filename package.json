@@ -30,8 +30,8 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0",
+    "react": "^15.0.0 || ^0.14.0",
+    "react-dom": "^15.0.0 || ^0.14.0",
     "react-motion": "^0.4.0"
   },
   "files": [
