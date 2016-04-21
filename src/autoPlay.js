@@ -1,5 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 
+function mod(n, m) {
+  return ((n % m) + m) % m;
+}
+
 export default function autoPlay(MyComponent) {
   return class AutoPlay extends Component {
     static propTypes = {
@@ -81,7 +85,7 @@ export default function autoPlay(MyComponent) {
         indexNew -= 1;
       }
 
-      indexNew = indexNew % React.Children.count(children);
+      indexNew = mod(indexNew, React.Children.count(children));
 
       this.setState({
         index: indexNew,
