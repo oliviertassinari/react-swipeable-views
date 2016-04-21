@@ -3,13 +3,13 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import {assert} from 'chai';
 import autoPlay from './autoPlay';
-import SwipeableViews from './SwipeableViews';
 
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+const Empty = () => <div />;
+const AutoPlaySwipeableViews = autoPlay(Empty);
 
 describe('autoPlay', () => {
   describe('props: children', () => {
-    it('should renders three div', () => {
+    it('should start at the beginning', () => {
       const wrapper = shallow(
         <AutoPlaySwipeableViews>
           <div>{'slide n°1'}</div>
@@ -18,14 +18,7 @@ describe('autoPlay', () => {
         </AutoPlaySwipeableViews>
       );
 
-      assert.strictEqual(wrapper.find('div').length, 3, 'Should render three div.');
       assert.strictEqual(wrapper.state('index'), 0, 'Should start at the beginning.');
-    });
-  });
-
-  describe('props: interval', () => {
-    it('should update the index after the timeout', () => {
-
     });
   });
 });
