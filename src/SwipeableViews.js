@@ -68,6 +68,11 @@ class SwipeableViews extends Component {
      */
     slideStyle: PropTypes.object,
     /**
+     * This is the config given to react-motion for the spring.
+     * This is useful to change the dynamic of the transition.
+     */
+    springConfig: PropTypes.object,
+    /**
      * This is the inlined style that will be applied
      * on the root component.
      */
@@ -84,6 +89,10 @@ class SwipeableViews extends Component {
     threshold: 5,
     resistance: false,
     disabled: false,
+    springConfig: {
+      stiffness: 300,
+      damping: 30,
+    },
   };
 
   constructor(props) {
@@ -293,6 +302,7 @@ class SwipeableViews extends Component {
       containerStyle,
       slideStyle,
       disabled,
+      springConfig,
       style,
       ...other,
     } = this.props;
@@ -305,21 +315,14 @@ class SwipeableViews extends Component {
     } = this.state;
 
     const translate = indexCurrent * 100;
-
     const height = heightLatest;
 
     const motionStyle = isDragging ? {
       translate: translate,
       height: height,
     } : {
-      translate: spring(translate, {
-        stiffness: 300,
-        damping: 30,
-      }),
-      height: height !== 0 ? spring(height, {
-        stiffness: 300,
-        damping: 30,
-      }) : 0,
+      translate: spring(translate, springConfig),
+      height: height !== 0 ? spring(height, springConfig) : 0,
     };
 
     const touchEvents = disabled ? {} : {
