@@ -211,21 +211,24 @@ class SwipeableViews extends Component {
       return;
     }
 
+    const indexStart = this.indexLatest;
+    const indexCurrent = this.state.indexCurrent;
+
     let indexNew;
 
     // Quick movement
     if (Math.abs(this.vx) > this.props.threshold) {
       if (this.vx > 0) {
-        indexNew = Math.floor(this.state.indexCurrent);
+        indexNew = Math.floor(indexCurrent);
       } else {
-        indexNew = Math.ceil(this.state.indexCurrent);
+        indexNew = Math.ceil(indexCurrent);
       }
     } else {
       // Some hysteresis with indexStart
-      if (Math.abs(this.indexStart - this.state.indexCurrent) > 0.6) {
-        indexNew = Math.round(this.state.indexCurrent);
+      if (Math.abs(indexStart - indexCurrent) > 0.6) {
+        indexNew = Math.round(indexCurrent);
       } else {
-        indexNew = this.indexStart;
+        indexNew = indexStart;
       }
     }
 

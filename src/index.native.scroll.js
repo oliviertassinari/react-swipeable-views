@@ -167,7 +167,7 @@ class SwipeableViews extends React.Component {
         this.props.onSwitching(indexNew, 'end');
       }
 
-      if (this.props.onChangeIndex) {
+      if (this.props.onChangeIndex && indexNew !== indexLatest) {
         this.props.onChangeIndex(indexNew, indexLatest);
       }
     });
