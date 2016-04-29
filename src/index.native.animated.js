@@ -210,6 +210,8 @@ class SwipeableViews extends Component {
       indexNew = indexMax;
     }
 
+    const indexLatest = this.state.indexLatest;
+
     this.setState({
       indexLatest: indexNew,
     }, () => {
@@ -223,8 +225,8 @@ class SwipeableViews extends Component {
         this.props.onSwitching(indexNew, 'end');
       }
 
-      if (this.props.onChangeIndex) {
-        this.props.onChangeIndex(indexNew);
+      if (this.props.onChangeIndex && indexNew !== indexLatest) {
+        this.props.onChangeIndex(indexNew, indexLatest);
       }
     });
   };
