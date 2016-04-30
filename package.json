@@ -75,7 +75,7 @@
     "mocha": "^2.4.5",
     "react": "^0.14.0",
     "react-addons-test-utils": "^15.0.1",
-    "react-dom": "^0.14.0",
+    "react-dom": "^15.0.1",
     "react-motion": "^0.4.1",
     "react-native": "^0.23.1",
     "react-native-button": "^1.4.2",
