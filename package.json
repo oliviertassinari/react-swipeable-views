@@ -67,7 +67,7 @@
     "glob": "^7.0.3",
     "html-webpack-plugin": "^2.7.2",
     "ip": "^1.0.1",
-    "jsdom": "^8.4.0",
+    "jsdom": "^8.5.0",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
     "material-ui": "^0.14.0",
