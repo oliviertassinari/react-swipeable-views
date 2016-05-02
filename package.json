@@ -65,7 +65,7 @@
     "eslint-plugin-react": "^4.1.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "glob": "^7.0.3",
-    "html-webpack-plugin": "^2.7.2",
+    "html-webpack-plugin": "^2.16.1",
     "ip": "^1.0.1",
     "jsdom": "^8.5.0",
     "less": "^2.5.3",
