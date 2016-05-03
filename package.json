@@ -49,7 +49,7 @@
     "babel-loader": "^6.2.0",
     "babel-plugin-react-display-name": "^2.0.0",
     "babel-plugin-react-transform": "^2.0.0",
-    "babel-plugin-transform-object-assign": "^6.3.13",
+    "babel-plugin-transform-object-assign": "^6.8.0",
     "babel-plugin-transform-react-constant-elements": "^6.3.13",
     "babel-plugin-transform-react-inline-elements": "^6.3.13",
     "babel-plugin-transform-react-remove-prop-types": "^0.2.5",
