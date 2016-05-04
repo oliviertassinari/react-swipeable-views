@@ -211,7 +211,7 @@ class SwipeableViews extends Component {
       return;
     }
 
-    const indexStart = this.indexLatest;
+    const indexStart = this.state.indexLatest;
     const indexCurrent = this.state.indexCurrent;
 
     let indexNew;
