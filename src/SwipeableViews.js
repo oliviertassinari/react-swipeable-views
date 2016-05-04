@@ -256,6 +256,42 @@ class SwipeableViews extends Component {
       }
     });
   };
+  
+  handleScroll = (event) => {
+
+    // ignore every other scrollevent, or else this scrollevent will trigger another one.
+    // see http://stackoverflow.com/questions/1386696/make-scrollleft-scrolltop-changes-not-trigger-scroll-event
+    var ignore = this.ignoreScrollEvents;
+    this.ignoreScrollEvents = false;
+
+    if(ignore) return;
+
+    let nextIndex = this.state.indexCurrent + 1;
+    let indexLatest = this.state.indexLatest;
+
+    // set scrollLeft on the event to 0.
+    this.setScrollLeft(event, 0);
+
+    if (this.props.onChangeIndex && nextIndex !== indexLatest) {
+        this.props.onChangeIndex(nextIndex, indexLatest);
+      }
+
+    if (this.props.onSwitching) {
+        this.props.onSwitching(nextIndex, 'end');
+      }
+
+     this.setState({
+       indexCurrent: nextIndex,
+       indexLatest: this.state.indexCurrent
+     })
+  }
+
+  setScrollLeft = (event, x) => {
+    if(event.target.scrollLeft != x) {
+      this.ignoreScrollEvents = true;
+      event.target.scrollLeft = x;
+    }
+  }
 
   updateHeight(node, index) {
     if (node !== null && index === this.state.indexLatest) {
@@ -332,6 +368,7 @@ class SwipeableViews extends Component {
       onTouchStart: this.handleTouchStart,
       onTouchMove: this.handleTouchMove,
       onTouchEnd: this.handleTouchEnd,
+      onScroll: this.handleScroll
     };
 
     let updateHeight = true;
