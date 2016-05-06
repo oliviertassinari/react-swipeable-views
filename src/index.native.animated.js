@@ -4,7 +4,7 @@
  * I'm keeping the two versions here until we figured out.
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import {
   Animated,
