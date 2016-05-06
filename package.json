@@ -77,7 +77,7 @@
     "react-addons-test-utils": "^15.0.1",
     "react-dom": "^0.14.0",
     "react-motion": "^0.4.1",
-    "react-native": "^0.23.1",
+    "react-native": "^0.25.1",
     "react-native-button": "^1.4.2",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
