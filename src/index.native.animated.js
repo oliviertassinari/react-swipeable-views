@@ -4,9 +4,10 @@
  * I'm keeping the two versions here until we figured out.
  */
 
-import React, {
+import React, {Component} from 'react';
+
+import {
   Animated,
-  Component,
   Dimensions,
   PanResponder,
   StyleSheet,

@@ -4,7 +4,9 @@
  * I'm keeping the two versions here until we figured out.
  */
 
-import React, {
+import React, {Component} from 'react';
+
+import {
   StyleSheet,
   View,
   ScrollView,
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class SwipeableViews extends React.Component {
+class SwipeableViews extends Component {
   static propTypes = {
     /**
      * Use this property to provide your slides.
