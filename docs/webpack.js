@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import minimist from 'minimist';
 import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
@@ -61,8 +62,7 @@ if (argv.dev === true) {
 
   compiler.run((err, stats) => {
     if (err) {
-      console.error(err);
-      process.exit(1);
+      throw new Error(err);
     }
 
     console.log(stats.toString({
@@ -77,7 +77,7 @@ if (argv.dev === true) {
     }));
 
     if (stats.hasErrors()) {
-      process.exit(1);
+      throw new Error(err);
     }
   });
 }
