@@ -135,18 +135,19 @@ class SwipeableViews extends React.Component {
   
   handleScroll = (event) => {
     
-    // Don´t do anything if the user scrolls the page vertically
-    if(event.target.scrollTop || event.target.scrollTop == 0) {
+    let maxNumberOfSlides = React.Children.count(this.props.children);
+    
+    if(event.target.scrollTop || (event.target.scrollTop == 0 && maxNumberOfSlides == this.state.indexCurrent + 1)) {
       return;
     }
-    
+        
     // ignore every other scrollevent, or else this scrollevent will trigger another one.
     // see http://stackoverflow.com/questions/1386696/make-scrollleft-scrolltop-changes-not-trigger-scroll-event
     let ignore = this.ignoreScrollEvents;
     this.ignoreScrollEvents = false;
-
+    
     if(ignore) return;
-
+    
     let nextIndex = this.state.indexCurrent + 1;
     let indexLatest = this.state.indexLatest;
 
