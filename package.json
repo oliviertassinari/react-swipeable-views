@@ -67,7 +67,7 @@
     "html-webpack-plugin": "^2.16.1",
     "ip": "^1.0.1",
     "jsdom": "^9.0.0",
-    "less": "^2.5.3",
+    "less": "^2.7.1",
     "less-loader": "^2.2.1",
     "material-ui": "^0.14.0",
     "minimist": "^1.2.0",
