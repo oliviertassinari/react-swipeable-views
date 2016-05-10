@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {Motion, spring} from 'react-motion';
 
@@ -18,29 +18,28 @@ const styles = {
 
 const RESISTANCE_COEF = 0.7;
 
-class SwipeableViews extends React.Component {
-
+class SwipeableViews extends Component {
   static propTypes = {
     /**
      * Use this property to provide your slides.
      */
-    children: React.PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired,
     /**
      * This is the inlined style that will be applied
      * to each slide container.
      */
-    containerStyle: React.PropTypes.object,
+    containerStyle: PropTypes.object,
     /**
      * If true, it will disable touch events.
      * This is useful when you want to prohibit the user from changing slides.
      */
-    disabled: React.PropTypes.bool,
+    disabled: PropTypes.bool,
     /**
      * This is the index of the slide to show.
      * This is useful when you want to change the default slide shown.
      * Or when you have tabs linked to each slide.
      */
-    index: React.PropTypes.number,
+    index: PropTypes.number,
     /**
      * This is callback prop. It's call by the
      * component when the shown slide change after a swipe made by the user.
@@ -49,7 +48,7 @@ class SwipeableViews extends React.Component {
      * @param {integer} index This is the current index of the slide.
      * @param {integer} fromIndex This is the oldest index of the slide.
      */
-    onChangeIndex: React.PropTypes.func,
+    onChangeIndex: PropTypes.func,
     /**
      * This is callback prop. It's called by the
      * component when the slide switching.
@@ -58,26 +57,31 @@ class SwipeableViews extends React.Component {
      * @param {integer} index This is the current index of the slide.
      * @param {string} type Can be either `move` or `end`.
      */
-    onSwitching: React.PropTypes.func,
+    onSwitching: PropTypes.func,
     /**
      * If true, it will add bounds effect on the edges.
      */
-    resistance: React.PropTypes.bool,
+    resistance: PropTypes.bool,
     /**
      * This is the inlined style that will be applied
      * on the slide component.
      */
-    slideStyle: React.PropTypes.object,
+    slideStyle: PropTypes.object,
+    /**
+     * This is the config given to react-motion for the spring.
+     * This is useful to change the dynamic of the transition.
+     */
+    springConfig: PropTypes.object,
     /**
      * This is the inlined style that will be applied
      * on the root component.
      */
-    style: React.PropTypes.object,
+    style: PropTypes.object,
     /**
      * This is the threshold used for detecting a quick swipe.
      * If the computed speed is above this value, the index change.
      */
-    threshold: React.PropTypes.number,
+    threshold: PropTypes.number,
   };
 
   static defaultProps = {
@@ -85,6 +89,10 @@ class SwipeableViews extends React.Component {
     threshold: 5,
     resistance: false,
     disabled: false,
+    springConfig: {
+      stiffness: 300,
+      damping: 30,
+    },
   };
 
   constructor(props) {
@@ -203,21 +211,24 @@ class SwipeableViews extends React.Component {
       return;
     }
 
+    const indexStart = this.indexLatest;
+    const indexCurrent = this.state.indexCurrent;
+
     let indexNew;
 
     // Quick movement
     if (Math.abs(this.vx) > this.props.threshold) {
       if (this.vx > 0) {
-        indexNew = Math.floor(this.state.indexCurrent);
+        indexNew = Math.floor(indexCurrent);
       } else {
-        indexNew = Math.ceil(this.state.indexCurrent);
+        indexNew = Math.ceil(indexCurrent);
       }
     } else {
       // Some hysteresis with indexStart
-      if (Math.abs(this.indexStart - this.state.indexCurrent) > 0.6) {
-        indexNew = Math.round(this.state.indexCurrent);
+      if (Math.abs(indexStart - indexCurrent) > 0.6) {
+        indexNew = Math.round(indexCurrent);
       } else {
-        indexNew = this.indexStart;
+        indexNew = indexStart;
       }
     }
 
@@ -249,7 +260,8 @@ class SwipeableViews extends React.Component {
   updateHeight(node, index) {
     if (node !== null && index === this.state.indexLatest) {
       const child = node.children[0];
-      if (child !== undefined && this.state.heightLatest !== child.clientHeight) {
+      if (child !== undefined && child.clientHeight !== undefined &&
+        this.state.heightLatest !== child.clientHeight) {
         this.setState({
           heightLatest: child.clientHeight,
         });
@@ -293,6 +305,7 @@ class SwipeableViews extends React.Component {
       containerStyle,
       slideStyle,
       disabled,
+      springConfig,
       style,
       ...other,
     } = this.props;
@@ -305,21 +318,14 @@ class SwipeableViews extends React.Component {
     } = this.state;
 
     const translate = indexCurrent * 100;
-
     const height = heightLatest;
 
     const motionStyle = isDragging ? {
       translate: translate,
       height: height,
     } : {
-      translate: spring(translate, {
-        stiffness: 300,
-        damping: 30,
-      }),
-      height: height !== 0 ? spring(height, {
-        stiffness: 300,
-        damping: 30,
-      }) : 0,
+      translate: spring(translate, springConfig),
+      height: height !== 0 ? spring(height, springConfig) : 0,
     };
 
     const touchEvents = disabled ? {} : {

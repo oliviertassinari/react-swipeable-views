@@ -1,23 +1,27 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 
-export default function autoPlay(Component) {
-  return class AutoPlay extends React.Component {
+function mod(n, m) {
+  return ((n % m) + m) % m;
+}
+
+export default function autoPlay(MyComponent) {
+  return class AutoPlay extends Component {
     static propTypes = {
       /**
        * If `false`, the auto play behavior is disabled.
        */
-      autoplay: React.PropTypes.bool,
+      autoplay: PropTypes.bool,
       /**
        * This is the auto play direction.
        */
-      direction: React.PropTypes.oneOf([
+      direction: PropTypes.oneOf([
         'incremental',
         'decremental',
       ]),
       /**
        * Delay between auto play transitions (in ms).
        */
-      interval: React.PropTypes.number,
+      interval: PropTypes.number,
     };
 
     static defaultProps = {
@@ -81,7 +85,7 @@ export default function autoPlay(Component) {
         indexNew -= 1;
       }
 
-      indexNew = indexNew % React.Children.count(children);
+      indexNew = mod(indexNew, React.Children.count(children));
 
       this.setState({
         index: indexNew,
@@ -136,7 +140,7 @@ export default function autoPlay(Component) {
       } = this.state;
 
       return (
-        <Component
+        <MyComponent
           {...other}
           index={index}
           onChangeIndex={this.handleChangeIndex}

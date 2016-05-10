@@ -141,18 +141,19 @@ the same component can be used independently on where it's running.
 
 ### `<SwipeableViews />`
 
-| Name | Type | Default | Description |
-|:-----|:-----|:--------|:------------|
-| children | node |  | Use this property to provide your slides. |
-| containerStyle | object | {} | Whether or not the auto complete is animated as it is toggled. |
-| disabled | bool | false | If `true`, it will disable touch events. This is useful when you want to prohibit the user from changing slides. |
-| index | integer | 0 | This is the index of the slide to show. This is useful when you want to change the default slide shown. Or when you have tabs linked to each slide. |
-| onChangeIndex | function(index, fromIndex) |  | This is callback prop. It's call by the component when the shown slide change after a swipe made by the user. This is useful when you have tabs linked to each slide. |
-| onSwitching | function(index, type) |  | This is callback prop. It's called by the component when the slide switching. This is useful when you want to implement something corresponding to the current slide position. |
-| resistance | bool | false | If true, it will add bounds effect on the edges. |
-| style | object | {} | This is the inlined style that will be applied on the root component. |
-| slideStyle | object | {} | This is the inlined style that will be applied on the slide component. |
-| threshold | integer | 5 | This is the threshold used for detectinga quick swipe. If the computed speed is above this value, the index change. |
+| Name | Type | Default | Platform | Description |
+|:-----|:-----|:--------|:---------|:------------|
+| children | node | | | Use this property to provide your slides. |
+| containerStyle | object | {} | | Whether or not the auto complete is animated as it is toggled. |
+| disabled | bool | `false` | | If `true`, it will disable touch events. This is useful when you want to prohibit the user from changing slides. |
+| index | integer | 0 | | This is the index of the slide to show. This is useful when you want to change the default slide shown. Or when you have tabs linked to each slide. |
+| onChangeIndex | function(index, fromIndex) | | | This is callback prop. It's call by the component when the shown slide change after a swipe made by the user. This is useful when you have tabs linked to each slide. |
+| onSwitching | function(index, type) | | | This is callback prop. It's called by the component when the slide switching. This is useful when you want to implement something corresponding to the current slide position. |
+| resistance | bool | `false` | | If true, it will add bounds effect on the edges. |
+| style | object | {} | | This is the inlined style that will be applied on the root component. |
+| slideStyle | object | {} | | This is the inlined style that will be applied on the slide component. |
+| springConfig | object | {stiffness: 300, damping: 30} | Browser | This is the config given to react-motion for the `spring`. This is useful to change the dynamic of the transition. |
+| threshold | integer | 5 | | This is the threshold used for detectinga quick swipe. If the computed speed is above this value, the index change. |
 
 Any other properties like `className` will be applied to the root component.
 

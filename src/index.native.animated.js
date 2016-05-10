@@ -4,9 +4,10 @@
  * I'm keeping the two versions here until we figured out.
  */
 
-import React, {
+import React, {Component} from 'react';
+
+import {
   Animated,
-  Component,
   Dimensions,
   PanResponder,
   StyleSheet,
@@ -210,6 +211,8 @@ class SwipeableViews extends Component {
       indexNew = indexMax;
     }
 
+    const indexLatest = this.state.indexLatest;
+
     this.setState({
       indexLatest: indexNew,
     }, () => {
@@ -223,8 +226,8 @@ class SwipeableViews extends Component {
         this.props.onSwitching(indexNew, 'end');
       }
 
-      if (this.props.onChangeIndex) {
-        this.props.onChangeIndex(indexNew);
+      if (this.props.onChangeIndex && indexNew !== indexLatest) {
+        this.props.onChangeIndex(indexNew, indexLatest);
       }
     });
   };
