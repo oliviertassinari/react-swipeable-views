@@ -86,12 +86,21 @@ class SwipeableViews extends Component {
      * on the root component.
      */
     style: View.propTypes.style,
+    /**
+     * If true, changes to the index prop will cause an
+     * animated transition, otherwise it'll just jump to
+     * the new slide.
+     *
+     * TODO: Implement this on iOS
+     */
+    animateTransitions: React.PropTypes.bool,
   };
 
   static defaultProps = {
     index: 0,
     resistance: false,
     disabled: false,
+    animateTransitions: true
   };
 
   constructor(props, context) {
@@ -105,15 +114,24 @@ class SwipeableViews extends Component {
       index,
     } = nextProps;
 
-    // Sometimes the index can be the same, but the slide
-    // may have changed, so just always set it
-    if (typeof index === 'number') {
+    const indexHasChanged = (typeof index === 'number' && index !== this.props.index);
+
+    if (indexHasChanged) {
       this.setState({
         indexLatest: index,
         offset: {
           x: this.state.viewWidth * index,
         },
       }, () => {
+        if (indexHasChanged) {
+          if (Platform.OS === 'android') {
+            if (this.props.animateTransitions) {
+              this.refs['scrollView'].setPage(index);
+            }else {
+              this.refs['scrollView'].setPageWithoutAnimation(index);
+            }
+          }
+        }
       });
     }
   }
