@@ -35,6 +35,14 @@ const styles = StyleSheet.create({
 class SwipeableViews extends Component {
   static propTypes = {
     /**
+     * If true, changes to the index prop will cause an
+     * animated transition, otherwise it'll just jump to
+     * the new slide.
+     *
+     * TODO: Implement this on iOS
+     */
+    animateTransitions: React.PropTypes.bool,
+    /**
      * Use this property to provide your slides.
      */
     children: React.PropTypes.node,
@@ -86,21 +94,13 @@ class SwipeableViews extends Component {
      * on the root component.
      */
     style: View.propTypes.style,
-    /**
-     * If true, changes to the index prop will cause an
-     * animated transition, otherwise it'll just jump to
-     * the new slide.
-     *
-     * TODO: Implement this on iOS
-     */
-    animateTransitions: React.PropTypes.bool,
   };
 
   static defaultProps = {
     index: 0,
     resistance: false,
     disabled: false,
-    animateTransitions: true
+    animateTransitions: true,
   };
 
   constructor(props, context) {
@@ -126,9 +126,9 @@ class SwipeableViews extends Component {
         if (indexHasChanged) {
           if (Platform.OS === 'android') {
             if (this.props.animateTransitions) {
-              this.refs['scrollView'].setPage(index);
-            }else {
-              this.refs['scrollView'].setPageWithoutAnimation(index);
+              this.refs.scrollView.setPage(index);
+            } else {
+              this.refs.scrollView.setPageWithoutAnimation(index);
             }
           }
         }
