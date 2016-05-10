@@ -69,7 +69,7 @@
     "jsdom": "^9.0.0",
     "less": "^2.7.1",
     "less-loader": "^2.2.1",
-    "material-ui": "^0.14.0",
+    "material-ui": "^0.15.0",
     "minimist": "^1.2.0",
     "mocha": "^2.4.5",
     "react": "^0.14.0",
