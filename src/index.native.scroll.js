@@ -114,22 +114,18 @@ class SwipeableViews extends Component {
       index,
     } = nextProps;
 
-    const indexHasChanged = (typeof index === 'number' && index !== this.props.index);
-
-    if (indexHasChanged) {
+    if (typeof index === 'number' && index !== this.props.index) {
       this.setState({
         indexLatest: index,
         offset: {
           x: this.state.viewWidth * index,
         },
       }, () => {
-        if (indexHasChanged) {
-          if (Platform.OS === 'android') {
-            if (this.props.animateTransitions) {
-              this.refs.scrollView.setPage(index);
-            } else {
-              this.refs.scrollView.setPageWithoutAnimation(index);
-            }
+        if (Platform.OS === 'android') {
+          if (this.props.animateTransitions) {
+            this.refs.scrollView.setPage(index);
+          } else {
+            this.refs.scrollView.setPageWithoutAnimation(index);
           }
         }
       });
