@@ -92,23 +92,19 @@ class SwipeableViews extends Component {
   };
 
   static defaultProps = {
+    disabled: false,
     index: 0,
     threshold: 5,
     resistance: false,
-    disabled: false,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      indexLatest: props.index,
-      indexCurrent: new Animated.Value(props.index),
-      viewWidth: Dimensions.get('window').width,
-    };
-  }
-
   componentWillMount() {
+    this.setState({
+      indexLatest: this.props.index,
+      indexCurrent: new Animated.Value(this.props.index),
+      viewWidth: Dimensions.get('window').width,
+    });
+
     this.panResponder = PanResponder.create({
       // Claim responder if it's a horizontal pan
       onMoveShouldSetPanResponder: (event, gestureState) => {

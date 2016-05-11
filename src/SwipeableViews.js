@@ -95,16 +95,14 @@ class SwipeableViews extends Component {
     },
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      indexCurrent: props.index,
-      indexLatest: props.index,
+  componentWillMount() {
+    this.setState({
+      indexCurrent: this.props.index,
+      indexLatest: this.props.index,
       isDragging: false,
       isFirstRender: true,
       heightLatest: 0,
-    };
+    });
   }
 
   componentDidMount() {
