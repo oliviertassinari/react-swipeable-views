@@ -130,7 +130,6 @@ class SwipeableViews extends Component {
     const touch = event.touches[0];
 
     this.startWidth = ReactDOM.findDOMNode(this).getBoundingClientRect().width;
-    this.indexStart = this.state.indexCurrent;
     this.startX = touch.pageX;
     this.lastX = touch.pageX;
     this.vx = 0;
@@ -167,7 +166,7 @@ class SwipeableViews extends Component {
 
     const indexMax = React.Children.count(this.props.children) - 1;
 
-    let index = this.indexStart + (this.startX - touch.pageX) / this.startWidth;
+    let index = this.state.indexLatest + (this.startX - touch.pageX) / this.startWidth;
 
     if (!this.props.resistance) {
       // Reset the starting point
@@ -209,7 +208,7 @@ class SwipeableViews extends Component {
       return;
     }
 
-    const indexStart = this.indexLatest;
+    const indexLatest = this.state.indexLatest;
     const indexCurrent = this.state.indexCurrent;
 
     let indexNew;
@@ -222,11 +221,11 @@ class SwipeableViews extends Component {
         indexNew = Math.ceil(indexCurrent);
       }
     } else {
-      // Some hysteresis with indexStart
-      if (Math.abs(indexStart - indexCurrent) > 0.6) {
+      // Some hysteresis with indexLatest
+      if (Math.abs(indexLatest - indexCurrent) > 0.6) {
         indexNew = Math.round(indexCurrent);
       } else {
-        indexNew = indexStart;
+        indexNew = indexLatest;
       }
     }
 
@@ -237,8 +236,6 @@ class SwipeableViews extends Component {
     } else if (indexNew > indexMax) {
       indexNew = indexMax;
     }
-
-    const indexLatest = this.state.indexLatest;
 
     this.setState({
       indexCurrent: indexNew,
