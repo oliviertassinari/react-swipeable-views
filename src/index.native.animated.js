@@ -178,8 +178,8 @@ class SwipeableViews extends Component {
       moveX,
     } = gestureState;
 
-    const indexStart = this.state.indexLatest;
-    const indexCurrent = indexStart + (this.startX - moveX) / this.state.viewWidth;
+    const indexLatest = this.state.indexLatest;
+    const indexCurrent = indexLatest + (this.startX - moveX) / this.state.viewWidth;
 
     let indexNew;
 
@@ -191,11 +191,11 @@ class SwipeableViews extends Component {
         indexNew = Math.ceil(indexCurrent);
       }
     } else {
-      // Some hysteresis with indexStart
-      if (Math.abs(indexStart - indexCurrent) > 0.6) {
+      // Some hysteresis with indexLatest
+      if (Math.abs(indexLatest - indexCurrent) > 0.6) {
         indexNew = Math.round(indexCurrent);
       } else {
-        indexNew = indexStart;
+        indexNew = indexLatest;
       }
     }
 
@@ -206,8 +206,6 @@ class SwipeableViews extends Component {
     } else if (indexNew > indexMax) {
       indexNew = indexMax;
     }
-
-    const indexLatest = this.state.indexLatest;
 
     this.setState({
       indexLatest: indexNew,
