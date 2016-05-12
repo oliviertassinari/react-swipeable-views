@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import {Motion, spring} from 'react-motion';
 
@@ -18,28 +18,29 @@ const styles = {
 
 const RESISTANCE_COEF = 0.7;
 
-class SwipeableViews extends Component {
+class SwipeableViews extends React.Component {
+
   static propTypes = {
     /**
      * Use this property to provide your slides.
      */
-    children: PropTypes.node.isRequired,
+    children: React.PropTypes.node.isRequired,
     /**
      * This is the inlined style that will be applied
      * to each slide container.
      */
-    containerStyle: PropTypes.object,
+    containerStyle: React.PropTypes.object,
     /**
      * If true, it will disable touch events.
      * This is useful when you want to prohibit the user from changing slides.
      */
-    disabled: PropTypes.bool,
+    disabled: React.PropTypes.bool,
     /**
      * This is the index of the slide to show.
      * This is useful when you want to change the default slide shown.
      * Or when you have tabs linked to each slide.
      */
-    index: PropTypes.number,
+    index: React.PropTypes.number,
     /**
      * This is callback prop. It's call by the
      * component when the shown slide change after a swipe made by the user.
@@ -48,7 +49,7 @@ class SwipeableViews extends Component {
      * @param {integer} index This is the current index of the slide.
      * @param {integer} fromIndex This is the oldest index of the slide.
      */
-    onChangeIndex: PropTypes.func,
+    onChangeIndex: React.PropTypes.func,
     /**
      * This is callback prop. It's called by the
      * component when the slide switching.
@@ -57,31 +58,26 @@ class SwipeableViews extends Component {
      * @param {integer} index This is the current index of the slide.
      * @param {string} type Can be either `move` or `end`.
      */
-    onSwitching: PropTypes.func,
+    onSwitching: React.PropTypes.func,
     /**
      * If true, it will add bounds effect on the edges.
      */
-    resistance: PropTypes.bool,
+    resistance: React.PropTypes.bool,
     /**
      * This is the inlined style that will be applied
      * on the slide component.
      */
-    slideStyle: PropTypes.object,
-    /**
-     * This is the config given to react-motion for the spring.
-     * This is useful to change the dynamic of the transition.
-     */
-    springConfig: PropTypes.object,
+    slideStyle: React.PropTypes.object,
     /**
      * This is the inlined style that will be applied
      * on the root component.
      */
-    style: PropTypes.object,
+    style: React.PropTypes.object,
     /**
      * This is the threshold used for detecting a quick swipe.
      * If the computed speed is above this value, the index change.
      */
-    threshold: PropTypes.number,
+    threshold: React.PropTypes.number,
   };
 
   static defaultProps = {
@@ -89,10 +85,6 @@ class SwipeableViews extends Component {
     threshold: 5,
     resistance: false,
     disabled: false,
-    springConfig: {
-      stiffness: 300,
-      damping: 30,
-    },
   };
 
   componentWillMount() {
@@ -138,7 +130,41 @@ class SwipeableViews extends Component {
     this.isScrolling = undefined;
     this.started = true;
   };
+  
+  handleScroll = (event) => {
+    
+    let maxNumberOfSlides = React.Children.count(this.props.children);
+    
+    if(event.target.scrollTop || (event.target.scrollTop == 0 && maxNumberOfSlides == this.state.indexCurrent + 1)) {
+      return;
+    }
+        
+    // ignore every other scrollevent, or else this scrollevent will trigger another one.
+    // see http://stackoverflow.com/questions/1386696/make-scrollleft-scrolltop-changes-not-trigger-scroll-event
+    let ignore = this.ignoreScrollEvents;
+    this.ignoreScrollEvents = false;
+    
+    if(ignore) return;
+    
+    let nextIndex = this.state.indexCurrent + 1;
+    let indexLatest = this.state.indexLatest;
 
+    // set scrollLeft on the event to 0.
+    this.setScrollLeft(event, 0);
+
+    if (this.props.onChangeIndex && nextIndex !== indexLatest) {
+        this.props.onChangeIndex(nextIndex, indexLatest);
+      }
+
+    if (this.props.onSwitching) {
+        this.props.onSwitching(nextIndex, 'end');
+      }
+
+     this.setState({
+       indexCurrent: nextIndex,
+       indexLatest: this.state.indexCurrent
+     })
+  }
   handleTouchMove = (event) => {
     // The touch start event can be cancel.
     // Makes sure we set a starting point.
@@ -195,7 +221,15 @@ class SwipeableViews extends Component {
       }
     });
   };
-
+  
+  setScrollLeft = (event, x) => {
+    if(event.target.scrollLeft != x) {
+      this.ignoreScrollEvents = true;
+      event.target.scrollLeft = x;
+      console.log("scrollLeft etter scroll: " + event.target.scrollLeft);
+    }
+  };
+  
   handleTouchEnd = () => {
     // The touch start event can be cancel.
     // Makes sure that a starting point is set.
@@ -209,24 +243,21 @@ class SwipeableViews extends Component {
       return;
     }
 
-    const indexStart = this.indexLatest;
-    const indexCurrent = this.state.indexCurrent;
-
     let indexNew;
 
     // Quick movement
     if (Math.abs(this.vx) > this.props.threshold) {
       if (this.vx > 0) {
-        indexNew = Math.floor(indexCurrent);
+        indexNew = Math.floor(this.state.indexCurrent);
       } else {
-        indexNew = Math.ceil(indexCurrent);
+        indexNew = Math.ceil(this.state.indexCurrent);
       }
     } else {
       // Some hysteresis with indexStart
-      if (Math.abs(indexStart - indexCurrent) > 0.6) {
-        indexNew = Math.round(indexCurrent);
+      if (Math.abs(this.indexStart - this.state.indexCurrent) > 0.6) {
+        indexNew = Math.round(this.state.indexCurrent);
       } else {
-        indexNew = indexStart;
+        indexNew = this.indexStart;
       }
     }
 
@@ -258,8 +289,7 @@ class SwipeableViews extends Component {
   updateHeight(node, index) {
     if (node !== null && index === this.state.indexLatest) {
       const child = node.children[0];
-      if (child !== undefined && child.clientHeight !== undefined &&
-        this.state.heightLatest !== child.clientHeight) {
+      if (child !== undefined && this.state.heightLatest !== child.clientHeight) {
         this.setState({
           heightLatest: child.clientHeight,
         });
@@ -303,7 +333,6 @@ class SwipeableViews extends Component {
       containerStyle,
       slideStyle,
       disabled,
-      springConfig,
       style,
       ...other,
     } = this.props;
@@ -316,20 +345,28 @@ class SwipeableViews extends Component {
     } = this.state;
 
     const translate = indexCurrent * 100;
+
     const height = heightLatest;
 
     const motionStyle = isDragging ? {
       translate: translate,
       height: height,
     } : {
-      translate: spring(translate, springConfig),
-      height: height !== 0 ? spring(height, springConfig) : 0,
+      translate: spring(translate, {
+        stiffness: 300,
+        damping: 30,
+      }),
+      height: height !== 0 ? spring(height, {
+        stiffness: 300,
+        damping: 30,
+      }) : 0,
     };
 
     const touchEvents = disabled ? {} : {
       onTouchStart: this.handleTouchStart,
       onTouchMove: this.handleTouchMove,
       onTouchEnd: this.handleTouchEnd,
+      onScroll: this.handleScroll
     };
 
     let updateHeight = true;
