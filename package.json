@@ -80,7 +80,7 @@
     "react-native-button": "^1.5.0",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
-    "recompose": "^0.17.0",
+    "recompose": "^0.18.0",
     "redbox-react": "^1.2.4",
     "rimraf": "^2.5.2",
     "stats-webpack-plugin": "^0.3.0",
