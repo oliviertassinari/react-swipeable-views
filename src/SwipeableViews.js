@@ -137,7 +137,7 @@ class SwipeableViews extends React.Component {
     
     let maxNumberOfSlides = React.Children.count(this.props.children);
     
-    if(event.target.scrollTop || (event.target.scrollTop == 0 && maxNumberOfSlides == this.state.indexCurrent + 1)) {
+    if(event.target.scrollTop || (event.target.scrollTop == 0 && (maxNumberOfSlides == this.state.indexCurrent + 1 || maxNumberOfSlides - 2 == this.state.indexCurrent))) {
       return;
     }
         
