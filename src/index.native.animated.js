@@ -71,6 +71,22 @@ class SwipeableViews extends Component {
      */
     onSwitching: React.PropTypes.func,
     /**
+     * Callback executed when the pan handler detects a touch-start
+     * event. Useful for nesting ScrollViews/SwipeableViews
+     *
+     * @param {object} event The raw event
+     * @param {object} gestureState The current gesture state
+     */
+    onTouchStart: React.PropTypes.func,
+    /**
+     * Callback executed when the pan handler detects a touch-end
+     * event. Useful for nesting ScrollViews/SwipeableViews
+     *
+     * @param {object} event The raw event
+     * @param {object} gestureState The current gesture state
+     */
+    onTouchEnd: React.PropTypes.func,
+    /**
      * If true, it will add bounds effect on the edges.
      */
     resistance: React.PropTypes.bool,
@@ -137,6 +153,10 @@ class SwipeableViews extends Component {
 
   handleTouchStart = (event, gestureState) => {
     this.startX = gestureState.x0;
+
+    if (this.props.onTouchStart) {
+      this.props.onTouchStart(event, gestureState);
+    }
   };
 
   handleTouchMove = (event, gestureState) => {
@@ -224,6 +244,10 @@ class SwipeableViews extends Component {
         this.props.onChangeIndex(indexNew, indexLatest);
       }
     });
+
+    if (this.props.onTouchEnd) {
+      this.props.onTouchEnd(event, gestureState);
+    }
   };
 
   handleLayout = (event) => {
