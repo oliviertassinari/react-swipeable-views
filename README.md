@@ -20,7 +20,7 @@ It is tiny (<4kB) and quickly render the first slide then lasy-load the other.
 npm install react-swipeable-views
 ```
 
-## Usage
+## Simple example
 ![alt tag](docs/usage.gif)
 
 ### Browser
@@ -136,6 +136,37 @@ the same component can be used independently on where it's running.
 
 ### Android
 ![alt tag](docs/platformAndroid.gif)
+
+## Example with `autoPlay`
+
+The auto play feature is provided thanks to an *High Order Component*.
+It's working independently of the targeted platform.
+You can have a look at the *Demo 7* to see it in action.
+Let's see an example with the browser:
+
+```js
+import autoPlay from 'react-swipeable-views/lib/autoPlay';
+import SwipeableViews from 'react-swipeable-views';
+
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+
+const MyComponent = () => (
+  <AutoPlaySwipeableViews>
+    <div>
+      slide n°1
+    </div>
+    <div>
+      slide n°2
+    </div>
+    <div>
+      slide n°3
+    </div>
+  </AutoPlaySwipeableViews>
+);
+
+export default MyComponent;
+
+```
 
 ## API
 
