@@ -17,7 +17,7 @@ It is tiny (<4kB) and quickly render the first slide then lasy-load the other.
 ## Installation
 
 ```sh
-npm install react-swipeable-views
+npm install react-swipeable-views react-motion
 ```
 
 ## Simple example

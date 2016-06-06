@@ -2,6 +2,7 @@ import React, {
   StyleSheet,
   Text,
   View,
+  PropTypes,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -46,9 +47,9 @@ const Head = (props) => {
 };
 
 Head.propTypes = {
-  children: React.PropTypes.node,
-  description: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
+  children: PropTypes.node,
+  description: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default Head;
