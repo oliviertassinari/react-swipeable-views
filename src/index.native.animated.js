@@ -151,6 +151,13 @@ class SwipeableViews extends Component {
     }
   }
 
+  setIndexWithoutTransition(newIndex) {
+    this.setState({
+      indexLatest: newIndex,
+      indexCurrent: new Animated.Value(newIndex),
+    })
+  }
+
   handleTouchStart = (event, gestureState) => {
     this.startX = gestureState.x0;
 
