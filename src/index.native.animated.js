@@ -4,7 +4,7 @@
  * I'm keeping the two versions here until we figured out.
  */
 
-import React, {Component} from 'react';
+import React, {Component, PropTypes, Children} from 'react';
 
 import {
   Animated,
@@ -35,7 +35,7 @@ class SwipeableViews extends Component {
     /**
      * Use this property to provide your slides.
      */
-    children: React.PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired,
     /**
      * This is the inlined style that will be applied
      * to each slide container.
@@ -45,13 +45,13 @@ class SwipeableViews extends Component {
      * If true, it will disable touch events.
      * This is useful when you want to prohibit the user from changing slides.
      */
-    disabled: React.PropTypes.bool,
+    disabled: PropTypes.bool,
     /**
      * This is the index of the slide to show.
      * This is useful when you want to change the default slide shown.
      * Or when you have tabs linked to each slide.
      */
-    index: React.PropTypes.number,
+    index: PropTypes.number,
     /**
      * This is callback prop. It's call by the
      * component when the shown slide change after a swipe made by the user.
@@ -60,7 +60,7 @@ class SwipeableViews extends Component {
      * @param {integer} index This is the current index of the slide.
      * @param {integer} fromIndex This is the oldest index of the slide.
      */
-    onChangeIndex: React.PropTypes.func,
+    onChangeIndex: PropTypes.func,
     /**
      * This is callback prop. It's called by the
      * component when the slide switching.
@@ -69,11 +69,11 @@ class SwipeableViews extends Component {
      * @param {integer} index This is the current index of the slide.
      * @param {string} type Can be either `move` or `end`.
      */
-    onSwitching: React.PropTypes.func,
+    onSwitching: PropTypes.func,
     /**
      * If true, it will add bounds effect on the edges.
      */
-    resistance: React.PropTypes.bool,
+    resistance: PropTypes.bool,
     /**
      * This is the inlined style that will be applied
      * on the slide component.
@@ -88,7 +88,7 @@ class SwipeableViews extends Component {
      * This is the threshold used for detecting a quick swipe.
      * If the computed speed is above this value, the index change.
      */
-    threshold: React.PropTypes.number,
+    threshold: PropTypes.number,
   };
 
   static defaultProps = {
@@ -146,7 +146,7 @@ class SwipeableViews extends Component {
 
     let index = this.state.indexLatest + (this.startX - moveX) / this.state.viewWidth;
 
-    const indexMax = React.Children.count(this.props.children) - 1;
+    const indexMax = Children.count(this.props.children) - 1;
 
     if (!this.props.resistance) {
       // Reset the starting point
@@ -199,7 +199,7 @@ class SwipeableViews extends Component {
       }
     }
 
-    const indexMax = React.Children.count(this.props.children) - 1;
+    const indexMax = Children.count(this.props.children) - 1;
 
     if (indexNew < 0) {
       indexNew = 0;
@@ -252,7 +252,7 @@ class SwipeableViews extends Component {
 
     const slideStyleObj = [styles.slide, slideStyle];
 
-    const childrenToRender = React.Children.map(children, (child) => {
+    const childrenToRender = Children.map(children, (child) => {
       return (
         <View style={slideStyleObj}>
           {child}
@@ -263,7 +263,7 @@ class SwipeableViews extends Component {
     const sceneContainerStyle = [
       styles.container,
       {
-        width: viewWidth * React.Children.count(children),
+        width: viewWidth * Children.count(children),
         transform: [
           {
             translateX: indexCurrent.interpolate({

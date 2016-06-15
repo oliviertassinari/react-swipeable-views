@@ -4,7 +4,7 @@
  * I'm keeping the two versions here until we figured out.
  */
 
-import React, {Component} from 'react';
+import React, {Component, PropTypes, Children} from 'react';
 
 import {
   StyleSheet,
@@ -39,11 +39,11 @@ class SwipeableViews extends Component {
      * animated transition, otherwise it'll just jump to
      * the new slide.
      */
-    animateTransitions: React.PropTypes.bool,
+    animateTransitions: PropTypes.bool,
     /**
      * Use this property to provide your slides.
      */
-    children: React.PropTypes.node,
+    children: PropTypes.node,
     /**
      * This is the inlined style that will be applied
      * to each slide container.
@@ -53,13 +53,13 @@ class SwipeableViews extends Component {
      * If true, it will disable touch events.
      * This is useful when you want to prohibit the user from changing slides.
      */
-    disabled: React.PropTypes.bool,
+    disabled: PropTypes.bool,
     /**
      * This is the index of the slide to show.
      * This is useful when you want to change the default slide shown.
      * Or when you have tabs linked to each slide.
      */
-    index: React.PropTypes.number,
+    index: PropTypes.number,
     /**
      * This is callback prop. It's call by the
      * component when the shown slide change after a swipe made by the user.
@@ -68,7 +68,7 @@ class SwipeableViews extends Component {
      * @param {integer} index This is the current index of the slide.
      * @param {integer} fromIndex This is the oldest index of the slide.
      */
-    onChangeIndex: React.PropTypes.func,
+    onChangeIndex: PropTypes.func,
     /**
      * This is callback prop. It's called by the
      * component when the slide switching.
@@ -77,11 +77,11 @@ class SwipeableViews extends Component {
      * @param {integer} index This is the current index of the slide.
      * @param {string} type Can be either `move` or `end`.
      */
-    onSwitching: React.PropTypes.func,
+    onSwitching: PropTypes.func,
     /**
      * If true, it will add bounds effect on the edges.
      */
-    resistance: React.PropTypes.bool,
+    resistance: PropTypes.bool,
     /**
      * This is the inlined style that will be applied
      * on the slide component.
@@ -229,7 +229,7 @@ class SwipeableViews extends Component {
       slideStyle,
     ];
 
-    const childrenToRender = React.Children.map(children, (element, index) => {
+    const childrenToRender = Children.map(children, (element, index) => {
       if (disabled && indexLatest !== index) {
         return null;
       }

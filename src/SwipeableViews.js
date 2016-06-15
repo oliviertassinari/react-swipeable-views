@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
+import {findDOMNode} from 'react-dom';
 import {Motion, spring} from 'react-motion';
 
 const styles = {
@@ -129,7 +129,7 @@ class SwipeableViews extends Component {
   handleTouchStart = (event) => {
     const touch = event.touches[0];
 
-    this.startWidth = ReactDOM.findDOMNode(this).getBoundingClientRect().width;
+    this.startWidth = findDOMNode(this).getBoundingClientRect().width;
     this.startX = touch.pageX;
     this.lastX = touch.pageX;
     this.vx = 0;
