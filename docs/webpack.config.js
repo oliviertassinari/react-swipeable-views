@@ -12,9 +12,6 @@ export default function(options) {
       publicPath: '',
       filename: 'app.js',
     },
-    externals: [
-      'cordova/exec',
-    ],
     resolve: {
       extensions: ['', '.js'],
       root: path.join(__dirname, 'src'),
@@ -23,7 +20,6 @@ export default function(options) {
       },
     },
     plugins: [
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new HtmlWebpackPlugin({
         template: path.join(__dirname, 'src/index.html'),
         minify: {

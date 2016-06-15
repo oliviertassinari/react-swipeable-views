@@ -59,6 +59,14 @@ class SwipeableViews extends Component {
      */
     onSwitching: PropTypes.func,
     /**
+     * @ignore
+     */
+    onTouchEnd: PropTypes.func,
+    /**
+     * @ignore
+     */
+    onTouchStart: PropTypes.func,
+    /**
      * If true, it will add bounds effect on the edges.
      */
     resistance: PropTypes.bool,
@@ -127,6 +135,10 @@ class SwipeableViews extends Component {
   }
 
   handleTouchStart = (event) => {
+    if (this.props.onTouchStart) {
+      this.props.onTouchStart(event);
+    }
+
     const touch = event.touches[0];
 
     this.startWidth = findDOMNode(this).getBoundingClientRect().width;
@@ -195,7 +207,11 @@ class SwipeableViews extends Component {
     });
   };
 
-  handleTouchEnd = () => {
+  handleTouchEnd = (event) => {
+    if (this.props.onTouchEnd) {
+      this.props.onTouchEnd(event);
+    }
+
     // The touch start event can be cancel.
     // Makes sure that a starting point is set.
     if (!this.started) {
