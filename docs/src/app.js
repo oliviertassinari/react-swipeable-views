@@ -4,6 +4,5 @@ import Main from 'Main';
 
 require('normalize.less');
 require('stylesheet.less');
-require('github-light.less');
 
 render(<Main />, document.getElementById('main'));
