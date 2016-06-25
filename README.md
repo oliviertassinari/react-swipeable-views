@@ -1,4 +1,4 @@
-# React swipeable views
+# react-swipeable-views
 
 > A React component for swipeable views.
 
@@ -11,14 +11,16 @@
 
 [![TypeScript definitions on DefinitelyTyped](http://definitelytyped.org/badges/standard-flat.svg)](http://definitelytyped.org)
 
-Check out the [demos](http://oliviertassinari.github.io/react-swipeable-views/) from a mobile device (real or emulated).
-It is tiny (<4kB) and quickly render the first slide then lasy-load the other.
-
 ## Installation
 
 ```sh
-npm install react-swipeable-views react-motion
+npm install --save react-swipeable-views react-motion
 ```
+
+## The problem solved
+
+Check out the [demos](http://oliviertassinari.github.io/react-swipeable-views/) from a mobile device (real or emulated).
+It is tiny (<4kB) and quickly render the first slide then lasy-load the other.
 
 ## Simple example
 ![alt tag](docs/usage.gif)

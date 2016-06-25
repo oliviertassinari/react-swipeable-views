@@ -4,7 +4,7 @@
   "description": "A React component for swipeable views",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint src test docs",
     "test": "npm run lint && npm run test:unit",
     "test:unit": "NODE_ENV=release babel-node test/unit.js",
     "build": "rm -rf lib && mkdir lib && NODE_ENV=release babel src --out-dir lib",
@@ -80,7 +80,7 @@
     "react-native-button": "^1.5.0",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
-    "recompose": "^0.19.0",
+    "recompose": "^0.20.0",
     "redbox-react": "^1.2.6",
     "rimraf": "^2.5.2",
     "stats-webpack-plugin": "^0.3.0",
