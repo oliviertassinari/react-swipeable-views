@@ -38,7 +38,7 @@
         "transform-react-inline-elements"
       ]
     },
-    "docs-native-development": {
+    "development": {
       "presets": ["react-native"]
     }
   }
