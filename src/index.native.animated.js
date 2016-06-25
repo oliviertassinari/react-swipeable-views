@@ -71,6 +71,14 @@ class SwipeableViews extends Component {
      */
     onSwitching: PropTypes.func,
     /**
+     * @ignore
+     */
+    onTouchEnd: React.PropTypes.func,
+    /**
+     * @ignore
+     */
+    onTouchStart: React.PropTypes.func,
+    /**
      * If true, it will add bounds effect on the edges.
      */
     resistance: PropTypes.bool,
@@ -136,6 +144,10 @@ class SwipeableViews extends Component {
   }
 
   handleTouchStart = (event, gestureState) => {
+    if (this.props.onTouchStart) {
+      this.props.onTouchStart(event, gestureState);
+    }
+
     this.startX = gestureState.x0;
   };
 
@@ -173,6 +185,10 @@ class SwipeableViews extends Component {
   };
 
   handleTouchEnd = (event, gestureState) => {
+    if (this.props.onTouchEnd) {
+      this.props.onTouchEnd(event, gestureState);
+    }
+
     const {
       vx,
       moveX,
