@@ -176,6 +176,7 @@ export default MyComponent;
 
 | Name | Type | Default | Platform | Description |
 |:-----|:-----|:--------|:---------|:------------|
+| animateTransitions | bool | `true` | | If `false`, changes to the index prop will not cause an animated transition. |
 | children | node | | | Use this property to provide your slides. |
 | containerStyle | object | {} | | Whether or not the auto complete is animated as it is toggled. |
 | disabled | bool | `false` | | If `true`, it will disable touch events. This is useful when you want to prohibit the user from changing slides. |

@@ -33,6 +33,10 @@ const styles = StyleSheet.create({
 class SwipeableViews extends Component {
   static propTypes = {
     /**
+     * If `false`, changes to the index prop will not cause an animated transition.
+     */
+    animateTransitions: PropTypes.bool,
+    /**
      * Use this property to provide your slides.
      */
     children: PropTypes.node.isRequired,
@@ -42,7 +46,7 @@ class SwipeableViews extends Component {
      */
     containerStyle: Animated.View.propTypes.style,
     /**
-     * If true, it will disable touch events.
+     * If `true`, it will disable touch events.
      * This is useful when you want to prohibit the user from changing slides.
      */
     disabled: PropTypes.bool,
@@ -79,7 +83,7 @@ class SwipeableViews extends Component {
      */
     onTouchStart: React.PropTypes.func,
     /**
-     * If true, it will add bounds effect on the edges.
+     * If `true`, it will add bounds effect on the edges.
      */
     resistance: PropTypes.bool,
     /**
@@ -100,6 +104,7 @@ class SwipeableViews extends Component {
   };
 
   static defaultProps = {
+    animateTransitions: true,
     disabled: false,
     index: 0,
     threshold: 5,
@@ -128,18 +133,26 @@ class SwipeableViews extends Component {
   componentWillReceiveProps(nextProps) {
     const {
       index,
+      animateTransitions,
     } = nextProps;
 
     if (typeof index === 'number' && index !== this.props.index) {
-      this.setState({
-        indexLatest: index,
-      }, () => {
-        Animated.spring(this.state.indexCurrent, {
-          toValue: index,
-          tension: 300,
-          friction: 30,
-        }).start();
-      });
+      if (animateTransitions) {
+        this.setState({
+          indexLatest: index,
+        }, () => {
+          Animated.spring(this.state.indexCurrent, {
+            toValue: index,
+            tension: 300,
+            friction: 30,
+          }).start();
+        });
+      } else {
+        this.setState({
+          indexLatest: index,
+          indexCurrent: new Animated.Value(index),
+        });
+      }
     }
   }
 

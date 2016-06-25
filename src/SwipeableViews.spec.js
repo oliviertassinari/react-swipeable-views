@@ -1,8 +1,10 @@
 /* eslint-env mocha */
 import React from 'react';
-import {mount} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import {assert} from 'chai';
 import {spy} from 'sinon';
+import {Motion} from 'react-motion';
+
 import SwipeableViews from '../src/SwipeableViews';
 
 describe('SwipeableViews', () => {
@@ -67,6 +69,21 @@ describe('SwipeableViews', () => {
 
       wrapper.simulate('touchEnd');
       assert.strictEqual(handleTouchEnd.callCount, 1, 'Should be called');
+    });
+  });
+
+  describe('props: animateTransitions', () => {
+    it('should not use a spring if animateTransitions is false', () => {
+      const wrapper = shallow(
+        <SwipeableViews animateTransitions={false}>
+          <div>{'slide n°1'}</div>
+        </SwipeableViews>
+      );
+
+      assert.deepEqual(wrapper.find(Motion).at(0).props().style, {
+        translate: 0,
+        height: 0,
+      });
     });
   });
 });
