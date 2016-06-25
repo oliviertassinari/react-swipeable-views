@@ -35,9 +35,7 @@ const styles = StyleSheet.create({
 class SwipeableViews extends Component {
   static propTypes = {
     /**
-     * If true, changes to the index prop will cause an
-     * animated transition, otherwise it'll just jump to
-     * the new slide.
+     * If `false`, changes to the index prop will not cause an animated transition.
      */
     animateTransitions: PropTypes.bool,
     /**
@@ -50,7 +48,7 @@ class SwipeableViews extends Component {
      */
     containerStyle: ScrollView.propTypes.style,
     /**
-     * If true, it will disable touch events.
+     * If `true`, it will disable touch events.
      * This is useful when you want to prohibit the user from changing slides.
      */
     disabled: PropTypes.bool,
@@ -79,7 +77,7 @@ class SwipeableViews extends Component {
      */
     onSwitching: PropTypes.func,
     /**
-     * If true, it will add bounds effect on the edges.
+     * If `true`, it will add bounds effect on the edges.
      */
     resistance: PropTypes.bool,
     /**

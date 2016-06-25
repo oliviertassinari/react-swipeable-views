@@ -21,6 +21,10 @@ const RESISTANCE_COEF = 0.7;
 class SwipeableViews extends Component {
   static propTypes = {
     /**
+     * If `false`, changes to the index prop will not cause an animated transition.
+     */
+    animateTransitions: PropTypes.bool,
+    /**
      * Use this property to provide your slides.
      */
     children: PropTypes.node.isRequired,
@@ -30,7 +34,7 @@ class SwipeableViews extends Component {
      */
     containerStyle: PropTypes.object,
     /**
-     * If true, it will disable touch events.
+     * If `true`, it will disable touch events.
      * This is useful when you want to prohibit the user from changing slides.
      */
     disabled: PropTypes.bool,
@@ -67,7 +71,7 @@ class SwipeableViews extends Component {
      */
     onTouchStart: PropTypes.func,
     /**
-     * If true, it will add bounds effect on the edges.
+     * If `true`, it will add bounds effect on the edges.
      */
     resistance: PropTypes.bool,
     /**
@@ -93,6 +97,7 @@ class SwipeableViews extends Component {
   };
 
   static defaultProps = {
+    animateTransitions: true,
     index: 0,
     threshold: 5,
     resistance: false,
@@ -312,6 +317,7 @@ class SwipeableViews extends Component {
       resistance,
       threshold,
       /* eslint-enable no-unused-vars */
+      animateTransitions,
       children,
       containerStyle,
       slideStyle,
@@ -331,7 +337,7 @@ class SwipeableViews extends Component {
     const translate = indexCurrent * 100;
     const height = heightLatest;
 
-    const motionStyle = isDragging ? {
+    const motionStyle = (isDragging || !animateTransitions) ? {
       translate: translate,
       height: height,
     } : {
