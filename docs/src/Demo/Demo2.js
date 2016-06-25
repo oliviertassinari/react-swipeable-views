@@ -1,7 +1,9 @@
-import React, {Component} from 'react';
-import Tabs from 'material-ui/lib/tabs/tabs';
-import Tab from 'material-ui/lib/tabs/tab';
+import React from 'react';
+import Tabs from 'material-ui/Tabs/Tabs';
+import Tab from 'material-ui/Tabs/Tab';
 import SwipeableViews from 'react-swipeable-views';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 const styles = {
   slideContainer: {
@@ -24,7 +26,7 @@ const styles = {
 };
 
 
-class Demo2 extends Component {
+class Demo2 extends React.Component {
   state = {
     index: 0,
   };
@@ -47,28 +49,30 @@ class Demo2 extends Component {
     } = this.state;
 
     return (
-      <div>
-        <Tabs value={index}>
-          <Tab label="tab n°1" value={0} onClick={this.handleChangeTabs.bind(null, 0)} />
-          <Tab label="tab n°2" value={1} onClick={this.handleChangeTabs.bind(null, 1)} />
-          <Tab label="tab n°3" value={2} onClick={this.handleChangeTabs.bind(null, 2)} />
-        </Tabs>
-        <SwipeableViews
-          index={index}
-          onChangeIndex={this.handleChangeIndex}
-          containerStyle={styles.slideContainer}
-        >
-          <div style={Object.assign({}, styles.slide, styles.slide1)}>
-            slide n°1
-          </div>
-          <div style={Object.assign({}, styles.slide, styles.slide2)}>
-            slide n°2
-          </div>
-          <div style={Object.assign({}, styles.slide, styles.slide3)}>
-            slide n°3
-          </div>
-        </SwipeableViews>
-      </div>
+      <MuiThemeProvider muiTheme={getMuiTheme()}>
+        <div>
+          <Tabs value={index}>
+            <Tab label="tab n°1" value={0} onClick={this.handleChangeTabs.bind(null, 0)} />
+            <Tab label="tab n°2" value={1} onClick={this.handleChangeTabs.bind(null, 1)} />
+            <Tab label="tab n°3" value={2} onClick={this.handleChangeTabs.bind(null, 2)} />
+          </Tabs>
+          <SwipeableViews
+            index={index}
+            onChangeIndex={this.handleChangeIndex}
+            containerStyle={styles.slideContainer}
+          >
+            <div style={Object.assign({}, styles.slide, styles.slide1)}>
+              slide n°1
+            </div>
+            <div style={Object.assign({}, styles.slide, styles.slide2)}>
+              slide n°2
+            </div>
+            <div style={Object.assign({}, styles.slide, styles.slide3)}>
+              slide n°3
+            </div>
+          </SwipeableViews>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
