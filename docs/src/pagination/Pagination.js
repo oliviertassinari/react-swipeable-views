@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import PaginationDot from './PaginationDot';
 
@@ -12,11 +12,11 @@ const styles = {
   },
 };
 
-export default class Pagination extends React.Component {
+export default class Pagination extends Component {
   static propTypes = {
-    dots: React.PropTypes.number.isRequired,
-    index: React.PropTypes.number.isRequired,
-    onChangeIndex: React.PropTypes.func.isRequired,
+    dots: PropTypes.number.isRequired,
+    index: PropTypes.number.isRequired,
+    onChangeIndex: PropTypes.func.isRequired,
   };
 
   handleClick = (event, index) => {

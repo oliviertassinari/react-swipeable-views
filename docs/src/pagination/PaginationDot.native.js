@@ -1,4 +1,5 @@
-import React, {
+import React, {Component, PropTypes} from 'react';
+import {
   StyleSheet,
   TouchableOpacity,
   View,
@@ -21,11 +22,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class PaginationDot extends React.Component {
+export default class PaginationDot extends Component {
   static propTypes = {
-    active: React.PropTypes.bool.isRequired,
-    index: React.PropTypes.number.isRequired,
-    onClick: React.PropTypes.func.isRequired,
+    active: PropTypes.bool.isRequired,
+    index: PropTypes.number.isRequired,
+    onClick: PropTypes.func.isRequired,
   };
 
   handleClick = (event) => {

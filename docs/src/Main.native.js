@@ -1,6 +1,5 @@
-import React, {
-  View,
-} from 'react-native';
+import React from 'react';
+import {View} from 'react-native';
 
 import Head from './Head.native';
 import Body from './Body.native';

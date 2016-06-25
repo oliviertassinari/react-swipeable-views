@@ -1,4 +1,5 @@
-import React, {
+import React, {PropTypes} from 'react';
+import {
   StyleSheet,
   View,
 } from 'react-native';
@@ -22,7 +23,7 @@ const Body = (props) => {
 };
 
 Body.propTypes = {
-  children: React.PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Body;

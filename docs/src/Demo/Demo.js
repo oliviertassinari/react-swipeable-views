@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 const supportsTouch = 'ontouchstart' in window;
 
@@ -44,9 +44,9 @@ const Demo = (props) => {
 };
 
 Demo.propTypes = {
-  children: React.PropTypes.node.isRequired,
-  description: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  description: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default Demo;

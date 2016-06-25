@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 const styles = {
   root: {
@@ -19,7 +19,7 @@ const Body = (props) => {
 };
 
 Body.propTypes = {
-  children: React.PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Body;

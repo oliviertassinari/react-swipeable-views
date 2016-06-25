@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 
 const styles = {
   root: {
@@ -18,11 +18,11 @@ const styles = {
   },
 };
 
-export default class PaginationDot extends React.Component {
+export default class PaginationDot extends Component {
   static propTypes = {
-    active: React.PropTypes.bool.isRequired,
-    index: React.PropTypes.number.isRequired,
-    onClick: React.PropTypes.func.isRequired,
+    active: PropTypes.bool.isRequired,
+    index: PropTypes.number.isRequired,
+    onClick: PropTypes.func.isRequired,
   };
 
   handleClick = (event) => {

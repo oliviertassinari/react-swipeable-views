@@ -1,4 +1,5 @@
-import React, {
+import React, {Component} from 'react';
+import {
   Text,
   View,
   StyleSheet,
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Demo7 extends React.Component {
+class Demo7 extends Component {
   state = {
     index: 0,
   };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import autoPlay from '../../../src/autoPlay';
 import Pagination from '../pagination/Pagination';
@@ -28,7 +28,7 @@ const styles = {
   },
 };
 
-class Demo7 extends React.Component {
+class Demo7 extends Component {
   state = {
     index: 0,
   };

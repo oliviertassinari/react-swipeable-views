@@ -1,4 +1,5 @@
-import React, {
+import React, {Component, PropTypes} from 'react';
+import {
   StyleSheet,
   View,
 } from 'react-native';
@@ -14,11 +15,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Pagination extends React.Component {
+export default class Pagination extends Component {
   static propTypes = {
-    dots: React.PropTypes.number.isRequired,
-    index: React.PropTypes.number.isRequired,
-    onChangeIndex: React.PropTypes.func.isRequired,
+    dots: PropTypes.number.isRequired,
+    index: PropTypes.number.isRequired,
+    onChangeIndex: PropTypes.func.isRequired,
   };
 
   handleClick = (event, index) => {

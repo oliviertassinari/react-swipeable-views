@@ -1,4 +1,5 @@
-import React, {
+import React, {PropTypes} from 'react';
+import {
   StyleSheet,
   View,
   Text,
@@ -38,10 +39,10 @@ const Footer = (props) => {
 };
 
 Footer.propTypes = {
-  maintainerName: React.PropTypes.string.isRequired,
-  maintainerUrl: React.PropTypes.string.isRequired,
-  repositoryName: React.PropTypes.string.isRequired,
-  repositoryUrl: React.PropTypes.string.isRequired,
+  maintainerName: PropTypes.string.isRequired,
+  maintainerUrl: PropTypes.string.isRequired,
+  repositoryName: PropTypes.string.isRequired,
+  repositoryUrl: PropTypes.string.isRequired,
 };
 
 export default Footer;
