@@ -77,7 +77,7 @@ if (argv.dev === true) {
     }));
 
     if (stats.hasErrors()) {
-      throw new Error(err);
+      throw new Error('Webpack failed');
     }
   });
 }
