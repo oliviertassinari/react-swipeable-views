@@ -276,10 +276,10 @@ class SwipeableViews extends Component {
   updateHeight(node, index) {
     if (node !== null && index === this.state.indexLatest) {
       const child = node.children[0];
-      if (child !== undefined && child.clientHeight !== undefined &&
-        this.state.heightLatest !== child.clientHeight) {
+      if (child !== undefined && child.offsetHeight !== undefined &&
+        this.state.heightLatest !== child.offsetHeight) {
         this.setState({
-          heightLatest: child.clientHeight,
+          heightLatest: child.offsetHeight,
         });
       }
     }
