@@ -1,4 +1,5 @@
 import React from 'react';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Head from './Head';
 import Body from './Body';
@@ -11,6 +12,8 @@ import Demo5 from './demo/Demo5';
 import Demo6 from './demo/Demo6';
 import Demo7 from './demo/Demo7';
 import Footer from './Footer';
+
+injectTapEventPlugin();
 
 const Main = () => (
   <div>
