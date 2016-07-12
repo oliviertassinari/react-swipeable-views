@@ -8,6 +8,7 @@ const styles = {
   },
   container: {
     display: 'flex',
+    willChange: 'transform',
   },
   slide: {
     width: '100%',
