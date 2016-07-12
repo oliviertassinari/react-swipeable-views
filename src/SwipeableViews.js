@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component, PropTypes, Children} from 'react';
 import {findDOMNode} from 'react-dom';
 import {Motion, spring} from 'react-motion';
 
@@ -182,7 +182,7 @@ class SwipeableViews extends Component {
     this.vx = this.vx * 0.5 + (touch.pageX - this.lastX) * 0.5;
     this.lastX = touch.pageX;
 
-    const indexMax = React.Children.count(this.props.children) - 1;
+    const indexMax = Children.count(this.props.children) - 1;
 
     let index = this.state.indexLatest + (this.startX - touch.pageX) / this.startWidth;
 
@@ -251,7 +251,7 @@ class SwipeableViews extends Component {
       }
     }
 
-    const indexMax = React.Children.count(this.props.children) - 1;
+    const indexMax = Children.count(this.props.children) - 1;
 
     if (indexNew < 0) {
       indexNew = 0;
@@ -360,7 +360,7 @@ class SwipeableViews extends Component {
 
     const slideStyleObj = Object.assign({}, styles.slide, slideStyle);
 
-    const childrenToRender = React.Children.map(children, (child, index2) => {
+    const childrenToRender = Children.map(children, (child, index2) => {
       if (isFirstRender && index2 > 0) {
         return null;
       }

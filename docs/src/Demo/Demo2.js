@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Tabs from 'material-ui/Tabs/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
 import SwipeableViews from 'react-swipeable-views';
@@ -26,7 +26,7 @@ const styles = {
 };
 
 
-class Demo2 extends React.Component {
+class Demo2 extends Component {
   state = {
     index: 0,
   };
