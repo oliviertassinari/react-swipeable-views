@@ -4,6 +4,7 @@ import Tab from 'material-ui/Tabs/Tab';
 import SwipeableViews from 'react-swipeable-views';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Checkbox from 'material-ui/Checkbox';
 
 const styles = {
   slideContainer: {
@@ -66,6 +67,9 @@ class Demo2 extends Component {
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide2)}>
               slide n°2
+              <br />
+              <br />
+              <Checkbox label="test event propagation" />
             </div>
             <div style={Object.assign({}, styles.slide, styles.slide3)}>
               slide n°3
