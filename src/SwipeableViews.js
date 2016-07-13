@@ -18,6 +18,7 @@ const styles = {
 };
 
 const RESISTANCE_COEF = 0.7;
+const UNCERTAINTY_THRESHOLD = 3; // px
 
 class SwipeableViews extends Component {
   static propTypes = {
@@ -152,7 +153,7 @@ class SwipeableViews extends Component {
     this.lastX = touch.pageX;
     this.vx = 0;
     this.startY = touch.pageY;
-    this.isScrolling = undefined;
+    this.isSwiping = undefined;
     this.started = true;
   };
 
@@ -166,13 +167,24 @@ class SwipeableViews extends Component {
 
     const touch = event.touches[0];
 
-    // This is a one time test
-    if (this.isScrolling === undefined) {
-      this.isScrolling = Math.abs(this.startY - touch.pageY) > Math.abs(this.startX - touch.pageX) ||
-       event.defaultPrevented;
+    // We don't know yet.
+    if (this.isSwiping === undefined) {
+      if (event.defaultPrevented) {
+        this.isSwiping = false;
+      } else {
+        const dx = Math.abs(this.startX - touch.pageX);
+        const dy = Math.abs(this.startY - touch.pageY);
+
+        const isSwiping = dx > dy && dx > UNCERTAINTY_THRESHOLD;
+
+        if (isSwiping === true || dx > UNCERTAINTY_THRESHOLD || dy > UNCERTAINTY_THRESHOLD) {
+          this.isSwiping = isSwiping;
+          this.startX = touch.pageX; // Shift the starting point.
+        }
+      }
     }
 
-    if (this.isScrolling) {
+    if (this.isSwiping !== true) {
       return;
     }
 
@@ -226,7 +238,7 @@ class SwipeableViews extends Component {
 
     this.started = false;
 
-    if (this.isScrolling) {
+    if (this.isSwiping !== true) {
       return;
     }
 

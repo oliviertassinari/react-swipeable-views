@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 
 const RESISTANCE_COEF = 0.7;
+const UNCERTAINTY_THRESHOLD = 3; // px
 
 const styles = StyleSheet.create({
   root: {
@@ -121,7 +122,10 @@ class SwipeableViews extends Component {
     this.panResponder = PanResponder.create({
       // Claim responder if it's a horizontal pan
       onMoveShouldSetPanResponder: (event, gestureState) => {
-        return Math.abs(gestureState.dx) > Math.abs(gestureState.dy) && Math.abs(gestureState.dx) > 3;
+        const dx = Math.abs(gestureState.dx);
+        const dy = Math.abs(gestureState.dy);
+
+        return dx > dy && dx > UNCERTAINTY_THRESHOLD;
       },
       onPanResponderRelease: this.handleTouchEnd,
       onPanResponderTerminate: this.handleTouchEnd,

@@ -46,7 +46,7 @@ describe('SwipeableViews', () => {
     it('should trigger when we disable the swipe', () => {
       const handleTouchStart = spy();
       const wrapper = mount(
-        <SwipeableViews disable={true} onTouchStart={handleTouchStart}>
+        <SwipeableViews disabled={true} onTouchStart={handleTouchStart}>
           <div>{'slide n°1'}</div>
         </SwipeableViews>
       );
@@ -84,6 +84,83 @@ describe('SwipeableViews', () => {
         translate: 0,
         height: 0,
       });
+    });
+  });
+
+  describe('swipe detection', () => {
+    let instance;
+
+    beforeEach(() => {
+      const wrapper = mount(
+        <SwipeableViews>
+          <div>{'slide n°1'}</div>
+        </SwipeableViews>
+      );
+
+      instance = wrapper.instance();
+      instance.handleTouchStart({
+        touches: [{
+          pageX: 0,
+          pageY: 0,
+        }],
+      });
+      instance.startWidth = 100;
+    });
+
+    it('should not detect a swipe when scrolling', () => {
+      instance.handleTouchMove({
+        touches: [{
+          pageX: 0,
+          pageY: 10,
+        }],
+      });
+      assert.strictEqual(instance.isSwiping, false, 'Should not detect a swipe');
+    });
+
+    it('should detect a swipe when doing a clear movement', () => {
+      instance.handleTouchMove({
+        touches: [{
+          pageX: 10,
+          pageY: 0,
+        }],
+        preventDefault: () => {},
+      });
+      assert.strictEqual(instance.isSwiping, true, 'Should detect a swipe');
+    });
+
+    it('should wait for a clear movement to detect a swipe', () => {
+      instance.handleTouchMove({
+        touches: [{
+          pageX: 2,
+          pageY: 0,
+        }],
+      });
+      assert.strictEqual(instance.isSwiping, undefined, 'We do not know yet');
+
+      instance.handleTouchMove({
+        touches: [{
+          pageX: 0,
+          pageY: 2,
+        }],
+      });
+      assert.strictEqual(instance.isSwiping, undefined, 'We do not know yet');
+
+      instance.handleTouchMove({
+        touches: [{
+          pageX: 0,
+          pageY: 2,
+        }],
+      });
+      assert.strictEqual(instance.isSwiping, undefined, 'We do not know yet');
+
+      instance.handleTouchMove({
+        touches: [{
+          pageX: 10,
+          pageY: 0,
+        }],
+        preventDefault: () => {},
+      });
+      assert.strictEqual(instance.isSwiping, true, 'Should detect a swipe');
     });
   });
 });
