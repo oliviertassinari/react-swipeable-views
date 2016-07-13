@@ -121,7 +121,7 @@ class SwipeableViews extends Component {
     this.panResponder = PanResponder.create({
       // Claim responder if it's a horizontal pan
       onMoveShouldSetPanResponder: (event, gestureState) => {
-        return Math.abs(gestureState.dx) > Math.abs(gestureState.dy);
+        return Math.abs(gestureState.dx) > Math.abs(gestureState.dy) && Math.abs(gestureState.dx) > 3;
       },
       onPanResponderRelease: this.handleTouchEnd,
       onPanResponderTerminate: this.handleTouchEnd,
