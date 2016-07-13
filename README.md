@@ -80,7 +80,7 @@ import SwipeableViews from 'react-swipeable-views/lib/index.native.animated';
 // import SwipeableViews from 'react-swipeable-views/lib/index.native.scroll';
 
 const MyComponent = () => (
-  <SwipeableViews style={slideContainer}>
+  <SwipeableViews style={styles.slideContainer}>
     <View style={[styles.slide, styles.slide1]}>
       <Text style={styles.text}>
         slide n°1
