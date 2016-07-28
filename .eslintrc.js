@@ -10,6 +10,7 @@ module.exports = {
   plugins: [
     'react',
     'mocha',
+    'flowtype',
   ],
   ecmaFeatures: {
     jsx: true,
@@ -74,7 +75,6 @@ module.exports = {
     'space-unary-ops': ['error', { words: true, nonwords: false }],
     'spaced-comment': 'error',
     'yoda': 'error',
-
     'react/display-name': 'error',
     'react/jsx-boolean-value': ['error', 'always'],
     'react/jsx-closing-bracket-location': 'error',
@@ -113,12 +113,12 @@ module.exports = {
     'react/sort-comp': 'error',
     'react/sort-prop-types': 'error',
     'react/wrap-multilines': 'error',
-
     'mocha/handle-done-callback': 'error',
     'mocha/no-exclusive-tests': 'error',
     'mocha/no-global-tests': 'error',
     'mocha/no-pending-tests': 'error',
     'mocha/no-skipped-tests': 'error',
+    'flowtype/require-valid-file-annotation': ['error', 'always'],
 
     'no-case-declarations': 'off',
     'strict': 'off',
@@ -126,11 +126,10 @@ module.exports = {
     'camelcase': 'off',
     'no-underscore-dangle': 'off',
     'handle-callback-err': 'off',
-
     'mocha/no-synchronous-tests': 'off',
     'mocha/valid-suite-description': 'off',
     'mocha/valid-test-description': 'off',
-
+    'mocha/no-mocha-arrows': 'off',
     'react/jsx-no-bind': 'off',
     'react/jsx-no-target-blank': 'off',
     'react/jsx-sort-props': 'off',
@@ -139,5 +138,10 @@ module.exports = {
     'react/forbid-prop-types': 'off',
     'react/prefer-stateless-function': 'off',
     'react/require-optimization': 'off',
+    'flowtype/require-parameter-type': 'off',
+    'flowtype/require-return-type': 'off',
+    'flowtype/space-after-type-colon': 'off',
+    'flowtype/space-before-type-colon': 'off',
+    'flowtype/type-id-match': 'off',
   },
 };

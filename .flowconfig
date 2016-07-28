@@ -1,5 +1,8 @@
 [ignore]
 
+.*/node_modules/react-motion/.*
+.*/node_modules/react-tap-event-plugin/.*
+
 # We fork some components by platform.
 .*/*.android.js
 
@@ -9,15 +12,16 @@
 # Ignore malformed json
 .*/node_modules/y18n/test/.*\.json
 
-[include]
-
 [libs]
 node_modules/react-native/Libraries/react-native/react-native-interface.js
 node_modules/react-native/flow
-flow/
+flow/interfaces
 
 [options]
 module.system=haste
+module.system.node.resolve_dirname=node_modules
+module.system.node.resolve_dirname=docs/src
+module.system.node.resolve_dirname=src
 
 esproposal.class_static_fields=enable
 esproposal.class_instance_fields=enable
@@ -28,6 +32,7 @@ munge_underscores=true
 
 module.name_mapper='^image![a-zA-Z0-9$_-]+$' -> 'GlobalImageStub'
 module.name_mapper='^[./a-zA-Z0-9$_-]+\.\(bmp\|gif\|jpg\|jpeg\|png\|psd\|svg\|webp\|m4v\|mov\|mp4\|mpeg\|mpg\|webm\|aac\|aiff\|caf\|m4a\|mp3\|wav\|html\|pdf\)$' -> 'RelativeImageStub'
+module.name_mapper='.*\.\(less\|png\|jpg\)$' -> '<PROJECT_ROOT>/flow/stubs/url-loader.js'
 
 suppress_type=$FlowIssue
 suppress_type=$FlowFixMe

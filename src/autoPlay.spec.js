@@ -1,4 +1,6 @@
+// @flow weak
 /* eslint-env mocha */
+
 import React from 'react';
 import {shallow, mount} from 'enzyme';
 import {spy} from 'sinon';

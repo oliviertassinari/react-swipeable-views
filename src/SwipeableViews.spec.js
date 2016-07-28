@@ -1,4 +1,6 @@
+/* eslint-disable flowtype/require-valid-file-annotation */
 /* eslint-env mocha */
+
 import React from 'react';
 import {mount, shallow} from 'enzyme';
 import {assert} from 'chai';

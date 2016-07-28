@@ -1,3 +1,5 @@
+// @flow weak
+
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -7,6 +9,8 @@ import UnusedFilesWebpackPlugin from 'unused-files-webpack-plugin';
 
 export default function(options) {
   const webpackConfig = {
+    profile: false,
+    entry: [],
     output: {
       path: path.join(__dirname, 'dist'), // No used by webpack dev server
       publicPath: '',

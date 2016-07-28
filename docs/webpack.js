@@ -1,3 +1,5 @@
+// @flow weak
+
 /* eslint-disable no-console */
 import minimist from 'minimist';
 import WebpackDevServer from 'webpack-dev-server';

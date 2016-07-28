@@ -1,3 +1,4 @@
+// @flow weak
 /**
  * This is an alternative version that use `Animated.View`.
  * I'm not sure what version give the best UX experience.
@@ -112,6 +113,8 @@ class SwipeableViews extends Component {
     resistance: false,
   };
 
+  state = {};
+
   componentWillMount() {
     this.setState({
       indexLatest: this.props.index,
@@ -159,6 +162,9 @@ class SwipeableViews extends Component {
       }
     }
   }
+
+  panResponder = undefined;
+  startX = 0;
 
   handleTouchStart = (event, gestureState) => {
     if (this.props.onTouchStart) {

@@ -1,3 +1,5 @@
+/* eslint-disable flowtype/require-valid-file-annotation */
+
 import React, {Component, PropTypes, Children} from 'react';
 
 function mod(n, m) {
@@ -5,7 +7,7 @@ function mod(n, m) {
 }
 
 export default function autoPlay(MyComponent) {
-  return class AutoPlay extends Component {
+  class AutoPlay extends Component {
     static propTypes = {
       /**
        * If `false`, the auto play behavior is disabled.
@@ -57,6 +59,8 @@ export default function autoPlay(MyComponent) {
     componentWillUnmount() {
       clearInterval(this.timer);
     }
+
+    timer = null;
 
     startInterval() {
       const {
@@ -148,5 +152,7 @@ export default function autoPlay(MyComponent) {
         />
       );
     }
-  };
+  }
+
+  return AutoPlay;
 }

@@ -1,3 +1,4 @@
+// @flow weak
 /**
  * This is an alternative version that use `ScrollView` and `ViewPagerAndroid`.
  * I'm not sure what version give the best UX experience.
@@ -99,10 +100,13 @@ class SwipeableViews extends Component {
     resistance: false,
   };
 
+  state = {};
+
   componentWillMount() {
     const initState = {
       indexLatest: this.props.index,
       viewWidth: windowWidth,
+      offset: {},
     };
 
     // android not use offset

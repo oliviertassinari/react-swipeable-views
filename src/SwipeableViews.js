@@ -1,3 +1,5 @@
+/* eslint-disable flowtype/require-valid-file-annotation */
+
 import React, {Component, PropTypes, Children} from 'react';
 import {findDOMNode} from 'react-dom';
 import {Motion, spring} from 'react-motion';
@@ -110,6 +112,8 @@ class SwipeableViews extends Component {
     },
   };
 
+  state = {};
+
   componentWillMount() {
     this.setState({
       indexCurrent: this.props.index,
@@ -140,6 +144,14 @@ class SwipeableViews extends Component {
       });
     }
   }
+
+  startWidth = 0;
+  startX = 0;
+  lastX = 0;
+  vx = 0;
+  startY = 0;
+  isSwiping = undefined;
+  started = false;
 
   handleTouchStart = (event) => {
     if (this.props.onTouchStart) {
@@ -308,6 +320,7 @@ class SwipeableViews extends Component {
     const styleNew = {
       WebkitTransform: `translate3d(${translate}%, 0, 0)`,
       transform: `translate3d(${translate}%, 0, 0)`,
+      height: null,
     };
 
     if (updateHeight) {
@@ -315,7 +328,7 @@ class SwipeableViews extends Component {
     }
 
     return (
-      <div style={Object.assign(styleNew, styles.container, containerStyle)}>
+      <div style={Object.assign({}, styleNew, styles.container, containerStyle)}>
         {childrenToRender}
       </div>
     );
