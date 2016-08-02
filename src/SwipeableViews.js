@@ -3,6 +3,7 @@
 import React, {Component, PropTypes, Children} from 'react';
 import {findDOMNode} from 'react-dom';
 import {Motion, spring} from 'react-motion';
+import checkIndexBounds from './utils/checkIndexBounds';
 
 const styles = {
   root: {
@@ -115,6 +116,10 @@ class SwipeableViews extends Component {
   state = {};
 
   componentWillMount() {
+    if (process.env.NODE_ENV !== 'production') {
+      checkIndexBounds(this.props);
+    }
+
     this.setState({
       indexCurrent: this.props.index,
       indexLatest: this.props.index,
@@ -138,6 +143,10 @@ class SwipeableViews extends Component {
     } = nextProps;
 
     if (typeof index === 'number' && index !== this.props.index) {
+      if (process.env.NODE_ENV !== 'production') {
+        checkIndexBounds(nextProps);
+      }
+
       this.setState({
         indexCurrent: index,
         indexLatest: index,

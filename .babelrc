@@ -27,7 +27,8 @@
       "presets": ["es2015", "react", "stage-1"],
       "plugins": [
         "transform-object-assign",
-        ["transform-react-remove-prop-types", {"mode": "wrap"}]
+        ["transform-react-remove-prop-types", {"mode": "wrap"}],
+        "transform-dev-warning"
       ]
     },
     "docs-browser-production": {

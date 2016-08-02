@@ -6,7 +6,6 @@
  */
 
 import React, {Component, PropTypes, Children} from 'react';
-
 import {
   Animated,
   Dimensions,
@@ -14,6 +13,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import checkIndexBounds from './utils/checkIndexBounds';
 
 const RESISTANCE_COEF = 0.7;
 const UNCERTAINTY_THRESHOLD = 3; // px
@@ -116,6 +116,10 @@ class SwipeableViews extends Component {
   state = {};
 
   componentWillMount() {
+    if (process.env.NODE_ENV !== 'production') {
+      checkIndexBounds(this.props);
+    }
+
     this.setState({
       indexLatest: this.props.index,
       indexCurrent: new Animated.Value(this.props.index),
@@ -144,6 +148,10 @@ class SwipeableViews extends Component {
     } = nextProps;
 
     if (typeof index === 'number' && index !== this.props.index) {
+      if (process.env.NODE_ENV !== 'production') {
+        checkIndexBounds(nextProps);
+      }
+
       if (animateTransitions) {
         this.setState({
           indexLatest: index,

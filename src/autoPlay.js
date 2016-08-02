@@ -1,10 +1,7 @@
-/* eslint-disable flowtype/require-valid-file-annotation */
+// @flow weak
 
 import React, {Component, PropTypes, Children} from 'react';
-
-function mod(n, m) {
-  return ((n % m) + m) % m;
-}
+import mod from './utils/mod';
 
 export default function autoPlay(MyComponent) {
   class AutoPlay extends Component {
