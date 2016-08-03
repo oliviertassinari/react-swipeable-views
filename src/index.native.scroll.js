@@ -6,7 +6,6 @@
  */
 
 import React, {Component, PropTypes, Children} from 'react';
-
 import {
   StyleSheet,
   View,
@@ -15,6 +14,7 @@ import {
   ViewPagerAndroid,
   Platform,
 } from 'react-native';
+import checkIndexBounds from './utils/checkIndexBounds';
 
 const {
   width: windowWidth,
@@ -103,6 +103,10 @@ class SwipeableViews extends Component {
   state = {};
 
   componentWillMount() {
+    if (process.env.NODE_ENV !== 'production') {
+      checkIndexBounds(this.props);
+    }
+
     const initState = {
       indexLatest: this.props.index,
       viewWidth: windowWidth,
@@ -125,6 +129,8 @@ class SwipeableViews extends Component {
     } = nextProps;
 
     if (typeof index === 'number' && index !== this.props.index) {
+      checkIndexBounds(nextProps);
+
       this.setState({
         indexLatest: index,
         offset: {
