@@ -307,7 +307,7 @@ class SwipeableViews extends Component {
 
     const styleNew = {
       position: 'relative',
-      left: '${translate}%',
+      left: translate + '%',
       height: null
     };
 
