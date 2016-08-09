@@ -8,7 +8,7 @@ const styles = {
   },
   container: {
     display: 'flex',
-    willChange: 'transform',
+    willChange: 'unset',
   },
   slide: {
     width: '100%',
@@ -290,7 +290,7 @@ class SwipeableViews extends Component {
     if (node !== null && index === this.state.indexLatest) {
       const child = node.children[0];
       if (child !== undefined && child.offsetHeight !== undefined &&
-        this.state.heightLatest !== child.offsetHeight) {
+          this.state.heightLatest !== child.offsetHeight) {
         this.setState({
           heightLatest: child.offsetHeight,
         });
@@ -300,14 +300,15 @@ class SwipeableViews extends Component {
 
   renderContainer(interpolatedStyle, updateHeight, childrenToRender) {
     const {
-      containerStyle,
-    } = this.props;
+        containerStyle,
+        } = this.props;
 
     const translate = -interpolatedStyle.translate;
 
     const styleNew = {
-      WebkitTransform: `translate3d(${translate}%, 0, 0)`,
-      transform: `translate3d(${translate}%, 0, 0)`,
+      position: 'relative',
+      left: '${translate}%',
+      height: null
     };
 
     if (updateHeight) {
