@@ -1,7 +1,6 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
 
 import React, {Component, PropTypes, Children} from 'react';
-import {findDOMNode} from 'react-dom';
 import {Motion, spring} from 'react-motion';
 import checkIndexBounds from './utils/checkIndexBounds';
 
@@ -169,7 +168,7 @@ class SwipeableViews extends Component {
 
     const touch = event.touches[0];
 
-    this.startWidth = findDOMNode(this).getBoundingClientRect().width;
+    this.startWidth = this.node.getBoundingClientRect().width;
     this.startX = touch.pageX;
     this.lastX = touch.pageX;
     this.vx = 0;
@@ -415,6 +414,7 @@ class SwipeableViews extends Component {
     return (
       <div
         {...other}
+        ref={(node) => this.node = node}
         style={Object.assign({}, styles.root, style)}
         {...touchEvents}
       >

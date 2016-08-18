@@ -2,11 +2,11 @@
 
 /* eslint-disable no-console */
 import minimist from 'minimist';
-import WebpackDevServer from 'webpack-dev-server';
-import webpack from 'webpack';
-import webpackConfig from './webpack.config';
-import ProgressPlugin from 'webpack/lib/ProgressPlugin';
 import rimraf from 'rimraf';
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
+import ProgressPlugin from 'webpack/lib/ProgressPlugin';
+import webpackConfig from './webpack.config';
 
 const argv = minimist(process.argv.slice(2));
 

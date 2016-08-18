@@ -29,6 +29,7 @@ const argv = minimist(process.argv.slice(2), {
 
 const mocha = new Mocha({
   grep: argv.grep ? argv.grep : undefined,
+  reporter: 'dot',
 });
 
 glob(`src/**/${argv.component ? argv.component : '*'}.spec.js`, {}, (err, files) => {
