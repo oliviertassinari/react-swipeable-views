@@ -2,6 +2,7 @@
 
 import React, {Component, PropTypes, Children} from 'react';
 import {Motion, spring} from 'react-motion';
+import warning from 'warning';
 import checkIndexBounds from './utils/checkIndexBounds';
 
 const styles = {
@@ -19,11 +20,16 @@ const styles = {
   },
 };
 
-const RESISTANCE_COEF = 0.7;
+const RESISTANCE_COEF = 0.6;
 const UNCERTAINTY_THRESHOLD = 3; // px
 
 class SwipeableViews extends Component {
   static propTypes = {
+    /**
+     * If `true`, the height of the container will be animated to match the current slide height.
+     * Animating another style property has a negative impact regarding performance.
+     */
+    animateHeight: PropTypes.bool,
     /**
      * If `false`, changes to the index prop will not cause an animated transition.
      */
@@ -101,6 +107,7 @@ class SwipeableViews extends Component {
   };
 
   static defaultProps = {
+    animateHeight: false,
     animateTransitions: true,
     index: 0,
     threshold: 5,
@@ -306,8 +313,8 @@ class SwipeableViews extends Component {
     });
   };
 
-  updateHeight(node, index) {
-    if (node !== null && index === this.state.indexLatest) {
+  updateHeight(node) {
+    if (node !== null) {
       const child = node.children[0];
       if (child !== undefined && child.offsetHeight !== undefined &&
         this.state.heightLatest !== child.offsetHeight) {
@@ -318,7 +325,7 @@ class SwipeableViews extends Component {
     }
   }
 
-  renderContainer(interpolatedStyle, updateHeight, childrenToRender) {
+  renderContainer(interpolatedStyle, animateHeight, childrenToRender) {
     const {
       containerStyle,
     } = this.props;
@@ -331,7 +338,7 @@ class SwipeableViews extends Component {
       height: null,
     };
 
-    if (updateHeight) {
+    if (animateHeight) {
       styleNew.height = interpolatedStyle.height;
     }
 
@@ -344,14 +351,13 @@ class SwipeableViews extends Component {
 
   render() {
     const {
-      /* eslint-disable no-unused-vars */
-      index,
-      onChangeIndex,
-      onSwitching,
-      resistance,
-      threshold,
-      /* eslint-enable no-unused-vars */
+      animateHeight,
       animateTransitions,
+      index, // eslint-disable-line no-unused-vars
+      onChangeIndex, // eslint-disable-line no-unused-vars
+      onSwitching, // eslint-disable-line no-unused-vars
+      resistance, // eslint-disable-line no-unused-vars
+      threshold, // eslint-disable-line no-unused-vars
       children,
       containerStyle,
       slideStyle,
@@ -385,11 +391,15 @@ class SwipeableViews extends Component {
       onTouchEnd: this.handleTouchEnd,
     };
 
-    let updateHeight = true;
-    // There is no point to animate if we already provide a height
-    if (containerStyle && (containerStyle.height || containerStyle.maxHeight || containerStyle.minHeight)) {
-      updateHeight = false;
-    }
+    // There is no point to animate if we are already providing a height.
+    warning(
+      !animateHeight ||
+      !containerStyle ||
+      (!containerStyle.height && !containerStyle.maxHeight && !containerStyle.minHeight),
+      `react-swipeable-view: You are setting animateHeight to true but you are also providing a custom height.
+      The custom height has a higher priority than the animateHeight property.
+      So animateHeight is most likely having no effect at all.`,
+    );
 
     const slideStyleObj = Object.assign({}, styles.slide, slideStyle);
 
@@ -400,8 +410,8 @@ class SwipeableViews extends Component {
 
       let ref;
 
-      if (updateHeight) {
-        ref = (node) => this.updateHeight(node, index2);
+      if (animateHeight && index2 === this.state.indexLatest) {
+        ref = (node) => this.updateHeight(node);
       }
 
       return (
@@ -419,7 +429,7 @@ class SwipeableViews extends Component {
         {...touchEvents}
       >
         <Motion style={motionStyle}>
-          {(interpolatedStyle) => this.renderContainer(interpolatedStyle, updateHeight, childrenToRender)}
+          {(interpolatedStyle) => this.renderContainer(interpolatedStyle, animateHeight, childrenToRender)}
         </Motion>
       </div>
     );

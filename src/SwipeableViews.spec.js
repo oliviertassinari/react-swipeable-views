@@ -75,6 +75,24 @@ describe('SwipeableViews', () => {
   });
 
   describe('props: animateTransitions', () => {
+    it('should use a spring if animateTransitions is true', () => {
+      const wrapper = shallow(
+        <SwipeableViews>
+          <div>{'slide n°1'}</div>
+        </SwipeableViews>
+      );
+
+      assert.deepEqual(wrapper.find(Motion).at(0).props().style, {
+        translate: {
+          damping: 30,
+          precision: 0.01,
+          stiffness: 300,
+          val: 0,
+        },
+        height: 0,
+      });
+    });
+
     it('should not use a spring if animateTransitions is false', () => {
       const wrapper = shallow(
         <SwipeableViews animateTransitions={false}>

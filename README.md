@@ -176,6 +176,7 @@ export default MyComponent;
 
 | Name | Type | Default | Platform | Description |
 |:-----|:-----|:--------|:---------|:------------|
+| animateHeight | bool | `false` | | If `true`, the height of the container will be animated to match the current slide height. Animating another style property has a negative impact regarding performance. |
 | animateTransitions | bool | `true` | | If `false`, changes to the index prop will not cause an animated transition. |
 | children | node | | | Use this property to provide your slides. |
 | containerStyle | object | {} | | Whether or not the auto complete is animated as it is toggled. |

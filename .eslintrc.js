@@ -124,6 +124,7 @@ module.exports = {
     'import/default': 'error',
     'import/export': 'error',
     'import/extensions': ['error', {
+      'native': 'always',
       'json': 'always',
       'html': 'always',
       'server': 'always',
