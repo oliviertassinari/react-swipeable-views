@@ -32,7 +32,7 @@ for (let i = 0; i < 30; i++) {
 
 const Demo4 = () => {
   return (
-    <SwipeableViews>
+    <SwipeableViews animateHeight={true}>
       <div style={Object.assign({}, styles.slide, styles.slide1)}>
         {list.slice(0, 10)}
       </div>
