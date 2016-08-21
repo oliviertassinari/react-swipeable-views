@@ -12,9 +12,6 @@ import Button from 'react-native-button';
 import SwipeableViews from '../../../src/index.native.animated';
 
 const styles = StyleSheet.create({
-  slideContainer: {
-    height: 100,
-  },
   slide: {
     padding: 15,
     height: 100,
@@ -83,11 +80,7 @@ class Demo2 extends Component {
         >
           tab n°3
         </Button>
-        <SwipeableViews
-          index={index}
-          onChangeIndex={this.handleChangeIndex}
-          containerStyle={styles.slideContainer}
-        >
+        <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
           <View style={[styles.slide, styles.slide1]}>
             <Text style={styles.text}>
               slide n°1

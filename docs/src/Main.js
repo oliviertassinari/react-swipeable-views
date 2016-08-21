@@ -2,7 +2,6 @@
 
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
 import Head from './Head';
 import Body from './Body';
 import Demo from './demo/Demo';
@@ -13,6 +12,7 @@ import Demo4 from './demo/Demo4';
 import Demo5 from './demo/Demo5';
 import Demo6 from './demo/Demo6';
 import Demo7 from './demo/Demo7';
+import Demo8 from './demo/Demo8';
 import Footer from './Footer';
 
 injectTapEventPlugin();
@@ -30,13 +30,13 @@ const Main = () => (
     <Body>
       <Demo
         name="Demo 1"
-        description="Simple case without header."
+        description="A Simple case."
       >
         <Demo1 />
       </Demo>
       <Demo
         name="Demo 2"
-        description="Now, let's add a header."
+        description="With a header."
       >
         <Demo2 />
       </Demo>
@@ -48,27 +48,33 @@ const Main = () => (
       </Demo>
       <Demo
         name="Demo 4"
-        description="Or let the container respond dynamically to its children."
+        description="The container responds dynamically to its children."
       >
         <Demo4 />
       </Demo>
       <Demo
         name="Demo 5"
-        description="Add a resistance bounds effet on the edges."
+        description="With a resistance bounds effet on the edges."
       >
         <Demo5 />
       </Demo>
       <Demo
         name="Demo 6"
-        description="You can also nest this component."
+        description="With nested swipeable-view component."
       >
         <Demo6 />
       </Demo>
       <Demo
         name="Demo 7"
-        description="You can use the auto play HOC."
+        description="With the auto play HOC."
       >
         <Demo7 />
+      </Demo>
+      <Demo
+        name="Demo 8"
+        description="Swipe up and down."
+      >
+        <Demo8 />
       </Demo>
       <Footer
         maintainerName="oliviertassinari"

@@ -11,9 +11,6 @@ const styles = {
   root: {
     position: 'relative',
   },
-  slideContainer: {
-    height: 100,
-  },
   slide: {
     padding: 15,
     minHeight: 100,
@@ -48,11 +45,7 @@ class Demo7 extends Component {
 
     return (
       <div style={styles.root}>
-        <AutoPlaySwipeableViews
-          index={index}
-          onChangeIndex={this.handleChangeIndex}
-          containerStyle={styles.slideContainer}
-        >
+        <AutoPlaySwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
           <div style={Object.assign({}, styles.slide, styles.slide1)}>
             slide n°1
           </div>

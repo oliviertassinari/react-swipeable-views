@@ -16,9 +16,6 @@ const styles = StyleSheet.create({
   root: {
     position: 'relative',
   },
-  slideContainer: {
-    height: 100,
-  },
   slide: {
     padding: 15,
     height: 100,
@@ -56,11 +53,7 @@ class Demo7 extends Component {
 
     return (
       <View style={styles.root}>
-        <AutoPlaySwipeableViews
-          index={index}
-          onChangeIndex={this.handleChangeIndex}
-          containerStyle={styles.slideContainer}
-        >
+        <AutoPlaySwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
           <View style={[styles.slide, styles.slide1]}>
             <Text style={styles.text}>
               slide n°1
