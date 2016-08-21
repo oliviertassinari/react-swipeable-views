@@ -13,10 +13,10 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import warning from 'warning';
+import {UNCERTAINTY_THRESHOLD} from './constant';
+import computeIndex from './utils/computeIndex';
 import checkIndexBounds from './utils/checkIndexBounds';
-
-const RESISTANCE_COEF = 0.7;
-const UNCERTAINTY_THRESHOLD = 3; // px
 
 const styles = StyleSheet.create({
   root: {
@@ -35,9 +35,18 @@ const styles = StyleSheet.create({
 class SwipeableViews extends Component {
   static propTypes = {
     /**
+     * If `true`, the height of the container will be animated to match the current slide height.
+     * Animating another style property has a negative impact regarding performance.
+     */
+    animateHeight: PropTypes.bool,
+    /**
      * If `false`, changes to the index prop will not cause an animated transition.
      */
     animateTransitions: PropTypes.bool,
+    /**
+     * The axis on which the slides will slide.
+     */
+    axis: PropTypes.oneOf(['x', 'x-reverse', 'y', 'y-reverse']),
     /**
      * Use this property to provide your slides.
      */
@@ -123,7 +132,7 @@ class SwipeableViews extends Component {
     this.setState({
       indexLatest: this.props.index,
       indexCurrent: new Animated.Value(this.props.index),
-      viewWidth: Dimensions.get('window').width,
+      viewLength: Dimensions.get('window').width,
     });
 
     this.panResponder = PanResponder.create({
@@ -139,6 +148,9 @@ class SwipeableViews extends Component {
       onPanResponderMove: this.handleTouchMove,
       onPanResponderGrant: this.handleTouchStart,
     });
+
+    warning(!this.props.animateHeight, 'react-swipeable-view: The animateHeight property is not implement yet.');
+    warning(!this.props.axis, 'react-swipeable-view: The axis property is not implement yet.');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -184,34 +196,31 @@ class SwipeableViews extends Component {
 
   handleTouchMove = (event, gestureState) => {
     const {
-      moveX,
-    } = gestureState;
+      children,
+      onSwitching,
+      resistance,
+    } = this.props;
 
-    let index = this.state.indexLatest + (this.startX - moveX) / this.state.viewWidth;
+    const {
+      index,
+      startX,
+    } = computeIndex({
+      children: children,
+      resistance: resistance,
+      pageX: gestureState.moveX,
+      indexLatest: this.state.indexLatest,
+      startX: this.startX,
+      viewLength: this.state.viewLength,
+    });
 
-    const indexMax = Children.count(this.props.children) - 1;
-
-    if (!this.props.resistance) {
-      // Reset the starting point
-      if (index < 0) {
-        index = 0;
-        this.startX = moveX;
-      } else if (index > indexMax) {
-        index = indexMax;
-        this.startX = moveX;
-      }
-    } else {
-      if (index < 0) {
-        index = Math.exp(index * RESISTANCE_COEF) - 1;
-      } else if (index > indexMax) {
-        index = indexMax + 1 - Math.exp((indexMax - index) * RESISTANCE_COEF);
-      }
+    if (startX) {
+      this.startX = startX;
     }
 
     this.state.indexCurrent.setValue(index);
 
-    if (this.props.onSwitching) {
-      this.props.onSwitching(index, 'move');
+    if (onSwitching) {
+      onSwitching(index, 'move');
     }
   };
 
@@ -226,7 +235,7 @@ class SwipeableViews extends Component {
     } = gestureState;
 
     const indexLatest = this.state.indexLatest;
-    const indexCurrent = indexLatest + (this.startX - moveX) / this.state.viewWidth;
+    const indexCurrent = indexLatest + (this.startX - moveX) / this.state.viewLength;
 
     let indexNew;
 
@@ -278,7 +287,7 @@ class SwipeableViews extends Component {
 
     if (width) {
       this.setState({
-        viewWidth: width,
+        viewLength: width,
       });
     }
   };
@@ -294,7 +303,7 @@ class SwipeableViews extends Component {
 
     const {
       indexCurrent,
-      viewWidth,
+      viewLength,
     } = this.state;
 
     const slideStyleObj = [styles.slide, slideStyle];
@@ -310,12 +319,12 @@ class SwipeableViews extends Component {
     const sceneContainerStyle = [
       styles.container,
       {
-        width: viewWidth * Children.count(children),
+        width: viewLength * Children.count(children),
         transform: [
           {
             translateX: indexCurrent.interpolate({
               inputRange: [0, 1],
-              outputRange: [0, -viewWidth],
+              outputRange: [0, -viewLength],
             }),
           },
         ],

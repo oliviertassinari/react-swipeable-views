@@ -9,9 +9,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Checkbox from 'material-ui/Checkbox';
 
 const styles = {
-  slideContainer: {
-    height: 100,
-  },
   slide: {
     padding: 15,
     minHeight: 100,
@@ -59,11 +56,7 @@ class Demo2 extends Component {
             <Tab label="tab n°2" value={1} onClick={this.handleChangeTabs.bind(null, 1)} />
             <Tab label="tab n°3" value={2} onClick={this.handleChangeTabs.bind(null, 2)} />
           </Tabs>
-          <SwipeableViews
-            index={index}
-            onChangeIndex={this.handleChangeIndex}
-            containerStyle={styles.slideContainer}
-          >
+          <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
             <div style={Object.assign({}, styles.slide, styles.slide1)}>
               slide n°1
             </div>

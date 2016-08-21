@@ -9,9 +9,6 @@ import {
 import SwipeableViews from '../../../src/index.native.animated';
 
 const styles = StyleSheet.create({
-  slideContainer: {
-    height: 100,
-  },
   slide: {
     padding: 15,
     height: 100,
@@ -35,7 +32,7 @@ const styles = StyleSheet.create({
 });
 
 const Demo6 = () => (
-  <SwipeableViews containerStyle={styles.slideContainer}>
+  <SwipeableViews>
     <View style={[styles.slide, styles.slide1]}>
       <Text style={styles.text}>
         slide n°1

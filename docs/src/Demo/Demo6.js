@@ -4,9 +4,6 @@ import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 
 const styles = {
-  slideContainer: {
-    height: 100,
-  },
   slide: {
     padding: 15,
     minHeight: 100,
@@ -31,7 +28,7 @@ const Demo6 = () => (
     <div style={Object.assign({}, styles.slide, styles.slide1)}>
       slide n°1
       <div style={styles.divider} />
-      <SwipeableViews containerStyle={styles.slideContainer} resistance={true}>
+      <SwipeableViews resistance={true}>
         <div style={Object.assign({}, styles.slide, styles.slide2)}>
           nested slide n°1
         </div>

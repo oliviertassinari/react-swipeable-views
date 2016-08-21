@@ -14,6 +14,7 @@ import {
   ViewPagerAndroid,
   Platform,
 } from 'react-native';
+import warning from 'warning';
 import checkIndexBounds from './utils/checkIndexBounds';
 
 const {
@@ -36,9 +37,18 @@ const styles = StyleSheet.create({
 class SwipeableViews extends Component {
   static propTypes = {
     /**
+     * If `true`, the height of the container will be animated to match the current slide height.
+     * Animating another style property has a negative impact regarding performance.
+     */
+    animateHeight: PropTypes.bool,
+    /**
      * If `false`, changes to the index prop will not cause an animated transition.
      */
     animateTransitions: PropTypes.bool,
+    /**
+     * The axis on which the slides will slide.
+     */
+    axis: PropTypes.oneOf(['x', 'x-reverse', 'y', 'y-reverse']),
     /**
      * Use this property to provide your slides.
      */
@@ -121,6 +131,9 @@ class SwipeableViews extends Component {
     }
 
     this.setState(initState);
+
+    warning(!this.props.animateHeight, 'react-swipeable-view: The animateHeight property is not implement yet.');
+    warning(!this.props.axis, 'react-swipeable-view: The axis property is not implement yet.');
   }
 
   componentWillReceiveProps(nextProps) {

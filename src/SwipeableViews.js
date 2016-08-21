@@ -3,12 +3,11 @@
 import React, {Component, PropTypes, Children} from 'react';
 import {Motion, spring} from 'react-motion';
 import warning from 'warning';
+import {UNCERTAINTY_THRESHOLD} from './constant';
 import checkIndexBounds from './utils/checkIndexBounds';
+import computeIndex from './utils/computeIndex';
 
 const styles = {
-  root: {
-    overflowX: 'hidden',
-  },
   container: {
     display: 'flex',
     willChange: 'transform',
@@ -20,8 +19,67 @@ const styles = {
   },
 };
 
-const RESISTANCE_COEF = 0.6;
-const UNCERTAINTY_THRESHOLD = 3; // px
+const axisProperties = {
+  root: {
+    x: {
+      overflowX: 'hidden',
+    },
+    'x-reverse': {
+      overflowX: 'hidden',
+    },
+    y: {
+      overflowY: 'hidden',
+    },
+    'y-reverse': {
+      overflowY: 'hidden',
+    },
+  },
+  flexDirection: {
+    x: 'row',
+    'x-reverse': 'row-reverse',
+    y: 'column',
+    'y-reverse': 'column-reverse',
+  },
+  transform: {
+    x: (translate) => `translate(${-translate}%, 0)`,
+    'x-reverse': (translate) => `translate(${translate}%, 0)`,
+    y: (translate) => `translate(0, ${-translate}%)`,
+    'y-reverse': (translate) => `translate(0, ${translate}%)`,
+  },
+  length: {
+    x: 'width',
+    'x-reverse': 'width',
+    y: 'height',
+    'y-reverse': 'height',
+  },
+  rotationMatrix: {
+    x: {
+      x: [1, 0],
+      y: [0, 1],
+    },
+    'x-reverse': {
+      x: [-1, 0],
+      y: [0, 1],
+    },
+    y: {
+      x: [0, 1],
+      y: [1, 0],
+    },
+    'y-reverse': {
+      x: [0, -1],
+      y: [1, 0],
+    },
+  },
+};
+
+function applyRotationMatrix(touch, axis) {
+  const rotationMatrix = axisProperties.rotationMatrix[axis];
+
+  return {
+    pageX: rotationMatrix.x[0] * touch.pageX + rotationMatrix.x[1] * touch.pageY,
+    pageY: rotationMatrix.y[0] * touch.pageX + rotationMatrix.y[1] * touch.pageY,
+  };
+}
 
 class SwipeableViews extends Component {
   static propTypes = {
@@ -34,6 +92,10 @@ class SwipeableViews extends Component {
      * If `false`, changes to the index prop will not cause an animated transition.
      */
     animateTransitions: PropTypes.bool,
+    /**
+     * The axis on which the slides will slide.
+     */
+    axis: PropTypes.oneOf(['x', 'x-reverse', 'y', 'y-reverse']),
     /**
      * Use this property to provide your slides.
      */
@@ -109,6 +171,7 @@ class SwipeableViews extends Component {
   static defaultProps = {
     animateHeight: false,
     animateTransitions: true,
+    axis: 'x',
     index: 0,
     threshold: 5,
     resistance: false,
@@ -160,7 +223,7 @@ class SwipeableViews extends Component {
     }
   }
 
-  startWidth = 0;
+  viewLength = 0;
   startX = 0;
   lastX = 0;
   vx = 0;
@@ -169,13 +232,18 @@ class SwipeableViews extends Component {
   started = false;
 
   handleTouchStart = (event) => {
-    if (this.props.onTouchStart) {
-      this.props.onTouchStart(event);
+    const {
+      axis,
+      onTouchStart,
+    } = this.props;
+
+    if (onTouchStart) {
+      onTouchStart(event);
     }
 
-    const touch = event.touches[0];
+    const touch = applyRotationMatrix(event.touches[0], axis);
 
-    this.startWidth = this.node.getBoundingClientRect().width;
+    this.viewLength = this.node.getBoundingClientRect()[axisProperties.length[axis]];
     this.startX = touch.pageX;
     this.lastX = touch.pageX;
     this.vx = 0;
@@ -192,7 +260,14 @@ class SwipeableViews extends Component {
       return;
     }
 
-    const touch = event.touches[0];
+    const {
+      axis,
+      children,
+      onSwitching,
+      resistance,
+    } = this.props;
+
+    const touch = applyRotationMatrix(event.touches[0], axis);
 
     // We don't know yet.
     if (this.isSwiping === undefined) {
@@ -221,33 +296,28 @@ class SwipeableViews extends Component {
     this.vx = this.vx * 0.5 + (touch.pageX - this.lastX) * 0.5;
     this.lastX = touch.pageX;
 
-    const indexMax = Children.count(this.props.children) - 1;
+    const {
+      index,
+      startX,
+    } = computeIndex({
+      children: children,
+      resistance: resistance,
+      pageX: touch.pageX,
+      indexLatest: this.state.indexLatest,
+      startX: this.startX,
+      viewLength: this.viewLength,
+    });
 
-    let index = this.state.indexLatest + (this.startX - touch.pageX) / this.startWidth;
-
-    if (!this.props.resistance) {
-      // Reset the starting point
-      if (index < 0) {
-        index = 0;
-        this.startX = touch.pageX;
-      } else if (index > indexMax) {
-        index = indexMax;
-        this.startX = touch.pageX;
-      }
-    } else {
-      if (index < 0) {
-        index = Math.exp(index * RESISTANCE_COEF) - 1;
-      } else if (index > indexMax) {
-        index = indexMax + 1 - Math.exp((indexMax - index) * RESISTANCE_COEF);
-      }
+    if (startX) {
+      this.startX = startX;
     }
 
     this.setState({
       isDragging: true,
       indexCurrent: index,
     }, () => {
-      if (this.props.onSwitching) {
-        this.props.onSwitching(index, 'move');
+      if (onSwitching) {
+        onSwitching(index, 'move');
       }
     });
   };
@@ -327,15 +397,17 @@ class SwipeableViews extends Component {
 
   renderContainer(interpolatedStyle, animateHeight, childrenToRender) {
     const {
+      axis,
       containerStyle,
     } = this.props;
 
-    const translate = -interpolatedStyle.translate;
+    const transform = axisProperties.transform[axis](interpolatedStyle.translate);
 
     const styleNew = {
-      WebkitTransform: `translate3d(${translate}%, 0, 0)`,
-      transform: `translate3d(${translate}%, 0, 0)`,
+      WebkitTransform: transform,
+      transform: transform,
       height: null,
+      flexDirection: axisProperties.flexDirection[axis],
     };
 
     if (animateHeight) {
@@ -353,6 +425,7 @@ class SwipeableViews extends Component {
     const {
       animateHeight,
       animateTransitions,
+      axis,
       index, // eslint-disable-line no-unused-vars
       onChangeIndex, // eslint-disable-line no-unused-vars
       onSwitching, // eslint-disable-line no-unused-vars
@@ -425,7 +498,7 @@ class SwipeableViews extends Component {
       <div
         {...other}
         ref={(node) => this.node = node}
-        style={Object.assign({}, styles.root, style)}
+        style={Object.assign({}, axisProperties.root[axis], style)}
         {...touchEvents}
       >
         <Motion style={motionStyle}>

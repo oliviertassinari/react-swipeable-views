@@ -125,6 +125,7 @@ describe('SwipeableViews', () => {
         }],
       });
       instance.startWidth = 100;
+      instance.viewLength = 200;
     });
 
     it('should not detect a swipe when scrolling', () => {
