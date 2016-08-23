@@ -30,12 +30,13 @@
   "bugs": {
     "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "warning": "^3.0.0"
+  },
   "peerDependencies": {
     "react": "^15.0.0 || ^0.14.0",
     "react-dom": "^15.0.0 || ^0.14.0",
-    "react-motion": "^0.4.0",
-    "warning": "^3.0.0"
+    "react-motion": "^0.4.0"
   },
   "files": [
     "lib",
