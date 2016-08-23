@@ -30,7 +30,9 @@
   "bugs": {
     "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "warning": "^3.0.0"
+  },
   "peerDependencies": {
     "react": "^15.0.0 || ^0.14.0",
     "react-dom": "^15.0.0 || ^0.14.0",
@@ -94,7 +96,6 @@
     "stats-webpack-plugin": "^0.4.2",
     "style-loader": "^0.13.0",
     "unused-files-webpack-plugin": "^2.0.4",
-    "warning": "^3.0.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.12.0"
   }
