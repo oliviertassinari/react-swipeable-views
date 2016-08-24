@@ -62,16 +62,16 @@
     "babel-preset-stage-1": "^6.13.0",
     "babel-runtime": "^6.11.6",
     "chai": "^3.5.0",
-    "css-loader": "^0.23.0",
+    "css-loader": "^0.24.0",
     "enzyme": "^2.4.1",
     "eslint": "^3.3.1",
-    "eslint-plugin-flowtype": "^2.7.1",
-    "eslint-plugin-import": "^1.13.0",
-    "eslint-plugin-mocha": "^4.3.0",
+    "eslint-plugin-flowtype": "^2.11.1",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-mocha": "^4.4.0",
     "eslint-plugin-react": "^6.1.2",
     "extract-text-webpack-plugin": "^1.0.1",
     "flow-bin": "0.27.0",
-    "glob": "^7.0.3",
+    "glob": "^7.0.6",
     "html-webpack-plugin": "^2.22.0",
     "ip": "^1.0.1",
     "jsdom": "^9.4.2",
@@ -97,6 +97,6 @@
     "style-loader": "^0.13.0",
     "unused-files-webpack-plugin": "^2.0.4",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.12.0"
+    "webpack-dev-server": "^1.15.0"
   }
 }

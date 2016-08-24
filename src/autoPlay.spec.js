@@ -29,7 +29,7 @@ describe('autoPlay', () => {
 
   describe('dom', () => {
     afterEach(() => {
-      wrapper.unmount();
+      wrapper.unmount(); // Unmount to clear the setInterval of the autoPlay HOC.
     });
 
     describe('props: direction', () => {
