@@ -176,6 +176,7 @@ class SwipeableViews extends Component {
     threshold: 5,
     resistance: false,
     disabled: false,
+    autoSwitchParent: true,
     springConfig: {
       stiffness: 300,
       damping: 30,
@@ -289,9 +290,18 @@ class SwipeableViews extends Component {
     if (this.isSwiping !== true) {
       return;
     }
+    
+    // Get the max number of child elements
+    const indexMax = Children.count(this.props.children) - 1;
+    
+    // If we try to switch lower than index 0 or over than the max index of the current, we return and don't stop the propagation the move event, so the parent catch it and will slide
+    //// this.state.indexCurrent is like old "var index = this.state.indexLatest + (this.startX - touch.pageX) / this.startY;" ?
+    if(this.props.autoSwitchParent && (this.state.indexCurrent < 0 || this.state.indexCurrent > indexMax)) {
+      return;
+    }
 
     // Prevent native scrolling
-    event.preventDefault();
+    event.stopPropagation(); // preventDefault() is blocking all next "move" events on parents, stopPropagation just block this one
 
     this.vx = this.vx * 0.5 + (touch.pageX - this.lastX) * 0.5;
     this.lastX = touch.pageX;
