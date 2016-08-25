@@ -72,6 +72,7 @@ const axisProperties = {
   },
 };
 
+// We are using a 2x2 rotation matrix.
 function applyRotationMatrix(touch, axis) {
   const rotationMatrix = axisProperties.rotationMatrix[axis];
 
@@ -80,6 +81,28 @@ function applyRotationMatrix(touch, axis) {
     pageY: rotationMatrix.y[0] * touch.pageX + rotationMatrix.y[1] * touch.pageY,
   };
 }
+
+function getDomTreeShapes(element, rootNode) {
+  const domTreeShapes = [];
+
+  while (element && element !== rootNode.firstChild) {
+    domTreeShapes.push({
+      element: element,
+      scrollWidth: element.scrollWidth,
+      clientWidth: element.clientWidth,
+      scrollLeft: element.scrollLeft,
+    });
+    element = element.parentNode;
+  }
+
+  return domTreeShapes
+    .slice(0, -2) // Remove internal elements.
+    .filter((shape) => shape.scrollWidth > shape.clientWidth); // Keep elements with a scroll.
+}
+
+// We can only have one node at the time claiming ownership for handling the swipe.
+// Otherwise, the UX would be confusing.
+let nodeHowClaimedTheScroll = null;
 
 class SwipeableViews extends Component {
   static propTypes = {
@@ -260,6 +283,11 @@ class SwipeableViews extends Component {
       return;
     }
 
+    // We are not supposed to hanlde this touch move.
+    if (nodeHowClaimedTheScroll !== null && nodeHowClaimedTheScroll !== this.node) {
+      return;
+    }
+
     const {
       axis,
       children,
@@ -271,27 +299,22 @@ class SwipeableViews extends Component {
 
     // We don't know yet.
     if (this.isSwiping === undefined) {
-      if (event.defaultPrevented) {
-        this.isSwiping = false;
-      } else {
-        const dx = Math.abs(this.startX - touch.pageX);
-        const dy = Math.abs(this.startY - touch.pageY);
+      const dx = Math.abs(this.startX - touch.pageX);
+      const dy = Math.abs(this.startY - touch.pageY);
 
-        const isSwiping = dx > dy && dx > UNCERTAINTY_THRESHOLD;
+      const isSwiping = dx > dy && dx > UNCERTAINTY_THRESHOLD;
 
-        if (isSwiping === true || dx > UNCERTAINTY_THRESHOLD || dy > UNCERTAINTY_THRESHOLD) {
-          this.isSwiping = isSwiping;
-          this.startX = touch.pageX; // Shift the starting point.
-        }
+      if (isSwiping === true || dx > UNCERTAINTY_THRESHOLD || dy > UNCERTAINTY_THRESHOLD) {
+        this.isSwiping = isSwiping;
+        this.startX = touch.pageX; // Shift the starting point.
+
+        return; // Let's wait the next touch event to move something.
       }
     }
 
     if (this.isSwiping !== true) {
       return;
     }
-
-    // Prevent native scrolling.
-    event.preventDefault();
 
     // Low Pass filter.
     this.vx = this.vx * 0.5 + (touch.pageX - this.lastX) * 0.5;
@@ -309,9 +332,35 @@ class SwipeableViews extends Component {
       viewLength: this.viewLength,
     });
 
+    // Add support for native scroll elements.
+    if (nodeHowClaimedTheScroll === null) {
+      const domTreeShapes = getDomTreeShapes(event.target, this.node);
+
+      const hasFoundNativeHandler = domTreeShapes.some((shape) => {
+        if (index >= this.state.indexCurrent && shape.scrollLeft + shape.clientWidth < shape.scrollWidth ||
+          index <= this.state.indexCurrent && shape.scrollLeft > 0) {
+          nodeHowClaimedTheScroll = shape.element;
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      // We abort the touch move handler.
+      if (hasFoundNativeHandler) {
+        return;
+      }
+    }
+
+    // We are moving toward the edges.
     if (startX) {
       this.startX = startX;
+    } else if (nodeHowClaimedTheScroll === null) {
+      nodeHowClaimedTheScroll = this.node;
     }
+
+    // Prevent native scrolling.
+    event.preventDefault();
 
     this.setState({
       isDragging: true,
@@ -324,6 +373,8 @@ class SwipeableViews extends Component {
   };
 
   handleTouchEnd = (event) => {
+    nodeHowClaimedTheScroll = null;
+
     if (this.props.onTouchEnd) {
       this.props.onTouchEnd(event);
     }
@@ -497,9 +548,9 @@ class SwipeableViews extends Component {
 
     return (
       <div
-        {...other}
         ref={(node) => this.node = node}
         style={Object.assign({}, axisProperties.root[axis], style)}
+        {...other}
         {...touchEvents}
       >
         <Motion style={motionStyle}>
