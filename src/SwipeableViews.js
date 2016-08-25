@@ -290,9 +290,10 @@ class SwipeableViews extends Component {
       return;
     }
 
-    // Prevent native scrolling
+    // Prevent native scrolling.
     event.preventDefault();
 
+    // Low Pass filter.
     this.vx = this.vx * 0.5 + (touch.pageX - this.lastX) * 0.5;
     this.lastX = touch.pageX;
 
