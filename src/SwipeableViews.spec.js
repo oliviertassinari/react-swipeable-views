@@ -109,40 +109,41 @@ describe('SwipeableViews', () => {
 
   describe('swipe detection', () => {
     let instance;
+    let wrapper;
 
     beforeEach(() => {
-      const wrapper = mount(
+      wrapper = mount(
         <SwipeableViews>
           <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
         </SwipeableViews>
       );
 
-      instance = wrapper.instance();
-      instance.handleTouchStart({
+      wrapper.simulate('touchStart', {
         touches: [{
-          pageX: 0,
-          pageY: 0,
+          pageX: 50,
+          pageY: 50,
         }],
       });
-      instance.startWidth = 100;
+      instance = wrapper.instance();
       instance.viewLength = 200;
     });
 
     it('should not detect a swipe when scrolling', () => {
-      instance.handleTouchMove({
+      wrapper.simulate('touchMove', {
         touches: [{
-          pageX: 0,
-          pageY: 10,
+          pageX: 50,
+          pageY: 60,
         }],
       });
       assert.strictEqual(instance.isSwiping, false, 'Should not detect a swipe');
     });
 
     it('should detect a swipe when doing a clear movement', () => {
-      instance.handleTouchMove({
+      wrapper.simulate('touchMove', {
         touches: [{
-          pageX: 10,
-          pageY: 0,
+          pageX: 60,
+          pageY: 50,
         }],
         preventDefault: () => {},
       });
@@ -150,38 +151,124 @@ describe('SwipeableViews', () => {
     });
 
     it('should wait for a clear movement to detect a swipe', () => {
-      instance.handleTouchMove({
+      wrapper.simulate('touchMove', {
         touches: [{
-          pageX: 2,
-          pageY: 0,
+          pageX: 48,
+          pageY: 50,
         }],
       });
       assert.strictEqual(instance.isSwiping, undefined, 'We do not know yet');
 
-      instance.handleTouchMove({
+      wrapper.simulate('touchMove', {
         touches: [{
-          pageX: 0,
-          pageY: 2,
+          pageX: 50,
+          pageY: 48,
         }],
       });
       assert.strictEqual(instance.isSwiping, undefined, 'We do not know yet');
 
-      instance.handleTouchMove({
+      wrapper.simulate('touchMove', {
         touches: [{
-          pageX: 0,
-          pageY: 2,
-        }],
-      });
-      assert.strictEqual(instance.isSwiping, undefined, 'We do not know yet');
-
-      instance.handleTouchMove({
-        touches: [{
-          pageX: 10,
-          pageY: 0,
+          pageX: 40,
+          pageY: 50,
         }],
         preventDefault: () => {},
       });
       assert.strictEqual(instance.isSwiping, true, 'Should detect a swipe');
+    });
+  });
+
+  describe('nested views', () => {
+    let wrapperParent;
+    let wrapperNester;
+
+    beforeEach(() => {
+      wrapperParent = mount(
+        <SwipeableViews index={1}>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
+        </SwipeableViews>
+      );
+
+      wrapperNester = mount(
+        <SwipeableViews index={0}>
+          <div>{'slide n°4'}</div>
+          <div>{'slide n°5'}</div>
+          <div>{'slide n°6'}</div>
+        </SwipeableViews>
+      );
+
+      const touchStartEvent = {
+        touches: [{
+          pageX: 50,
+          pageY: 0,
+        }],
+      };
+
+      wrapperNester.simulate('touchStart', touchStartEvent);
+      wrapperParent.simulate('touchStart', touchStartEvent);
+
+      const instance1 = wrapperParent.instance();
+      instance1.viewLength = 200;
+
+      const instance2 = wrapperNester.instance();
+      instance2.viewLength = 200;
+    });
+
+    afterEach(() => {
+      wrapperNester.simulate('touchEnd');
+      wrapperParent.simulate('touchEnd');
+    });
+
+    it('only the nested swipe should respond to the touch', () => {
+      const touchMoveEvent1 = {
+        touches: [{
+          pageX: 45,
+          pageY: 0,
+        }],
+      };
+
+      wrapperNester.simulate('touchMove', touchMoveEvent1);
+      wrapperParent.simulate('touchMove', touchMoveEvent1);
+
+      const touchMoveEvent2 = {
+        touches: [{
+          pageX: 40,
+          pageY: 0,
+        }],
+      };
+
+      wrapperNester.simulate('touchMove', touchMoveEvent2);
+      wrapperParent.simulate('touchMove', touchMoveEvent2);
+
+      assert.strictEqual(wrapperNester.state().indexCurrent, 0.025);
+      assert.strictEqual(wrapperParent.state().indexCurrent, 1);
+    });
+
+    it('only the parent swipe should respond to the touch', () => {
+      const touchMoveEvent1 = {
+        touches: [{
+          pageX: 55,
+          pageY: 0,
+        }],
+      };
+
+      wrapperNester.simulate('touchMove', touchMoveEvent1);
+      wrapperParent.simulate('touchMove', touchMoveEvent1);
+
+      const touchMoveEvent2 = {
+        touches: [{
+          pageX: 60,
+          pageY: 0,
+        }],
+      };
+
+      wrapperNester.simulate('touchMove', touchMoveEvent2);
+      wrapperParent.simulate('touchMove', touchMoveEvent2);
+
+      assert.strictEqual(wrapperNester.state().indexCurrent, 0);
+      assert.strictEqual(wrapperParent.state().indexCurrent, 0.975);
     });
   });
 });
