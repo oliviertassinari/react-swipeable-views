@@ -13,8 +13,16 @@
 
 ## Installation
 
+### Browser
+
 ```sh
 npm install --save react-swipeable-views react-motion
+```
+
+### Native
+
+```sh
+npm install --save react-swipeable-views
 ```
 
 ## The problem solved
