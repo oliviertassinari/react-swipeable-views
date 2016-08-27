@@ -11,7 +11,7 @@
     "docs:browser:development": "cd docs && NODE_ENV=docs-browser-development babel-node webpack.js --dev",
     "docs:browser:production": "cd docs && NODE_ENV=docs-browser-production babel-node webpack.js",
     "docs:native:development": "NODE_ENV=docs-native-development node node_modules/react-native/local-cli/cli.js start --reset-cache --verbose",
-    "prepublish": "npm run build",
+    "prepublish": "npm run build && pkgfiles",
     "flow": "flow"
   },
   "repository": {
@@ -78,6 +78,7 @@
     "material-ui": "^0.15.4",
     "minimist": "^1.2.0",
     "mocha": "^3.0.2",
+    "pkgfiles": "^2.3.0",
     "react": "^15.3.0",
     "react-addons-test-utils": "^15.3.0",
     "react-dom": "^15.3.0",
