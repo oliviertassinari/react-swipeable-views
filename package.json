@@ -7,7 +7,7 @@
     "lint": "eslint src test docs",
     "test": "npm run lint && npm run test:unit && npm run flow",
     "test:unit": "NODE_ENV=release babel-node test/unit.js",
-    "build": "rm -rf lib && mkdir lib && NODE_ENV=release babel src --out-dir lib",
+    "build": "rm -rf lib && mkdir lib && NODE_ENV=release babel src --out-dir lib --ignore spec.js",
     "docs:browser:development": "cd docs && NODE_ENV=docs-browser-development babel-node webpack.js --dev",
     "docs:browser:production": "cd docs && NODE_ENV=docs-browser-production babel-node webpack.js",
     "docs:native:development": "NODE_ENV=docs-native-development node node_modules/react-native/local-cli/cli.js start --reset-cache --verbose",
@@ -36,10 +36,6 @@
   "peerDependencies": {
     "react": "^15.0.0 || ^0.14.0"
   },
-  "files": [
-    "lib",
-    "src"
-  ],
   "license": "MIT",
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
