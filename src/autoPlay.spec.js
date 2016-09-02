@@ -1,5 +1,4 @@
 // @flow weak
-/* eslint-env mocha */
 
 import React from 'react';
 import {shallow, mount} from 'enzyme';
@@ -27,7 +26,7 @@ describe('autoPlay', () => {
 
   let wrapper;
 
-  describe('dom', () => {
+  describe('interval', () => {
     afterEach(() => {
       wrapper.unmount(); // Unmount to clear the setInterval of the autoPlay HOC.
     });

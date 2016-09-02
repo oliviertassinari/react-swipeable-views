@@ -13,6 +13,7 @@ import Demo5 from './demo/Demo5';
 import Demo6 from './demo/Demo6';
 import Demo7 from './demo/Demo7';
 import Demo8 from './demo/Demo8';
+import Demo9 from './demo/Demo9';
 import Footer from './Footer';
 
 injectTapEventPlugin();
@@ -75,6 +76,12 @@ const Main = () => (
         description="Swipe up and down."
       >
         <Demo8 />
+      </Demo>
+      <Demo
+        name="Demo 9"
+        description="With a keyboard binding."
+      >
+        <Demo9 />
       </Demo>
       <Footer
         maintainerName="oliviertassinari"

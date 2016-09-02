@@ -162,16 +162,33 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const MyComponent = () => (
   <AutoPlaySwipeableViews>
-    <div>
-      slide n°1
-    </div>
-    <div>
-      slide n°2
-    </div>
-    <div>
-      slide n°3
-    </div>
+    <div>slide n°1</div>
+    <div>slide n°2</div>
+    <div>slide n°3</div>
   </AutoPlaySwipeableViews>
+);
+
+export default MyComponent;
+
+```
+## Example with `bindKeyboard`
+
+The keyboard navigation feature is provided thanks to an *High Order Component*.
+You can have a look at the *Demo 9* to see it in action.
+Let's see an example with the browser:
+
+```js
+import bindKeyboard from 'react-swipeable-views/lib/bindKeyboard';
+import SwipeableViews from 'react-swipeable-views';
+
+const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);
+
+const MyComponent = () => (
+  <BindKeyboardSwipeableViews>
+    <div>slide n°1</div>
+    <div>slide n°2</div>
+    <div>slide n°3</div>
+  </BindKeyboardSwipeableViews>
 );
 
 export default MyComponent;
@@ -184,33 +201,36 @@ export default MyComponent;
 
 | Name | Type | Default | Platform | Description |
 |:-----|:-----|:--------|:---------|:------------|
-| animateHeight | bool | `false` | Browser | If `true`, the height of the container will be animated to match the current slide height. Animating another style property has a negative impact regarding performance. |
-| animateTransitions | bool | `true` | All | If `false`, changes to the index prop will not cause an animated transition. |
-| axis | enum [`'x'`, `'x-reverse'`, `'y'`, `'y-reverse'`] | `'x'` | Browser | The axis on which the slides will slide. |
-| children | node | | All | Use this property to provide your slides. |
-| containerStyle | object | `{}` | All | Whether or not the auto complete is animated as it is toggled. |
-| disabled | bool | `false` | All | If `true`, it will disable touch events. This is useful when you want to prohibit the user from changing slides. |
-| index | integer | `0` | All | This is the index of the slide to show. This is useful when you want to change the default slide shown. Or when you have tabs linked to each slide. |
-| onChangeIndex | function(index, fromIndex) | | All | This is callback prop. It's call by the component when the shown slide change after a swipe made by the user. This is useful when you have tabs linked to each slide. |
-| onSwitching | function(index, type) | | All | This is callback prop. It's called by the component when the slide switching. This is useful when you want to implement something corresponding to the current slide position. |
-| resistance | bool | `false` | All | If true, it will add bounds effect on the edges. |
-| style | object | `{}` | All | This is the inlined style that will be applied on the root component. |
-| slideStyle | object | `{}` | All | This is the inlined style that will be applied on the slide component. |
+| animateHeight | bool | `false` | browser | If `true`, the height of the container will be animated to match the current slide height. Animating another style property has a negative impact regarding performance. |
+| animateTransitions | bool | `true` | all | If `false`, changes to the index prop will not cause an animated transition. |
+| axis | enum [`'x'`, `'x-reverse'`, `'y'`, `'y-reverse'`] | `'x'` | browser | The axis on which the slides will slide. |
+| children | node | | all | Use this property to provide your slides. |
+| containerStyle | object | `{}` | all | Whether or not the auto complete is animated as it is toggled. |
+| disabled | bool | `false` | all | If `true`, it will disable touch events. This is useful when you want to prohibit the user from changing slides. |
+| index | integer | `0` | all | This is the index of the slide to show. This is useful when you want to change the default slide shown. Or when you have tabs linked to each slide. |
+| onChangeIndex | function(index, fromIndex) | | all | This is callback prop. It's call by the component when the shown slide change after a swipe made by the user. This is useful when you have tabs linked to each slide. |
+| onSwitching | function(index, type) | | all | This is callback prop. It's called by the component when the slide switching. This is useful when you want to implement something corresponding to the current slide position. |
+| resistance | bool | `false` | all | If true, it will add bounds effect on the edges. |
+| style | object | `{}` | all | This is the inlined style that will be applied on the root component. |
+| slideStyle | object | `{}` | all | This is the inlined style that will be applied on the slide component. |
 | springConfig | object | `{stiffness: 300, damping: 30}` | Browser | This is the config given to react-motion for the `spring`. This is useful to change the dynamic of the transition. |
-| threshold | integer | `5` | All | This is the threshold used for detectinga quick swipe. If the computed speed is above this value, the index change. |
+| threshold | integer | `5` | all | This is the threshold used for detectinga quick swipe. If the computed speed is above this value, the index change. |
 
 Any other properties like `className` will be applied to the root component.
 
 ### `autoPlay`
 
-Extends the properties of `<SwipeableViews />` and add the following ones:
+This HOC extends the properties of `<SwipeableViews />` and adds the following ones:
 
-| Name | Type | Default | Description |
-|:-----|:-----|:--------|:------------|
-| autoplay | bool | true | If `false`, the auto play behavior is disabled. |
-| direction | enum:<br>&nbsp;'incremental'<br>&nbsp;'decremental' | 'incremental' | This is the auto play direction. |
-| interval | integer | 3000 | Delay between auto play transitions (in ms). |
+| Name | Type | Default | Platform | Description |
+|:-----|:-----|:--------|:---------|:------------|
+| autoplay | bool | true | all | If `false`, the auto play behavior is disabled. |
+| direction | enum:<br>&nbsp;'incremental'<br>&nbsp;'decremental' | 'incremental' | all | This is the auto play direction. |
+| interval | integer | 3000 | all | Delay between auto play transitions (in ms). |
 
+### `bindKeyboard`
+
+This HOC exposes the same properties as `<SwipeableViews />`.
 
 ## Performance on browser
 

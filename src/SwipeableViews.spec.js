@@ -1,12 +1,10 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
-/* eslint-env mocha */
 
 import React from 'react';
 import {mount, shallow} from 'enzyme';
 import {assert} from 'chai';
 import {spy} from 'sinon';
 import {Motion} from 'react-motion';
-
 import SwipeableViews from '../src/SwipeableViews';
 
 describe('SwipeableViews', () => {

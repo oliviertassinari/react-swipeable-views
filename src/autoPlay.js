@@ -106,21 +106,21 @@ export default function autoPlay(MyComponent) {
 
       this.setState({
         index: indexNew,
+      }, () => {
+        if (this.props.onChangeIndex) {
+          this.props.onChangeIndex(indexNew);
+        }
       });
-
-      if (this.props.onChangeIndex) {
-        this.props.onChangeIndex(indexNew);
-      }
     };
 
     handleChangeIndex = (index) => {
       this.setState({
         index: index,
+      }, () => {
+        if (this.props.onChangeIndex) {
+          this.props.onChangeIndex(index);
+        }
       });
-
-      if (this.props.onChangeIndex) {
-        this.props.onChangeIndex(index);
-      }
     };
 
     handleSwitching = (index, type) => {
@@ -144,6 +144,15 @@ export default function autoPlay(MyComponent) {
         index: indexProp, // eslint-disable-line no-unused-vars
         ...other,
       } = this.props;
+
+      if (!autoplay) {
+        return (
+          <MyComponent
+            index={indexProp}
+            {...other}
+          />
+        );
+      }
 
       const {
         index,
