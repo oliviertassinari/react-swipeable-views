@@ -11,6 +11,10 @@ export default function autoPlay(MyComponent) {
        */
       autoplay: PropTypes.bool,
       /**
+       * @ignore
+       */
+      children: PropTypes.node.isRequired,
+      /**
        * This is the auto play direction.
        */
       direction: PropTypes.oneOf([
@@ -18,9 +22,21 @@ export default function autoPlay(MyComponent) {
         'decremental',
       ]),
       /**
+       * @ignore
+       */
+      index: PropTypes.number,
+      /**
        * Delay between auto play transitions (in ms).
        */
       interval: PropTypes.number,
+      /**
+       * @ignore
+       */
+      onChangeIndex: PropTypes.func,
+      /**
+       * @ignore
+       */
+      onSwitching: PropTypes.func,
     };
 
     static defaultProps = {
@@ -42,7 +58,7 @@ export default function autoPlay(MyComponent) {
         index,
       } = nextProps;
 
-      if (typeof index === 'number' && index !== this.props.index) { // eslint-disable-line react/prop-types
+      if (typeof index === 'number' && index !== this.props.index) {
         this.setState({
           index: index,
         });
@@ -74,7 +90,7 @@ export default function autoPlay(MyComponent) {
 
     handleInterval = () => {
       const {
-        children, // eslint-disable-line react/prop-types
+        children,
         direction,
       } = this.props;
 
@@ -92,11 +108,9 @@ export default function autoPlay(MyComponent) {
         index: indexNew,
       });
 
-      /* eslint-disable react/prop-types */
       if (this.props.onChangeIndex) {
         this.props.onChangeIndex(indexNew);
       }
-      /* eslint-enalbe react/prop-types */
     };
 
     handleChangeIndex = (index) => {
@@ -104,11 +118,9 @@ export default function autoPlay(MyComponent) {
         index: index,
       });
 
-      /* eslint-disable react/prop-types */
       if (this.props.onChangeIndex) {
         this.props.onChangeIndex(index);
       }
-      /* eslint-enalbe react/prop-types */
     };
 
     handleSwitching = (index, type) => {
@@ -119,20 +131,17 @@ export default function autoPlay(MyComponent) {
         this.startInterval();
       }
 
-      /* eslint-disable react/prop-types */
       if (this.props.onSwitching) {
         this.props.onSwitching(index, type);
       }
-      /* eslint-enalbe react/prop-types */
     };
 
     render() {
       const {
-        /* eslint-disable no-unused-vars */
-        autoplay,
-        direction,
-        interval,
-        /* eslint-enable no-unused-vars */
+        autoplay, // eslint-disable-line no-unused-vars
+        direction, // eslint-disable-line no-unused-vars
+        interval, // eslint-disable-line no-unused-vars
+        index: indexProp, // eslint-disable-line no-unused-vars
         ...other,
       } = this.props;
 
@@ -142,10 +151,10 @@ export default function autoPlay(MyComponent) {
 
       return (
         <MyComponent
-          {...other}
           index={index}
           onChangeIndex={this.handleChangeIndex}
           onSwitching={this.handleSwitching}
+          {...other}
         />
       );
     }
