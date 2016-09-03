@@ -1,4 +1,4 @@
 /*
 !/src/*.js
 !/lib/*.js
-/src/*.spec.js
+*.spec.js
