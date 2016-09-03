@@ -29,7 +29,7 @@ const Footer = (props) => {
   } = props;
 
   return (
-    <View style={styles.root}>
+    <View>
       <View style={styles.hr} />
       <Text style={styles.text}>
         {repositoryName}
