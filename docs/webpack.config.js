@@ -55,7 +55,7 @@ export default function(options) {
     webpackConfig.entry = [
       `webpack-dev-server/client?http://${ip.address()}:${options.port}`, // WebpackDevServer
       'webpack/hot/only-dev-server',
-      './src/app.js',
+      path.join(__dirname, 'src/app.js'),
     ];
 
     webpackConfig.plugins = webpackConfig.plugins.concat([
@@ -89,7 +89,7 @@ export default function(options) {
     ];
   } else if (options.config.environment === 'production') {
     webpackConfig.entry = [
-      './src/app.js',
+      path.join(__dirname, 'src/app.js'),
     ];
 
     webpackConfig.plugins = webpackConfig.plugins.concat([
