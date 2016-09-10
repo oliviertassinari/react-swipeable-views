@@ -3,6 +3,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 import {assert} from 'chai';
+import {spy} from 'sinon';
 import keycode from 'keycode';
 import bindKeyboard from './bindKeyboard';
 
@@ -43,6 +44,24 @@ describe('bindKeyboard', () => {
       });
 
       assert.strictEqual(wrapper.state('index'), 2, 'Should have the right index.');
+    });
+  });
+
+  describe('props: onChangeIndex', () => {
+    it('should be called and with the right arguments', () => {
+      const handleChangeIndex = spy();
+
+      wrapper.setProps({
+        onChangeIndex: handleChangeIndex,
+      });
+      wrapper.simulate('keydown', {
+        keyCode: keycode('right'),
+      });
+
+      assert.strictEqual(handleChangeIndex.callCount, 1, 'Should be called the right number of time.');
+      assert.deepEqual(handleChangeIndex.args, [
+        [1, 0],
+      ]);
     });
   });
 });

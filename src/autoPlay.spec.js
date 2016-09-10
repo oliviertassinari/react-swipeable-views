@@ -82,6 +82,10 @@ describe('autoPlay', () => {
 
         setTimeout(() => {
           assert.strictEqual(handleChangeIndex.callCount, 2, 'Should be called the right number of time.');
+          assert.deepEqual(handleChangeIndex.args, [
+            [1, 0],
+            [2, 1],
+          ]);
           done();
         }, 300);
       });
