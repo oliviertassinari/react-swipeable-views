@@ -94,7 +94,8 @@ export default function autoPlay(MyComponent) {
         direction,
       } = this.props;
 
-      let indexNew = this.state.index;
+      const indexLatest = this.state.index;
+      let indexNew = indexLatest;
 
       if (direction === 'incremental') {
         indexNew += 1;
@@ -108,7 +109,7 @@ export default function autoPlay(MyComponent) {
         index: indexNew,
       }, () => {
         if (this.props.onChangeIndex) {
-          this.props.onChangeIndex(indexNew);
+          this.props.onChangeIndex(indexNew, indexLatest);
         }
       });
     };

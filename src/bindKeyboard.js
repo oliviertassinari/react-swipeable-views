@@ -86,7 +86,8 @@ export default function bindKeyboard(MyComponent) {
       }
 
       if (action) {
-        let indexNew = this.state.index;
+        const indexLatest = this.state.index;
+        let indexNew = indexLatest;
 
         if (action === 'increase') {
           indexNew += 1;
@@ -100,7 +101,7 @@ export default function bindKeyboard(MyComponent) {
           index: indexNew,
         }, () => {
           if (this.props.onChangeIndex) {
-            this.props.onChangeIndex(indexNew);
+            this.props.onChangeIndex(indexNew, indexLatest);
           }
         });
       }
