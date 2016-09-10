@@ -3,7 +3,6 @@
     "docs-browser-development": {
       "presets": ["es2015", "react", "stage-1"],
       "plugins": [
-        "transform-object-assign",
         "transform-react-display-name",
         [
           "react-transform",
@@ -26,7 +25,6 @@
     "release": {
       "presets": ["es2015", "react", "stage-1"],
       "plugins": [
-        "transform-object-assign",
         ["transform-react-remove-prop-types", {"mode": "wrap"}],
         "transform-dev-warning"
       ]
@@ -34,7 +32,6 @@
     "docs-browser-production": {
       "presets": ["es2015", "react", "stage-1"],
       "plugins": [
-        "transform-object-assign",
         "transform-react-remove-prop-types",
         "transform-react-constant-elements",
         "transform-react-inline-elements"
