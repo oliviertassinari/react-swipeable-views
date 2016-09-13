@@ -18,6 +18,11 @@ const styles = {
   slide3: {
     backgroundColor: '#6AC0FF',
   },
+  slide4: {
+    maxHeight: 150,
+    backgroundColor: '#FEA900',
+    overflowY: 'auto',
+  },
 };
 
 const list = [];
@@ -41,6 +46,9 @@ const DemoAnimateHeight = () => {
       </div>
       <div style={Object.assign({}, styles.slide, styles.slide3)}>
         {list.slice(0, 3)}
+      </div>
+      <div style={Object.assign({}, styles.slide, styles.slide4)}>
+        {list.slice(0, 10)}
       </div>
     </SwipeableViews>
   );
