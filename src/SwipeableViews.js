@@ -550,6 +550,7 @@ class SwipeableViews extends Component {
 
       if (animateHeight && indexChild === this.state.indexLatest) {
         ref = (node) => this.updateHeight(node);
+        slideStyleObj.overflowY = 'hidden';
       }
 
       return (
