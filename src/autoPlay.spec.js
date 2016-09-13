@@ -31,6 +31,38 @@ describe('autoPlay', () => {
       wrapper.unmount(); // Unmount to clear the setInterval of the autoPlay HOC.
     });
 
+    describe('props: interval', () => {
+      it('should be able to update the interval', (done) => {
+        wrapper = mount(
+          <AutoPlaySwipeableViews interval={100}>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
+            <div>{'slide n°4'}</div>
+            <div>{'slide n°5'}</div>
+          </AutoPlaySwipeableViews>
+        );
+
+        // Disturb the interval.
+        setTimeout(() => {
+          assert.strictEqual(wrapper.state('index'), 1, 'Should have the right index.');
+          wrapper.update();
+        }, 150);
+
+        setTimeout(() => {
+          assert.strictEqual(wrapper.state('index'), 2, 'Should have the right index.');
+          wrapper.setProps({
+            interval: 200,
+          });
+        }, 250);
+
+        setTimeout(() => {
+          assert.strictEqual(wrapper.state('index'), 2, 'Should have the right index.');
+          done();
+        }, 400);
+      });
+    });
+
     describe('props: direction', () => {
       it('should increment the index', (done) => {
         wrapper = mount(
@@ -46,7 +78,7 @@ describe('autoPlay', () => {
         setTimeout(() => {
           assert.strictEqual(wrapper.state('index'), 2, 'Should have the right index.');
           done();
-        }, 300);
+        }, 250);
       });
 
       it('should decrement the index', (done) => {
@@ -63,7 +95,7 @@ describe('autoPlay', () => {
         setTimeout(() => {
           assert.strictEqual(wrapper.state('index'), 3, 'Should have the right index.');
           done();
-        }, 300);
+        }, 250);
       });
     });
 
@@ -87,7 +119,7 @@ describe('autoPlay', () => {
             [2, 1],
           ]);
           done();
-        }, 300);
+        }, 250);
       });
     });
   });

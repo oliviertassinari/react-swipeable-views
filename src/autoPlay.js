@@ -65,8 +65,11 @@ export default function autoPlay(MyComponent) {
       }
     }
 
-    componentDidUpdate() {
-      this.startInterval();
+    componentDidUpdate(prevProps) {
+      if ((typeof this.props.index === 'number' && this.props.index !== prevProps.index) ||
+        this.props.interval !== prevProps.interval) {
+        this.startInterval();
+      }
     }
 
     componentWillUnmount() {
