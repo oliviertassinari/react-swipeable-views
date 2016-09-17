@@ -32,7 +32,7 @@
     "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
   },
   "dependencies": {
-    "keycode": "^2.1.4",
+    "keycode": "^2.1.6",
     "react-event-listener": "^0.2.1",
     "warning": "^3.0.0"
   },
@@ -57,13 +57,13 @@
     "babel-preset-stage-1": "^6.13.0",
     "babel-runtime": "^6.11.6",
     "chai": "^3.5.0",
-    "css-loader": "^0.24.0",
+    "css-loader": "^0.25.0",
     "enzyme": "^2.4.1",
     "eslint": "^3.4.0",
-    "eslint-plugin-flowtype": "^2.11.4",
-    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-flowtype": "^2.18.1",
+    "eslint-plugin-import": "^1.15.0",
     "eslint-plugin-mocha": "^4.5.1",
-    "eslint-plugin-react": "^6.2.0",
+    "eslint-plugin-react": "^6.2.2",
     "extract-text-webpack-plugin": "^1.0.1",
     "flow-bin": "^0.30.0",
     "glob": "^7.0.6",
@@ -91,6 +91,6 @@
     "style-loader": "^0.13.0",
     "unused-files-webpack-plugin": "^2.0.4",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.15.1"
+    "webpack-dev-server": "^1.16.1"
   }
 }

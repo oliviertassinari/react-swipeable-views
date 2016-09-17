@@ -35,7 +35,7 @@ It is tiny (<4kB) and quickly render the first slide then lasy-load the other.
 
 ### Browser
 
-```js
+```jsx
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 
@@ -75,7 +75,7 @@ export default MyComponent;
 
 ### Native
 
-```js
+```jsx
 import React, {
   StyleSheet,
   Text,
@@ -147,6 +147,33 @@ the same component can be used independently on where it's running.
 ### Android
 ![alt tag](docs/platformAndroid.gif)
 
+## Example with `virtualize`
+
+The infinite feature is provided thanks to an *High Order Component*.
+It's working independently of the targeted platform.
+You can have a look at the *Demo 8* to see it in action.
+It's higly inspired by [react-virtualize](https://github.com/bvaughn/react-virtualized).
+Let's see an example with the browser:
+
+```jsx
+import virtualize from 'react-swipeable-views/lib/virtualize';
+import SwipeableViews from 'react-swipeable-views';
+
+const VirtualizeSwipeableViews = virtualize(SwipeableViews);
+
+const slideRenderer = ({key, index}) => (
+  <div key={key}>
+    {`slide n°${index + 1}`}
+  </div>
+);
+
+const MyComponent = () => (
+  <VirtualizeSwipeableViews slideRenderer={slideRenderer} />
+);
+
+export default MyComponent;
+```
+
 ## Example with `autoPlay`
 
 The auto play feature is provided thanks to an *High Order Component*.
@@ -154,7 +181,7 @@ It's working independently of the targeted platform.
 You can have a look at the *Demo 7* to see it in action.
 Let's see an example with the browser:
 
-```js
+```jsx
 import autoPlay from 'react-swipeable-views/lib/autoPlay';
 import SwipeableViews from 'react-swipeable-views';
 
@@ -169,15 +196,15 @@ const MyComponent = () => (
 );
 
 export default MyComponent;
-
 ```
+
 ## Example with `bindKeyboard`
 
 The keyboard navigation feature is provided thanks to an *High Order Component*.
 You can have a look at the *Demo 9* to see it in action.
 Let's see an example with the browser:
 
-```js
+```jsx
 import bindKeyboard from 'react-swipeable-views/lib/bindKeyboard';
 import SwipeableViews from 'react-swipeable-views';
 
@@ -192,7 +219,6 @@ const MyComponent = () => (
 );
 
 export default MyComponent;
-
 ```
 
 ## API
@@ -208,7 +234,7 @@ export default MyComponent;
 | containerStyle | object | `{}` | all | Whether or not the auto complete is animated as it is toggled. |
 | disabled | bool | `false` | all | If `true`, it will disable touch events. This is useful when you want to prohibit the user from changing slides. |
 | index | integer | `0` | all | This is the index of the slide to show. This is useful when you want to change the default slide shown. Or when you have tabs linked to each slide. |
-| onChangeIndex | function(index, fromIndex) | | all | This is callback prop. It's call by the component when the shown slide change after a swipe made by the user. This is useful when you have tabs linked to each slide. |
+| onChangeIndex | function(index, indexLatest) | | all | This is callback prop. It's call by the component when the shown slide change after a swipe made by the user. This is useful when you have tabs linked to each slide. |
 | onSwitching | function(index, type) | | all | This is callback prop. It's called by the component when the slide switching. This is useful when you want to implement something corresponding to the current slide position. |
 | resistance | bool | `false` | all | If true, it will add bounds effect on the edges. |
 | style | object | `{}` | all | This is the inlined style that will be applied on the root component. |
@@ -231,6 +257,21 @@ This HOC extends the properties of `<SwipeableViews />` and adds the following o
 ### `bindKeyboard`
 
 This HOC exposes the same properties as `<SwipeableViews />`.
+
+### `virtualize`
+
+This HOC extends the properties of `<SwipeableViews />` and adds the following ones:
+
+| Name | Type | Default | Platform | Description |
+|:-----|:-----|:--------|:---------|:------------|
+| overscanSlideCount | number | 2 | all | Number of slide to render before/after the visible slide. |
+| slideCount | number | | all | When set, it's adding a limit to the number of slide: [0, slideCount]. |
+| slideRenderer | func | | all | Responsible for rendering a slide given an index. ({ index: number }): node |
+
+### `bindKeyboard`
+
+This HOC exposes the same properties as `<SwipeableViews />`.
+
 
 ## Performance on browser
 

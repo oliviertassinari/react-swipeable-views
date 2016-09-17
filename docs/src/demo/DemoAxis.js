@@ -23,20 +23,10 @@ const styles = {
   },
 };
 
-const list = [];
-
-for (let i = 0; i < 30; i++) {
-  list.push(
-    <div key={i}>
-      {`item n°${i + 1}`}
-    </div>
-  );
-}
-
-const Demo3 = () => (
-  <SwipeableViews containerStyle={styles.slideContainer}>
+const DemoAxis = () => (
+  <SwipeableViews containerStyle={styles.slideContainer} axis="y">
     <div style={Object.assign({}, styles.slide, styles.slide1)}>
-      {list}
+      slide n°1
     </div>
     <div style={Object.assign({}, styles.slide, styles.slide2)}>
       slide n°2
@@ -47,4 +37,4 @@ const Demo3 = () => (
   </SwipeableViews>
 );
 
-export default Demo3;
+export default DemoAxis;

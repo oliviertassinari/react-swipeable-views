@@ -25,8 +25,7 @@ const styles = {
   },
 };
 
-
-class Demo2 extends Component {
+class DemoTabs extends Component {
   state = {
     index: 0,
   };
@@ -76,4 +75,4 @@ class Demo2 extends Component {
   }
 }
 
-export default Demo2;
+export default DemoTabs;

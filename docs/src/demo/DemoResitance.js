@@ -2,9 +2,6 @@
 
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import bindKeyboard from '../../../src/bindKeyboard';
-
-const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);
 
 const styles = {
   slide: {
@@ -23,8 +20,8 @@ const styles = {
   },
 };
 
-const Demo9 = () => (
-  <BindKeyboardSwipeableViews>
+const DemoResitance = () => (
+  <SwipeableViews resistance={true}>
     <div style={Object.assign({}, styles.slide, styles.slide1)}>
       slide n°1
     </div>
@@ -34,7 +31,7 @@ const Demo9 = () => (
     <div style={Object.assign({}, styles.slide, styles.slide3)}>
       slide n°3
     </div>
-  </BindKeyboardSwipeableViews>
+  </SwipeableViews>
 );
 
-export default Demo9;
+export default DemoResitance;

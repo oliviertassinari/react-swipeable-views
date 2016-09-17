@@ -20,8 +20,8 @@ const styles = {
   },
 };
 
-const Demo5 = () => (
-  <SwipeableViews resistance={true}>
+const DemoSimple = () => (
+  <SwipeableViews>
     <div style={Object.assign({}, styles.slide, styles.slide1)}>
       slide n°1
     </div>
@@ -34,4 +34,4 @@ const Demo5 = () => (
   </SwipeableViews>
 );
 
-export default Demo5;
+export default DemoSimple;

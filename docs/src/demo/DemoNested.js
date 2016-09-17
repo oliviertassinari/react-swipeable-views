@@ -23,7 +23,7 @@ const styles = {
   },
 };
 
-const Demo6 = () => (
+const DemoNested = () => (
   <SwipeableViews>
     <div style={Object.assign({}, styles.slide, styles.slide1)}>
       <div style={{overflow: 'scroll'}}>
@@ -62,4 +62,4 @@ const Demo6 = () => (
   </SwipeableViews>
 );
 
-export default Demo6;
+export default DemoNested;

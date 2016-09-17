@@ -5,7 +5,7 @@ import {mount, shallow} from 'enzyme';
 import {assert} from 'chai';
 import {spy} from 'sinon';
 import {Motion} from 'react-motion';
-import SwipeableViews from '../src/SwipeableViews';
+import SwipeableViews from './SwipeableViews';
 
 describe('SwipeableViews', () => {
   describe('props: children', () => {

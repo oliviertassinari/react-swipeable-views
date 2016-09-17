@@ -26,37 +26,26 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
   },
-  divider: {
-    height: 50,
-  },
 });
 
-const Demo6 = () => (
-  <SwipeableViews>
+const DemoResitance = () => (
+  <SwipeableViews resistance={true}>
     <View style={[styles.slide, styles.slide1]}>
       <Text style={styles.text}>
         slide n°1
       </Text>
-      <View style={styles.divider} />
-      <SwipeableViews resistance={true}>
-        <View style={[styles.slide, styles.slide2]}>
-          <Text style={styles.text}>
-            slide n°1
-          </Text>
-        </View>
-        <View style={[styles.slide, styles.slide3]}>
-          <Text style={styles.text}>
-            slide n°2
-          </Text>
-        </View>
-      </SwipeableViews>
     </View>
     <View style={[styles.slide, styles.slide2]}>
       <Text style={styles.text}>
         slide n°2
       </Text>
     </View>
+    <View style={[styles.slide, styles.slide3]}>
+      <Text style={styles.text}>
+        slide n°3
+      </Text>
+    </View>
   </SwipeableViews>
 );
 
-export default Demo6;
+export default DemoResitance;

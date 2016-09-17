@@ -2,11 +2,11 @@
 
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
+import bindKeyboard from '../../../src/bindKeyboard';
+
+const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);
 
 const styles = {
-  slideContainer: {
-    height: 100,
-  },
   slide: {
     padding: 15,
     minHeight: 100,
@@ -23,8 +23,8 @@ const styles = {
   },
 };
 
-const Demo8 = () => (
-  <SwipeableViews containerStyle={styles.slideContainer} axis="y">
+const DemoKeyboard = () => (
+  <BindKeyboardSwipeableViews>
     <div style={Object.assign({}, styles.slide, styles.slide1)}>
       slide n°1
     </div>
@@ -34,7 +34,7 @@ const Demo8 = () => (
     <div style={Object.assign({}, styles.slide, styles.slide3)}>
       slide n°3
     </div>
-  </SwipeableViews>
+  </BindKeyboardSwipeableViews>
 );
 
-export default Demo8;
+export default DemoKeyboard;
