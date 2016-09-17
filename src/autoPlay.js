@@ -117,12 +117,12 @@ export default function autoPlay(MyComponent) {
       });
     };
 
-    handleChangeIndex = (index) => {
+    handleChangeIndex = (index, indexLatest) => {
       this.setState({
         index: index,
       }, () => {
         if (this.props.onChangeIndex) {
-          this.props.onChangeIndex(index);
+          this.props.onChangeIndex(index, indexLatest);
         }
       });
     };
@@ -146,6 +146,7 @@ export default function autoPlay(MyComponent) {
         direction, // eslint-disable-line no-unused-vars
         interval, // eslint-disable-line no-unused-vars
         index: indexProp, // eslint-disable-line no-unused-vars
+        onChangeIndex, // eslint-disable-line no-unused-vars
         ...other,
       } = this.props;
 

@@ -10,7 +10,7 @@ const Empty = () => <div />;
 const AutoPlaySwipeableViews = autoPlay(Empty);
 
 describe('autoPlay', () => {
-  describe('props: children', () => {
+  describe('prop: children', () => {
     it('should start at the beginning', () => {
       const wrapper = shallow(
         <AutoPlaySwipeableViews>
@@ -24,6 +24,25 @@ describe('autoPlay', () => {
     });
   });
 
+  describe('prop: onChangeIndex', () => {
+    it('should be called with the right arguments', () => {
+      const handleChangeIndex = spy();
+      const wrapper = shallow(
+        <AutoPlaySwipeableViews onChangeIndex={handleChangeIndex}>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
+        </AutoPlaySwipeableViews>
+      );
+
+      wrapper.find(Empty).simulate('changeIndex', 1, 0);
+      assert.deepEqual(handleChangeIndex.args, [
+        [1, 0],
+      ]);
+      assert.strictEqual(wrapper.state().index, 1, 'should update the state index');
+    });
+  });
+
   let wrapper;
 
   describe('interval', () => {
@@ -31,7 +50,7 @@ describe('autoPlay', () => {
       wrapper.unmount(); // Unmount to clear the setInterval of the autoPlay HOC.
     });
 
-    describe('props: interval', () => {
+    describe('prop: interval', () => {
       it('should be able to update the interval', (done) => {
         wrapper = mount(
           <AutoPlaySwipeableViews interval={100}>
@@ -63,7 +82,7 @@ describe('autoPlay', () => {
       });
     });
 
-    describe('props: direction', () => {
+    describe('prop: direction', () => {
       it('should increment the index', (done) => {
         wrapper = mount(
           <AutoPlaySwipeableViews interval={100}>
@@ -99,8 +118,8 @@ describe('autoPlay', () => {
       });
     });
 
-    describe('props: onChangeIndex', () => {
-      it('should be called each time', (done) => {
+    describe('prop: onChangeIndex', () => {
+      it('should be called each time by the interval', (done) => {
         const handleChangeIndex = spy();
         wrapper = mount(
           <AutoPlaySwipeableViews interval={100} onChangeIndex={handleChangeIndex}>

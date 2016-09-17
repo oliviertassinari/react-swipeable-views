@@ -23,7 +23,7 @@ describe('bindKeyboard', () => {
     );
   });
 
-  describe('props: children', () => {
+  describe('prop: children', () => {
     it('should start at the beginning', () => {
       assert.strictEqual(wrapper.state('index'), 0, 'Should start at the beginning.');
     });
@@ -47,8 +47,8 @@ describe('bindKeyboard', () => {
     });
   });
 
-  describe('props: onChangeIndex', () => {
-    it('should be called and with the right arguments', () => {
+  describe('prop: onChangeIndex', () => {
+    it('should be called and with the right arguments when using the keyboard', () => {
       const handleChangeIndex = spy();
 
       wrapper.setProps({
@@ -62,6 +62,19 @@ describe('bindKeyboard', () => {
       assert.deepEqual(handleChangeIndex.args, [
         [1, 0],
       ]);
+    });
+
+    it('should be called with the right value when swiping', () => {
+      const handleChangeIndex = spy();
+
+      wrapper.setProps({
+        onChangeIndex: handleChangeIndex,
+      });
+      wrapper.find(Empty).simulate('changeIndex', 1, 0);
+      assert.deepEqual(handleChangeIndex.args, [
+        [1, 0],
+      ]);
+      assert.strictEqual(wrapper.state().index, 1, 'should update the state index');
     });
   });
 });
