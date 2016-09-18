@@ -156,6 +156,7 @@ It's higly inspired by [react-virtualize](https://github.com/bvaughn/react-virtu
 Let's see an example with the browser:
 
 ```jsx
+import React from 'react';
 import virtualize from 'react-swipeable-views/lib/virtualize';
 import SwipeableViews from 'react-swipeable-views';
 
@@ -182,6 +183,7 @@ You can have a look at the *Demo 7* to see it in action.
 Let's see an example with the browser:
 
 ```jsx
+import React from 'react';
 import autoPlay from 'react-swipeable-views/lib/autoPlay';
 import SwipeableViews from 'react-swipeable-views';
 
@@ -205,6 +207,7 @@ You can have a look at the *Demo 9* to see it in action.
 Let's see an example with the browser:
 
 ```jsx
+import React from 'react';
 import bindKeyboard from 'react-swipeable-views/lib/bindKeyboard';
 import SwipeableViews from 'react-swipeable-views';
 
@@ -244,34 +247,29 @@ export default MyComponent;
 
 Any other properties like `className` will be applied to the root component.
 
-### `autoPlay`
-
-This HOC extends the properties of `<SwipeableViews />` and adds the following ones:
-
-| Name | Type | Default | Platform | Description |
-|:-----|:-----|:--------|:---------|:------------|
-| autoplay | bool | true | all | If `false`, the auto play behavior is disabled. |
-| direction | enum:<br>&nbsp;'incremental'<br>&nbsp;'decremental' | 'incremental' | all | This is the auto play direction. |
-| interval | integer | 3000 | all | Delay between auto play transitions (in ms). |
-
-### `bindKeyboard`
-
-This HOC exposes the same properties as `<SwipeableViews />`.
-
 ### `virtualize`
 
 This HOC extends the properties of `<SwipeableViews />` and adds the following ones:
 
 | Name | Type | Default | Platform | Description |
 |:-----|:-----|:--------|:---------|:------------|
-| overscanSlideCount | number | 2 | all | Number of slide to render before/after the visible slide. |
-| slideCount | number | | all | When set, it's adding a limit to the number of slide: [0, slideCount]. |
-| slideRenderer | func | | all | Responsible for rendering a slide given an index. ({ index: number }): node |
+| overscanSlideCount | integer | `2` | all | Number of slide to render before/after the visible slide. |
+| slideCount | integer | | all | When set, it's adding a limit to the number of slide: [0, slideCount]. |
+| slideRenderer | func | | all | Responsible for rendering a slide given an index. ({ index: integer }): node |
+
+### `autoPlay`
+
+This HOC extends the properties of `<SwipeableViews />` and adds the following ones:
+
+| Name | Type | Default | Platform | Description |
+|:-----|:-----|:--------|:---------|:------------|
+| autoplay | bool | `true` | all | If `false`, the auto play behavior is disabled. |
+| direction | enum:<br>&nbsp;'incremental'<br>&nbsp;'decremental' | `'incremental'` | all | This is the auto play direction. |
+| interval | integer | `3000` | all | Delay between auto play transitions (in ms). |
 
 ### `bindKeyboard`
 
 This HOC exposes the same properties as `<SwipeableViews />`.
-
 
 ## Performance on browser
 
