@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const Demo5 = () => (
-  <SwipeableViews resistance={true}>
+const DemoSimple = () => (
+  <SwipeableViews>
     <View style={[styles.slide, styles.slide1]}>
       <Text style={styles.text}>
         slide n°1
@@ -48,4 +48,4 @@ const Demo5 = () => (
   </SwipeableViews>
 );
 
-export default Demo5;
+export default DemoSimple;

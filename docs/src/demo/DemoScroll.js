@@ -4,6 +4,9 @@ import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 
 const styles = {
+  slideContainer: {
+    height: 100,
+  },
   slide: {
     padding: 15,
     minHeight: 100,
@@ -20,10 +23,20 @@ const styles = {
   },
 };
 
-const Demo1 = () => (
-  <SwipeableViews>
+const list = [];
+
+for (let i = 0; i < 30; i++) {
+  list.push(
+    <div key={i}>
+      {`item n°${i + 1}`}
+    </div>
+  );
+}
+
+const DemoScroll = () => (
+  <SwipeableViews containerStyle={styles.slideContainer}>
     <div style={Object.assign({}, styles.slide, styles.slide1)}>
-      slide n°1
+      {list}
     </div>
     <div style={Object.assign({}, styles.slide, styles.slide2)}>
       slide n°2
@@ -34,4 +47,4 @@ const Demo1 = () => (
   </SwipeableViews>
 );
 
-export default Demo1;
+export default DemoScroll;

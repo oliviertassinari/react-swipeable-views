@@ -27,7 +27,7 @@ const styles = {
   },
 };
 
-class Demo7 extends Component {
+class DemoAutoPlay extends Component {
   state = {
     index: 0,
   };
@@ -66,4 +66,4 @@ class Demo7 extends Component {
   }
 }
 
-export default Demo7;
+export default DemoAutoPlay;

@@ -30,7 +30,7 @@ for (let i = 0; i < 30; i++) {
   );
 }
 
-const Demo4 = () => {
+const DemoAnimateHeight = () => {
   return (
     <SwipeableViews animateHeight={true}>
       <div style={Object.assign({}, styles.slide, styles.slide1)}>
@@ -46,4 +46,4 @@ const Demo4 = () => {
   );
 };
 
-export default Demo4;
+export default DemoAnimateHeight;

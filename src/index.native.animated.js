@@ -17,6 +17,7 @@ import warning from 'warning';
 import {UNCERTAINTY_THRESHOLD} from './constant';
 import computeIndex from './utils/computeIndex';
 import checkIndexBounds from './utils/checkIndexBounds';
+import getDisplaySameSlide from './utils/getDisplaySameSlide';
 
 const styles = StyleSheet.create({
   root: {
@@ -164,7 +165,10 @@ class SwipeableViews extends Component {
         checkIndexBounds(nextProps);
       }
 
-      if (animateTransitions) {
+      // If true, we are going to display the same slide. We shoudn't animate it.
+      const displaySameSlide = getDisplaySameSlide(this.props, nextProps);
+
+      if (animateTransitions && !displaySameSlide) {
         this.setState({
           indexLatest: index,
         }, () => {

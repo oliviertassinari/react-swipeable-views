@@ -5,15 +5,16 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import Head from './Head';
 import Body from './Body';
 import Demo from './demo/Demo';
-import Demo1 from './demo/Demo1';
-import Demo2 from './demo/Demo2';
-import Demo3 from './demo/Demo3';
-import Demo4 from './demo/Demo4';
-import Demo5 from './demo/Demo5';
-import Demo6 from './demo/Demo6';
-import Demo7 from './demo/Demo7';
-import Demo8 from './demo/Demo8';
-import Demo9 from './demo/Demo9';
+import DemoSimple from './demo/DemoSimple';
+import DemoTabs from './demo/DemoTabs';
+import DemoScroll from './demo/DemoScroll';
+import DemoAnimateHeight from './demo/DemoAnimateHeight';
+import DemoResitance from './demo/DemoResitance';
+import DemoNested from './demo/DemoNested';
+import DemoAutoPlay from './demo/DemoAutoPlay';
+import DemoAxis from './demo/DemoAxis';
+import DemoKeyboard from './demo/DemoKeyboard';
+import DemoVirtualize from './demo/DemoVirtualize';
 import Footer from './Footer';
 
 injectTapEventPlugin();
@@ -33,55 +34,61 @@ const Main = () => (
         name="Demo 1"
         description="A Simple case."
       >
-        <Demo1 />
+        <DemoSimple />
       </Demo>
       <Demo
         name="Demo 2"
         description="With a header."
       >
-        <Demo2 />
+        <DemoTabs />
       </Demo>
       <Demo
         name="Demo 3"
         description="Set a constant height and let the swipe and scroll behavior work in harmony."
       >
-        <Demo3 />
+        <DemoScroll />
       </Demo>
       <Demo
         name="Demo 4"
         description="The container responds dynamically to its children."
       >
-        <Demo4 />
+        <DemoAnimateHeight />
       </Demo>
       <Demo
         name="Demo 5"
         description="With a resistance bounds effet on the edges."
       >
-        <Demo5 />
+        <DemoResitance />
       </Demo>
       <Demo
         name="Demo 6"
         description="With nested swipeable-view component."
       >
-        <Demo6 />
+        <DemoNested />
       </Demo>
       <Demo
         name="Demo 7"
         description="With the auto play HOC."
       >
-        <Demo7 />
+        <DemoAutoPlay />
       </Demo>
       <Demo
         name="Demo 8"
-        description="Swipe up and down."
+        description="With the virtualize HOC."
       >
-        <Demo8 />
+        <DemoVirtualize />
       </Demo>
       <Demo
         name="Demo 9"
+        description="Swipe up and down."
+      >
+        <DemoAxis />
+      </Demo>
+      <Demo
+        name="Demo 10"
         description="With a keyboard binding."
       >
-        <Demo9 />
+        <DemoKeyboard />
       </Demo>
       <Footer
         maintainerName="oliviertassinari"

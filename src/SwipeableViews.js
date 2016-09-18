@@ -6,6 +6,7 @@ import warning from 'warning';
 import {UNCERTAINTY_THRESHOLD} from './constant';
 import checkIndexBounds from './utils/checkIndexBounds';
 import computeIndex from './utils/computeIndex';
+import getDisplaySameSlide from './utils/getDisplaySameSlide';
 
 const styles = {
   container: {
@@ -145,7 +146,7 @@ class SwipeableViews extends Component {
      * This is useful when you have tabs linked to each slide.
      *
      * @param {integer} index This is the current index of the slide.
-     * @param {integer} fromIndex This is the oldest index of the slide.
+     * @param {integer} indexLatest This is the oldest index of the slide.
      */
     onChangeIndex: PropTypes.func,
     /**
@@ -246,6 +247,8 @@ class SwipeableViews extends Component {
       this.setState({
         indexCurrent: index,
         indexLatest: index,
+        // If true, we are going to display the same slide. We shoudn't animate it.
+        displaySameSlide: getDisplaySameSlide(this.props, nextProps),
       });
     }
   }
@@ -432,6 +435,7 @@ class SwipeableViews extends Component {
       indexCurrent: indexNew,
       indexLatest: indexNew,
       isDragging: false,
+      displaySameSlide: false,
     }, () => {
       if (this.props.onSwitching) {
         this.props.onSwitching(indexNew, 'end');
@@ -505,12 +509,13 @@ class SwipeableViews extends Component {
       isDragging,
       isFirstRender,
       heightLatest,
+      displaySameSlide,
     } = this.state;
 
     const translate = indexCurrent * 100;
     const height = heightLatest;
 
-    const motionStyle = (isDragging || !animateTransitions) ? {
+    const motionStyle = (isDragging || !animateTransitions || displaySameSlide) ? {
       translate: translate,
       height: height,
     } : {
@@ -536,14 +541,14 @@ class SwipeableViews extends Component {
 
     const slideStyleObj = Object.assign({}, styles.slide, slideStyle);
 
-    const childrenToRender = Children.map(children, (child, index2) => {
-      if (isFirstRender && index2 > 0) {
+    const childrenToRender = Children.map(children, (child, indexChild) => {
+      if (isFirstRender && indexChild > 0) {
         return null;
       }
 
       let ref;
 
-      if (animateHeight && index2 === this.state.indexLatest) {
+      if (animateHeight && indexChild === this.state.indexLatest) {
         ref = (node) => this.updateHeight(node);
         slideStyleObj.overflowY = 'hidden';
       }

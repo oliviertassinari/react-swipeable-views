@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import {Checkbox} from 'react-native-material-design';
 import Button from 'react-native-button';
-
 import SwipeableViews from '../../../src/index.native.animated';
 
 const styles = StyleSheet.create({
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Demo2 extends Component {
+class DemoTabs extends Component {
   state = {
     index: 0,
     checked: false,
@@ -108,4 +107,4 @@ class Demo2 extends Component {
   }
 }
 
-export default Demo2;
+export default DemoTabs;

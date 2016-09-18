@@ -40,7 +40,7 @@ for (let i = 0; i < 30; i++) {
   );
 }
 
-const Demo4 = () => (
+const DemoAnimateHeight = () => (
   <SwipeableViews>
     <View style={[styles.slide, styles.slide1]}>
       {list.slice(0, 10)}
@@ -54,4 +54,4 @@ const Demo4 = () => (
   </SwipeableViews>
 );
 
-export default Demo4;
+export default DemoAnimateHeight;

@@ -42,12 +42,17 @@ export default function autoPlay(MyComponent) {
     static defaultProps = {
       autoplay: true,
       direction: 'incremental',
+      index: 0,
       interval: 3000,
     };
 
-    state = {
-      index: 0,
-    };
+    state = {};
+
+    componentWillMount() {
+      this.setState({
+        index: this.props.index,
+      });
+    }
 
     componentDidMount() {
       this.startInterval();

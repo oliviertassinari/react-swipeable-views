@@ -26,9 +26,17 @@ export default function bindKeyboard(MyComponent) {
       onChangeIndex: PropTypes.func,
     };
 
-    state = {
+    static defaultProps = {
       index: 0,
     };
+
+    state = {};
+
+    componentWillMount() {
+      this.setState({
+        index: this.props.index,
+      });
+    }
 
     componentWillReceiveProps(nextProps) {
       const {
