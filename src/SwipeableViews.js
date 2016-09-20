@@ -175,10 +175,18 @@ class SwipeableViews extends Component {
      */
     resistance: PropTypes.bool,
     /**
+     * Margin between slides
+     */
+    slideMargin: PropTypes.number,
+    /**
      * This is the inlined style that will be applied
      * on the slide component.
      */
     slideStyle: PropTypes.object,
+    /**
+     * Width of the each slide as percentage of screen width
+     */
+    slideWidth: PropTypes.number,
     /**
      * This is the config given to react-motion for the spring.
      * This is useful to change the dynamic of the transition.
@@ -208,6 +216,8 @@ class SwipeableViews extends Component {
       stiffness: 300,
       damping: 30,
     },
+    slideWidth: 100,
+    slideMargin: 0,
   };
 
   state = {};
@@ -498,6 +508,8 @@ class SwipeableViews extends Component {
       children,
       containerStyle,
       slideStyle,
+      slideWidth,
+      slideMargin,
       disabled,
       springConfig,
       style,
@@ -512,7 +524,10 @@ class SwipeableViews extends Component {
       displaySameSlide,
     } = this.state;
 
-    const translate = indexCurrent * 100;
+    // Align first slide to center of the screen
+    const initialTranslate = (100 - slideWidth) / 2;
+    // Calculate translate amount based on slide width and margins
+    const translate = indexCurrent * (slideWidth + slideMargin) - initialTranslate;
     const height = heightLatest;
 
     const motionStyle = (isDragging || !animateTransitions || displaySameSlide) ? {
@@ -539,7 +554,11 @@ class SwipeableViews extends Component {
       So animateHeight is most likely having no effect at all.`,
     );
 
-    const slideStyleObj = Object.assign({}, styles.slide, slideStyle);
+    const slideContainerStyle = {
+      width: `${slideWidth}%`,
+      marginRight: `${slideMargin}%`,
+    };
+    const slideStyleObj = Object.assign({}, styles.slide, slideContainerStyle, slideStyle);
 
     const childrenToRender = Children.map(children, (child, indexChild) => {
       if (isFirstRender && indexChild > 0) {
