@@ -15,6 +15,7 @@ import DemoAutoPlay from './demo/DemoAutoPlay';
 import DemoAxis from './demo/DemoAxis';
 import DemoKeyboard from './demo/DemoKeyboard';
 import DemoVirtualize from './demo/DemoVirtualize';
+import DemoWidth from './demo/DemoWidth';
 import Footer from './Footer';
 
 injectTapEventPlugin();
@@ -89,6 +90,12 @@ const Main = () => (
         description="With a keyboard binding."
       >
         <DemoKeyboard />
+      </Demo>
+      <Demo
+        name="Demo 11"
+        description="Custom width of slides."
+      >
+        <DemoWidth />
       </Demo>
       <Footer
         maintainerName="oliviertassinari"
