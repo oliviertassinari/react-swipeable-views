@@ -242,6 +242,8 @@ export default MyComponent;
 | resistance | bool | `false` | all | If true, it will add bounds effect on the edges. |
 | style | object | `{}` | all | This is the inlined style that will be applied on the root component. |
 | slideStyle | object | `{}` | all | This is the inlined style that will be applied on the slide component. |
+| slideWidth | integer | `100` | all | Width of each slide as percent of root container width. |
+| slideMargin | integer | `0` | all | Left and right margin of each slide as percent of root container width. |
 | springConfig | object | `{stiffness: 300, damping: 30}` | Browser | This is the config given to react-motion for the `spring`. This is useful to change the dynamic of the transition. |
 | threshold | integer | `5` | all | This is the threshold used for detectinga quick swipe. If the computed speed is above this value, the index change. |
 
