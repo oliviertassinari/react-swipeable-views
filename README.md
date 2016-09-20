@@ -152,7 +152,7 @@ the same component can be used independently on where it's running.
 The infinite feature is provided thanks to an *High Order Component*.
 It's working independently of the targeted platform.
 You can have a look at the *Demo 8* to see it in action.
-It's higly inspired by [react-virtualize](https://github.com/bvaughn/react-virtualized).
+It's higly inspired by [react-virtualized](https://github.com/bvaughn/react-virtualized).
 Let's see an example with the browser:
 
 ```jsx
