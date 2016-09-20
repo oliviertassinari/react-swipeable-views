@@ -175,7 +175,7 @@ class SwipeableViews extends Component {
      */
     resistance: PropTypes.bool,
     /**
-     * Margin between slides
+     * Margin between slides as percentage of parent width
      */
     slideMargin: PropTypes.number,
     /**
@@ -184,7 +184,7 @@ class SwipeableViews extends Component {
      */
     slideStyle: PropTypes.object,
     /**
-     * Width of the each slide as percentage of screen width
+     * Width of the each slide as percentage of parent width
      */
     slideWidth: PropTypes.number,
     /**
