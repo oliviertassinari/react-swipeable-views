@@ -13,6 +13,7 @@ import DemoResitance from './demo/DemoResitance.native';
 import DemoNested from './demo/DemoNested.native';
 import DemoAutoPlay from './demo/DemoAutoPlay.native';
 import DemoVirtualize from './demo/DemoVirtualize.native';
+import DemoWidth from './demo/DemoWidth.native';
 import Footer from './Footer.native';
 
 const Main = () => (
@@ -69,6 +70,12 @@ const Main = () => (
         description="With the virtualize HOC."
       >
         <DemoVirtualize />
+      </Demo>
+      <Demo
+        name="Demo 9"
+        description="Custom width of slides."
+      >
+        <DemoWidth />
       </Demo>
       <Footer
         maintainerName="oliviertassinari"
