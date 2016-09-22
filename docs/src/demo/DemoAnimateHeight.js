@@ -13,15 +13,15 @@ const styles = {
     backgroundColor: '#FEA900',
   },
   slide2: {
+    maxHeight: 150,
+    overflowY: 'auto',
     backgroundColor: '#B3DC4A',
   },
   slide3: {
     backgroundColor: '#6AC0FF',
   },
   slide4: {
-    maxHeight: 150,
     backgroundColor: '#FEA900',
-    overflowY: 'auto',
   },
 };
 
@@ -42,13 +42,16 @@ const DemoAnimateHeight = () => {
         {list.slice(0, 10)}
       </div>
       <div style={Object.assign({}, styles.slide, styles.slide2)}>
+        {'This slide has a max-height limit:'}
+        <br />
+        <br />
         {list.slice(0, 7)}
       </div>
       <div style={Object.assign({}, styles.slide, styles.slide3)}>
-        {list.slice(0, 3)}
+        {list.slice(0, 7)}
       </div>
       <div style={Object.assign({}, styles.slide, styles.slide4)}>
-        {list.slice(0, 10)}
+        {list.slice(0, 3)}
       </div>
     </SwipeableViews>
   );
