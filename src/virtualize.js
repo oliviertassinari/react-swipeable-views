@@ -132,7 +132,12 @@ export default function virtualize(MyComponent) {
       }
 
       this.setState(nextState, () => {
-        this.setWindowTimer();
+        // We are going backward, but reached first rendered item, let's render previous right away, with no timer
+        if (indexDiff < 0 && index > 0 && indexContainer === 0) {
+          this.setWindow();
+        } else {
+          this.setWindowTimer();
+        }
       });
     }
 
