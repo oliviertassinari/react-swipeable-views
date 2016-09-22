@@ -9,6 +9,7 @@ import DemoSimple from './demo/DemoSimple';
 import DemoTabs from './demo/DemoTabs';
 import DemoScroll from './demo/DemoScroll';
 import DemoAnimateHeight from './demo/DemoAnimateHeight';
+import DemoAnimateMaxHeight from './demo/DemoAnimateMaxHeight';
 import DemoResitance from './demo/DemoResitance';
 import DemoNested from './demo/DemoNested';
 import DemoAutoPlay from './demo/DemoAutoPlay';
@@ -57,42 +58,48 @@ const Main = () => (
       </Demo>
       <Demo
         name="Demo 5"
+        description="The container responds dynamically to its children but take care to not exceed max height."
+      >
+        <DemoAnimateMaxHeight />
+      </Demo>
+      <Demo
+        name="Demo 6"
         description="With a resistance bounds effet on the edges."
       >
         <DemoResitance />
       </Demo>
       <Demo
-        name="Demo 6"
+        name="Demo 7"
         description="With nested swipeable-view component."
       >
         <DemoNested />
       </Demo>
       <Demo
-        name="Demo 7"
+        name="Demo 8"
         description="With the auto play HOC."
       >
         <DemoAutoPlay />
       </Demo>
       <Demo
-        name="Demo 8"
+        name="Demo 9"
         description="With the virtualize HOC."
       >
         <DemoVirtualize />
       </Demo>
       <Demo
-        name="Demo 9"
+        name="Demo 10"
         description="Swipe up and down."
       >
         <DemoAxis />
       </Demo>
       <Demo
-        name="Demo 10"
+        name="Demo 11"
         description="With a keyboard binding."
       >
         <DemoKeyboard />
       </Demo>
       <Demo
-        name="Demo 11"
+        name="Demo 12"
         description="Custom width of slides."
       >
         <DemoWidth />
