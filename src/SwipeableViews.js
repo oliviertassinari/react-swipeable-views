@@ -310,16 +310,21 @@ class SwipeableViews extends Component {
 
     // We don't know yet.
     if (this.isSwiping === undefined) {
-      const dx = Math.abs(this.startX - touch.pageX);
-      const dy = Math.abs(this.startY - touch.pageY);
+      // Bypass the swipe detection when the direction is along the y axis.
+      if (axis === 'y' || axis === 'y-reverse') {
+        this.isSwiping = true;
+      } else {
+        const dx = Math.abs(this.startX - touch.pageX);
+        const dy = Math.abs(this.startY - touch.pageY);
 
-      const isSwiping = dx > dy && dx > UNCERTAINTY_THRESHOLD;
+        const isSwiping = dx > dy && dx > UNCERTAINTY_THRESHOLD;
 
-      if (isSwiping === true || dx > UNCERTAINTY_THRESHOLD || dy > UNCERTAINTY_THRESHOLD) {
-        this.isSwiping = isSwiping;
-        this.startX = touch.pageX; // Shift the starting point.
+        if (isSwiping === true || dx > UNCERTAINTY_THRESHOLD || dy > UNCERTAINTY_THRESHOLD) {
+          this.isSwiping = isSwiping;
+          this.startX = touch.pageX; // Shift the starting point.
 
-        return; // Let's wait the next touch event to move something.
+          return; // Let's wait the next touch event to move something.
+        }
       }
     }
 
