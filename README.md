@@ -271,6 +271,22 @@ This HOC extends the properties of `<SwipeableViews />` and adds the following o
 
 This HOC exposes the same properties as `<SwipeableViews />`.
 
+## Composition of HOCs
+
+The composition order of the HOCs matters.
+The `virtualize` HOC needs to be the first one called.
+E.g.
+```js
+// creates a function that invokes the given functions from right to left.
+import flowRight from 'lodash/flowRight';
+
+const EnhancedSwipeableViews = flowRight(
+  bindKeyboard,
+  autoPlay,
+  virtualized,
+)(SwipeableViews);
+```
+
 ## Performance on browser
 
 Having 60 FPS is critical for this type of component.

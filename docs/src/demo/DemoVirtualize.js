@@ -8,8 +8,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import virtualize from '../../../src/virtualize';
 import mod from '../../../src/utils/mod';
+import bindKeyboard from '../../../src/bindKeyboard';
 
-const VirtualizeSwipeableViews = virtualize(SwipeableViews);
+const VirtualizeSwipeableViews = bindKeyboard(virtualize(SwipeableViews));
 
 const styles = {
   slide: {

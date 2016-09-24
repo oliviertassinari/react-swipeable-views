@@ -13,7 +13,7 @@ export default function autoPlay(MyComponent) {
       /**
        * @ignore
        */
-      children: PropTypes.node.isRequired,
+      children: PropTypes.node,
       /**
        * This is the auto play direction.
        */
@@ -37,6 +37,10 @@ export default function autoPlay(MyComponent) {
        * @ignore
        */
       onSwitching: PropTypes.func,
+      /**
+       * @ignore
+       */
+      slideCount: PropTypes.number,
     };
 
     static defaultProps = {
@@ -100,6 +104,8 @@ export default function autoPlay(MyComponent) {
       const {
         children,
         direction,
+        onChangeIndex,
+        slideCount,
       } = this.props;
 
       const indexLatest = this.state.index;
@@ -111,25 +117,27 @@ export default function autoPlay(MyComponent) {
         indexNew -= 1;
       }
 
-      indexNew = mod(indexNew, Children.count(children));
+      if (slideCount || children) {
+        indexNew = mod(indexNew, slideCount || Children.count(children));
+      }
 
-      this.setState({
-        index: indexNew,
-      }, () => {
-        if (this.props.onChangeIndex) {
-          this.props.onChangeIndex(indexNew, indexLatest);
-        }
-      });
+      if (onChangeIndex) {
+        onChangeIndex(indexNew, indexLatest);
+      } else {
+        this.setState({
+          index: indexNew,
+        });
+      }
     };
 
     handleChangeIndex = (index, indexLatest) => {
-      this.setState({
-        index: index,
-      }, () => {
-        if (this.props.onChangeIndex) {
-          this.props.onChangeIndex(index, indexLatest);
-        }
-      });
+      if (this.props.onChangeIndex) {
+        this.props.onChangeIndex(index, indexLatest);
+      } else {
+        this.setState({
+          index: index,
+        });
+      }
     };
 
     handleSwitching = (index, type) => {

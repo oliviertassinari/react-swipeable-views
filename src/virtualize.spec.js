@@ -192,5 +192,39 @@ describe('virtualize', () => {
         indexStop: 5,
       });
     });
+
+    it('should be able to widen the window when going back', () => {
+      const wrapper = shallow(
+        <VirtualizeSwipeableViews index={9} slideRenderer={slideRenderer} />
+      );
+
+      wrapper.setProps({
+        index: 0,
+      });
+
+      assert.deepEqual(wrapper.state(), {
+        index: 0,
+        indexContainer: 0,
+        indexStart: 0,
+        indexStop: 11,
+      });
+    });
+
+    it('should be able to widen the window when going forward', () => {
+      const wrapper = shallow(
+        <VirtualizeSwipeableViews index={0} slideRenderer={slideRenderer} />
+      );
+
+      wrapper.setProps({
+        index: 9,
+      });
+
+      assert.deepEqual(wrapper.state(), {
+        index: 9,
+        indexContainer: 12,
+        indexStart: -3,
+        indexStop: 9,
+      });
+    });
   });
 });

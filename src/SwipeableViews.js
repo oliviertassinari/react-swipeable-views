@@ -490,26 +490,26 @@ class SwipeableViews extends Component {
       animateHeight,
       animateTransitions,
       axis,
+      children,
+      containerStyle,
+      disabled,
       index, // eslint-disable-line no-unused-vars
       onChangeIndex, // eslint-disable-line no-unused-vars
       onSwitching, // eslint-disable-line no-unused-vars
       resistance, // eslint-disable-line no-unused-vars
-      threshold, // eslint-disable-line no-unused-vars
-      children,
-      containerStyle,
       slideStyle,
-      disabled,
       springConfig,
       style,
+      threshold, // eslint-disable-line no-unused-vars
       ...other,
     } = this.props;
 
     const {
+      displaySameSlide,
+      heightLatest,
       indexCurrent,
       isDragging,
       isFirstRender,
-      heightLatest,
-      displaySameSlide,
     } = this.state;
 
     const translate = indexCurrent * 100;

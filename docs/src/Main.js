@@ -15,6 +15,7 @@ import DemoAutoPlay from './demo/DemoAutoPlay';
 import DemoAxis from './demo/DemoAxis';
 import DemoKeyboard from './demo/DemoKeyboard';
 import DemoVirtualize from './demo/DemoVirtualize';
+import DemoHocs from './demo/DemoHocs';
 import DemoWidth from './demo/DemoWidth';
 import Footer from './Footer';
 
@@ -93,6 +94,12 @@ const Main = () => (
       </Demo>
       <Demo
         name="Demo 11"
+        description="With all the HOCs."
+      >
+        <DemoHocs />
+      </Demo>
+      <Demo
+        name="Demo 12"
         description="Custom width of slides."
       >
         <DemoWidth />

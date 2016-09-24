@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, {Component, PropTypes} from 'react';
-import warning from 'warning';
+import mod from './utils/mod';
 
 // Approximate time needed to wait for the end of the transition.
 const ANIMATION_DELAY = 500;
@@ -55,6 +55,15 @@ export default function virtualize(MyComponent) {
       overscanSlideCount: 2,
     };
 
+    /**
+     *
+     *           index          indexStop
+     *             |              |
+     * indexStart  |       indexContainer
+     *   |         |         |    |
+     * ------------|-------------------------->
+     *  -2    -1   0    1    2    3    4    5
+     */
     state = {};
 
     componentWillMount() {
@@ -84,17 +93,20 @@ export default function virtualize(MyComponent) {
     timer = null;
 
     handleChangeIndex = (indexContainer, indexLatest) => {
+      const {
+        slideCount,
+        onChangeIndex,
+      } = this.props;
+
       const indexDiff = indexContainer - indexLatest;
+      let index = this.state.index + indexDiff;
 
-      warning(
-        Math.abs(indexDiff) === 1,
-        'react-swipeable-view: The indexDiff should be abs equal to 1',
-      );
+      if (slideCount) {
+        index = mod(index, slideCount);
+      }
 
-      const index = this.state.index + indexDiff;
-
-      if (this.props.onChangeIndex) {
-        this.props.onChangeIndex(index);
+      if (onChangeIndex) {
+        onChangeIndex(index);
       } else {
         this.setIndex(index, indexContainer, indexDiff);
       }
@@ -117,6 +129,7 @@ export default function virtualize(MyComponent) {
       const nextState = {
         index: index,
         indexContainer: indexContainer,
+        indexStart: this.state.indexStart,
         indexStop: this.state.indexStop,
       };
 
@@ -126,9 +139,17 @@ export default function virtualize(MyComponent) {
         nextState.indexStop += 1;
       }
 
-      // Extend the bounds if needed
+      // Extend the bounds if needed.
       if (index > nextState.indexStop) {
         nextState.indexStop = index;
+      }
+
+      const leftAhead = nextState.indexStart - index;
+
+      // Extend the bounds if needed.
+      if (leftAhead > 0) {
+        nextState.indexContainer += leftAhead;
+        nextState.indexStart -= leftAhead;
       }
 
       this.setState(nextState, () => {

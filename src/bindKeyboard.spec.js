@@ -29,6 +29,20 @@ describe('bindKeyboard', () => {
     });
   });
 
+  describe('prop: slideCount', () => {
+    it('should use the slideCount to compute the index limit', () => {
+      wrapper.setProps({
+        index: 1,
+        slideCount: 2,
+      });
+      wrapper.simulate('keydown', {
+        keyCode: keycode('right'),
+      });
+
+      assert.strictEqual(wrapper.state('index'), 0, 'Should go back to the beginning.');
+    });
+  });
+
   describe('keyboard strokes', () => {
     it('should increment the index', () => {
       wrapper.simulate('keydown', {
@@ -74,6 +88,14 @@ describe('bindKeyboard', () => {
       assert.deepEqual(handleChangeIndex.args, [
         [1, 0],
       ]);
+      assert.strictEqual(wrapper.state().index, 0, 'should no update the state index');
+    });
+  });
+
+  describe('uncontrolled', () => {
+    it('should update the state index when swiping', () => {
+      wrapper.setProps({});
+      wrapper.find(Empty).simulate('changeIndex', 1, 0);
       assert.strictEqual(wrapper.state().index, 1, 'should update the state index');
     });
   });

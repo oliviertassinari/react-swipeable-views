@@ -1,7 +1,7 @@
 // @flow weak
 /* eslint-disable react/no-multi-comp */
 
-import React, {Component} from 'react';
+import React from 'react';
 import {
   Text,
   View,
@@ -9,9 +9,10 @@ import {
 } from 'react-native';
 import SwipeableViews from '../../../src/index.native.animated';
 import virtualize from '../../../src/virtualize';
+import autoPlay from '../../../src/autoPlay';
 import mod from '../../../src/utils/mod';
 
-const VirtualizeSwipeableViews = virtualize(SwipeableViews);
+const EnhancedSwipeableViews = autoPlay(virtualize(SwipeableViews));
 
 const styles = StyleSheet.create({
   slide: {
@@ -63,26 +64,11 @@ function slideRenderer(params) {
   );
 }
 
-class DemoVirtualize extends Component {
-  state = {
-    index: 0,
-  };
+const DemoHocs = () => (
+  <EnhancedSwipeableViews
+    slideCount={10}
+    slideRenderer={slideRenderer}
+  />
+);
 
-  handleChangeIndex = (index) => {
-    this.setState({
-      index: index,
-    });
-  };
-
-  render() {
-    return (
-      <VirtualizeSwipeableViews
-        slideRenderer={slideRenderer}
-        index={this.state.index}
-        onChangeIndex={this.handleChangeIndex}
-      />
-    );
-  }
-}
-
-export default DemoVirtualize;
+export default DemoHocs;

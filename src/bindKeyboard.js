@@ -15,7 +15,7 @@ export default function bindKeyboard(MyComponent) {
       /**
        * @ignore
        */
-      children: PropTypes.node.isRequired,
+      children: PropTypes.node,
       /**
        * @ignore
        */
@@ -24,6 +24,10 @@ export default function bindKeyboard(MyComponent) {
        * @ignore
        */
       onChangeIndex: PropTypes.func,
+      /**
+       * @ignore
+       */
+      slideCount: PropTypes.number,
     };
 
     static defaultProps = {
@@ -55,6 +59,8 @@ export default function bindKeyboard(MyComponent) {
       const {
         axis = 'x',
         children,
+        onChangeIndex,
+        slideCount,
       } = this.props;
 
       switch (keycode(event)) {
@@ -103,26 +109,28 @@ export default function bindKeyboard(MyComponent) {
           indexNew -= 1;
         }
 
-        indexNew = mod(indexNew, Children.count(children));
+        if (slideCount || children) {
+          indexNew = mod(indexNew, slideCount || Children.count(children));
+        }
 
-        this.setState({
-          index: indexNew,
-        }, () => {
-          if (this.props.onChangeIndex) {
-            this.props.onChangeIndex(indexNew, indexLatest);
-          }
-        });
+        if (onChangeIndex) {
+          onChangeIndex(indexNew, indexLatest);
+        } else {
+          this.setState({
+            index: indexNew,
+          });
+        }
       }
     };
 
     handleChangeIndex = (index, indexLatest) => {
-      this.setState({
-        index: index,
-      }, () => {
-        if (this.props.onChangeIndex) {
-          this.props.onChangeIndex(index, indexLatest);
-        }
-      });
+      if (this.props.onChangeIndex) {
+        this.props.onChangeIndex(index, indexLatest);
+      } else {
+        this.setState({
+          index: index,
+        });
+      }
     };
 
     render() {

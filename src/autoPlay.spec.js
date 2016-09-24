@@ -39,6 +39,20 @@ describe('autoPlay', () => {
       assert.deepEqual(handleChangeIndex.args, [
         [1, 0],
       ]);
+      assert.strictEqual(wrapper.state().index, 0, 'should not update the state index');
+    });
+  });
+
+  describe('uncontrolled', () => {
+    it('should update the state index when swiping', () => {
+      const wrapper = shallow(
+        <AutoPlaySwipeableViews>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
+        </AutoPlaySwipeableViews>
+      );
+      wrapper.find(Empty).simulate('changeIndex', 1, 0);
       assert.strictEqual(wrapper.state().index, 1, 'should update the state index');
     });
   });
@@ -135,10 +149,32 @@ describe('autoPlay', () => {
           assert.strictEqual(handleChangeIndex.callCount, 2, 'Should be called the right number of time.');
           assert.deepEqual(handleChangeIndex.args, [
             [1, 0],
-            [2, 1],
+            [1, 0],
           ]);
           done();
         }, 250);
+      });
+    });
+
+    describe('prop: slideCount', (done) => {
+      it('should use the slideCount to compute the index limit', () => {
+        wrapper = shallow(
+          <AutoPlaySwipeableViews>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
+          </AutoPlaySwipeableViews>
+        );
+        wrapper.setProps({
+          index: 1,
+          slideCount: 2,
+          interval: 100,
+        });
+
+        setTimeout(() => {
+          assert.strictEqual(wrapper.state('index'), 0, 'Should go back to the beginning.');
+          done();
+        }, 150);
       });
     });
   });
