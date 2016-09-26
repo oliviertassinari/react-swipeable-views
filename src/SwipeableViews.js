@@ -87,12 +87,16 @@ function getDomTreeShapes(element, rootNode) {
   const domTreeShapes = [];
 
   while (element && element !== rootNode.firstChild) {
-    domTreeShapes.push({
-      element: element,
-      scrollWidth: element.scrollWidth,
-      clientWidth: element.clientWidth,
-      scrollLeft: element.scrollLeft,
-    });
+    // Ignore the nodes that have no width.
+    if (element.clientWidth > 0) {
+      domTreeShapes.push({
+        element: element,
+        scrollWidth: element.scrollWidth,
+        clientWidth: element.clientWidth,
+        scrollLeft: element.scrollLeft,
+      });
+    }
+
     element = element.parentNode;
   }
 
