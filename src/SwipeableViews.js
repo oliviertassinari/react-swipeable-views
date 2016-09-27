@@ -312,23 +312,23 @@ class SwipeableViews extends Component {
 
     const touch = applyRotationMatrix(event.touches[0], axis);
 
+    // Prevent native scrolling until we know the user intention.
+    if (this.isSwiping !== false) {
+      event.preventDefault();
+    }
+
     // We don't know yet.
     if (this.isSwiping === undefined) {
-      // Bypass the swipe detection when the direction is along the y axis.
-      if (axis === 'y' || axis === 'y-reverse') {
-        this.isSwiping = true;
-      } else {
-        const dx = Math.abs(this.startX - touch.pageX);
-        const dy = Math.abs(this.startY - touch.pageY);
+      const dx = Math.abs(this.startX - touch.pageX);
+      const dy = Math.abs(this.startY - touch.pageY);
 
-        const isSwiping = dx > dy && dx > UNCERTAINTY_THRESHOLD;
+      const isSwiping = dx > dy && dx > UNCERTAINTY_THRESHOLD;
 
-        if (isSwiping === true || dx > UNCERTAINTY_THRESHOLD || dy > UNCERTAINTY_THRESHOLD) {
-          this.isSwiping = isSwiping;
-          this.startX = touch.pageX; // Shift the starting point.
+      if (isSwiping === true || dx > UNCERTAINTY_THRESHOLD || dy > UNCERTAINTY_THRESHOLD) {
+        this.isSwiping = isSwiping;
+        this.startX = touch.pageX; // Shift the starting point.
 
-          return; // Let's wait the next touch event to move something.
-        }
+        return; // Let's wait the next touch event to move something.
       }
     }
 
@@ -378,9 +378,6 @@ class SwipeableViews extends Component {
     } else if (nodeHowClaimedTheScroll === null) {
       nodeHowClaimedTheScroll = this.node;
     }
-
-    // Prevent native scrolling.
-    event.preventDefault();
 
     this.setState({
       isDragging: true,

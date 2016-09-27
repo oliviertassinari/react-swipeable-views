@@ -24,7 +24,7 @@ const styles = {
 };
 
 const DemoAxis = () => (
-  <SwipeableViews containerStyle={styles.slideContainer} axis="y">
+  <SwipeableViews containerStyle={styles.slideContainer} axis="y" resistance={true}>
     <div style={Object.assign({}, styles.slide, styles.slide1)}>
       slide n°1
     </div>

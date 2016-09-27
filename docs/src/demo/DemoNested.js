@@ -9,6 +9,9 @@ const styles = {
     minHeight: 100,
     color: '#fff',
   },
+  slideContainerY: {
+    height: 100,
+  },
   slide1: {
     backgroundColor: '#FEA900',
   },
@@ -35,10 +38,10 @@ const DemoNested = () => (
       <div style={styles.divider} />
       <SwipeableViews resistance={true}>
         <div style={Object.assign({}, styles.slide, styles.slide2)}>
-          nested slide n°1
+          nested slide n°1.1
         </div>
         <div style={Object.assign({}, styles.slide, styles.slide3)}>
-          nested slide n°2
+          nested slide n°1.2
         </div>
       </SwipeableViews>
     </div>
@@ -52,10 +55,22 @@ const DemoNested = () => (
       <div style={styles.divider} />
       <SwipeableViews>
         <div style={Object.assign({}, styles.slide, styles.slide1)}>
-          nested slide n°3
+          nested slide n°2.1
         </div>
         <div style={Object.assign({}, styles.slide, styles.slide3)}>
-          nested slide n°4
+          nested slide n°2.2
+        </div>
+      </SwipeableViews>
+    </div>
+    <div style={Object.assign({}, styles.slide, styles.slide3)}>
+      slide n°3
+      <div style={styles.divider} />
+      <SwipeableViews axis="y" containerStyle={styles.slideContainerY}>
+        <div style={Object.assign({}, styles.slide, styles.slide1)}>
+          nested slide n°3.1
+        </div>
+        <div style={Object.assign({}, styles.slide, styles.slide2)}>
+          nested slide n°3.2
         </div>
       </SwipeableViews>
     </div>
