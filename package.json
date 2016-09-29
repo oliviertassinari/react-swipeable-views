@@ -34,6 +34,7 @@
   "dependencies": {
     "babel-runtime": "^6.11.6",
     "keycode": "^2.1.7",
+    "react-addons-shallow-compare": "^0.14.0 || ^15.0.0",
     "react-event-listener": "^0.3.0",
     "warning": "^3.0.0"
   },

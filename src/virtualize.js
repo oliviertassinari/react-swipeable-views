@@ -1,6 +1,7 @@
 // @flow weak
 
 import React, {Component, PropTypes} from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import mod from './utils/mod';
 
 // Approximate time needed to wait for the end of the transition.
@@ -84,6 +85,10 @@ export default function virtualize(MyComponent) {
         const indexDiff = index - this.props.index;
         this.setIndex(index, this.state.indexContainer + indexDiff, indexDiff);
       }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+      return shallowCompare(this, nextProps, nextState);
     }
 
     componentWillUnmount() {

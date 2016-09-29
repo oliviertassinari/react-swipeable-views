@@ -10,54 +10,46 @@ const Empty = () => <div />;
 const AutoPlaySwipeableViews = autoPlay(Empty);
 
 describe('autoPlay', () => {
-  describe('prop: children', () => {
-    it('should start at the beginning', () => {
-      const wrapper = shallow(
-        <AutoPlaySwipeableViews>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
-          <div>{'slide n°3'}</div>
-        </AutoPlaySwipeableViews>
-      );
-
-      assert.strictEqual(wrapper.state('index'), 0, 'Should start at the beginning.');
-    });
-  });
-
-  describe('prop: onChangeIndex', () => {
-    it('should be called with the right arguments', () => {
-      const handleChangeIndex = spy();
-      const wrapper = shallow(
-        <AutoPlaySwipeableViews onChangeIndex={handleChangeIndex}>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
-          <div>{'slide n°3'}</div>
-        </AutoPlaySwipeableViews>
-      );
-
-      wrapper.find(Empty).simulate('changeIndex', 1, 0);
-      assert.deepEqual(handleChangeIndex.args, [
-        [1, 0],
-      ]);
-      assert.strictEqual(wrapper.state().index, 0, 'should not update the state index');
-    });
-  });
-
-  describe('uncontrolled', () => {
-    it('should update the state index when swiping', () => {
-      const wrapper = shallow(
-        <AutoPlaySwipeableViews>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
-          <div>{'slide n°3'}</div>
-        </AutoPlaySwipeableViews>
-      );
-      wrapper.find(Empty).simulate('changeIndex', 1, 0);
-      assert.strictEqual(wrapper.state().index, 1, 'should update the state index');
-    });
-  });
-
   let wrapper;
+
+  describe('static', () => {
+    beforeEach(() => {
+      wrapper = shallow(
+        <AutoPlaySwipeableViews>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
+        </AutoPlaySwipeableViews>
+      );
+    });
+
+    describe('prop: children', () => {
+      it('should start at the beginning', () => {
+        assert.strictEqual(wrapper.state('index'), 0, 'Should start at the beginning.');
+      });
+    });
+
+    describe('prop: onChangeIndex', () => {
+      it('should be called with the right arguments', () => {
+        const handleChangeIndex = spy();
+        wrapper.setProps({
+          onChangeIndex: handleChangeIndex,
+        });
+        wrapper.find(Empty).simulate('changeIndex', 1, 0);
+        assert.deepEqual(handleChangeIndex.args, [
+          [1, 0],
+        ]);
+        assert.strictEqual(wrapper.state().index, 0, 'should not update the state index');
+      });
+    });
+
+    describe('uncontrolled', () => {
+      it('should update the state index when swiping', () => {
+        wrapper.find(Empty).simulate('changeIndex', 1, 0);
+        assert.strictEqual(wrapper.state().index, 1, 'should update the state index');
+      });
+    });
+  });
 
   describe('interval', () => {
     afterEach(() => {
@@ -156,25 +148,46 @@ describe('autoPlay', () => {
       });
     });
 
-    describe('prop: slideCount', (done) => {
-      it('should use the slideCount to compute the index limit', () => {
-        wrapper = shallow(
-          <AutoPlaySwipeableViews>
+    describe('prop: slideCount', () => {
+      it('should use the slideCount to compute the index limit', (done) => {
+        wrapper = mount(
+          <AutoPlaySwipeableViews index={1} slideCount={2} interval={100}>
             <div>{'slide n°1'}</div>
             <div>{'slide n°2'}</div>
             <div>{'slide n°3'}</div>
           </AutoPlaySwipeableViews>
         );
-        wrapper.setProps({
-          index: 1,
-          slideCount: 2,
-          interval: 100,
-        });
 
         setTimeout(() => {
           assert.strictEqual(wrapper.state('index'), 0, 'Should go back to the beginning.');
           done();
         }, 150);
+      });
+    });
+
+    describe('prop: autoplay', () => {
+      it('should not increment when disabled', (done) => {
+        wrapper = mount(
+          <AutoPlaySwipeableViews autoplay={true} interval={100}>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
+          </AutoPlaySwipeableViews>
+        );
+
+        setTimeout(() => {
+          assert.strictEqual(wrapper.state('index'), 1);
+
+          wrapper.setProps({
+            autoplay: false,
+          });
+        }, 150);
+
+        setTimeout(() => {
+          assert.strictEqual(wrapper.state('index'), 1);
+
+          done();
+        }, 300);
       });
     });
   });

@@ -1,7 +1,10 @@
 // @flow weak
 
 import React, {Component, PropTypes, Children} from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import mod from './utils/mod';
+
+const ignore = {};
 
 export default function autoPlay(MyComponent) {
   class AutoPlay extends Component {
@@ -75,8 +78,20 @@ export default function autoPlay(MyComponent) {
     }
 
     componentDidUpdate(prevProps) {
-      if ((typeof this.props.index === 'number' && this.props.index !== prevProps.index) ||
-        this.props.interval !== prevProps.interval) {
+      const shouldResetInterval = shallowCompare({
+        props: {
+          index: prevProps.index,
+          interval: prevProps.interval,
+          autoplay: prevProps.autoplay,
+        },
+        state: ignore,
+      }, {
+        index: this.props.index,
+        interval: this.props.interval,
+        autoplay: this.props.autoplay,
+      }, ignore);
+
+      if (shouldResetInterval) {
         this.startInterval();
       }
     }
