@@ -111,6 +111,7 @@ export default function autoPlay(MyComponent) {
 
       if (!autoplay) {
         clearInterval(this.timer);
+        return;
       }
 
       const indexLatest = this.state.index;
