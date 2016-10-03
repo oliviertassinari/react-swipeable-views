@@ -312,11 +312,6 @@ class SwipeableViews extends Component {
 
     const touch = applyRotationMatrix(event.touches[0], axis);
 
-    // Prevent native scrolling until we know the user intention.
-    if (this.isSwiping !== false) {
-      event.preventDefault();
-    }
-
     // We don't know yet.
     if (this.isSwiping === undefined) {
       const dx = Math.abs(this.startX - touch.pageX);
@@ -324,7 +319,12 @@ class SwipeableViews extends Component {
 
       const isSwiping = dx > dy && dx > UNCERTAINTY_THRESHOLD;
 
-      if (isSwiping === true || dx > UNCERTAINTY_THRESHOLD || dy > UNCERTAINTY_THRESHOLD) {
+      // We are likely to be swiping, let's prevent the scroll event.
+      if (dx > dy) {
+        event.preventDefault();
+      }
+
+      if (isSwiping === true || dy > UNCERTAINTY_THRESHOLD) {
         this.isSwiping = isSwiping;
         this.startX = touch.pageX; // Shift the starting point.
 
@@ -335,6 +335,9 @@ class SwipeableViews extends Component {
     if (this.isSwiping !== true) {
       return;
     }
+
+    // We are swiping, let's prevent the scroll event.
+    event.preventDefault();
 
     // Low Pass filter.
     this.vx = this.vx * 0.5 + (touch.pageX - this.lastX) * 0.5;
