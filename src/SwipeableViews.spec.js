@@ -8,7 +8,7 @@ import {Motion} from 'react-motion';
 import SwipeableViews from './SwipeableViews';
 
 describe('SwipeableViews', () => {
-  describe('props: children', () => {
+  describe('prop: children', () => {
     it('should render the children', () => {
       const wrapper = mount(
         <SwipeableViews>
@@ -28,7 +28,7 @@ describe('SwipeableViews', () => {
     });
   });
 
-  describe('props: onTouchStart', () => {
+  describe('prop: onTouchStart', () => {
     it('should trigger when we bind it', () => {
       const handleTouchStart = spy();
       const wrapper = mount(
@@ -58,7 +58,7 @@ describe('SwipeableViews', () => {
     });
   });
 
-  describe('props: onTouchEnd', () => {
+  describe('prop: onTouchEnd', () => {
     it('should trigger when we bind it', () => {
       const handleTouchEnd = spy();
       const wrapper = mount(
@@ -72,7 +72,7 @@ describe('SwipeableViews', () => {
     });
   });
 
-  describe('props: animateTransitions', () => {
+  describe('prop: animateTransitions', () => {
     it('should use a spring if animateTransitions is true', () => {
       const wrapper = shallow(
         <SwipeableViews>
@@ -267,6 +267,31 @@ describe('SwipeableViews', () => {
 
       assert.strictEqual(wrapperNester.state().indexCurrent, 0);
       assert.strictEqual(wrapperParent.state().indexCurrent, 0.975);
+    });
+  });
+
+  describe('prop: index', () => {
+    it('should only update the state when the index change', () => {
+      const wrapper = mount(
+        <SwipeableViews>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+        </SwipeableViews>
+      );
+      assert.strictEqual(wrapper.state().indexCurrent, 0, 'should start at the begining');
+
+      wrapper.setProps({
+        index: 1,
+      });
+      assert.strictEqual(wrapper.state().indexCurrent, 1, 'should update the state');
+
+      wrapper.setState({
+        indexCurrent: 0,
+      });
+      wrapper.setProps({
+        index: 1,
+      });
+      assert.strictEqual(wrapper.state().indexCurrent, 0, 'should keep the same state');
     });
   });
 });
