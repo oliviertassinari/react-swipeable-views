@@ -4,6 +4,7 @@
 import React from 'react';
 import {assert} from 'chai';
 import {shallow} from 'enzyme';
+import {spy} from 'sinon';
 import virtualize from './virtualize';
 
 const Empty = () => <div />;
@@ -225,6 +226,23 @@ describe('virtualize', () => {
         indexStart: -3,
         indexStop: 9,
       });
+    });
+  });
+
+  describe('prop: onChangeIndex', () => {
+    it('should be called with the right arguments', () => {
+      const handleChangeIndex = spy();
+      const wrapper = shallow(
+        <VirtualizeSwipeableViews
+          index={10}
+          slideRenderer={slideRenderer}
+          onChangeIndex={handleChangeIndex}
+        />
+      );
+
+      wrapper.find(Empty).simulate('changeIndex', 1, 0);
+      assert.deepEqual(handleChangeIndex.args, [[11, 10]]);
+      assert.strictEqual(wrapper.state().index, 10, 'should not update the state index');
     });
   });
 });
