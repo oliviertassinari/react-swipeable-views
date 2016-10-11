@@ -111,7 +111,7 @@ export default function virtualize(MyComponent) {
       }
 
       if (onChangeIndex) {
-        onChangeIndex(index);
+        onChangeIndex(index, indexLatest);
       } else {
         this.setIndex(index, indexContainer, indexDiff);
       }
