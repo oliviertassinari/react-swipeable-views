@@ -1,12 +1,15 @@
 // @flow weak
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 
 const styles = {
   root: {
     height: 18,
     width: 18,
     cursor: 'pointer',
+    border: 0,
+    background: 'none',
+    padding: 0,
   },
   dot: {
     backgroundColor: '#e4e6e7',
@@ -45,9 +48,9 @@ export default class PaginationDot extends Component {
     }
 
     return (
-      <div style={styles.root} onClick={this.handleClick}>
+      <button style={styles.root} onClick={this.handleClick}>
         <div style={styleDot} />
-      </div>
+      </button>
     );
   }
 }

@@ -38,7 +38,7 @@ const DemoNested = () => (
         slide n°1
       </Text>
       <View style={styles.divider} />
-      <SwipeableViews resistance={true}>
+      <SwipeableViews resistance>
         <View style={[styles.slide, styles.slide2]}>
           <Text style={styles.text}>
             slide n°1

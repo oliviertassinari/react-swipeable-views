@@ -27,7 +27,7 @@ const styles = {
 
 const list = [];
 
-for (let i = 0; i < 30; i++) {
+for (let i = 0; i < 30; i += 1) {
   list.push(
     <div key={i}>
       {`item n°${i + 1}`}
@@ -37,7 +37,7 @@ for (let i = 0; i < 30; i++) {
 
 const DemoAnimateHeight = () => {
   return (
-    <SwipeableViews animateHeight={true}>
+    <SwipeableViews animateHeight>
       <div style={Object.assign({}, styles.slide, styles.slide1)}>
         {list.slice(0, 10)}
       </div>

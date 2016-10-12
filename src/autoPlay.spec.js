@@ -1,9 +1,10 @@
 // @flow weak
+/* eslint-env mocha */
 
 import React from 'react';
-import {shallow, mount} from 'enzyme';
-import {spy} from 'sinon';
-import {assert} from 'chai';
+import { shallow, mount } from 'enzyme';
+import { spy } from 'sinon';
+import { assert } from 'chai';
 import autoPlay from './autoPlay';
 
 const Empty = () => <div />;
@@ -168,7 +169,7 @@ describe('autoPlay', () => {
     describe('prop: autoplay', () => {
       it('should not increment when disabled', (done) => {
         wrapper = mount(
-          <AutoPlaySwipeableViews autoplay={true} interval={100}>
+          <AutoPlaySwipeableViews autoplay interval={100}>
             <div>{'slide n°1'}</div>
             <div>{'slide n°2'}</div>
             <div>{'slide n°3'}</div>

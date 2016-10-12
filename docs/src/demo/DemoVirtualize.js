@@ -1,7 +1,7 @@
 // @flow weak
 /* eslint-disable react/no-multi-comp */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -48,6 +48,9 @@ function slideRenderer(params) {
     case 2:
       style = styles.slide3;
       break;
+
+    default:
+      break;
   }
 
   return (
@@ -64,7 +67,7 @@ class DemoVirtualize extends Component {
 
   handleChangeIndex = (index) => {
     this.setState({
-      index: index,
+      index,
     });
   };
 

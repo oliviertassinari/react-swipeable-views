@@ -29,14 +29,14 @@ const styles = {
 const DemoNested = () => (
   <SwipeableViews>
     <div style={Object.assign({}, styles.slide, styles.slide1)}>
-      <div style={{overflow: 'scroll'}}>
-        <div style={{width: 700}}>
+      <div style={{ overflow: 'scroll' }}>
+        <div style={{ width: 700 }}>
         This is component is very large so we can test how a native scroll container is handled.
         </div>
       </div>
       slide n°1
       <div style={styles.divider} />
-      <SwipeableViews resistance={true}>
+      <SwipeableViews resistance>
         <div style={Object.assign({}, styles.slide, styles.slide2)}>
           nested slide n°1.1
         </div>
@@ -46,8 +46,8 @@ const DemoNested = () => (
       </SwipeableViews>
     </div>
     <div style={Object.assign({}, styles.slide, styles.slide2)}>
-      <div style={{overflow: 'scroll'}}>
-        <div style={{width: 700}}>
+      <div style={{ overflow: 'scroll' }}>
+        <div style={{ width: 700 }}>
         This is component is very large so we can test how a native scroll container is handled.
         </div>
       </div>

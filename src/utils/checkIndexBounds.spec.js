@@ -1,9 +1,10 @@
 // @flow weak
+/* eslint-env mocha */
 /* eslint-disable no-console */
 
 import React from 'react';
-import {stub} from 'sinon';
-import {assert} from 'chai';
+import { stub } from 'sinon';
+import { assert } from 'chai';
 import checkIndexBounds from './checkIndexBounds';
 
 describe('checkIndexBounds', () => {
@@ -25,7 +26,7 @@ describe('checkIndexBounds', () => {
   it('should not warn when the index is in the bounds', () => {
     checkIndexBounds({
       index: 0,
-      children: children,
+      children,
     });
     assert.strictEqual(consoleStub.callCount, 0);
   });
@@ -33,7 +34,7 @@ describe('checkIndexBounds', () => {
   it('should warn when the index is out of bounds', () => {
     checkIndexBounds({
       index: 3,
-      children: children,
+      children,
     });
     assert.strictEqual(consoleStub.callCount, 1);
     assert.strictEqual(consoleStub.args[0][0],

@@ -53,6 +53,9 @@ function slideRenderer(params) {
     case 2:
       style = styles.slide3;
       break;
+
+    default:
+      break;
   }
 
   return (

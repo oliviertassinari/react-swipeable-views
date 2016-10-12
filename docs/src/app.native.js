@@ -20,7 +20,7 @@ const App = () => (
   <ScrollView style={styles.root}>
     <StatusBar
       backgroundColor="#0F3D6C"
-      translucent={true}
+      translucent
       barStyle="light-content"
     />
     <Main />

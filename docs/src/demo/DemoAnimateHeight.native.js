@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 
 const list = [];
 
-for (let i = 0; i < 30; i++) {
+for (let i = 0; i < 30; i += 1) {
   list.push(
     <View key={i}>
       <Text style={styles.text}>

@@ -5,7 +5,7 @@
  * I'm keeping the two versions here until we figured out.
  */
 
-import React, {Component, PropTypes, Children} from 'react';
+import React, { Component, PropTypes, Children } from 'react';
 import {
   StyleSheet,
   View,
@@ -132,7 +132,8 @@ class SwipeableViews extends Component {
 
     this.setState(initState);
 
-    warning(!this.props.animateHeight, 'react-swipeable-view: The animateHeight property is not implement yet.');
+    warning(!this.props.animateHeight,
+      'react-swipeable-view: The animateHeight property is not implement yet.');
     warning(!this.props.axis, 'react-swipeable-view: The axis property is not implement yet.');
   }
 
@@ -175,7 +176,7 @@ class SwipeableViews extends Component {
 
     this.setState({
       indexLatest: indexNew,
-      offset: offset,
+      offset,
     }, () => {
       if (this.props.onSwitching) {
         this.props.onSwitching(indexNew, 'end');
@@ -275,8 +276,8 @@ class SwipeableViews extends Component {
             {...other}
             ref="scrollView"
             style={[styles.container, containerStyle]}
-            horizontal={true}
-            pagingEnabled={true}
+            horizontal
+            pagingEnabled
             scrollsToTop={false}
             bounces={resistance}
             onScroll={this.handleScroll}

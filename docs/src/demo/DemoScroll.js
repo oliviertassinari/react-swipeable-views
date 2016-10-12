@@ -25,7 +25,7 @@ const styles = {
 
 const list = [];
 
-for (let i = 0; i < 30; i++) {
+for (let i = 0; i < 30; i += 1) {
   list.push(
     <div key={i}>
       {`item n°${i + 1}`}

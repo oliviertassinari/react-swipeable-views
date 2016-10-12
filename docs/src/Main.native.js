@@ -1,7 +1,7 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
 
 import React from 'react';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import Head from './Head.native';
 import Body from './Body.native';
 import Demo from './demo/Demo.native';

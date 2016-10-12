@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 });
 
 const DemoResitance = () => (
-  <SwipeableViews resistance={true}>
+  <SwipeableViews resistance>
     <View style={[styles.slide, styles.slide1]}>
       <Text style={styles.text}>
         slide n°1

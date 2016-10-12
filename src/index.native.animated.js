@@ -5,7 +5,7 @@
  * I'm keeping the two versions here until we figured out.
  */
 
-import React, {Component, PropTypes, Children} from 'react';
+import React, { Component, PropTypes, Children } from 'react';
 import {
   Animated,
   Dimensions,
@@ -14,7 +14,7 @@ import {
   View,
 } from 'react-native';
 import warning from 'warning';
-import {UNCERTAINTY_THRESHOLD} from './constant';
+import { UNCERTAINTY_THRESHOLD } from './constant';
 import computeIndex from './utils/computeIndex';
 import checkIndexBounds from './utils/checkIndexBounds';
 import getDisplaySameSlide from './utils/getDisplaySameSlide';
@@ -150,7 +150,8 @@ class SwipeableViews extends Component {
       onPanResponderGrant: this.handleTouchStart,
     });
 
-    warning(!this.props.animateHeight, 'react-swipeable-view: The animateHeight property is not implement yet.');
+    warning(!this.props.animateHeight,
+      'react-swipeable-view: The animateHeight property is not implement yet.');
     warning(!this.props.axis, 'react-swipeable-view: The axis property is not implement yet.');
   }
 
@@ -209,8 +210,8 @@ class SwipeableViews extends Component {
       index,
       startX,
     } = computeIndex({
-      children: children,
-      resistance: resistance,
+      children,
+      resistance,
       pageX: gestureState.moveX,
       indexLatest: this.state.indexLatest,
       startX: this.startX,
@@ -239,7 +240,7 @@ class SwipeableViews extends Component {
     } = gestureState;
 
     const indexLatest = this.state.indexLatest;
-    const indexCurrent = indexLatest + (this.startX - moveX) / this.state.viewLength;
+    const indexCurrent = indexLatest + ((this.startX - moveX) / this.state.viewLength);
 
     let indexNew;
 
@@ -250,13 +251,10 @@ class SwipeableViews extends Component {
       } else {
         indexNew = Math.ceil(indexCurrent);
       }
+    } else if (Math.abs(indexLatest - indexCurrent) > 0.6) { // Some hysteresis with indexLatest.
+      indexNew = Math.round(indexCurrent);
     } else {
-      // Some hysteresis with indexLatest
-      if (Math.abs(indexLatest - indexCurrent) > 0.6) {
-        indexNew = Math.round(indexCurrent);
-      } else {
-        indexNew = indexLatest;
-      }
+      indexNew = indexLatest;
     }
 
     const indexMax = Children.count(this.props.children) - 1;
@@ -287,7 +285,7 @@ class SwipeableViews extends Component {
   };
 
   handleLayout = (event) => {
-    const {width} = event.nativeEvent.layout;
+    const { width } = event.nativeEvent.layout;
 
     if (width) {
       this.setState({

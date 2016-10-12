@@ -1,12 +1,12 @@
 // @flow weak
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
   StyleSheet,
 } from 'react-native';
-import {Checkbox} from 'react-native-material-design';
+import { Checkbox } from 'react-native-material-design';
 import Button from 'react-native-button';
 import SwipeableViews from '../../../src/index.native.animated';
 
@@ -44,13 +44,13 @@ class DemoTabs extends Component {
 
   handleChangeIndex = (index) => {
     this.setState({
-      index: index,
+      index,
     });
   };
 
   handleChecked = (checked) => {
     this.setState({
-      checked: checked,
+      checked,
     });
   };
 
@@ -62,19 +62,19 @@ class DemoTabs extends Component {
     return (
       <View>
         <Button
-          style={index === 0 && {color: 'green'}}
+          style={index === 0 && { color: 'green' }}
           onPress={this.handleChangeTabs.bind(null, 0)}
         >
           tab n°1
         </Button>
         <Button
-          style={index === 1 && {color: 'green'}}
+          style={index === 1 && { color: 'green' }}
           onPress={this.handleChangeTabs.bind(null, 1)}
         >
           tab n°2
         </Button>
         <Button
-          style={index === 2 && {color: 'green'}}
+          style={index === 2 && { color: 'green' }}
           onPress={this.handleChangeTabs.bind(null, 2)}
         >
           tab n°3

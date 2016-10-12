@@ -1,10 +1,11 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
+/* eslint-env mocha */
 
 import React from 'react';
-import {mount, shallow} from 'enzyme';
-import {assert} from 'chai';
-import {spy} from 'sinon';
-import {Motion} from 'react-motion';
+import { mount, shallow } from 'enzyme';
+import { assert } from 'chai';
+import { spy } from 'sinon';
+import { Motion } from 'react-motion';
 import SwipeableViews from './SwipeableViews';
 
 describe('SwipeableViews', () => {
@@ -46,7 +47,7 @@ describe('SwipeableViews', () => {
     it('should trigger when we disable the swipe', () => {
       const handleTouchStart = spy();
       const wrapper = mount(
-        <SwipeableViews disabled={true} onTouchStart={handleTouchStart}>
+        <SwipeableViews disabled onTouchStart={handleTouchStart}>
           <div>{'slide n°1'}</div>
         </SwipeableViews>
       );

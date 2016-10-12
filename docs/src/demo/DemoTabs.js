@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Tabs from 'material-ui/Tabs/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
 import SwipeableViews from 'react-swipeable-views';
@@ -38,7 +38,7 @@ class DemoTabs extends Component {
 
   handleChangeIndex = (index) => {
     this.setState({
-      index: index,
+      index,
     });
   };
 

@@ -1,9 +1,10 @@
 // @flow weak
+/* eslint-env mocha */
 
 import React from 'react';
-import {shallow} from 'enzyme';
-import {assert} from 'chai';
-import {spy} from 'sinon';
+import { shallow } from 'enzyme';
+import { assert } from 'chai';
+import { spy } from 'sinon';
 import keycode from 'keycode';
 import bindKeyboard from './bindKeyboard';
 

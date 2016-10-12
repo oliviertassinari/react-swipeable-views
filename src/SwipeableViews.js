@@ -1,9 +1,9 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
 
-import React, {Component, PropTypes, Children} from 'react';
-import {Motion, spring} from 'react-motion';
+import React, { Component, PropTypes, Children } from 'react';
+import { Motion, spring } from 'react-motion';
 import warning from 'warning';
-import {UNCERTAINTY_THRESHOLD} from './constant';
+import { UNCERTAINTY_THRESHOLD } from './constant';
 import checkIndexBounds from './utils/checkIndexBounds';
 import computeIndex from './utils/computeIndex';
 import getDisplaySameSlide from './utils/getDisplaySameSlide';
@@ -78,8 +78,8 @@ function applyRotationMatrix(touch, axis) {
   const rotationMatrix = axisProperties.rotationMatrix[axis];
 
   return {
-    pageX: rotationMatrix.x[0] * touch.pageX + rotationMatrix.x[1] * touch.pageY,
-    pageY: rotationMatrix.y[0] * touch.pageX + rotationMatrix.y[1] * touch.pageY,
+    pageX: (rotationMatrix.x[0] * touch.pageX) + (rotationMatrix.x[1] * touch.pageY),
+    pageY: (rotationMatrix.y[0] * touch.pageX) + (rotationMatrix.y[1] * touch.pageY),
   };
 }
 
@@ -90,7 +90,7 @@ function getDomTreeShapes(element, rootNode) {
     // Ignore the nodes that have no width.
     if (element.clientWidth > 0) {
       domTreeShapes.push({
-        element: element,
+        element,
         scrollWidth: element.scrollWidth,
         clientWidth: element.clientWidth,
         scrollLeft: element.scrollLeft,
@@ -340,15 +340,15 @@ class SwipeableViews extends Component {
     event.preventDefault();
 
     // Low Pass filter.
-    this.vx = this.vx * 0.5 + (touch.pageX - this.lastX) * 0.5;
+    this.vx = (this.vx * 0.5) + ((touch.pageX - this.lastX) * 0.5);
     this.lastX = touch.pageX;
 
     const {
       index,
       startX,
     } = computeIndex({
-      children: children,
-      resistance: resistance,
+      children,
+      resistance,
       pageX: touch.pageX,
       indexLatest: this.state.indexLatest,
       startX: this.startX,
@@ -360,13 +360,15 @@ class SwipeableViews extends Component {
       const domTreeShapes = getDomTreeShapes(event.target, this.node);
 
       const hasFoundNativeHandler = domTreeShapes.some((shape) => {
-        if (index >= this.state.indexCurrent && shape.scrollLeft + shape.clientWidth < shape.scrollWidth ||
-          index <= this.state.indexCurrent && shape.scrollLeft > 0) {
+        if (
+          (index >= this.state.indexCurrent && shape.scrollLeft + shape.clientWidth < shape.scrollWidth) ||
+          (index <= this.state.indexCurrent && shape.scrollLeft > 0)
+        ) {
           nodeHowClaimedTheScroll = shape.element;
           return true;
-        } else {
-          return false;
         }
+
+        return false;
       });
 
       // We abort the touch move handler.
@@ -423,13 +425,10 @@ class SwipeableViews extends Component {
       } else {
         indexNew = Math.ceil(indexCurrent);
       }
+    } else if (Math.abs(indexLatest - indexCurrent) > 0.6) { // Some hysteresis with indexLatest
+      indexNew = Math.round(indexCurrent);
     } else {
-      // Some hysteresis with indexLatest
-      if (Math.abs(indexLatest - indexCurrent) > 0.6) {
-        indexNew = Math.round(indexCurrent);
-      } else {
-        indexNew = indexLatest;
-      }
+      indexNew = indexLatest;
     }
 
     const indexMax = Children.count(this.props.children) - 1;
@@ -478,7 +477,7 @@ class SwipeableViews extends Component {
 
     const styleNew = {
       WebkitTransform: transform,
-      transform: transform,
+      transform,
       height: null,
       flexDirection: axisProperties.flexDirection[axis],
     };
@@ -525,8 +524,8 @@ class SwipeableViews extends Component {
     const height = heightLatest;
 
     const motionStyle = (isDragging || !animateTransitions || displaySameSlide) ? {
-      translate: translate,
-      height: height,
+      translate,
+      height,
     } : {
       translate: spring(translate, springConfig),
       height: height !== 0 ? spring(height, springConfig) : 0,
@@ -571,7 +570,7 @@ class SwipeableViews extends Component {
 
     return (
       <div
-        ref={(node) => this.node = node}
+        ref={(node) => { this.node = node; }}
         style={Object.assign({}, axisProperties.root[axis], style)}
         {...other}
         {...touchEvents}

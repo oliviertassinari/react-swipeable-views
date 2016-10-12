@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -42,7 +42,7 @@ class DemoAutoPlay extends Component {
 
   handleChangeIndex = (index) => {
     this.setState({
-      index: index,
+      index,
     });
   };
 

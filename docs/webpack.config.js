@@ -7,7 +7,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import StatsPlugin from 'stats-webpack-plugin';
 import UnusedFilesWebpackPlugin from 'unused-files-webpack-plugin';
 
-export default function(options) {
+export default function (options) {
   const webpackConfig = {
     profile: false,
     entry: [],

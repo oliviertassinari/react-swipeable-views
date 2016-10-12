@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
   View,
@@ -36,7 +36,7 @@ export default class Pagination extends Component {
 
     const children = [];
 
-    for (let i = 0; i < dots; i++) {
+    for (let i = 0; i < dots; i += 1) {
       children.push(
         <PaginationDot
           key={i}

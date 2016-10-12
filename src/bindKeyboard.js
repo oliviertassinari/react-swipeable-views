@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {Component, PropTypes, Children} from 'react';
+import React, { Component, PropTypes, Children } from 'react';
 import keycode from 'keycode';
 import EventListener from 'react-event-listener';
 import mod from './utils/mod';
@@ -49,7 +49,7 @@ export default function bindKeyboard(MyComponent) {
 
       if (typeof index === 'number' && index !== this.props.index) {
         this.setState({
-          index: index,
+          index,
         });
       }
     }
@@ -97,6 +97,9 @@ export default function bindKeyboard(MyComponent) {
             action = 'decrease';
           }
           break;
+
+        default:
+          break;
       }
 
       if (action) {
@@ -128,7 +131,7 @@ export default function bindKeyboard(MyComponent) {
         this.props.onChangeIndex(index, indexLatest);
       } else {
         this.setState({
-          index: index,
+          index,
         });
       }
     };

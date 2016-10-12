@@ -3,7 +3,7 @@
 import minimist from 'minimist';
 import Mocha from 'mocha';
 import glob from 'glob';
-import {jsdom} from 'jsdom';
+import { jsdom } from 'jsdom';
 
 const exposedProperties = ['window', 'navigator', 'document'];
 

@@ -1,6 +1,6 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
 
-import {Children} from 'react';
+import { Children } from 'react';
 import warning from 'warning';
 
 const checkIndexBounds = (props) => {

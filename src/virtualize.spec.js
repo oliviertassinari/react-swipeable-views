@@ -1,16 +1,17 @@
 // @flow weak
+/* eslint-env mocha */
 /* eslint-disable react/no-multi-comp */
 
 import React from 'react';
-import {assert} from 'chai';
-import {shallow} from 'enzyme';
-import {spy} from 'sinon';
+import { assert } from 'chai';
+import { shallow } from 'enzyme';
+import { spy } from 'sinon';
 import virtualize from './virtualize';
 
 const Empty = () => <div />;
 const VirtualizeSwipeableViews = virtualize(Empty);
 const slideRenderer = (params) => {
-  const {key} = params;
+  const { key } = params;
 
   return <div key={key} />;
 };

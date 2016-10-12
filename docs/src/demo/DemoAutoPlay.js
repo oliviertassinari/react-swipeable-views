@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import autoPlay from '../../../src/autoPlay';
 import Pagination from '../pagination/Pagination';
@@ -34,7 +34,7 @@ class DemoAutoPlay extends Component {
 
   handleChangeIndex = (index) => {
     this.setState({
-      index: index,
+      index,
     });
   };
 

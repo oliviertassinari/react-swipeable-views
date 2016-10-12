@@ -1,7 +1,7 @@
 // @flow weak
 /* eslint-disable react/no-multi-comp */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -52,6 +52,9 @@ function slideRenderer(params) {
     case 2:
       style = styles.slide3;
       break;
+
+    default:
+      break;
   }
 
   return (
@@ -70,7 +73,7 @@ class DemoVirtualize extends Component {
 
   handleChangeIndex = (index) => {
     this.setState({
-      index: index,
+      index,
     });
   };
 

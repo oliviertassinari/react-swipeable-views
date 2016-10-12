@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import mod from './utils/mod';
 
@@ -132,8 +132,8 @@ export default function virtualize(MyComponent) {
 
     setIndex(index, indexContainer, indexDiff) {
       const nextState = {
-        index: index,
-        indexContainer: indexContainer,
+        index,
+        indexContainer,
         indexStart: this.state.indexStart,
         indexStop: this.state.indexStop,
       };
@@ -216,7 +216,7 @@ export default function virtualize(MyComponent) {
 
       const slides = [];
 
-      for (let slideIndex = indexStart; slideIndex <= indexStop; slideIndex++) {
+      for (let slideIndex = indexStart; slideIndex <= indexStop; slideIndex += 1) {
         slides.push(slideRenderer({
           index: slideIndex,
           key: slideIndex,

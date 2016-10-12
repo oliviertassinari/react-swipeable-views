@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, {Component, PropTypes, Children} from 'react';
+import React, { Component, PropTypes, Children } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import mod from './utils/mod';
 
@@ -72,7 +72,7 @@ export default function autoPlay(MyComponent) {
 
       if (typeof index === 'number' && index !== this.props.index) {
         this.setState({
-          index: index,
+          index,
         });
       }
     }
@@ -150,7 +150,7 @@ export default function autoPlay(MyComponent) {
         this.props.onChangeIndex(index, indexLatest);
       } else {
         this.setState({
-          index: index,
+          index,
         });
       }
     };
