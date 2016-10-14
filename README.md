@@ -28,7 +28,7 @@ npm install --save react-swipeable-views
 ## The problem solved
 
 Check out the [demos](http://oliviertassinari.github.io/react-swipeable-views/) from a mobile device (real or emulated).
-It is tiny (<4kB) and quickly render the first slide then lasy-load the other.
+It is tiny (<4kB) and quickly render the first slide then lazy-load the other.
 
 ## Simple example
 ![alt tag](docs/usage.gif)
