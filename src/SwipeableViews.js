@@ -175,6 +175,11 @@ class SwipeableViews extends Component {
      */
     onTouchStart: PropTypes.func,
     /**
+     * The callback that fires when the animation comes to a rest.
+     * This is useful to defer CPU intensive task.
+     */
+    onTransitionEnd: PropTypes.func,
+    /**
      * If `true`, it will add bounds effect on the edges.
      */
     resistance: PropTypes.bool,
@@ -575,7 +580,7 @@ class SwipeableViews extends Component {
         {...other}
         {...touchEvents}
       >
-        <Motion style={motionStyle}>
+        <Motion style={motionStyle} onRest={this.props.onTransitionEnd}>
           {(interpolatedStyle) => this.renderContainer(interpolatedStyle, animateHeight, childrenToRender)}
         </Motion>
       </div>

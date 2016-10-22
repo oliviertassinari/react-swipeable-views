@@ -295,4 +295,25 @@ describe('SwipeableViews', () => {
       assert.strictEqual(wrapper.state().indexCurrent, 0, 'should keep the same state');
     });
   });
+
+  describe('prop: onTransitionEnd', (done) => {
+    it('should be called once the transition comes to a rest.', () => {
+      const handleTranstionEnd = spy();
+      const wrapper = mount(
+        <SwipeableViews index={1} onTransitionEnd={handleTranstionEnd}>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+        </SwipeableViews>
+      );
+
+      wrapper.setProps({
+        index: 2,
+      });
+
+      setTimeout(() => {
+        assert.strictEqual(handleTranstionEnd.callCount, 1, 'should comes to a rest once');
+        done();
+      }, 0);
+    });
+  });
 });
