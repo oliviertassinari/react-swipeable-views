@@ -140,7 +140,7 @@ export default function bindKeyboard(MyComponent) {
       const {
         index: indexProp, // eslint-disable-line no-unused-vars
         onChangeIndex, // eslint-disable-line no-unused-vars
-        ...other,
+        ...other
       } = this.props;
 
       const {

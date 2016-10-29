@@ -153,14 +153,16 @@ class SwipeableViews extends Component {
       }, () => {
         if (Platform.OS === 'android') {
           if (this.props.animateTransitions) {
-            this.refs.scrollView.setPage(index);
+            this.scrollNode.setPage(index);
           } else {
-            this.refs.scrollView.setPageWithoutAnimation(index);
+            this.scrollNode.setPageWithoutAnimation(index);
           }
         }
       });
     }
   }
+
+  scrollNode = null;
 
   handleScroll = (event) => {
     if (this.props.onSwitching) {
@@ -234,7 +236,7 @@ class SwipeableViews extends Component {
       style,
       containerStyle,
       disabled,
-      ...other,
+      ...other
     } = this.props;
 
     const {
@@ -273,8 +275,6 @@ class SwipeableViews extends Component {
       >
         {(Platform.OS === 'ios') ? (
           <ScrollView
-            {...other}
-            ref="scrollView"
             style={[styles.container, containerStyle]}
             horizontal
             pagingEnabled
@@ -285,17 +285,18 @@ class SwipeableViews extends Component {
             showsHorizontalScrollIndicator={false}
             contentOffset={offset}
             onMomentumScrollEnd={this.handleMomentumScrollEnd}
+            {...other}
           >
             {childrenToRender}
           </ScrollView>
         ) : (
           <ViewPagerAndroid
-            {...other}
-            ref="scrollView"
+            ref={(node) => { this.scrollNode = node; }}
             style={[styles.container, containerStyle]}
             initialPage={indexLatest}
             onPageSelected={this.handlePageSelected}
             onPageScroll={this.handlePageScroll}
+            {...other}
           >
             {childrenToRender}
           </ViewPagerAndroid>

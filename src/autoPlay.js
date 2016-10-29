@@ -175,7 +175,7 @@ export default function autoPlay(MyComponent) {
         interval, // eslint-disable-line no-unused-vars
         index: indexProp, // eslint-disable-line no-unused-vars
         onChangeIndex, // eslint-disable-line no-unused-vars
-        ...other,
+        ...other
       } = this.props;
 
       if (!autoplay) {

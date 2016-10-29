@@ -6,7 +6,6 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import { Checkbox } from 'react-native-material-design';
 import Button from 'react-native-button';
 import SwipeableViews from '../../../src/index.native.animated';
 
@@ -33,7 +32,6 @@ const styles = StyleSheet.create({
 class DemoTabs extends Component {
   state = {
     index: 0,
-    checked: false,
   };
 
   handleChangeTabs = (value) => {
@@ -45,12 +43,6 @@ class DemoTabs extends Component {
   handleChangeIndex = (index) => {
     this.setState({
       index,
-    });
-  };
-
-  handleChecked = (checked) => {
-    this.setState({
-      checked,
     });
   };
 
@@ -89,12 +81,6 @@ class DemoTabs extends Component {
             <Text style={styles.text}>
               slide n°2
             </Text>
-            <Checkbox
-              checked={this.state.checked}
-              onCheck={this.handleChecked}
-              value="value"
-              label="test event propagation"
-            />
           </View>
           <View style={[styles.slide, styles.slide3]}>
             <Text style={styles.text}>

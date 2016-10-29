@@ -301,6 +301,7 @@ class SwipeableViews extends Component {
       slideStyle,
       containerStyle,
       disabled,
+      ...other
     } = this.props;
 
     const {
@@ -340,11 +341,9 @@ class SwipeableViews extends Component {
       <View
         style={[styles.root, style]}
         onLayout={this.handleLayout}
+        {...other}
       >
-        <Animated.View
-          {...panHandlers}
-          style={sceneContainerStyle}
-        >
+        <Animated.View {...panHandlers} style={sceneContainerStyle}>
           {childrenToRender}
         </Animated.View>
       </View>

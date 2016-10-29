@@ -8,9 +8,7 @@ import Demo from './demo/Demo.native';
 import DemoSimple from './demo/DemoSimple.native';
 import DemoTabs from './demo/DemoTabs.native';
 import DemoScroll from './demo/DemoScroll.native';
-import DemoAnimateHeight from './demo/DemoAnimateHeight.native';
 import DemoResitance from './demo/DemoResitance.native';
-import DemoNested from './demo/DemoNested.native';
 import DemoAutoPlay from './demo/DemoAutoPlay.native';
 import DemoVirtualize from './demo/DemoVirtualize.native';
 import DemoHocs from './demo/DemoHocs.native';
@@ -42,22 +40,10 @@ const Main = () => (
         <DemoScroll />
       </Demo>
       <Demo
-        name="Demo 4"
-        description="The container responds dynamically to its children."
-      >
-        <DemoAnimateHeight />
-      </Demo>
-      <Demo
         name="Demo 5"
         description="With a resistance bounds effet on the edges."
       >
         <DemoResitance />
-      </Demo>
-      <Demo
-        name="Demo 6"
-        description="With nested swipeable-view component."
-      >
-        <DemoNested />
       </Demo>
       <Demo
         name="Demo 7"
@@ -72,7 +58,7 @@ const Main = () => (
         <DemoVirtualize />
       </Demo>
       <Demo
-        name="Demo 9"
+        name="Demo 11"
         description="With all the HOCs."
       >
         <DemoHocs />

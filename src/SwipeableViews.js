@@ -514,7 +514,7 @@ class SwipeableViews extends Component {
       springConfig,
       style,
       threshold, // eslint-disable-line no-unused-vars
-      ...other,
+      ...other
     } = this.props;
 
     const {
@@ -587,9 +587,9 @@ class SwipeableViews extends Component {
       <div
         ref={(node) => { this.node = node; }}
         style={Object.assign({}, axisProperties.root[axis], style)}
+        role="listbox"
         {...other}
         {...touchEvents}
-        role="listbox"
       >
         <Motion style={motionStyle} onRest={this.props.onTransitionEnd}>
           {(interpolatedStyle) => this.renderContainer(interpolatedStyle, animateHeight, childrenToRender)}

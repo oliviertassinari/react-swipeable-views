@@ -205,7 +205,7 @@ export default function virtualize(MyComponent) {
         overscanSlideCount, // eslint-disable-line no-unused-vars
         slideCount, // eslint-disable-line no-unused-vars
         slideRenderer,
-        ...other,
+        ...other
       } = this.props;
 
       const {

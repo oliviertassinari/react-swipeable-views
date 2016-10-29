@@ -45,7 +45,7 @@ export default function (options) {
     webpackConfig.profile = true;
     webpackConfig.plugins.push(new StatsPlugin('stats.json', {
       chunkModules: true,
-      exclude: [/node_modules[\\\/]react/],
+      exclude: [/node_modules[\\/]react/],
     }));
   }
 
