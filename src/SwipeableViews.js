@@ -460,6 +460,14 @@ class SwipeableViews extends Component {
     });
   };
 
+  handleRest = () => {
+    // The rest callback is triggered when swiping. It's just noise.
+    // We filter it out.
+    if (this.props.onTransitionEnd && !this.state.isDragging) {
+      this.props.onTransitionEnd();
+    }
+  };
+
   updateHeight(node) {
     if (node !== null) {
       const child = node.children[0];
@@ -591,7 +599,7 @@ class SwipeableViews extends Component {
         {...other}
         {...touchEvents}
       >
-        <Motion style={motionStyle} onRest={this.props.onTransitionEnd}>
+        <Motion style={motionStyle} onRest={this.handleRest}>
           {(interpolatedStyle) => this.renderContainer(interpolatedStyle, animateHeight, childrenToRender)}
         </Motion>
       </div>

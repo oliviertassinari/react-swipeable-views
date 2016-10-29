@@ -88,6 +88,11 @@ class SwipeableViews extends Component {
      */
     onSwitching: PropTypes.func,
     /**
+     * The callback that fires when the animation comes to a rest.
+     * This is useful to defer CPU intensive task.
+     */
+    onTransitionEnd: PropTypes.func,
+    /**
      * If `true`, it will add bounds effect on the edges.
      */
     resistance: PropTypes.bool,
@@ -236,6 +241,7 @@ class SwipeableViews extends Component {
       style,
       containerStyle,
       disabled,
+      onTransitionEnd,
       ...other
     } = this.props;
 
@@ -281,6 +287,7 @@ class SwipeableViews extends Component {
             scrollsToTop={false}
             bounces={resistance}
             onScroll={this.handleScroll}
+            onScrollAnimationEnd={onTransitionEnd}
             scrollEventThrottle={200}
             showsHorizontalScrollIndicator={false}
             contentOffset={offset}
