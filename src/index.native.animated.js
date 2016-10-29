@@ -95,6 +95,11 @@ class SwipeableViews extends Component {
      */
     onTouchStart: React.PropTypes.func,
     /**
+     * The callback that fires when the animation comes to a rest.
+     * This is useful to defer CPU intensive task.
+     */
+    onTransitionEnd: PropTypes.func,
+    /**
      * If `true`, it will add bounds effect on the edges.
      */
     resistance: PropTypes.bool,
@@ -173,11 +178,7 @@ class SwipeableViews extends Component {
         this.setState({
           indexLatest: index,
         }, () => {
-          Animated.spring(this.state.indexCurrent, {
-            toValue: index,
-            tension: 300,
-            friction: 30,
-          }).start();
+          this.animateIndexCurrent(index);
         });
       } else {
         this.setState({
@@ -185,6 +186,17 @@ class SwipeableViews extends Component {
           indexCurrent: new Animated.Value(index),
         });
       }
+    }
+  }
+
+  animateIndexCurrent(index) {
+    // Avoid starting an animation when we are already on the right value.
+    if (this.state.indexCurrent._value !== index) { // eslint-disable-line no-underscore-dangle
+      Animated.spring(this.state.indexCurrent, {
+        toValue: index,
+        tension: 300,
+        friction: 30,
+      }).start(this.props.onTransitionEnd);
     }
   }
 
@@ -268,11 +280,7 @@ class SwipeableViews extends Component {
     this.setState({
       indexLatest: indexNew,
     }, () => {
-      Animated.spring(this.state.indexCurrent, {
-        toValue: indexNew,
-        tension: 300,
-        friction: 30,
-      }).start();
+      this.animateIndexCurrent(indexNew);
 
       if (this.props.onSwitching) {
         this.props.onSwitching(indexNew, 'end');
@@ -301,6 +309,7 @@ class SwipeableViews extends Component {
       slideStyle,
       containerStyle,
       disabled,
+      onTransitionEnd, // eslint-disable-line no-unused-vars
       ...other
     } = this.props;
 

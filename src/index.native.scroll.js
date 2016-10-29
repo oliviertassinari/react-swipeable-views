@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    flexDirection: 'row',
   },
   slide: {
     flex: 1,
@@ -192,6 +193,10 @@ class SwipeableViews extends Component {
       if (this.props.onChangeIndex && indexNew !== indexLatest) {
         this.props.onChangeIndex(indexNew, indexLatest);
       }
+
+      if (this.props.onTransitionEnd) {
+        this.props.onTransitionEnd();
+      }
     });
   };
 
@@ -241,7 +246,7 @@ class SwipeableViews extends Component {
       style,
       containerStyle,
       disabled,
-      onTransitionEnd,
+      onTransitionEnd, // eslint-disable-line no-unused-vars
       ...other
     } = this.props;
 
@@ -278,32 +283,30 @@ class SwipeableViews extends Component {
           styles.root,
           style,
         ]}
+        {...other}
       >
-        {(Platform.OS === 'ios') ? (
+        {Platform.OS === 'ios' ? (
           <ScrollView
-            style={[styles.container, containerStyle]}
             horizontal
             pagingEnabled
             scrollsToTop={false}
             bounces={resistance}
             onScroll={this.handleScroll}
-            onScrollAnimationEnd={onTransitionEnd}
             scrollEventThrottle={200}
             showsHorizontalScrollIndicator={false}
             contentOffset={offset}
             onMomentumScrollEnd={this.handleMomentumScrollEnd}
-            {...other}
+            style={[styles.container, containerStyle]}
           >
             {childrenToRender}
           </ScrollView>
         ) : (
           <ViewPagerAndroid
             ref={(node) => { this.scrollNode = node; }}
-            style={[styles.container, containerStyle]}
             initialPage={indexLatest}
             onPageSelected={this.handlePageSelected}
             onPageScroll={this.handlePageScroll}
-            {...other}
+            style={[styles.container, containerStyle]}
           >
             {childrenToRender}
           </ViewPagerAndroid>

@@ -517,6 +517,7 @@ class SwipeableViews extends Component {
       index, // eslint-disable-line no-unused-vars
       onChangeIndex, // eslint-disable-line no-unused-vars
       onSwitching, // eslint-disable-line no-unused-vars
+      onTransitionEnd, // eslint-disable-line no-unused-vars
       resistance, // eslint-disable-line no-unused-vars
       slideStyle,
       springConfig,
