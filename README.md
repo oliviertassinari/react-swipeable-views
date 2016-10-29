@@ -141,6 +141,10 @@ the same component can be used independently on where it's running.
 ### Browser
 ![alt tag](docs/platformBrowser.gif)
 
+| IE    | Edge | Firefox | Chrome | Safari |
+|:------|:-----|:--------|:-------|:-------|
+| >= 11 | ✓    | >= 28   | >= 29  | >= 9   |
+
 ### iOS
 ![alt tag](docs/platformIOS.gif)
 
