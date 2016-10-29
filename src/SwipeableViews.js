@@ -560,14 +560,24 @@ class SwipeableViews extends Component {
       }
 
       let ref;
+      let hidden = true;
 
-      if (animateHeight && indexChild === this.state.indexLatest) {
-        ref = (node) => this.updateHeight(node);
-        slideStyleObj.overflowY = 'hidden';
+      if (indexChild === this.state.indexLatest) {
+        hidden = false;
+
+        if (animateHeight) {
+          ref = (node) => this.updateHeight(node);
+          slideStyleObj.overflowY = 'hidden';
+        }
       }
 
       return (
-        <div ref={ref} style={slideStyleObj}>
+        <div
+          ref={ref}
+          style={slideStyleObj}
+          aria-hidden={hidden}
+          role="option"
+        >
           {child}
         </div>
       );
@@ -579,6 +589,7 @@ class SwipeableViews extends Component {
         style={Object.assign({}, axisProperties.root[axis], style)}
         {...other}
         {...touchEvents}
+        role="listbox"
       >
         <Motion style={motionStyle} onRest={this.props.onTransitionEnd}>
           {(interpolatedStyle) => this.renderContainer(interpolatedStyle, animateHeight, childrenToRender)}
