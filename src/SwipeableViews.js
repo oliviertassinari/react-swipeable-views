@@ -270,6 +270,12 @@ class SwipeableViews extends Component {
   isSwiping = undefined;
   started = false;
 
+  /**
+   * this.state.indexCurrent is used for the render method.
+   * this value is the actual value of the displayed index at 100 factor.
+   */
+  indexAnimation = 0;
+
   handleTouchStart = (event) => {
     const {
       axis,
@@ -289,6 +295,7 @@ class SwipeableViews extends Component {
     this.startY = touch.pageY;
     this.isSwiping = undefined;
     this.started = true;
+    this.startIndex = this.indexAnimation / 100;
   };
 
   handleTouchMove = (event) => {
@@ -355,7 +362,7 @@ class SwipeableViews extends Component {
       children,
       resistance,
       pageX: touch.pageX,
-      indexLatest: this.state.indexLatest,
+      startIndex: this.startIndex,
       startX: this.startX,
       viewLength: this.viewLength,
     });
@@ -486,8 +493,9 @@ class SwipeableViews extends Component {
       containerStyle,
     } = this.props;
 
-    const transform = axisProperties.transform[axis](interpolatedStyle.translate);
+    this.indexAnimation = interpolatedStyle.translate;
 
+    const transform = axisProperties.transform[axis](interpolatedStyle.translate);
     const styleNew = {
       WebkitTransform: transform,
       transform,

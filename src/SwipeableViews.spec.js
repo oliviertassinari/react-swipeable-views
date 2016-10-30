@@ -316,4 +316,43 @@ describe('SwipeableViews', () => {
       }, 0);
     });
   });
+
+  describe('startIndex', () => {
+    it('should use the indexAnimation', () => {
+      const wrapper = mount(
+        <SwipeableViews index={1}>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
+        </SwipeableViews>
+      );
+
+      const instance = wrapper.instance();
+      instance.indexAnimation = 80;
+      wrapper.simulate('touchStart', {
+        touches: [{
+          pageX: 50,
+          pageY: 0,
+        }],
+      });
+      instance.viewLength = 100;
+      assert.strictEqual(instance.startIndex, 0.8,
+        'should take into account the indexAnimation'
+      );
+      wrapper.simulate('touchMove', {
+        touches: [{
+          pageX: 40,
+          pageY: 0,
+        }],
+      });
+      wrapper.simulate('touchMove', {
+        touches: [{
+          pageX: 30,
+          pageY: 0,
+        }],
+      });
+      assert.strictEqual(wrapper.state().indexCurrent, 0.9,
+        'should use the startIndex');
+    });
+  });
 });

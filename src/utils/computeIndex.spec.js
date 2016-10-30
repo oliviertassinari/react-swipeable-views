@@ -19,7 +19,7 @@ describe('computeIndex', () => {
   it('should compute the next index correctly', () => {
     const actual = computeIndex({
       children,
-      indexLatest: 0,
+      startIndex: 0,
       startX: 50,
       pageX: 10,
       viewLength: 100,
@@ -33,7 +33,7 @@ describe('computeIndex', () => {
     it('should not allow to go beyound the bounds when false', () => {
       const actual = computeIndex({
         children,
-        indexLatest: 0,
+        startIndex: 0,
         startX: 10,
         pageX: 50,
         viewLength: 100,
@@ -46,7 +46,7 @@ describe('computeIndex', () => {
     it('should allow to go beyound the bounds when true', () => {
       const actual = computeIndex({
         children,
-        indexLatest: 0,
+        startIndex: 0,
         startX: 10,
         pageX: 50,
         viewLength: 100,

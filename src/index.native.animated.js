@@ -33,6 +33,11 @@ const styles = StyleSheet.create({
   },
 });
 
+// I couldn't find a public API to get this value.
+function getAnimatedValue(animated) {
+  return animated._value; // eslint-disable-line no-underscore-dangle
+}
+
 class SwipeableViews extends Component {
   static propTypes = {
     /**
@@ -200,7 +205,7 @@ class SwipeableViews extends Component {
 
   animateIndexCurrent(index) {
     // Avoid starting an animation when we are already on the right value.
-    if (this.state.indexCurrent._value !== index) { // eslint-disable-line no-underscore-dangle
+    if (getAnimatedValue(this.state.indexCurrent) !== index) {
       Animated.spring(this.state.indexCurrent, {
         toValue: index,
         ...this.props.springConfig,
@@ -210,6 +215,7 @@ class SwipeableViews extends Component {
 
   panResponder = undefined;
   startX = 0;
+  startIndex = 0;
 
   handleTouchStart = (event, gestureState) => {
     if (this.props.onTouchStart) {
@@ -217,6 +223,7 @@ class SwipeableViews extends Component {
     }
 
     this.startX = gestureState.x0;
+    this.startIndex = getAnimatedValue(this.state.indexCurrent);
   };
 
   handleTouchMove = (event, gestureState) => {
@@ -233,7 +240,7 @@ class SwipeableViews extends Component {
       children,
       resistance,
       pageX: gestureState.moveX,
-      indexLatest: this.state.indexLatest,
+      startIndex: this.startIndex,
       startX: this.startX,
       viewLength: this.state.viewLength,
     });

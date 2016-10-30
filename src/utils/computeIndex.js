@@ -6,7 +6,7 @@ import { RESISTANCE_COEF } from '../constant';
 export default function computeIndex(params) {
   const {
     children,
-    indexLatest,
+    startIndex,
     startX,
     pageX,
     viewLength,
@@ -14,17 +14,17 @@ export default function computeIndex(params) {
   } = params;
 
   const indexMax = Children.count(children) - 1;
-  let index = indexLatest + ((startX - pageX) / viewLength);
+  let index = startIndex + ((startX - pageX) / viewLength);
   let newStartX;
 
   if (!resistance) {
     // Reset the starting point
     if (index < 0) {
       index = 0;
-      newStartX = ((index - indexLatest) * viewLength) + pageX;
+      newStartX = ((index - startIndex) * viewLength) + pageX;
     } else if (index > indexMax) {
       index = indexMax;
-      newStartX = ((index - indexLatest) * viewLength) + pageX;
+      newStartX = ((index - startIndex) * viewLength) + pageX;
     }
   } else if (index < 0) {
     index = Math.exp(index * RESISTANCE_COEF) - 1;
