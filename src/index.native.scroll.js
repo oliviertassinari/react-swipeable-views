@@ -11,8 +11,6 @@ import {
   View,
   ScrollView,
   Dimensions,
-  ViewPagerAndroid,
-  Platform,
 } from 'react-native';
 import warning from 'warning';
 import checkIndexBounds from './utils/checkIndexBounds';
@@ -123,20 +121,13 @@ class SwipeableViews extends Component {
       checkIndexBounds(this.props);
     }
 
-    const initState = {
+    this.setState({
       indexLatest: this.props.index,
       viewWidth: windowWidth,
-      offset: {},
-    };
-
-    // android not use offset
-    if (Platform.OS === 'ios') {
-      initState.offset = {
-        x: initState.viewWidth * initState.indexLatest,
-      };
-    }
-
-    this.setState(initState);
+      offset: {
+        x: windowWidth * this.props.index,
+      },
+    });
 
     warning(!this.props.animateHeight,
       'react-swipeable-view: The animateHeight property is not implement yet.');
@@ -149,26 +140,25 @@ class SwipeableViews extends Component {
     } = nextProps;
 
     if (typeof index === 'number' && index !== this.props.index) {
-      checkIndexBounds(nextProps);
+      if (process.env.NODE_ENV !== 'production') {
+        checkIndexBounds(nextProps);
+      }
 
       this.setState({
         indexLatest: index,
-        offset: {
-          x: this.state.viewWidth * index,
-        },
       }, () => {
-        if (Platform.OS === 'android') {
-          if (this.props.animateTransitions) {
-            this.scrollNode.setPage(index);
-          } else {
-            this.scrollNode.setPageWithoutAnimation(index);
-          }
+        if (this.scrollViewNode) {
+          this.scrollViewNode.scrollTo({
+            x: this.state.viewWidth * index,
+            y: 0,
+            animated: this.props.animateTransitions,
+          });
         }
       });
     }
   }
 
-  scrollNode = null;
+  scrollViewNode = null;
 
   handleScroll = (event) => {
     if (this.props.onSwitching) {
@@ -177,14 +167,11 @@ class SwipeableViews extends Component {
   };
 
   handleMomentumScrollEnd = (event) => {
-    const offset = event.nativeEvent.contentOffset;
-
-    const indexNew = offset.x / this.state.viewWidth;
+    const indexNew = event.nativeEvent.contentOffset.x / this.state.viewWidth;
     const indexLatest = this.state.indexLatest;
 
     this.setState({
       indexLatest: indexNew,
-      offset,
     }, () => {
       if (this.props.onSwitching) {
         this.props.onSwitching(indexNew, 'end');
@@ -200,29 +187,6 @@ class SwipeableViews extends Component {
     });
   };
 
-  handlePageSelected = (event) => {
-    const indexLatest = this.state.indexLatest;
-    const indexNew = event.nativeEvent.position;
-
-    this.setState({
-      indexLatest: indexNew,
-    }, () => {
-      if (this.props.onSwitching) {
-        this.props.onSwitching(indexNew, 'end');
-      }
-
-      if (this.props.onChangeIndex && indexNew !== indexLatest) {
-        this.props.onChangeIndex(indexNew, indexLatest);
-      }
-    });
-  };
-
-  handlePageScroll = (event) => {
-    if (this.props.onSwitching) {
-      this.props.onSwitching(event.nativeEvent.offset + event.nativeEvent.position, 'move');
-    }
-  };
-
   handleLayout = (event) => {
     const {
       width,
@@ -232,7 +196,7 @@ class SwipeableViews extends Component {
       this.setState({
         viewWidth: width,
         offset: {
-          x: this.state.indexLatest * width,
+          x: this.state.indexLatest * width, // Update without animation.
         },
       });
     }
@@ -285,32 +249,25 @@ class SwipeableViews extends Component {
         ]}
         {...other}
       >
-        {Platform.OS === 'ios' ? (
-          <ScrollView
-            horizontal
-            pagingEnabled
-            scrollsToTop={false}
-            bounces={resistance}
-            onScroll={this.handleScroll}
-            scrollEventThrottle={200}
-            showsHorizontalScrollIndicator={false}
-            contentOffset={offset}
-            onMomentumScrollEnd={this.handleMomentumScrollEnd}
-            style={[styles.container, containerStyle]}
-          >
-            {childrenToRender}
-          </ScrollView>
-        ) : (
-          <ViewPagerAndroid
-            ref={(node) => { this.scrollNode = node; }}
-            initialPage={indexLatest}
-            onPageSelected={this.handlePageSelected}
-            onPageScroll={this.handlePageScroll}
-            style={[styles.container, containerStyle]}
-          >
-            {childrenToRender}
-          </ViewPagerAndroid>
-        )}
+        <ScrollView
+          ref={(node) => { this.scrollViewNode = node; }}
+          horizontal
+          pagingEnabled
+          automaticallyAdjustContentInsets={false}
+          scrollsToTop={false}
+          bounces={resistance}
+          onScroll={this.handleScroll}
+          scrollEventThrottle={16}
+          showsHorizontalScrollIndicator={false}
+          directionalLockEnabled
+          contentOffset={offset}
+          onMomentumScrollEnd={this.handleMomentumScrollEnd}
+          alwaysBounceVertical={false}
+          keyboardDismissMode="none"
+          style={[styles.container, containerStyle]}
+        >
+          {childrenToRender}
+        </ScrollView>
       </View>
     );
   }
