@@ -549,8 +549,16 @@ class SwipeableViews extends Component {
       translate,
       height,
     } : {
-      translate: spring(translate, springConfig),
-      height: height !== 0 ? spring(height, springConfig) : 0,
+      translate: spring(translate, {
+        // Kill call to render with too precised value for the end of the animation.
+        precision: 10,
+        ...springConfig,
+      }),
+      height: height !== 0 ? spring(height, {
+        // Kill call to render with too precised value for the end of the animation.
+        precision: 10,
+        ...springConfig,
+      }) : 0,
     };
 
     const touchEvents = disabled ? {} : {
