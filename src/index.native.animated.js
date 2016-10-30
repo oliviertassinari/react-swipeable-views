@@ -109,6 +109,11 @@ class SwipeableViews extends Component {
      */
     slideStyle: View.propTypes.style,
     /**
+     * This is the config given to Animated for the spring.
+     * This is useful to change the dynamic of the transition.
+     */
+    springConfig: PropTypes.object,
+    /**
      * This is the inlined style that will be applied
      * on the root component.
      */
@@ -124,8 +129,12 @@ class SwipeableViews extends Component {
     animateTransitions: true,
     disabled: false,
     index: 0,
-    threshold: 5,
     resistance: false,
+    springConfig: {
+      tension: 300,
+      friction: 30,
+    },
+    threshold: 5,
   };
 
   state = {};
@@ -194,8 +203,7 @@ class SwipeableViews extends Component {
     if (this.state.indexCurrent._value !== index) { // eslint-disable-line no-underscore-dangle
       Animated.spring(this.state.indexCurrent, {
         toValue: index,
-        tension: 300,
-        friction: 30,
+        ...this.props.springConfig,
       }).start(this.props.onTransitionEnd);
     }
   }

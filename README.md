@@ -248,6 +248,7 @@ export default MyComponent;
 | style | object | `{}` | all | This is the inlined style that will be applied on the root component. |
 | slideStyle | object | `{}` | all | This is the inlined style that will be applied on the slide component. |
 | springConfig | object | `{stiffness: 300, damping: 30}` | browser | This is the config given to react-motion for the `spring`. This is useful to change the dynamic of the transition. |
+| springConfig | object | `{tension: 300, friction: 30}` | native.animated | This is the config given to Animated for the `spring`. This is useful to change the dynamic of the transition. |
 | threshold | integer | `5` | all | This is the threshold used for detectinga quick swipe. If the computed speed is above this value, the index change. |
 
 Any other properties like `className` will be applied to the root component.
