@@ -46,7 +46,6 @@ describe('virtualize', () => {
       });
 
       wrapper.instance().setWindow();
-      wrapper.instance().componentWillUnmount();
 
       assert.deepEqual(wrapper.state(), {
         index: 1,
@@ -71,7 +70,6 @@ describe('virtualize', () => {
       });
 
       wrapper.instance().setWindow();
-      wrapper.instance().componentWillUnmount();
 
       assert.deepEqual(wrapper.state(), {
         index: -1,
@@ -79,6 +77,33 @@ describe('virtualize', () => {
         indexStart: -4,
         indexStop: 1,
       });
+    });
+
+    it('should update the state when the transition if finished', (done) => {
+      const wrapper = shallow(
+        <VirtualizeSwipeableViews slideRenderer={slideRenderer} />
+      );
+
+      wrapper.find(Empty).simulate('changeIndex', 2, 3);
+
+      assert.deepEqual(wrapper.state(), {
+        index: -1,
+        indexContainer: 2,
+        indexStart: -3,
+        indexStop: 2,
+      });
+
+      wrapper.find(Empty).simulate('transitionEnd');
+
+      setTimeout(() => {
+        assert.deepEqual(wrapper.state(), {
+          index: -1,
+          indexContainer: 3,
+          indexStart: -4,
+          indexStop: 1,
+        });
+        done();
+      }, 0);
     });
   });
 
@@ -111,7 +136,6 @@ describe('virtualize', () => {
       });
 
       wrapper.instance().setWindow();
-      wrapper.instance().componentWillUnmount();
 
       assert.deepEqual(wrapper.state(), {
         index: 1,
@@ -136,7 +160,6 @@ describe('virtualize', () => {
       });
 
       wrapper.instance().setWindow();
-      wrapper.instance().componentWillUnmount();
 
       assert.deepEqual(wrapper.state(), {
         index: 9,
@@ -185,7 +208,6 @@ describe('virtualize', () => {
       });
 
       wrapper.instance().setWindow();
-      wrapper.instance().componentWillUnmount();
 
       assert.deepEqual(wrapper.state(), {
         index: 3,

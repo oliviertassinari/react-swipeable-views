@@ -4,9 +4,6 @@ import React, { Component, PropTypes } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import mod from './utils/mod';
 
-// Approximate time needed to wait for the end of the transition.
-const ANIMATION_DELAY = 500;
-
 // Render one more slide for going backward as it's more difficult to
 // keep the window up to date.
 const LEFT_OFFSET = 1;
@@ -35,7 +32,7 @@ export default function virtualize(MyComponent) {
       /**
        * @ignore
        */
-      onSwitching: PropTypes.func,
+      onTransitionEnd: PropTypes.func,
       /**
        * Number of slide to render before/after the visible slide.
        */
@@ -117,16 +114,14 @@ export default function virtualize(MyComponent) {
       }
     };
 
-    handleSwitching = (index, type) => {
-      if (this.timer) {
-        clearTimeout(this.timer);
-        this.timer = null;
-      } else if (type === 'end') {
-        this.setWindowTimer();
-      }
+    handleTransitionEnd = () => {
+      // Delay the update of the window to fix an issue with react-motion.
+      this.timer = setTimeout(() => {
+        this.setWindow();
+      }, 0);
 
-      if (this.props.onSwitching) {
-        this.props.onSwitching(index, type);
+      if (this.props.onTransitionEnd) {
+        this.props.onTransitionEnd();
       }
     };
 
@@ -157,16 +152,7 @@ export default function virtualize(MyComponent) {
         nextState.indexStart -= leftAhead;
       }
 
-      this.setState(nextState, () => {
-        this.setWindowTimer();
-      });
-    }
-
-    setWindowTimer() {
-      clearTimeout(this.timer);
-      this.timer = setTimeout(() => {
-        this.setWindow();
-      }, ANIMATION_DELAY);
+      this.setState(nextState);
     }
 
     setWindow(state = this.state) {
@@ -188,13 +174,11 @@ export default function virtualize(MyComponent) {
         }
       }
 
-      const nextState = {
+      this.setState({
         indexContainer: leftAhead,
         indexStart: index - leftAhead,
         indexStop: index + rightAhead,
-      };
-
-      this.setState(nextState);
+      });
     }
 
     render() {
@@ -227,7 +211,7 @@ export default function virtualize(MyComponent) {
         <MyComponent
           index={indexContainer}
           onChangeIndex={this.handleChangeIndex}
-          onSwitching={this.handleSwitching}
+          onTransitionEnd={this.handleTransitionEnd}
           {...other}
         >
           {slides}

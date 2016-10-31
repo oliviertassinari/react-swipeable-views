@@ -209,9 +209,21 @@ class SwipeableViews extends Component {
       Animated.spring(this.state.indexCurrent, {
         toValue: index,
         ...this.props.springConfig,
-      }).start(this.props.onTransitionEnd);
+      }).start(this.handleAnimationFinished);
+    } else {
+      this.handleAnimationFinished({
+        finished: true,
+      });
     }
   }
+
+  handleAnimationFinished = (params) => {
+    // The animation can be aborted.
+    // We only want to call onTransitionEnd when the animation is finished.
+    if (this.props.onTransitionEnd && params.finished) {
+      this.props.onTransitionEnd();
+    }
+  };
 
   panResponder = undefined;
   startX = 0;
