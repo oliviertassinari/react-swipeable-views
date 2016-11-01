@@ -6,7 +6,7 @@ import { mount, shallow } from 'enzyme';
 import { assert } from 'chai';
 import { spy } from 'sinon';
 import { Motion } from 'react-motion';
-import SwipeableViews from './SwipeableViews';
+import SwipeableViews, { findNativeHandler } from './SwipeableViews';
 
 describe('SwipeableViews', () => {
   describe('prop: children', () => {
@@ -353,6 +353,38 @@ describe('SwipeableViews', () => {
       });
       assert.strictEqual(wrapper.state().indexCurrent, 0.9,
         'should use the startIndex');
+    });
+  });
+
+  describe('findNativeHandler', () => {
+    it('should work in a simple case', () => {
+      const hasFoundNativeHandler = findNativeHandler({
+        domTreeShapes: [{
+          scrollLeft: 0,
+          scrollWidth: 200,
+          clientWidth: 100,
+        }],
+        indexCurrent: 1,
+        index: 1.1,
+        axis: 'x',
+      });
+
+      assert.strictEqual(hasFoundNativeHandler, true);
+    });
+
+    it('should work with different axis', () => {
+      const hasFoundNativeHandler = findNativeHandler({
+        domTreeShapes: [{
+          scrollTop: 0,
+          scrollHeight: 100,
+          clientHeight: 100,
+        }],
+        indexCurrent: 1,
+        index: 1.1,
+        axis: 'y',
+      });
+
+      assert.strictEqual(hasFoundNativeHandler, false);
     });
   });
 });

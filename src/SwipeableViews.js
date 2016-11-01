@@ -71,6 +71,24 @@ const axisProperties = {
       y: [1, 0],
     },
   },
+  scrollPosition: {
+    x: 'scrollLeft',
+    'x-reverse': 'scrollLeft',
+    y: 'scrollTop',
+    'y-reverse': 'scrollTop',
+  },
+  scrollLength: {
+    x: 'scrollWidth',
+    'x-reverse': 'scrollWidth',
+    y: 'scrollHeight',
+    'y-reverse': 'scrollHeight',
+  },
+  clientLength: {
+    x: 'clientWidth',
+    'x-reverse': 'clientWidth',
+    y: 'clientHeight',
+    'y-reverse': 'clientHeight',
+  },
 };
 
 // We are using a 2x2 rotation matrix.
@@ -92,8 +110,11 @@ function getDomTreeShapes(element, rootNode) {
       domTreeShapes.push({
         element,
         scrollWidth: element.scrollWidth,
+        scrollHeight: element.scrollHeight,
         clientWidth: element.clientWidth,
+        clientHeight: element.clientHeight,
         scrollLeft: element.scrollLeft,
+        scrollTop: element.scrollTop,
       });
     }
 
@@ -107,7 +128,41 @@ function getDomTreeShapes(element, rootNode) {
 
 // We can only have one node at the time claiming ownership for handling the swipe.
 // Otherwise, the UX would be confusing.
+// That's why we use a singleton here.
 let nodeHowClaimedTheScroll = null;
+
+export function findNativeHandler(params) {
+  const {
+    domTreeShapes,
+    indexCurrent,
+    index,
+    axis,
+  } = params;
+
+  return domTreeShapes.some((shape) => {
+    // Determine if we are going backward or forward.
+    let goingForward = index <= indexCurrent;
+    if (axis === 'x' || axis === 'y') {
+      goingForward = !goingForward;
+    }
+
+    const scrollPosition = shape[axisProperties.scrollPosition[axis]];
+
+    const areNotAtStart = scrollPosition > 0;
+    const areNotAtEnd = scrollPosition +
+      shape[axisProperties.clientLength[axis]] < shape[axisProperties.scrollLength[axis]];
+
+    if (
+      (goingForward && areNotAtEnd) ||
+      (!goingForward && areNotAtStart)
+    ) {
+      nodeHowClaimedTheScroll = shape.element;
+      return true;
+    }
+
+    return false;
+  });
+}
 
 class SwipeableViews extends Component {
   static propTypes = {
@@ -370,17 +425,11 @@ class SwipeableViews extends Component {
     // Add support for native scroll elements.
     if (nodeHowClaimedTheScroll === null) {
       const domTreeShapes = getDomTreeShapes(event.target, this.node);
-
-      const hasFoundNativeHandler = domTreeShapes.some((shape) => {
-        if (
-          (index >= this.state.indexCurrent && shape.scrollLeft + shape.clientWidth < shape.scrollWidth) ||
-          (index <= this.state.indexCurrent && shape.scrollLeft > 0)
-        ) {
-          nodeHowClaimedTheScroll = shape.element;
-          return true;
-        }
-
-        return false;
+      const hasFoundNativeHandler = findNativeHandler({
+        domTreeShapes,
+        indexCurrent: this.state.indexCurrent,
+        index,
+        axis,
       });
 
       // We abort the touch move handler.
