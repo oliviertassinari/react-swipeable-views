@@ -84,7 +84,7 @@ describe('SwipeableViews', () => {
       assert.deepEqual(wrapper.find(Motion).at(0).props().style, {
         translate: {
           damping: 30,
-          precision: 10,
+          precision: 1.5,
           stiffness: 300,
           val: 0,
         },
