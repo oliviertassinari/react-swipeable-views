@@ -116,7 +116,7 @@ export default function (options) {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract(
           'style-loader',
-          'css-loader!autoprefixer-loader?{browsers:["last 2 versions"]}!less-loader'
+          'css-loader!autoprefixer-loader?{browsers:["last 2 versions"]}!less-loader',
         ),
       },
     ];

@@ -40,7 +40,7 @@ for (let i = 0; i < 30; i += 1) {
       <Text style={styles.text}>
         {`item n°${i + 1}`}
       </Text>
-    </View>
+    </View>,
   );
 }
 

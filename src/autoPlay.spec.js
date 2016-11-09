@@ -20,7 +20,7 @@ describe('autoPlay', () => {
           <div>{'slide n°1'}</div>
           <div>{'slide n°2'}</div>
           <div>{'slide n°3'}</div>
-        </AutoPlaySwipeableViews>
+        </AutoPlaySwipeableViews>,
       );
     });
 
@@ -66,7 +66,7 @@ describe('autoPlay', () => {
             <div>{'slide n°3'}</div>
             <div>{'slide n°4'}</div>
             <div>{'slide n°5'}</div>
-          </AutoPlaySwipeableViews>
+          </AutoPlaySwipeableViews>,
         );
 
         // Disturb the interval.
@@ -98,7 +98,7 @@ describe('autoPlay', () => {
             <div>{'slide n°3'}</div>
             <div>{'slide n°4'}</div>
             <div>{'slide n°5'}</div>
-          </AutoPlaySwipeableViews>
+          </AutoPlaySwipeableViews>,
         );
 
         setTimeout(() => {
@@ -115,7 +115,7 @@ describe('autoPlay', () => {
             <div>{'slide n°3'}</div>
             <div>{'slide n°4'}</div>
             <div>{'slide n°5'}</div>
-          </AutoPlaySwipeableViews>
+          </AutoPlaySwipeableViews>,
         );
 
         setTimeout(() => {
@@ -135,7 +135,7 @@ describe('autoPlay', () => {
             <div>{'slide n°3'}</div>
             <div>{'slide n°4'}</div>
             <div>{'slide n°5'}</div>
-          </AutoPlaySwipeableViews>
+          </AutoPlaySwipeableViews>,
         );
 
         setTimeout(() => {
@@ -156,7 +156,7 @@ describe('autoPlay', () => {
             <div>{'slide n°1'}</div>
             <div>{'slide n°2'}</div>
             <div>{'slide n°3'}</div>
-          </AutoPlaySwipeableViews>
+          </AutoPlaySwipeableViews>,
         );
 
         setTimeout(() => {
@@ -173,7 +173,7 @@ describe('autoPlay', () => {
             <div>{'slide n°1'}</div>
             <div>{'slide n°2'}</div>
             <div>{'slide n°3'}</div>
-          </AutoPlaySwipeableViews>
+          </AutoPlaySwipeableViews>,
         );
 
         setTimeout(() => {

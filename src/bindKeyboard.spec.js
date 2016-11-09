@@ -20,7 +20,7 @@ describe('bindKeyboard', () => {
         <div>{'slide n°1'}</div>
         <div>{'slide n°2'}</div>
         <div>{'slide n°3'}</div>
-      </BindKeyboardSwipeableViews>
+      </BindKeyboardSwipeableViews>,
     );
   });
 

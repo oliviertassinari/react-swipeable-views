@@ -18,13 +18,13 @@ describe('SwipeableViews', () => {
           <div>{'slide n°3'}</div>
           <div>{'slide n°4'}</div>
           <div>{'slide n°5'}</div>
-        </SwipeableViews>
+        </SwipeableViews>,
       );
 
       assert.strictEqual(
         wrapper.text(),
         'slide n°1slide n°2slide n°3slide n°4slide n°5',
-        'Should render each slide.'
+        'Should render each slide.',
       );
     });
   });
@@ -35,7 +35,7 @@ describe('SwipeableViews', () => {
       const wrapper = mount(
         <SwipeableViews onTouchStart={handleTouchStart}>
           <div>{'slide n°1'}</div>
-        </SwipeableViews>
+        </SwipeableViews>,
       );
 
       wrapper.simulate('touchStart', {
@@ -49,7 +49,7 @@ describe('SwipeableViews', () => {
       const wrapper = mount(
         <SwipeableViews disabled onTouchStart={handleTouchStart}>
           <div>{'slide n°1'}</div>
-        </SwipeableViews>
+        </SwipeableViews>,
       );
 
       wrapper.simulate('touchStart', {
@@ -65,7 +65,7 @@ describe('SwipeableViews', () => {
       const wrapper = mount(
         <SwipeableViews onTouchEnd={handleTouchEnd}>
           <div>{'slide n°1'}</div>
-        </SwipeableViews>
+        </SwipeableViews>,
       );
 
       wrapper.simulate('touchEnd');
@@ -78,7 +78,7 @@ describe('SwipeableViews', () => {
       const wrapper = shallow(
         <SwipeableViews>
           <div>{'slide n°1'}</div>
-        </SwipeableViews>
+        </SwipeableViews>,
       );
 
       assert.deepEqual(wrapper.find(Motion).at(0).props().style, {
@@ -96,7 +96,7 @@ describe('SwipeableViews', () => {
       const wrapper = shallow(
         <SwipeableViews animateTransitions={false}>
           <div>{'slide n°1'}</div>
-        </SwipeableViews>
+        </SwipeableViews>,
       );
 
       assert.deepEqual(wrapper.find(Motion).at(0).props().style, {
@@ -115,7 +115,7 @@ describe('SwipeableViews', () => {
         <SwipeableViews>
           <div>{'slide n°1'}</div>
           <div>{'slide n°2'}</div>
-        </SwipeableViews>
+        </SwipeableViews>,
       );
 
       wrapper.simulate('touchStart', {
@@ -187,7 +187,7 @@ describe('SwipeableViews', () => {
           <div>{'slide n°1'}</div>
           <div>{'slide n°2'}</div>
           <div>{'slide n°3'}</div>
-        </SwipeableViews>
+        </SwipeableViews>,
       );
 
       wrapperNester = mount(
@@ -195,7 +195,7 @@ describe('SwipeableViews', () => {
           <div>{'slide n°4'}</div>
           <div>{'slide n°5'}</div>
           <div>{'slide n°6'}</div>
-        </SwipeableViews>
+        </SwipeableViews>,
       );
 
       const touchStartEvent = {
@@ -277,7 +277,7 @@ describe('SwipeableViews', () => {
         <SwipeableViews>
           <div>{'slide n°1'}</div>
           <div>{'slide n°2'}</div>
-        </SwipeableViews>
+        </SwipeableViews>,
       );
       assert.strictEqual(wrapper.state().indexCurrent, 0, 'should start at the begining');
 
@@ -303,7 +303,7 @@ describe('SwipeableViews', () => {
         <SwipeableViews index={1} onTransitionEnd={handleTranstionEnd}>
           <div>{'slide n°1'}</div>
           <div>{'slide n°2'}</div>
-        </SwipeableViews>
+        </SwipeableViews>,
       );
 
       wrapper.setProps({
@@ -324,7 +324,7 @@ describe('SwipeableViews', () => {
           <div>{'slide n°1'}</div>
           <div>{'slide n°2'}</div>
           <div>{'slide n°3'}</div>
-        </SwipeableViews>
+        </SwipeableViews>,
       );
 
       const instance = wrapper.instance();
@@ -337,7 +337,7 @@ describe('SwipeableViews', () => {
       });
       instance.viewLength = 100;
       assert.strictEqual(instance.startIndex, 0.8,
-        'should take into account the indexAnimation'
+        'should take into account the indexAnimation',
       );
       wrapper.simulate('touchMove', {
         touches: [{

@@ -40,7 +40,7 @@ export default class Pagination extends Component {
           index={i}
           active={i === index}
           onClick={this.handleClick}
-        />
+        />,
       );
     }
 

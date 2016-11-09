@@ -20,7 +20,7 @@ describe('virtualize', () => {
   describe('window', () => {
     it('should use a correct window when mounting', () => {
       const wrapper = shallow(
-        <VirtualizeSwipeableViews slideRenderer={slideRenderer} />
+        <VirtualizeSwipeableViews slideRenderer={slideRenderer} />,
       );
 
       assert.deepEqual(wrapper.state(), {
@@ -33,7 +33,7 @@ describe('virtualize', () => {
 
     it('should update the state when swipping forward', () => {
       const wrapper = shallow(
-        <VirtualizeSwipeableViews slideRenderer={slideRenderer} />
+        <VirtualizeSwipeableViews slideRenderer={slideRenderer} />,
       );
 
       wrapper.find(Empty).simulate('changeIndex', 4, 3);
@@ -57,7 +57,7 @@ describe('virtualize', () => {
 
     it('should update the state when swipping backward', () => {
       const wrapper = shallow(
-        <VirtualizeSwipeableViews slideRenderer={slideRenderer} />
+        <VirtualizeSwipeableViews slideRenderer={slideRenderer} />,
       );
 
       wrapper.find(Empty).simulate('changeIndex', 2, 3);
@@ -81,7 +81,7 @@ describe('virtualize', () => {
 
     it('should update the state when the transition if finished', (done) => {
       const wrapper = shallow(
-        <VirtualizeSwipeableViews slideRenderer={slideRenderer} />
+        <VirtualizeSwipeableViews slideRenderer={slideRenderer} />,
       );
 
       wrapper.find(Empty).simulate('changeIndex', 2, 3);
@@ -110,7 +110,7 @@ describe('virtualize', () => {
   describe('prop: slideCount', () => {
     it('should use a correct window when mounting', () => {
       const wrapper = shallow(
-        <VirtualizeSwipeableViews slideRenderer={slideRenderer} slideCount={10} />
+        <VirtualizeSwipeableViews slideRenderer={slideRenderer} slideCount={10} />,
       );
 
       assert.deepEqual(wrapper.state(), {
@@ -123,7 +123,7 @@ describe('virtualize', () => {
 
     it('should update the state when swipping forward', () => {
       const wrapper = shallow(
-        <VirtualizeSwipeableViews slideRenderer={slideRenderer} slideCount={10} />
+        <VirtualizeSwipeableViews slideRenderer={slideRenderer} slideCount={10} />,
       );
 
       wrapper.find(Empty).simulate('changeIndex', 1, 0);
@@ -147,7 +147,7 @@ describe('virtualize', () => {
 
     it('should no go behond the bounds', () => {
       const wrapper = shallow(
-        <VirtualizeSwipeableViews slideRenderer={slideRenderer} index={8} slideCount={10} />
+        <VirtualizeSwipeableViews slideRenderer={slideRenderer} index={8} slideCount={10} />,
       );
 
       wrapper.find(Empty).simulate('changeIndex', 4, 3);
@@ -171,7 +171,7 @@ describe('virtualize', () => {
 
     it('should work with a small slideCount', () => {
       const wrapper = shallow(
-        <VirtualizeSwipeableViews slideRenderer={slideRenderer} slideCount={3} />
+        <VirtualizeSwipeableViews slideRenderer={slideRenderer} slideCount={3} />,
       );
 
       assert.deepEqual(wrapper.state(), {
@@ -186,7 +186,7 @@ describe('virtualize', () => {
   describe('prop: index', () => {
     it('should be able to control the component', () => {
       const wrapper = shallow(
-        <VirtualizeSwipeableViews index={1} slideRenderer={slideRenderer} />
+        <VirtualizeSwipeableViews index={1} slideRenderer={slideRenderer} />,
       );
 
       assert.deepEqual(wrapper.state(), {
@@ -219,7 +219,7 @@ describe('virtualize', () => {
 
     it('should be able to widen the window when going back', () => {
       const wrapper = shallow(
-        <VirtualizeSwipeableViews index={9} slideRenderer={slideRenderer} />
+        <VirtualizeSwipeableViews index={9} slideRenderer={slideRenderer} />,
       );
 
       wrapper.setProps({
@@ -236,7 +236,7 @@ describe('virtualize', () => {
 
     it('should be able to widen the window when going forward', () => {
       const wrapper = shallow(
-        <VirtualizeSwipeableViews index={0} slideRenderer={slideRenderer} />
+        <VirtualizeSwipeableViews index={0} slideRenderer={slideRenderer} />,
       );
 
       wrapper.setProps({
@@ -260,7 +260,7 @@ describe('virtualize', () => {
           index={10}
           slideRenderer={slideRenderer}
           onChangeIndex={handleChangeIndex}
-        />
+        />,
       );
 
       wrapper.find(Empty).simulate('changeIndex', 1, 0);

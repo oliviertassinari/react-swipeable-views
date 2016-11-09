@@ -14,14 +14,14 @@ describe('getDisplaySameSlide', () => {
         <div>{'slide n°1'}</div>
         <div>{'slide n°2'}</div>
         <div>{'slide n°3'}</div>
-      </SwipeableViews>
+      </SwipeableViews>,
     );
 
     const newState = mount(
       <SwipeableViews index={1}>
         <div>{'slide n°2'}</div>
         <div>{'slide n°3'}</div>
-      </SwipeableViews>
+      </SwipeableViews>,
     );
 
     assert.strictEqual(getDisplaySameSlide(oldState.props(), newState.props()), false);
@@ -33,14 +33,14 @@ describe('getDisplaySameSlide', () => {
         <div key="1" />
         <div key="2" />
         <div key="3" />
-      </SwipeableViews>
+      </SwipeableViews>,
     );
 
     const newState = mount(
       <SwipeableViews index={1}>
         <div key="2" />
         <div key="3" />
-      </SwipeableViews>
+      </SwipeableViews>,
     );
 
     assert.strictEqual(getDisplaySameSlide(oldState.props(), newState.props()), true);
@@ -52,7 +52,7 @@ describe('getDisplaySameSlide', () => {
         <div key="1" />
         <div key="2" />
         <div key="3" />
-      </SwipeableViews>
+      </SwipeableViews>,
     );
 
     const newState = mount(
@@ -60,7 +60,7 @@ describe('getDisplaySameSlide', () => {
         <div key="1" />
         <div key="2" />
         <div key="3" />
-      </SwipeableViews>
+      </SwipeableViews>,
     );
 
     assert.strictEqual(getDisplaySameSlide(oldState.props(), newState.props()), false);
