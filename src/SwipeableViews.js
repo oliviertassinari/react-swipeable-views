@@ -165,6 +165,9 @@ export function findNativeHandler(params) {
 }
 
 class SwipeableViews extends Component {
+  // Added as an ads.
+  static displayName = 'ReactSwipableView';
+
   static propTypes = {
     /**
      * If `true`, the height of the container will be animated to match the current slide height.
