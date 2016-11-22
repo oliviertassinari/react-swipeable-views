@@ -101,12 +101,18 @@ function applyRotationMatrix(touch, axis) {
   };
 }
 
-function getDomTreeShapes(element, rootNode) {
+export function getDomTreeShapes(element, rootNode) {
   const domTreeShapes = [];
 
-  while (element && element !== rootNode.firstChild) {
+  while (element && element !== rootNode) {
+    // We reach a Swipeable View, no need to look higher in the dom tree.
+    if (element.getAttribute('role') === 'option') {
+      break;
+    }
+
     // Ignore the nodes that have no width.
-    if (element.clientWidth > 0) {
+    // Keep elements with a scroll
+    if (element.clientWidth > 0 && element.scrollWidth > element.clientWidth) {
       domTreeShapes.push({
         element,
         scrollWidth: element.scrollWidth,
@@ -121,9 +127,7 @@ function getDomTreeShapes(element, rootNode) {
     element = element.parentNode;
   }
 
-  return domTreeShapes
-    .slice(0, -2) // Remove internal elements.
-    .filter((shape) => shape.scrollWidth > shape.clientWidth); // Keep elements with a scroll.
+  return domTreeShapes;
 }
 
 // We can only have one node at the time claiming ownership for handling the swipe.

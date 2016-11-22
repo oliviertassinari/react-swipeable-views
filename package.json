@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint . && echo \"eslint: no lint errors\"",
-    "test": "npm run lint && npm run test:unit && npm run flow",
+    "test": "npm run lint && npm run test:unit",
     "test:unit": "NODE_ENV=release babel-node test/unit.js",
     "test:unit:watch": "NODE_ENV=release babel-node test/watch.js",
     "build": "rm -rf lib && mkdir lib && NODE_ENV=release babel src --out-dir lib --ignore spec.js",

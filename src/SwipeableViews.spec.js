@@ -6,7 +6,7 @@ import { mount, shallow } from 'enzyme';
 import { assert } from 'chai';
 import { spy } from 'sinon';
 import { Motion } from 'react-motion';
-import SwipeableViews, { findNativeHandler } from './SwipeableViews';
+import SwipeableViews, { findNativeHandler, getDomTreeShapes } from './SwipeableViews';
 
 describe('SwipeableViews', () => {
   describe('prop: children', () => {
@@ -385,6 +385,29 @@ describe('SwipeableViews', () => {
       });
 
       assert.strictEqual(hasFoundNativeHandler, false);
+    });
+  });
+
+  describe('getDomTreeShapes', () => {
+    it('should stop at the role === option', () => {
+      const rootNode = {};
+
+      const optionNode = {
+        getAttribute: () => 'option',
+        parentNode: rootNode,
+      };
+
+      const targetNode = {
+        getAttribute: () => null,
+        parentNode: optionNode,
+        clientWidth: 10,
+        scrollWidth: 20,
+      };
+
+      const domTreeShapes = getDomTreeShapes(targetNode, optionNode);
+
+      assert.strictEqual(domTreeShapes.length, 1);
+      assert.strictEqual(domTreeShapes[0].clientWidth, 10);
     });
   });
 });
