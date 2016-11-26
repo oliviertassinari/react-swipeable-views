@@ -31,7 +31,7 @@ Check out the [demos](http://oliviertassinari.github.io/react-swipeable-views/) 
 It is tiny (<4kB) and quickly render the first slide then lazy-load the other.
 
 ## Simple example
-![alt tag](docs/usage.gif)
+![usage](docs/usage.gif)
 
 ### Browser
 
@@ -139,17 +139,17 @@ The API is as consistent as possible between the three platforms so
 the same component can be used independently on where it's running.
 
 ### Browser
-![alt tag](docs/platformBrowser.gif)
+![browser](docs/platformBrowser.gif)
 
 | IE    | Edge | Firefox | Chrome | Safari |
 |:------|:-----|:--------|:-------|:-------|
 | >= 11 | ✓    | >= 28   | >= 29  | >= 9   |
 
 ### iOS
-![alt tag](docs/platformIOS.gif)
+![ios](docs/platformIOS.gif)
 
 ### Android
-![alt tag](docs/platformAndroid.gif)
+![android](docs/platformAndroid.gif)
 
 ## Example with `virtualize`
 
