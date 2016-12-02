@@ -240,6 +240,7 @@ export default MyComponent;
 | children | node | | all | Use this property to provide your slides. |
 | containerStyle | object | `{}` | all | Whether or not the auto complete is animated as it is toggled. |
 | disabled | bool | `false` | all | If `true`, it will disable touch events. This is useful when you want to prohibit the user from changing slides. |
+| hysteresis | float | `0.6` | browser | Configure hysteresis between slides. This value determines how far should user swipe to switch slide. |
 | index | integer | `0` | all | This is the index of the slide to show. This is useful when you want to change the default slide shown. Or when you have tabs linked to each slide. |
 | onChangeIndex | function(index, indexLatest) | | all | This is callback prop. It's call by the component when the shown slide change after a swipe made by the user. This is useful when you have tabs linked to each slide. |
 | onSwitching | function(index, type) | | all | This is callback prop. It's called by the component when the slide switching. This is useful when you want to implement something corresponding to the current slide position. |

@@ -29,6 +29,77 @@ describe('SwipeableViews', () => {
     });
   });
 
+  describe('prop: hysteresis', () => {
+    function createWrapper(hysteresis) {
+      const wrapper = mount(
+        <SwipeableViews hysteresis={hysteresis}>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+        </SwipeableViews>,
+      );
+
+      wrapper.simulate('touchStart', {
+        touches: [{
+          pageX: 155,
+          pageY: 50,
+        }],
+      });
+      wrapper.simulate('touchMove', {
+        touches: [{
+          pageX: 150,
+          pageY: 50,
+        }],
+      });
+      const instance = wrapper.instance();
+      instance.viewLength = 200;
+      return wrapper;
+    }
+
+    it('should not change slide when swipe was not enough', () => {
+      const wrapper = createWrapper();
+
+      wrapper.simulate('touchMove', {
+        touches: [{
+          pageX: 80,
+          pageY: 50,
+        }],
+      });
+      wrapper.instance().vx = 0;
+      wrapper.simulate('touchEnd');
+      assert.equal(wrapper.state().indexCurrent, 0);
+    });
+
+    it('should change slide after long swipe', () => {
+      const wrapper = createWrapper();
+
+      wrapper.simulate('touchMove', {
+        touches: [{
+          pageX: 20,
+          pageY: 50,
+        }],
+      });
+
+      wrapper.instance().vx = 0;
+      wrapper.simulate('touchEnd');
+      assert.equal(wrapper.state().indexCurrent, 1);
+    });
+
+    it('should change slider hysteresis via prop', () => {
+      const wrapper = createWrapper(0.3);
+
+      wrapper.simulate('touchMove', {
+        touches: [{
+          pageX: 80,
+          pageY: 50,
+        }],
+      });
+
+      wrapper.instance().vx = 0;
+      wrapper.simulate('touchEnd');
+      assert.equal(wrapper.state().indexCurrent, 1);
+    });
+  });
+
   describe('prop: onTouchStart', () => {
     it('should trigger when we bind it', () => {
       const handleTouchStart = spy();
