@@ -65,4 +65,64 @@ describe('getDisplaySameSlide', () => {
 
     assert.strictEqual(getDisplaySameSlide(oldState.props(), newState.props()), false);
   });
+
+  it('should work with null old children', () => {
+    const oldState = mount(
+      <SwipeableViews index={2}>
+        <div key="1" />
+        <div key="2" />
+        {null}
+      </SwipeableViews>,
+    );
+
+    const newState = mount(
+      <SwipeableViews index={1}>
+        <div key="1" />
+        <div key="2" />
+        <div key="3" />
+      </SwipeableViews>,
+    );
+
+    assert.strictEqual(getDisplaySameSlide(oldState.props(), newState.props()), false);
+  });
+
+  it('should work with null new children', () => {
+    const oldState = mount(
+      <SwipeableViews index={2}>
+        <div key="1" />
+        <div key="2" />
+        <div key="3" />
+      </SwipeableViews>,
+    );
+
+    const newState = mount(
+      <SwipeableViews index={1}>
+        <div key="1" />
+        {null}
+        <div key="3" />
+      </SwipeableViews>,
+    );
+
+    assert.strictEqual(getDisplaySameSlide(oldState.props(), newState.props()), false);
+  });
+
+  it('should work with both null children', () => {
+    const oldState = mount(
+      <SwipeableViews index={2}>
+        <div key="1" />
+        <div key="2" />
+        {null}
+      </SwipeableViews>,
+    );
+
+    const newState = mount(
+      <SwipeableViews index={1}>
+        <div key="1" />
+        {null}
+        <div key="3" />
+      </SwipeableViews>,
+    );
+
+    assert.strictEqual(getDisplaySameSlide(oldState.props(), newState.props()), true);
+  });
 });
