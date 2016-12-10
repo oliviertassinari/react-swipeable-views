@@ -1,8 +1,8 @@
 // @flow weak
 
 import React from 'react';
-import SwipeableViews from 'react-swipeable-views';
-import bindKeyboard from '../../../src/bindKeyboard';
+import SwipeableViews from 'react-swipeable-views/lib/SwipeableViews';
+import bindKeyboard from 'react-swipeable-views/lib/bindKeyboard';
 
 const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);
 

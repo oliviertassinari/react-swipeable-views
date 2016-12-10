@@ -2,11 +2,11 @@
 /* eslint-disable react/no-multi-comp */
 
 import React from 'react';
-import SwipeableViews from 'react-swipeable-views';
-import virtualize from '../../../src/virtualize';
-import bindKeyboard from '../../../src/bindKeyboard';
-import autoPlay from '../../../src/autoPlay';
-import mod from '../../../src/utils/mod';
+import SwipeableViews from 'react-swipeable-views/lib/SwipeableViews';
+import virtualize from 'react-swipeable-views/lib/virtualize';
+import bindKeyboard from 'react-swipeable-views/lib/bindKeyboard';
+import autoPlay from 'react-swipeable-views/lib/autoPlay';
+import mod from 'react-swipeable-views/lib/utils/mod';
 
 const EnhancedSwipeableViews = bindKeyboard(autoPlay(virtualize(SwipeableViews)));
 

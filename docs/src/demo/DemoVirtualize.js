@@ -2,13 +2,13 @@
 /* eslint-disable react/no-multi-comp */
 
 import React, { Component } from 'react';
-import SwipeableViews from 'react-swipeable-views';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import virtualize from '../../../src/virtualize';
-import mod from '../../../src/utils/mod';
-import bindKeyboard from '../../../src/bindKeyboard';
+import SwipeableViews from 'react-swipeable-views/lib/SwipeableViews';
+import virtualize from 'react-swipeable-views/lib/virtualize';
+import mod from 'react-swipeable-views/lib/utils/mod';
+import bindKeyboard from 'react-swipeable-views/lib/bindKeyboard';
 
 const VirtualizeSwipeableViews = bindKeyboard(virtualize(SwipeableViews));
 

@@ -1,7 +1,7 @@
 // @flow weak
 
 import React from 'react';
-import SwipeableViews from 'react-swipeable-views';
+import SwipeableViews from 'react-swipeable-views/lib/SwipeableViews';
 
 const styles = {
   root: {

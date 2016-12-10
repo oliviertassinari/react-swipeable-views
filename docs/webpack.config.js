@@ -18,9 +18,8 @@ export default function (options) {
     },
     resolve: {
       extensions: ['', '.js'],
-      root: path.join(__dirname, 'src'),
       alias: {
-        'react-swipeable-views': path.resolve(__dirname, '../src'),
+        'react-swipeable-views/lib': path.resolve(__dirname, '../src'),
       },
     },
     plugins: [

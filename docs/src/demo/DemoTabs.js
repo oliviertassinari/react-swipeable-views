@@ -3,10 +3,10 @@
 import React, { Component } from 'react';
 import Tabs from 'material-ui/Tabs/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
-import SwipeableViews from 'react-swipeable-views';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Checkbox from 'material-ui/Checkbox';
+import SwipeableViews from 'react-swipeable-views/lib/SwipeableViews';
 
 const styles = {
   slide: {
