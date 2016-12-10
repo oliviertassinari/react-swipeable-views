@@ -276,11 +276,11 @@ class SwipeableViews extends Component {
     animateHeight: false,
     animateTransitions: true,
     axis: 'x',
+    disabled: false,
     hysteresis: 0.6,
     index: 0,
     threshold: 5,
     resistance: false,
-    disabled: false,
     springConfig: {
       stiffness: 300,
       damping: 30,
@@ -501,6 +501,7 @@ class SwipeableViews extends Component {
         indexNew = Math.ceil(indexCurrent);
       }
     } else if (Math.abs(delta) > this.props.hysteresis) {
+      // Some hysteresis with indexLatest.
       indexNew = delta > 0 ? Math.floor(indexCurrent) : Math.ceil(indexCurrent);
     } else {
       indexNew = indexLatest;

@@ -68,6 +68,11 @@ class SwipeableViews extends Component {
      */
     disabled: PropTypes.bool,
     /**
+     * Configure hysteresis between slides. This value determines how far
+     * should user swipe to switch slide.
+     */
+    hysteresis: PropTypes.number,
+    /**
      * This is the index of the slide to show.
      * This is useful when you want to change the default slide shown.
      * Or when you have tabs linked to each slide.
@@ -133,6 +138,7 @@ class SwipeableViews extends Component {
   static defaultProps = {
     animateTransitions: true,
     disabled: false,
+    hysteresis: 0.6,
     index: 0,
     resistance: false,
     springConfig: {
@@ -280,6 +286,7 @@ class SwipeableViews extends Component {
 
     const indexLatest = this.state.indexLatest;
     const indexCurrent = indexLatest + ((this.startX - moveX) / this.state.viewLength);
+    const delta = indexLatest - indexCurrent;
 
     let indexNew;
 
@@ -290,8 +297,9 @@ class SwipeableViews extends Component {
       } else {
         indexNew = Math.ceil(indexCurrent);
       }
-    } else if (Math.abs(indexLatest - indexCurrent) > 0.6) { // Some hysteresis with indexLatest.
-      indexNew = Math.round(indexCurrent);
+    } else if (Math.abs(delta) > this.props.hysteresis) {
+      // Some hysteresis with indexLatest.
+      indexNew = delta > 0 ? Math.floor(indexCurrent) : Math.ceil(indexCurrent);
     } else {
       indexNew = indexLatest;
     }
@@ -336,6 +344,8 @@ class SwipeableViews extends Component {
       slideStyle,
       containerStyle,
       disabled,
+      hysteresis, // eslint-disable-line no-unused-vars
+      index, // eslint-disable-line no-unused-vars
       onTransitionEnd, // eslint-disable-line no-unused-vars
       ...other
     } = this.props;
