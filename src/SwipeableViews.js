@@ -323,10 +323,10 @@ class SwipeableViews extends Component {
       }
 
       this.setState({
+        // If true, we are going to change the children. We shoudn't animate it.
+        displaySameSlide: getDisplaySameSlide(this.props, nextProps),
         indexCurrent: index,
         indexLatest: index,
-        // If true, we are going to display the same slide. We shoudn't animate it.
-        displaySameSlide: getDisplaySameSlide(this.props, nextProps),
       });
     }
   }
@@ -460,6 +460,7 @@ class SwipeableViews extends Component {
     }
 
     this.setState({
+      displaySameSlide: false,
       isDragging: true,
       indexCurrent: index,
     }, () => {
@@ -520,7 +521,6 @@ class SwipeableViews extends Component {
       indexCurrent: indexNew,
       indexLatest: indexNew,
       isDragging: false,
-      displaySameSlide: false,
     }, () => {
       if (this.props.onSwitching) {
         this.props.onSwitching(indexNew, 'end');
@@ -529,10 +529,20 @@ class SwipeableViews extends Component {
       if (this.props.onChangeIndex && indexNew !== indexLatest) {
         this.props.onChangeIndex(indexNew, indexLatest);
       }
+
+      // Manually calling handleRest in that case as isn't otherwise.
+      if (indexCurrent === indexLatest) {
+        this.handleRest();
+      }
     });
   };
 
   handleRest = () => {
+    // Filters out when changing the children
+    if (this.state.displaySameSlide) {
+      return;
+    }
+
     // The rest callback is triggered when swiping. It's just noise.
     // We filter it out.
     if (this.props.onTransitionEnd && !this.state.isDragging) {
