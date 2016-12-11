@@ -263,7 +263,7 @@ class SwipeableViews extends Component {
           contentOffset={offset}
           onMomentumScrollEnd={this.handleMomentumScrollEnd}
           alwaysBounceVertical={false}
-          keyboardDismissMode="none"
+          keyboardDismissMode="on-drag"
           style={[styles.container, containerStyle]}
         >
           {childrenToRender}
