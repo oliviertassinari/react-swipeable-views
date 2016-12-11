@@ -1,7 +1,8 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
 
 import React, { Component, PropTypes, Children } from 'react';
-import { Motion, spring } from 'react-motion';
+import Motion from 'react-motion/lib/Motion';
+import spring from 'react-motion/lib/spring';
 import warning from 'warning';
 import { UNCERTAINTY_THRESHOLD } from './constant';
 import checkIndexBounds from './utils/checkIndexBounds';
