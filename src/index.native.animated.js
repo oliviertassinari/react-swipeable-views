@@ -191,7 +191,7 @@ class SwipeableViews extends Component {
         checkIndexBounds(nextProps);
       }
 
-      // If true, we are going to display the same slide. We shoudn't animate it.
+      // If true, we are going to change the children. We shoudn't animate it.
       const displaySameSlide = getDisplaySameSlide(this.props, nextProps);
 
       if (animateTransitions && !displaySameSlide) {

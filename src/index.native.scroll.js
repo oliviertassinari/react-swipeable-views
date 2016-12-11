@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import warning from 'warning';
 import checkIndexBounds from './utils/checkIndexBounds';
+import getDisplaySameSlide from './utils/getDisplaySameSlide';
 
 const {
   width: windowWidth,
@@ -144,14 +145,18 @@ class SwipeableViews extends Component {
         checkIndexBounds(nextProps);
       }
 
+      // If true, we are going to change the children. We shoudn't animate it.
+      const displaySameSlide = getDisplaySameSlide(this.props, nextProps);
+
       this.setState({
+        displaySameSlide,
         indexLatest: index,
       }, () => {
         if (this.scrollViewNode) {
           this.scrollViewNode.scrollTo({
             x: this.state.viewWidth * index,
             y: 0,
-            animated: this.props.animateTransitions,
+            animated: this.props.animateTransitions && !displaySameSlide,
           });
         }
       });
@@ -161,6 +166,11 @@ class SwipeableViews extends Component {
   scrollViewNode = null;
 
   handleScroll = (event) => {
+    // Filters out when changing the children
+    if (this.state.displaySameSlide) {
+      return;
+    }
+
     if (this.props.onSwitching) {
       this.props.onSwitching(event.nativeEvent.contentOffset.x / this.state.viewWidth, 'move');
     }
