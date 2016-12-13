@@ -481,4 +481,21 @@ describe('SwipeableViews', () => {
       assert.strictEqual(domTreeShapes[0].clientWidth, 10);
     });
   });
+
+  describe('prop: slideClassName', () => {
+    it('should apply a className prop to every rendered slide component', () => {
+      const Slide = () => <div />;
+      const classNameToApply = 'someclassname';
+      const wrapper = mount(
+        <SwipeableViews slideClassName={classNameToApply}>
+          <Slide />
+          <Slide />
+        </SwipeableViews>,
+      );
+
+      assert.strictEqual(wrapper.find(Slide)
+        .everyWhere((slide) => slide.parent().prop('className') === classNameToApply),
+        true, 'should apply the className prop');
+    });
+  });
 });

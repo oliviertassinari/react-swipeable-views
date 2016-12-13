@@ -252,6 +252,11 @@ class SwipeableViews extends Component {
      */
     resistance: PropTypes.bool,
     /**
+     * This is the className that will be applied
+     * on the slide component.
+     */
+    slideClassName: PropTypes.string,
+    /**
      * This is the inlined style that will be applied
      * on the slide component.
      */
@@ -604,6 +609,7 @@ class SwipeableViews extends Component {
       onTransitionEnd, // eslint-disable-line no-unused-vars
       resistance, // eslint-disable-line no-unused-vars
       slideStyle,
+      slideClassName,
       springConfig,
       style,
       threshold, // eslint-disable-line no-unused-vars
@@ -676,6 +682,7 @@ class SwipeableViews extends Component {
         <div
           ref={ref}
           style={slideStyleObj}
+          className={slideClassName}
           aria-hidden={hidden}
           role="option"
         >
