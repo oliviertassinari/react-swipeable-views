@@ -257,6 +257,11 @@ class SwipeableViews extends Component {
      */
     slideStyle: PropTypes.object,
     /**
+     * This is the className that will be applied
+     * on the slide component.
+     */
+    slideClassName: PropTypes.string,
+    /**
      * This is the config given to react-motion for the spring.
      * This is useful to change the dynamic of the transition.
      */
@@ -604,6 +609,7 @@ class SwipeableViews extends Component {
       onTransitionEnd, // eslint-disable-line no-unused-vars
       resistance, // eslint-disable-line no-unused-vars
       slideStyle,
+      slideClassName,
       springConfig,
       style,
       threshold, // eslint-disable-line no-unused-vars
@@ -676,6 +682,7 @@ class SwipeableViews extends Component {
         <div
           ref={ref}
           style={slideStyleObj}
+          className={slideClassName}
           aria-hidden={hidden}
           role="option"
         >
