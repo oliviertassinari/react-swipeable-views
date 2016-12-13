@@ -252,15 +252,15 @@ class SwipeableViews extends Component {
      */
     resistance: PropTypes.bool,
     /**
-     * This is the inlined style that will be applied
-     * on the slide component.
-     */
-    slideStyle: PropTypes.object,
-    /**
      * This is the className that will be applied
      * on the slide component.
      */
     slideClassName: PropTypes.string,
+    /**
+     * This is the inlined style that will be applied
+     * on the slide component.
+     */
+    slideStyle: PropTypes.object,
     /**
      * This is the config given to react-motion for the spring.
      * This is useful to change the dynamic of the transition.

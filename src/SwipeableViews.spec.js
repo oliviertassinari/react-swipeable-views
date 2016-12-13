@@ -484,7 +484,7 @@ describe('SwipeableViews', () => {
 
   describe('prop: slideClassName', () => {
     it('should apply a className prop to every rendered slide component', () => {
-      const Slide = () => <div />
+      const Slide = () => <div />;
       const classNameToApply = 'someclassname';
       const wrapper = mount(
         <SwipeableViews slideClassName={classNameToApply}>
@@ -494,7 +494,8 @@ describe('SwipeableViews', () => {
       );
 
       assert.strictEqual(wrapper.find(Slide)
-        .everyWhere(slide => (slide.parent().prop('className') === classNameToApply)), true, 'should apply the className prop');
+        .everyWhere((slide) => slide.parent().prop('className') === classNameToApply),
+        true, 'should apply the className prop');
     });
   });
 });
