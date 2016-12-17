@@ -9,8 +9,8 @@
     "test:unit": "NODE_ENV=release babel-node test/unit.js",
     "test:unit:watch": "NODE_ENV=release babel-node test/watch.js",
     "build": "rm -rf lib && mkdir lib && NODE_ENV=release babel src --out-dir lib --ignore spec.js",
-    "docs:browser:development": "cd docs && NODE_ENV=docs-browser-development babel-node webpack.js --dev",
-    "docs:browser:production": "cd docs && NODE_ENV=docs-browser-production babel-node webpack.js",
+    "docs:browser:development": "cd docs && NODE_ENV=docs-browser-development babel-node webpackCli.js --dev",
+    "docs:browser:production": "cd docs && NODE_ENV=docs-browser-production babel-node webpackCli.js",
     "docs:native:development": "NODE_ENV=docs-native-development node node_modules/react-native/local-cli/cli.js start --reset-cache --verbose",
     "prepublish": "npm run build && pkgfiles",
     "flow": "flow"
