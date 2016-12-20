@@ -117,11 +117,17 @@ export default function autoPlay(MyComponent) {
 
     handleInterval = () => {
       const {
+        autoplay,
         children,
         direction,
         onChangeIndex,
         slideCount,
       } = this.props;
+
+      if (!autoplay) {
+        clearInterval(this.timer);
+        return;
+      }
 
       const indexLatest = this.state.index;
       let indexNew = indexLatest;
