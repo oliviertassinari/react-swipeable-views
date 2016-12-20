@@ -322,7 +322,7 @@ class SwipeableViews extends Component {
       index,
     } = nextProps;
 
-    if (typeof index === 'number' && index !== this.props.index) {
+    if (typeof index === 'number' && index !== this.state.indexCurrent) {
       if (process.env.NODE_ENV !== 'production') {
         checkIndexBounds(nextProps);
       }
