@@ -4,10 +4,7 @@ import React, { Component, PropTypes, Children } from 'react';
 import Motion from 'react-motion/lib/Motion';
 import spring from 'react-motion/lib/spring';
 import warning from 'warning';
-import { UNCERTAINTY_THRESHOLD } from './constant';
-import checkIndexBounds from './utils/checkIndexBounds';
-import computeIndex from './utils/computeIndex';
-import getDisplaySameSlide from './utils/getDisplaySameSlide';
+import { constant, checkIndexBounds, computeIndex, getDisplaySameSlide } from 'react-swipeable-views-core';
 
 const styles = {
   container: {
@@ -403,14 +400,14 @@ class SwipeableViews extends Component {
       const dx = Math.abs(this.startX - touch.pageX);
       const dy = Math.abs(this.startY - touch.pageY);
 
-      const isSwiping = dx > dy && dx > UNCERTAINTY_THRESHOLD;
+      const isSwiping = dx > dy && dx > constant.UNCERTAINTY_THRESHOLD;
 
       // We are likely to be swiping, let's prevent the scroll event.
       if (dx > dy) {
         event.preventDefault();
       }
 
-      if (isSwiping === true || dy > UNCERTAINTY_THRESHOLD) {
+      if (isSwiping === true || dy > constant.UNCERTAINTY_THRESHOLD) {
         this.isSwiping = isSwiping;
         this.startX = touch.pageX; // Shift the starting point.
 

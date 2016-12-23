@@ -1,8 +1,8 @@
 // @flow weak
 
 import React, { Component } from 'react';
-import SwipeableViews from 'react-swipeable-views/lib/SwipeableViews';
-import autoPlay from 'react-swipeable-views/lib/autoPlay';
+import SwipeableViews from 'react-swipeable-views';
+import { autoPlay } from 'react-swipeable-views-utils';
 import Pagination from '../pagination/Pagination';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);

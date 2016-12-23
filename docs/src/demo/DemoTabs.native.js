@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import Button from 'react-native-button';
-import SwipeableViews from '../../../src/index.native.animated';
+import SwipeableViews from '../../../packages/react-swipeable-views-native/src';
 
 const styles = StyleSheet.create({
   slide: {
@@ -34,7 +34,7 @@ class DemoTabs extends Component {
     index: 0,
   };
 
-  handleChangeTabs = (value) => {
+  handleChangeTabs = (value) => () => {
     this.setState({
       index: value,
     });
@@ -55,19 +55,19 @@ class DemoTabs extends Component {
       <View>
         <Button
           style={index === 0 && { color: 'green' }}
-          onPress={this.handleChangeTabs.bind(null, 0)}
+          onPress={this.handleChangeTabs(0)}
         >
           tab n°1
         </Button>
         <Button
           style={index === 1 && { color: 'green' }}
-          onPress={this.handleChangeTabs.bind(null, 1)}
+          onPress={this.handleChangeTabs(1)}
         >
           tab n°2
         </Button>
         <Button
           style={index === 2 && { color: 'green' }}
-          onPress={this.handleChangeTabs.bind(null, 2)}
+          onPress={this.handleChangeTabs(2)}
         >
           tab n°3
         </Button>

@@ -6,7 +6,7 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import SwipeableViews from '../../../src/index.native.animated';
+import SwipeableViews from '../../../packages/react-swipeable-views-native/src';
 
 const styles = StyleSheet.create({
   slide: {

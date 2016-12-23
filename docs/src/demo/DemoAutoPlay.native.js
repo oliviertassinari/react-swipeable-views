@@ -6,8 +6,8 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import SwipeableViews from '../../../src/index.native.animated';
-import autoPlay from '../../../src/autoPlay';
+import SwipeableViews from '../../../packages/react-swipeable-views-native/src';
+import { autoPlay } from '../../../packages/react-swipeable-views-utils/src';
 import Pagination from '../pagination/Pagination.native';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);

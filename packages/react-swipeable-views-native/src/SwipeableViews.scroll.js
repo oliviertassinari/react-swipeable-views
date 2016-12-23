@@ -13,8 +13,7 @@ import {
   Dimensions,
 } from 'react-native';
 import warning from 'warning';
-import checkIndexBounds from './utils/checkIndexBounds';
-import getDisplaySameSlide from './utils/getDisplaySameSlide';
+import { checkIndexBounds, getDisplaySameSlide } from 'react-swipeable-views-core';
 
 const {
   width: windowWidth,

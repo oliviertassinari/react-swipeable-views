@@ -7,10 +7,9 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import SwipeableViews from '../../../src/index.native.animated';
-import virtualize from '../../../src/virtualize';
-import autoPlay from '../../../src/autoPlay';
-import mod from '../../../src/utils/mod';
+import SwipeableViews from '../../../packages/react-swipeable-views-native/src';
+import { virtualize, autoPlay } from '../../../packages/react-swipeable-views-utils/src';
+import { mod } from '../../../packages/react-swipeable-views-core/src';
 
 const EnhancedSwipeableViews = autoPlay(virtualize(SwipeableViews));
 
