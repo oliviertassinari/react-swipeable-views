@@ -19,7 +19,7 @@ module.exports = {
     'flowtype',
   ],
   rules: {
-    'array-bracket-spacing': 'off', // use babel plugin rule
+    'array-bracket-spacing': ['error', 'never'],
     'arrow-body-style': 'off',
     'arrow-parens': ['error', 'always'], // airbnb use as-needed
     'consistent-this': ['error', 'self'],
@@ -30,7 +30,6 @@ module.exports = {
     'object-curly-spacing': 'off', // use babel plugin rule
     'operator-linebreak': ['error', 'after'], // aibnb is disabling this rule
     'babel/object-curly-spacing': ['error', 'always'],
-    'babel/array-bracket-spacing': ['error', 'never'],
     'import/no-unresolved': 'off',
     'import/no-named-as-default': 'off',
     'import/extensions': 'off',
@@ -76,6 +75,5 @@ module.exports = {
     // Overrides
     'global-require': 'off',
     'react/no-string-refs': 'warn',
-    'react/jsx-no-bind': 'warn',
   },
 };

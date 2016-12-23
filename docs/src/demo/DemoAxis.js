@@ -1,7 +1,7 @@
 // @flow weak
 
 import React from 'react';
-import SwipeableViews from 'react-swipeable-views/lib/SwipeableViews';
+import SwipeableViews from 'react-swipeable-views';
 
 const styles = {
   slideContainer: {

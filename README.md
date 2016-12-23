@@ -22,7 +22,7 @@ npm install --save react-swipeable-views react-motion
 ### Native
 
 ```sh
-npm install --save react-swipeable-views
+npm install --save react-swipeable-views-native
 ```
 
 ## The problem solved
@@ -83,9 +83,10 @@ import {
   View,
 } from 'react-native';
 
-import SwipeableViews from 'react-swipeable-views/lib/index.native.animated';
-// There is another version. I'm unsure which one give the best UX.
-// import SwipeableViews from 'react-swipeable-views/lib/index.native.scroll';
+import SwipeableViews from 'react-swipeable-views-native';
+// There is another version using the scroll component instead of animated.
+// I'm unsure which one give the best UX. Please give us some feedback.
+// import SwipeableViews from 'react-swipeable-views-native/lib/SwipeableViews.scroll';
 
 const styles = StyleSheet.create({
   slideContainer: {
@@ -161,8 +162,8 @@ Let's see an example with the browser:
 
 ```jsx
 import React from 'react';
-import virtualize from 'react-swipeable-views/lib/virtualize';
 import SwipeableViews from 'react-swipeable-views';
+import { virtualize } from 'react-swipeable-views-utils';
 
 const VirtualizeSwipeableViews = virtualize(SwipeableViews);
 
@@ -188,8 +189,8 @@ Let's see an example with the browser:
 
 ```jsx
 import React from 'react';
-import autoPlay from 'react-swipeable-views/lib/autoPlay';
 import SwipeableViews from 'react-swipeable-views';
+import { autoPlay } from 'react-swipeable-views-utils';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -212,8 +213,8 @@ Let's see an example with the browser:
 
 ```jsx
 import React from 'react';
-import bindKeyboard from 'react-swipeable-views/lib/bindKeyboard';
 import SwipeableViews from 'react-swipeable-views';
+import { bindKeyboard } from 'react-swipeable-views-utils';
 
 const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);
 

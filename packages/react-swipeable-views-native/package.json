@@ -1,0 +1,37 @@
+{
+  "name": "react-swipeable-views-native",
+  "version": "0.8.3",
+  "description": "A React component for swipeable views",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepublish": "pkgfiles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oliviertassinari/react-swipeable-views.git"
+  },
+  "keywords": [
+    "react-native",
+    "react",
+    "component",
+    "swipe",
+    "swipeable"
+  ],
+  "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
+  "bugs": {
+    "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.11.6",
+    "react-swipeable-views-core": "^0.8.3",
+    "warning": "^3.0.0"
+  },
+  "peerDependencies": {
+    "react": "^15.0.0 || ^0.14.0",
+    "react-native": "^0.39.0"
+  },
+  "devDependencies": {
+    "pkgfiles": "^2.3.2"
+  },
+  "license": "MIT"
+}

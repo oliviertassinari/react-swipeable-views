@@ -6,7 +6,7 @@ import Tab from 'material-ui/Tabs/Tab';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Checkbox from 'material-ui/Checkbox';
-import SwipeableViews from 'react-swipeable-views/lib/SwipeableViews';
+import SwipeableViews from 'react-swipeable-views';
 
 const styles = {
   slide: {
@@ -30,7 +30,7 @@ class DemoTabs extends Component {
     index: 0,
   };
 
-  handleChangeTabs = (value) => {
+  handleChangeTabs = (value) => () => {
     this.setState({
       index: value,
     });
@@ -51,9 +51,9 @@ class DemoTabs extends Component {
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
           <Tabs value={index}>
-            <Tab label="tab n°1" value={0} onClick={this.handleChangeTabs.bind(null, 0)} />
-            <Tab label="tab n°2" value={1} onClick={this.handleChangeTabs.bind(null, 1)} />
-            <Tab label="tab n°3" value={2} onClick={this.handleChangeTabs.bind(null, 2)} />
+            <Tab label="tab n°1" value={0} onClick={this.handleChangeTabs(0)} />
+            <Tab label="tab n°2" value={1} onClick={this.handleChangeTabs(1)} />
+            <Tab label="tab n°3" value={2} onClick={this.handleChangeTabs(2)} />
           </Tabs>
           <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
             <div style={Object.assign({}, styles.slide, styles.slide1)}>

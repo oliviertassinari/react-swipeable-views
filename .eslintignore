@@ -1,4 +1,5 @@
+node_modules
 /docs/dist
-/lib
+packages/*/lib
 /ios
 /android

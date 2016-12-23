@@ -4,8 +4,14 @@
 import React from 'react';
 import { assert } from 'chai';
 import { mount } from 'enzyme';
-import SwipeableViews from '../SwipeableViews';
 import getDisplaySameSlide from './getDisplaySameSlide';
+
+const SwipeableViews = ({
+  index, // eslint-disable-line no-unused-vars, react/prop-types
+  ...props
+}) => (
+  <div {...props} />
+);
 
 describe('getDisplaySameSlide', () => {
   it('should return false if there is no key', () => {

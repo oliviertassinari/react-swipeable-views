@@ -8,7 +8,7 @@ nodemon({
   exec: 'npm run test:unit',
   ext: 'js',
   watch: [
-    'src/',
+    'packages/',
     'test/',
   ],
 });

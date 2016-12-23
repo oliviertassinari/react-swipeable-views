@@ -32,7 +32,7 @@ const mocha = new Mocha({
   reporter: 'dot',
 });
 
-glob(`src/**/${argv.component ? argv.component : '*'}.spec.js`, {}, (err, files) => {
+glob(`packages/**/src/**/${argv.component ? argv.component : '*'}.spec.js`, {}, (err, files) => {
   files.forEach((file) => mocha.addFile(file));
 
   mocha.run((failures) => {

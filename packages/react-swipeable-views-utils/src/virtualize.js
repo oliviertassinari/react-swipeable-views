@@ -2,7 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
-import mod from './utils/mod';
+import { mod } from 'react-swipeable-views-core';
 
 // Render one more slide for going backward as it's more difficult to
 // keep the window up to date.

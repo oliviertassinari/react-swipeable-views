@@ -14,10 +14,7 @@ import {
   View,
 } from 'react-native';
 import warning from 'warning';
-import { UNCERTAINTY_THRESHOLD } from './constant';
-import computeIndex from './utils/computeIndex';
-import checkIndexBounds from './utils/checkIndexBounds';
-import getDisplaySameSlide from './utils/getDisplaySameSlide';
+import { constant, checkIndexBounds, computeIndex, getDisplaySameSlide } from 'react-swipeable-views-core';
 
 const styles = StyleSheet.create({
   root: {
@@ -167,7 +164,7 @@ class SwipeableViews extends Component {
         const dx = Math.abs(gestureState.dx);
         const dy = Math.abs(gestureState.dy);
 
-        return dx > dy && dx > UNCERTAINTY_THRESHOLD;
+        return dx > dy && dx > constant.UNCERTAINTY_THRESHOLD;
       },
       onPanResponderRelease: this.handleTouchEnd,
       onPanResponderTerminate: this.handleTouchEnd,
@@ -384,11 +381,7 @@ class SwipeableViews extends Component {
     const panHandlers = disabled ? {} : this.panResponder.panHandlers;
 
     return (
-      <View
-        style={[styles.root, style]}
-        onLayout={this.handleLayout}
-        {...other}
-      >
+      <View style={[styles.root, style]} onLayout={this.handleLayout} {...other}>
         <Animated.View {...panHandlers} style={sceneContainerStyle}>
           {childrenToRender}
         </Animated.View>

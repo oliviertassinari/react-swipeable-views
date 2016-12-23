@@ -19,7 +19,9 @@ export default function (options) {
     resolve: {
       extensions: ['', '.js'],
       alias: {
-        'react-swipeable-views/lib': path.resolve(__dirname, '../src'),
+        'react-swipeable-views': path.resolve(__dirname, '../packages/react-swipeable-views/src'),
+        'react-swipeable-views-core': path.resolve(__dirname, '../packages/react-swipeable-views-core/src'),
+        'react-swipeable-views-utils': path.resolve(__dirname, '../packages/react-swipeable-views-utils/src'),
       },
     },
     plugins: [

@@ -1,5 +1,6 @@
 docs/dist
 lib/
+*.log
 
 # OSX
 #
@@ -36,7 +37,6 @@ local.properties
 # node.js
 #
 node_modules/
-npm-debug.log
 
 # BUCK
 buck-out/
