@@ -1,6 +1,6 @@
 {
   "name": "react-swipeable-views-utils",
-  "version": "0.8.3",
+  "version": "0.9.0",
   "description": "react-swipeable-views utility modules",
   "main": "lib/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
   },
   "dependencies": {
-    "react-swipeable-views-core": "^0.8.3"
+    "react-swipeable-views-core": "^0.9.0"
   },
   "devDependencies": {
     "pkgfiles": "^2.3.2"
