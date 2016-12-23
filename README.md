@@ -39,20 +39,6 @@ It is tiny (<4kB) and quickly render the first slide then lazy-load the other.
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 
-const MyComponent = () => (
-  <SwipeableViews>
-    <div style={Object.assign({}, styles.slide, styles.slide1)}>
-      slide n°1
-    </div>
-    <div style={Object.assign({}, styles.slide, styles.slide2)}>
-      slide n°2
-    </div>
-    <div style={Object.assign({}, styles.slide, styles.slide3)}>
-      slide n°3
-    </div>
-  </SwipeableViews>
-);
-
 const styles = {
   slide: {
     padding: 15,
@@ -70,42 +56,36 @@ const styles = {
   },
 };
 
+const MyComponent = () => (
+  <SwipeableViews>
+    <div style={Object.assign({}, styles.slide, styles.slide1)}>
+      slide n°1
+    </div>
+    <div style={Object.assign({}, styles.slide, styles.slide2)}>
+      slide n°2
+    </div>
+    <div style={Object.assign({}, styles.slide, styles.slide3)}>
+      slide n°3
+    </div>
+  </SwipeableViews>
+);
+
 export default MyComponent;
 ```
 
 ### Native
 
 ```jsx
-import React, {
+import React from 'react';
+import {
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import Button from 'react-native-button';
 
 import SwipeableViews from 'react-swipeable-views/lib/index.native.animated';
 // There is another version. I'm unsure which one give the best UX.
 // import SwipeableViews from 'react-swipeable-views/lib/index.native.scroll';
-
-const MyComponent = () => (
-  <SwipeableViews style={styles.slideContainer}>
-    <View style={[styles.slide, styles.slide1]}>
-      <Text style={styles.text}>
-        slide n°1
-      </Text>
-    </View>
-    <View style={[styles.slide, styles.slide2]}>
-      <Text style={styles.text}>
-        slide n°2
-      </Text>
-    </View>
-    <View style={[styles.slide, styles.slide3]}>
-      <Text style={styles.text}>
-        slide n°3
-      </Text>
-    </View>
-  </SwipeableViews>
-);
 
 const styles = StyleSheet.create({
   slideContainer: {
@@ -129,6 +109,26 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+const MyComponent = () => (
+  <SwipeableViews style={styles.slideContainer}>
+    <View style={[styles.slide, styles.slide1]}>
+      <Text style={styles.text}>
+        slide n°1
+      </Text>
+    </View>
+    <View style={[styles.slide, styles.slide2]}>
+      <Text style={styles.text}>
+        slide n°2
+      </Text>
+    </View>
+    <View style={[styles.slide, styles.slide3]}>
+      <Text style={styles.text}>
+        slide n°3
+      </Text>
+    </View>
+  </SwipeableViews>
+);
 
 export default MyComponent;
 ```
