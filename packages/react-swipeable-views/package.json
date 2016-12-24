@@ -22,9 +22,6 @@
   },
   "dependencies": {
     "babel-runtime": "^6.11.6",
-    "keycode": "^2.1.7",
-    "react-addons-shallow-compare": "^15.4.1",
-    "react-event-listener": "^0.4.0",
     "react-swipeable-views-core": "^0.9.1",
     "warning": "^3.0.0"
   },

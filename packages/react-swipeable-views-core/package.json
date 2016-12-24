@@ -14,6 +14,10 @@
   "bugs": {
     "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
   },
+  "dependencies": {
+    "babel-runtime": "^6.11.6",
+    "warning": "^3.0.0"
+  },
   "devDependencies": {
     "pkgfiles": "^2.3.2"
   },
