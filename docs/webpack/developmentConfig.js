@@ -33,15 +33,10 @@ export default {
     port: PORT,
 
     // webpack-dev-middleware options.
-    quiet: false,
-    noInfo: false,
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000,
-    },
     stats: {
+      // Remove built modules information.
       modules: false,
-      chunks: false,
+      // Remove built modules information to chunk information.
       chunkModules: false,
       colors: true,
     },
