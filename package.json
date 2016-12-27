@@ -4,7 +4,7 @@
     "lint": "eslint . && echo \"eslint: no lint errors\"",
     "test": "npm run lint && npm run test:unit && npm run flow",
     "test:unit": "NODE_ENV=release babel-node test/unit.js",
-    "test:unit:watch": "NODE_ENV=release babel-node test/watch.js",
+    "test:watch": "NODE_ENV=release babel-node test/watch.js",
     "docs:browser:development": "NODE_ENV=docs-browser-development babel-node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config=docs/webpack/developmentConfig.js --progress",
     "docs:browser:production": "rm -rf docs/dist && NODE_ENV=docs-browser-production babel-node ./node_modules/webpack/bin/webpack.js --config=docs/webpack/productionConfig.js --progress",
     "docs:native:development": "NODE_ENV=docs-native-development node node_modules/react-native/local-cli/cli.js start --reset-cache --verbose",
