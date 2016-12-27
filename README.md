@@ -283,7 +283,7 @@ This HOC exposes the same properties as `<SwipeableViews />`.
 
 The composition order of the HOCs matters.
 The `virtualize` HOC needs to be the first one called.
-E.g.
+For instance:
 ```js
 // creates a function that invokes the given functions from right to left.
 import flowRight from 'lodash/flowRight';
@@ -306,6 +306,17 @@ However, the implementation is simpler.
 `react-motion` is rendering the components at each request animation frame.
 That has one specific implication for package users.
 You need to have a **pure logic** in the *slides* components if the render method is expensive.
+
+## Packages stucture
+
+The project is split into mutliple packages.
+This is really useful for code sharing and isolation.
+We are using [Lerna](https://github.com/lerna/lerna) to do so.
+The project has the following packages:
+- `react-swipeable-views-core`: core modules shared between the different packages.
+- [react-swipeable-views](https://www.npmjs.com/package/react-swipeable-views): browser implementation of the `<SwipeableViews />` component.
+- [react-swipeable-views-native](https://www.npmjs.com/package/react-swipeable-views-native): native implementation**s** of the `<SwipeableViews />` component.
+- [react-swipeable-views-utils](https://www.npmjs.com/package/react-swipeable-views-utils): Higher order Components providing additional functionalities like `virtualize()`.
 
 ## License
 
