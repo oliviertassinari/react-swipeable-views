@@ -219,6 +219,10 @@ class SwipeableViews extends Component {
      */
     onChangeIndex: PropTypes.func,
     /**
+     * @ignore
+     */
+    onScroll: PropTypes.func,
+    /**
      * This is callback prop. It's called by the
      * component when the slide switching.
      * This is useful when you want to implement something corresponding to the current slide position.
@@ -552,6 +556,28 @@ class SwipeableViews extends Component {
     }
   };
 
+  handleScroll = (event) => {
+    if (this.props.onScroll) {
+      this.props.onScroll(event);
+    }
+
+    if (this.ignoreScrollEvents) {
+      this.ignoreScrollEvents = false;
+      return;
+    }
+
+    const indexLatest = this.state.indexLatest;
+    const indexNew = Math.ceil(event.target.scrollLeft / event.target.clientWidth) + indexLatest;
+
+    this.ignoreScrollEvents = true;
+    // Reset the scroll position.
+    event.target.scrollLeft = 0;
+
+    if (this.props.onChangeIndex && indexNew !== indexLatest) {
+      this.props.onChangeIndex(indexNew, indexLatest);
+    }
+  };
+
   updateHeight(node) {
     if (node !== null) {
       const child = node.children[0];
@@ -695,6 +721,7 @@ class SwipeableViews extends Component {
         role="listbox"
         {...other}
         {...touchEvents}
+        onScroll={this.handleScroll}
       >
         <Motion style={motionStyle} onRest={this.handleRest}>
           {(interpolatedStyle) => this.renderContainer(interpolatedStyle, animateHeight, childrenToRender)}
