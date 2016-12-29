@@ -498,4 +498,39 @@ describe('SwipeableViews', () => {
         true, 'should apply the className prop');
     });
   });
+
+  describe.only('tabs', () => {
+    it('should reset the scroll position and call onChangeIndex', () => {
+      const handleScroll = spy();
+      const handleChangeIndex = spy();
+      const wrapper = shallow(
+        <SwipeableViews
+          index={1}
+          onScroll={handleScroll}
+          onChangeIndex={handleChangeIndex}
+        >
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
+        </SwipeableViews>,
+      );
+
+      const event = {
+        target: {
+          scrollLeft: 80,
+          clientWidth: 100,
+        },
+      };
+
+      wrapper.instance().handleScroll(event);
+
+      assert.strictEqual(handleScroll.callCount, 1, 'should forward the event');
+      assert.strictEqual(event.target.scrollLeft, 0, 'should reset the scroll position');
+      assert.strictEqual(handleChangeIndex.callCount, 1, 'should detect a new index');
+      assert.deepEqual(handleChangeIndex.args[0], [
+        2,
+        1,
+      ]);
+    });
+  });
 });
