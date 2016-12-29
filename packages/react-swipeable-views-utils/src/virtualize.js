@@ -49,7 +49,6 @@ export default function virtualize(MyComponent) {
     };
 
     static defaultProps = {
-      index: 0,
       overscanSlideCount: 2,
     };
 
@@ -66,11 +65,11 @@ export default function virtualize(MyComponent) {
 
     componentWillMount() {
       this.setState({
-        index: this.props.index,
+        index: this.props.index || 0,
         indexContainer: this.props.overscanSlideCount,
       });
 
-      this.setWindow(this.props);
+      this.setWindow(this.props.index || 0);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -107,10 +106,13 @@ export default function virtualize(MyComponent) {
         index = mod(index, slideCount);
       }
 
+      // Is uncontrolled
+      if (this.props.index === undefined) {
+        this.setIndex(index, indexContainer, indexDiff);
+      }
+
       if (onChangeIndex) {
         onChangeIndex(index, this.state.index);
-      } else {
-        this.setIndex(index, indexContainer, indexDiff);
       }
     };
 
@@ -155,12 +157,11 @@ export default function virtualize(MyComponent) {
       this.setState(nextState);
     }
 
-    setWindow(state = this.state) {
+    setWindow(index = this.state.index) {
       const {
         slideCount,
       } = this.props;
 
-      const index = state.index;
       let leftAhead = this.props.overscanSlideCount + LEFT_OFFSET;
       let rightAhead = this.props.overscanSlideCount;
 

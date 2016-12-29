@@ -30,15 +30,11 @@ export default function bindKeyboard(MyComponent) {
       slideCount: PropTypes.number,
     };
 
-    static defaultProps = {
-      index: 0,
-    };
-
     state = {};
 
     componentWillMount() {
       this.setState({
-        index: this.props.index,
+        index: this.props.index || 0,
       });
     }
 
@@ -116,23 +112,29 @@ export default function bindKeyboard(MyComponent) {
           indexNew = mod(indexNew, slideCount || Children.count(children));
         }
 
-        if (onChangeIndex) {
-          onChangeIndex(indexNew, indexLatest);
-        } else {
+        // Is uncontrolled
+        if (this.props.index === undefined) {
           this.setState({
             index: indexNew,
           });
+        }
+
+        if (onChangeIndex) {
+          onChangeIndex(indexNew, indexLatest);
         }
       }
     };
 
     handleChangeIndex = (index, indexLatest) => {
-      if (this.props.onChangeIndex) {
-        this.props.onChangeIndex(index, indexLatest);
-      } else {
+      // Is uncontrolled
+      if (this.props.index === undefined) {
         this.setState({
           index,
         });
+      }
+
+      if (this.props.onChangeIndex) {
+        this.props.onChangeIndex(index, indexLatest);
       }
     };
 
