@@ -26,21 +26,23 @@ describe('bindKeyboard', () => {
 
   describe('prop: children', () => {
     it('should start at the beginning', () => {
-      assert.strictEqual(wrapper.state('index'), 0, 'Should start at the beginning.');
+      assert.strictEqual(wrapper.state().index, 0, 'Should start at the beginning.');
     });
   });
 
   describe('prop: slideCount', () => {
     it('should use the slideCount to compute the index limit', () => {
       wrapper.setProps({
-        index: 1,
         slideCount: 2,
       });
       wrapper.simulate('keydown', {
         keyCode: keycode('right'),
       });
-
-      assert.strictEqual(wrapper.state('index'), 0, 'Should go back to the beginning.');
+      assert.strictEqual(wrapper.state().index, 1, 'Should increment the index.');
+      wrapper.simulate('keydown', {
+        keyCode: keycode('right'),
+      });
+      assert.strictEqual(wrapper.state().index, 0, 'Should go back to the beginning.');
     });
   });
 
@@ -50,7 +52,7 @@ describe('bindKeyboard', () => {
         keyCode: keycode('right'),
       });
 
-      assert.strictEqual(wrapper.state('index'), 1, 'Should have the right index.');
+      assert.strictEqual(wrapper.state().index, 1, 'Should have the right index.');
     });
 
     it('should decrement the index using a modulo', () => {
@@ -58,7 +60,7 @@ describe('bindKeyboard', () => {
         keyCode: keycode('left'),
       });
 
-      assert.strictEqual(wrapper.state('index'), 2, 'Should have the right index.');
+      assert.strictEqual(wrapper.state().index, 2, 'Should have the right index.');
     });
   });
 
@@ -83,6 +85,7 @@ describe('bindKeyboard', () => {
       const handleChangeIndex = spy();
 
       wrapper.setProps({
+        index: 0,
         onChangeIndex: handleChangeIndex,
       });
       wrapper.find(Empty).simulate('changeIndex', 1, 0);

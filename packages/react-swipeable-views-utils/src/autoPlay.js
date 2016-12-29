@@ -49,7 +49,6 @@ export default function autoPlay(MyComponent) {
     static defaultProps = {
       autoplay: true,
       direction: 'incremental',
-      index: 0,
       interval: 3000,
     };
 
@@ -57,7 +56,7 @@ export default function autoPlay(MyComponent) {
 
     componentWillMount() {
       this.setState({
-        index: this.props.index,
+        index: this.props.index || 0,
       });
     }
 
@@ -136,22 +135,28 @@ export default function autoPlay(MyComponent) {
         indexNew = mod(indexNew, slideCount || Children.count(children));
       }
 
-      if (onChangeIndex) {
-        onChangeIndex(indexNew, indexLatest);
-      } else {
+      // Is uncontrolled
+      if (this.props.index === undefined) {
         this.setState({
           index: indexNew,
         });
       }
+
+      if (onChangeIndex) {
+        onChangeIndex(indexNew, indexLatest);
+      }
     };
 
     handleChangeIndex = (index, indexLatest) => {
-      if (this.props.onChangeIndex) {
-        this.props.onChangeIndex(index, indexLatest);
-      } else {
+      // Is uncontrolled
+      if (this.props.index === undefined) {
         this.setState({
           index,
         });
+      }
+
+      if (this.props.onChangeIndex) {
+        this.props.onChangeIndex(index, indexLatest);
       }
     };
 
@@ -178,18 +183,18 @@ export default function autoPlay(MyComponent) {
         ...other
       } = this.props;
 
+      const {
+        index,
+      } = this.state;
+
       if (!autoplay) {
         return (
           <MyComponent
-            index={indexProp}
+            index={index}
             {...other}
           />
         );
       }
-
-      const {
-        index,
-      } = this.state;
 
       return (
         <MyComponent

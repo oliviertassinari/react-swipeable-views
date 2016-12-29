@@ -151,6 +151,9 @@ describe('virtualize', () => {
       );
 
       wrapper.find(Empty).simulate('changeIndex', 4, 3);
+      wrapper.setProps({
+        index: 9,
+      });
 
       assert.deepEqual(wrapper.state(), {
         index: 9,

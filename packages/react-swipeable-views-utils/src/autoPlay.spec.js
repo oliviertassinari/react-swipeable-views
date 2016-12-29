@@ -26,7 +26,7 @@ describe('autoPlay', () => {
 
     describe('prop: children', () => {
       it('should start at the beginning', () => {
-        assert.strictEqual(wrapper.state('index'), 0, 'Should start at the beginning.');
+        assert.strictEqual(wrapper.state().index, 0, 'Should start at the beginning.');
       });
     });
 
@@ -34,6 +34,7 @@ describe('autoPlay', () => {
       it('should be called with the right arguments', () => {
         const handleChangeIndex = spy();
         wrapper.setProps({
+          index: 0,
           onChangeIndex: handleChangeIndex,
         });
         wrapper.find(Empty).simulate('changeIndex', 1, 0);
@@ -71,19 +72,19 @@ describe('autoPlay', () => {
 
         // Disturb the interval.
         setTimeout(() => {
-          assert.strictEqual(wrapper.state('index'), 1, 'Should have the right index.');
+          assert.strictEqual(wrapper.state().index, 1, 'Should have the right index.');
           wrapper.update();
         }, 150);
 
         setTimeout(() => {
-          assert.strictEqual(wrapper.state('index'), 2, 'Should have the right index.');
+          assert.strictEqual(wrapper.state().index, 2, 'Should have the right index.');
           wrapper.setProps({
             interval: 200,
           });
         }, 250);
 
         setTimeout(() => {
-          assert.strictEqual(wrapper.state('index'), 2, 'Should have the right index.');
+          assert.strictEqual(wrapper.state().index, 2, 'Should have the right index.');
           done();
         }, 400);
       });
@@ -102,7 +103,7 @@ describe('autoPlay', () => {
         );
 
         setTimeout(() => {
-          assert.strictEqual(wrapper.state('index'), 2, 'Should have the right index.');
+          assert.strictEqual(wrapper.state().index, 2, 'Should have the right index.');
           done();
         }, 250);
       });
@@ -119,7 +120,7 @@ describe('autoPlay', () => {
         );
 
         setTimeout(() => {
-          assert.strictEqual(wrapper.state('index'), 3, 'Should have the right index.');
+          assert.strictEqual(wrapper.state().index, 3, 'Should have the right index.');
           done();
         }, 250);
       });
@@ -142,7 +143,7 @@ describe('autoPlay', () => {
           assert.strictEqual(handleChangeIndex.callCount, 2, 'Should be called the right number of time.');
           assert.deepEqual(handleChangeIndex.args, [
             [1, 0],
-            [1, 0],
+            [2, 1],
           ]);
           done();
         }, 250);
@@ -152,7 +153,7 @@ describe('autoPlay', () => {
     describe('prop: slideCount', () => {
       it('should use the slideCount to compute the index limit', (done) => {
         wrapper = mount(
-          <AutoPlaySwipeableViews index={1} slideCount={2} interval={100}>
+          <AutoPlaySwipeableViews slideCount={2} interval={100}>
             <div>{'slide n°1'}</div>
             <div>{'slide n°2'}</div>
             <div>{'slide n°3'}</div>
@@ -160,9 +161,9 @@ describe('autoPlay', () => {
         );
 
         setTimeout(() => {
-          assert.strictEqual(wrapper.state('index'), 0, 'Should go back to the beginning.');
+          assert.strictEqual(wrapper.state().index, 0, 'Should go back to the beginning.');
           done();
-        }, 150);
+        }, 250);
       });
     });
 
@@ -177,7 +178,7 @@ describe('autoPlay', () => {
         );
 
         setTimeout(() => {
-          assert.strictEqual(wrapper.state('index'), 1);
+          assert.strictEqual(wrapper.state().index, 1);
 
           wrapper.setProps({
             autoplay: false,
@@ -185,7 +186,7 @@ describe('autoPlay', () => {
         }, 150);
 
         setTimeout(() => {
-          assert.strictEqual(wrapper.state('index'), 1);
+          assert.strictEqual(wrapper.state().index, 1);
 
           done();
         }, 300);
