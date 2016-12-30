@@ -44,8 +44,8 @@ export default {
     ],
   },
   performance: {
-    maxAssetSize: 4000000,
-    maxEntrypointSize: 6000000,
+    maxAssetSize: 4e6,
+    maxEntrypointSize: 6e6,
   },
   plugins: [
     new HtmlWebpackPlugin({
