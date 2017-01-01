@@ -119,7 +119,10 @@ class SwipeableViews extends Component {
      * This is the config given to Animated for the spring.
      * This is useful to change the dynamic of the transition.
      */
-    springConfig: PropTypes.object,
+    springConfig: PropTypes.shape({
+      tension: PropTypes.number,
+      friction: PropTypes.number,
+    }),
     /**
      * This is the inlined style that will be applied
      * on the root component.
