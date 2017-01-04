@@ -16,7 +16,7 @@
 ### Browser
 
 ```sh
-npm install --save react-swipeable-views react-motion
+npm install --save react-swipeable-views
 ```
 
 ### Native
@@ -298,13 +298,13 @@ const EnhancedSwipeableViews = flowRight(
 ## Performance on browser
 
 Having 60 FPS is critical for this type of component.
-I have made a tradeoff by using `react-motion`.
+We are **no longer** using `react-motion`.
 The performance is not as good as they could have been
 using data binding to apply the needed styles.
-However, the implementation is simpler.
+However, the implementation was simpler.
 
 `react-motion` is rendering the components at each request animation frame.
-That has one specific implication for package users.
+That had one specific implication for package users.
 You need to have a **pure logic** in the *slides* components if the render method is expensive.
 
 ## Packages stucture
