@@ -6,6 +6,7 @@ import SwipeableViews from 'react-swipeable-views';
 const styles = {
   slideContainer: {
     height: 100,
+    WebkitOverflowScrolling: 'touch', // iOS momentum scrolling
   },
   slide: {
     padding: 15,

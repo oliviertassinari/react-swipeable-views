@@ -1,9 +1,9 @@
-/* eslint-disable flowtype/require-valid-file-annotation */
+// @flow weak
 
 import React, { Component, PropTypes, Children } from 'react';
-import Motion from 'react-motion/lib/Motion';
-import spring from 'react-motion/lib/spring';
 import warning from 'warning';
+import transitionInfo from 'dom-helpers/transition/properties';
+import addEventListener from 'dom-helpers/events/on';
 import { constant, checkIndexBounds, computeIndex, getDisplaySameSlide } from 'react-swipeable-views-core';
 
 const styles = {
@@ -88,6 +88,16 @@ const axisProperties = {
     'y-reverse': 'clientHeight',
   },
 };
+
+function createTransition(property, options) {
+  const {
+    duration,
+    easeFunction,
+    delay,
+  } = options;
+
+  return `${property} ${duration} ${easeFunction} ${delay}`;
+}
 
 // We are using a 2x2 rotation matrix.
 function applyRotationMatrix(touch, axis) {
@@ -263,10 +273,14 @@ class SwipeableViews extends Component {
      */
     slideStyle: PropTypes.object,
     /**
-     * This is the config given to react-motion for the spring.
+     * This is the config used to create CSS transitions.
      * This is useful to change the dynamic of the transition.
      */
-    springConfig: PropTypes.object,
+    springConfig: PropTypes.shape({
+      duration: PropTypes.string,
+      easeFunction: PropTypes.string,
+      delay: PropTypes.string,
+    }),
     /**
      * This is the inlined style that will be applied
      * on the root component.
@@ -287,11 +301,12 @@ class SwipeableViews extends Component {
     hysteresis: 0.6,
     index: 0,
     threshold: 5,
-    resistance: false,
     springConfig: {
-      stiffness: 300,
-      damping: 30,
+      duration: '0.3s',
+      easeFunction: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
+      delay: '0s',
     },
+    resistance: false,
   };
 
   state = {};
@@ -311,6 +326,11 @@ class SwipeableViews extends Component {
   }
 
   componentDidMount() {
+    // Subscribe to transition end events.
+    addEventListener(this.containerNode, transitionInfo.end, () => {
+      this.handleTransitionEnd();
+    });
+
     /* eslint-disable react/no-did-mount-set-state */
     this.setState({
       isFirstRender: false,
@@ -337,6 +357,9 @@ class SwipeableViews extends Component {
     }
   }
 
+  rootNode = null;
+  containerNode = null;
+  ignoreNextScrollEvents = false;
   viewLength = 0;
   startX = 0;
   lastX = 0;
@@ -344,12 +367,7 @@ class SwipeableViews extends Component {
   startY = 0;
   isSwiping = undefined;
   started = false;
-
-  /**
-   * this.state.indexCurrent is used for the render method.
-   * this value is the actual value of the displayed index at 100 factor.
-   */
-  indexAnimation = 0;
+  startIndex = 0;
 
   handleTouchStart = (event) => {
     const {
@@ -363,14 +381,28 @@ class SwipeableViews extends Component {
 
     const touch = applyRotationMatrix(event.touches[0], axis);
 
-    this.viewLength = this.node.getBoundingClientRect()[axisProperties.length[axis]];
+    this.viewLength = this.rootNode.getBoundingClientRect()[axisProperties.length[axis]];
     this.startX = touch.pageX;
     this.lastX = touch.pageX;
     this.vx = 0;
     this.startY = touch.pageY;
     this.isSwiping = undefined;
     this.started = true;
-    this.startIndex = this.indexAnimation / 100;
+
+    const transform = getComputedStyle(this.containerNode).transform;
+    const transformValues = transform.split('(')[1].split(')')[0].split(',');
+    const rootStyle = getComputedStyle(this.rootNode);
+
+    const tranformNormalized = applyRotationMatrix({
+      pageX: parseInt(transformValues[4], 10),
+      pageY: parseInt(transformValues[5], 10),
+    }, axis);
+
+    this.startIndex = -tranformNormalized.pageX / (
+      this.viewLength -
+      parseInt(rootStyle.paddingLeft, 10) -
+      parseInt(rootStyle.paddingRight, 10)
+    );
   };
 
   handleTouchMove = (event) => {
@@ -386,7 +418,7 @@ class SwipeableViews extends Component {
     }
 
     // We are not supposed to hanlde this touch move.
-    if (nodeHowClaimedTheScroll !== null && nodeHowClaimedTheScroll !== this.node) {
+    if (nodeHowClaimedTheScroll !== null && nodeHowClaimedTheScroll !== this.rootNode) {
       return;
     }
 
@@ -444,7 +476,7 @@ class SwipeableViews extends Component {
 
     // Add support for native scroll elements.
     if (nodeHowClaimedTheScroll === null) {
-      const domTreeShapes = getDomTreeShapes(event.target, this.node);
+      const domTreeShapes = getDomTreeShapes(event.target, this.rootNode);
       const hasFoundNativeHandler = findNativeHandler({
         domTreeShapes,
         indexCurrent: this.state.indexCurrent,
@@ -462,7 +494,7 @@ class SwipeableViews extends Component {
     if (startX) {
       this.startX = startX;
     } else if (nodeHowClaimedTheScroll === null) {
-      nodeHowClaimedTheScroll = this.node;
+      nodeHowClaimedTheScroll = this.rootNode;
     }
 
     this.setState({
@@ -536,14 +568,14 @@ class SwipeableViews extends Component {
         this.props.onChangeIndex(indexNew, indexLatest);
       }
 
-      // Manually calling handleRest in that case as isn't otherwise.
+      // Manually calling handleTransitionEnd in that case as isn't otherwise.
       if (indexCurrent === indexLatest) {
-        this.handleRest();
+        this.handleTransitionEnd();
       }
     });
   };
 
-  handleRest = () => {
+  handleTransitionEnd() {
     // Filters out when changing the children
     if (this.state.displaySameSlide) {
       return;
@@ -554,22 +586,22 @@ class SwipeableViews extends Component {
     if (this.props.onTransitionEnd && !this.state.isDragging) {
       this.props.onTransitionEnd();
     }
-  };
+  }
 
   handleScroll = (event) => {
     if (this.props.onScroll) {
       this.props.onScroll(event);
     }
 
-    if (this.ignoreScrollEvents) {
-      this.ignoreScrollEvents = false;
+    if (this.ignoreNextScrollEvents) {
+      this.ignoreNextScrollEvents = false;
       return;
     }
 
     const indexLatest = this.state.indexLatest;
     const indexNew = Math.ceil(event.target.scrollLeft / event.target.clientWidth) + indexLatest;
 
-    this.ignoreScrollEvents = true;
+    this.ignoreNextScrollEvents = true;
     // Reset the scroll position.
     event.target.scrollLeft = 0;
 
@@ -590,40 +622,13 @@ class SwipeableViews extends Component {
     }
   }
 
-  renderContainer(interpolatedStyle, animateHeight, childrenToRender) {
-    const {
-      axis,
-      containerStyle,
-    } = this.props;
-
-    this.indexAnimation = interpolatedStyle.translate;
-
-    const transform = axisProperties.transform[axis](interpolatedStyle.translate);
-    const styleNew = {
-      WebkitTransform: transform,
-      transform,
-      height: null,
-      flexDirection: axisProperties.flexDirection[axis],
-    };
-
-    if (animateHeight) {
-      styleNew.height = interpolatedStyle.height;
-    }
-
-    return (
-      <div style={Object.assign({}, styleNew, styles.container, containerStyle)}>
-        {childrenToRender}
-      </div>
-    );
-  }
-
   render() {
     const {
       animateHeight,
       animateTransitions,
       axis,
       children,
-      containerStyle,
+      containerStyle: containerStyleProp,
       disabled,
       hysteresis, // eslint-disable-line no-unused-vars
       index, // eslint-disable-line no-unused-vars
@@ -631,7 +636,7 @@ class SwipeableViews extends Component {
       onSwitching, // eslint-disable-line no-unused-vars
       onTransitionEnd, // eslint-disable-line no-unused-vars
       resistance, // eslint-disable-line no-unused-vars
-      slideStyle,
+      slideStyle: slideStyleProp,
       slideClassName,
       springConfig,
       style,
@@ -647,25 +652,6 @@ class SwipeableViews extends Component {
       isFirstRender,
     } = this.state;
 
-    const translate = indexCurrent * 100;
-    const height = heightLatest;
-
-    const motionStyle = (isDragging || !animateTransitions || displaySameSlide) ? {
-      translate,
-      height,
-    } : {
-      translate: spring(translate, {
-        // Kill call to render with too precised value for the end of the animation.
-        precision: 1.5,
-        ...springConfig,
-      }),
-      height: height !== 0 ? spring(height, {
-        // Kill call to render with too precised value for the end of the animation.
-        precision: 1.5,
-        ...springConfig,
-      }) : 0,
-    };
-
     const touchEvents = disabled ? {} : {
       onTouchStart: this.handleTouchStart,
       onTouchMove: this.handleTouchMove,
@@ -675,57 +661,84 @@ class SwipeableViews extends Component {
     // There is no point to animate if we are already providing a height.
     warning(
       !animateHeight ||
-      !containerStyle ||
-      (!containerStyle.height && !containerStyle.maxHeight && !containerStyle.minHeight),
+      !containerStyleProp ||
+      (!containerStyleProp.height && !containerStyleProp.maxHeight && !containerStyleProp.minHeight),
       `react-swipeable-view: You are setting animateHeight to true but you are also providing a custom height.
       The custom height has a higher priority than the animateHeight property.
       So animateHeight is most likely having no effect at all.`,
     );
 
-    const slideStyleObj = Object.assign({}, styles.slide, slideStyle);
+    const slideStyle = Object.assign({}, styles.slide, slideStyleProp);
 
-    const childrenToRender = Children.map(children, (child, indexChild) => {
-      if (isFirstRender && indexChild > 0) {
-        return null;
+    let transition;
+
+    if (isDragging || !animateTransitions || displaySameSlide) {
+      transition = 'all 0s ease 0s';
+    } else {
+      transition = createTransition('transform', springConfig);
+
+      if (heightLatest !== 0) {
+        transition += `, ${createTransition('height', springConfig)}`;
       }
+    }
 
-      let ref;
-      let hidden = true;
+    const transform = axisProperties.transform[axis](indexCurrent * 100);
+    const containerStyle = {
+      WebkitTransform: transform,
+      transform,
+      height: null,
+      flexDirection: axisProperties.flexDirection[axis],
+      WebkitTransition: transition,
+      transition,
+    };
 
-      if (indexChild === this.state.indexLatest) {
-        hidden = false;
-
-        if (animateHeight) {
-          ref = (node) => this.updateHeight(node);
-          slideStyleObj.overflowY = 'hidden';
-        }
-      }
-
-      return (
-        <div
-          ref={ref}
-          style={slideStyleObj}
-          className={slideClassName}
-          aria-hidden={hidden}
-          role="option"
-        >
-          {child}
-        </div>
-      );
-    });
+    if (animateHeight) {
+      containerStyle.height = heightLatest;
+    }
 
     return (
       <div
-        ref={(node) => { this.node = node; }}
+        ref={(node) => { this.rootNode = node; }}
         style={Object.assign({}, axisProperties.root[axis], style)}
         role="listbox"
         {...other}
         {...touchEvents}
         onScroll={this.handleScroll}
       >
-        <Motion style={motionStyle} onRest={this.handleRest}>
-          {(interpolatedStyle) => this.renderContainer(interpolatedStyle, animateHeight, childrenToRender)}
-        </Motion>
+        <div
+          ref={(node) => { this.containerNode = node; }}
+          style={Object.assign({}, containerStyle, styles.container, containerStyleProp)}
+        >
+          {Children.map(children, (child, indexChild) => {
+            if (isFirstRender && indexChild > 0) {
+              return null;
+            }
+
+            let ref;
+            let hidden = true;
+
+            if (indexChild === this.state.indexLatest) {
+              hidden = false;
+
+              if (animateHeight) {
+                ref = (node) => this.updateHeight(node);
+                slideStyle.overflowY = 'hidden';
+              }
+            }
+
+            return (
+              <div
+                ref={ref}
+                style={slideStyle}
+                className={slideClassName}
+                aria-hidden={hidden}
+                role="option"
+              >
+                {child}
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }

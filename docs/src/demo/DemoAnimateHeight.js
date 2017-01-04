@@ -8,6 +8,7 @@ const styles = {
     padding: 15,
     minHeight: 100,
     color: '#fff',
+    WebkitOverflowScrolling: 'touch', // iOS momentum scrolling
   },
   slide1: {
     backgroundColor: '#FEA900',
