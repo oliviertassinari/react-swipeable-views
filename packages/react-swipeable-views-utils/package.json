@@ -1,6 +1,6 @@
 {
   "name": "react-swipeable-views-utils",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "react-swipeable-views utility modules",
   "main": "lib/index.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "keycode": "^2.1.7",
     "react-addons-shallow-compare": "^15.4.1",
     "react-event-listener": "^0.4.0",
-    "react-swipeable-views-core": "^0.9.2"
+    "react-swipeable-views-core": "^0.10.1"
   },
   "devDependencies": {
     "pkgfiles": "^2.3.2"
