@@ -9,7 +9,8 @@ import { constant, checkIndexBounds, computeIndex, getDisplaySameSlide } from 'r
 const styles = {
   container: {
     display: 'flex',
-    willChange: 'transform',
+    // Cause an issue on Firefox. We can't enable it for now.
+    // willChange: 'transform',
   },
   slide: {
     width: '100%',
