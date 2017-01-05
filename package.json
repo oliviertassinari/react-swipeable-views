@@ -10,9 +10,9 @@
     "docs:native:development": "NODE_ENV=docs-native-development node node_modules/react-native/local-cli/cli.js start --reset-cache --verbose",
     "flow": "flow",
     "bootstrap": "lerna bootstrap && npm run build",
-    "build": "rm -rf packages/*/lib && lerna exec -- babel src --out-dir lib --ignore spec.js",
+    "build": "rm -rf packages/*/lib && NODE_ENV=release lerna exec -- babel src --out-dir lib --ignore spec.js",
     "watch": "lerna exec --concurrency 99 -- babel src --out-dir lib --watch",
-    "prepublish": "NODE_ENV=release npm run build && lerna exec -- npm run prepublish"
+    "prepublish": "npm run build && lerna exec -- npm run prepublish"
   },
   "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
   "license": "MIT",

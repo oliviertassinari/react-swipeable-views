@@ -594,6 +594,11 @@ class SwipeableViews extends Component {
       this.props.onScroll(event);
     }
 
+    // Ignore events bubbling up.
+    if (event.target !== this.rootNode) {
+      return;
+    }
+
     if (this.ignoreNextScrollEvents) {
       this.ignoreNextScrollEvents = false;
       return;
