@@ -308,8 +308,8 @@ class SwipeableViews extends Component {
     index: 0,
     threshold: 5,
     springConfig: {
-      duration: '0.3s',
-      easeFunction: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
+      duration: '0.35s',
+      easeFunction: 'cubic-bezier(0.15, 0.3, 0.25, 1)',
       delay: '0s',
     },
     resistance: false,
