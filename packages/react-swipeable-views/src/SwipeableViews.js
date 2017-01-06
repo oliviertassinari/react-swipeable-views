@@ -119,6 +119,11 @@ export function getDomTreeShapes(element, rootNode) {
       break;
     }
 
+    // Ignore the scroll containers if an element is absolute positioned.
+    if (element.style.position === 'absolute') {
+      return [];
+    }
+
     // Ignore the nodes that have no width.
     // Keep elements with a scroll
     if (element.clientWidth > 0 && element.scrollWidth > element.clientWidth) {
