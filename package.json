@@ -2,7 +2,7 @@
   "privte": true,
   "scripts": {
     "lint": "eslint . && echo \"eslint: no lint errors\"",
-    "test": "npm run lint && npm run test:unit && npm run flow",
+    "test": "npm run lint && npm run test:unit",
     "test:unit": "NODE_ENV=release babel-node test/unit.js",
     "test:watch": "NODE_ENV=release babel-node test/watch.js",
     "docs:browser:development": "NODE_ENV=docs-browser-development babel-node ./node_modules/.bin/webpack-dev-server --config=docs/webpack/developmentConfig.js --progress",
@@ -12,7 +12,7 @@
     "bootstrap": "lerna bootstrap && npm run build",
     "build": "rm -rf packages/*/lib && NODE_ENV=release lerna exec -- babel src --out-dir lib --ignore spec.js",
     "watch": "lerna exec --concurrency 99 -- babel src --out-dir lib --watch",
-    "prepublish": "npm run build && lerna exec -- npm run prepublish"
+    "publish": "npm run build && lerna exec -- npm run prepublish"
   },
   "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
   "license": "MIT",

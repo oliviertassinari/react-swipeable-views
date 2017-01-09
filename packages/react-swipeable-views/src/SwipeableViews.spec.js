@@ -5,7 +5,6 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { assert } from 'chai';
 import { spy } from 'sinon';
-import { Motion } from 'react-motion';
 import SwipeableViews, { findNativeHandler, getDomTreeShapes } from './SwipeableViews';
 
 describe('SwipeableViews', () => {
@@ -152,14 +151,15 @@ describe('SwipeableViews', () => {
         </SwipeableViews>,
       );
 
-      assert.deepEqual(wrapper.find(Motion).at(0).props().style, {
-        translate: {
-          damping: 30,
-          precision: 1.5,
-          stiffness: 300,
-          val: 0,
-        },
-        height: 0,
+      assert.deepEqual(wrapper.childAt(0).props().style, {
+        WebkitFlexDirection: 'row',
+        WebkitTransform: 'translate(0%, 0)',
+        WebkitTransition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
+        display: 'flex',
+        flexDirection: 'row',
+        height: null,
+        transform: 'translate(0%, 0)',
+        transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
       });
     });
 
@@ -170,9 +170,8 @@ describe('SwipeableViews', () => {
         </SwipeableViews>,
       );
 
-      assert.deepEqual(wrapper.find(Motion).at(0).props().style, {
-        translate: 0,
-        height: 0,
+      assert.include(wrapper.childAt(0).props().style, {
+        transition: 'all 0s ease 0s',
       });
     });
   });
@@ -281,6 +280,7 @@ describe('SwipeableViews', () => {
 
       const instance1 = wrapperParent.instance();
       instance1.viewLength = 200;
+      instance1.startIndex = 1;
 
       const instance2 = wrapperNester.instance();
       instance2.viewLength = 200;
@@ -388,45 +388,6 @@ describe('SwipeableViews', () => {
     });
   });
 
-  describe('startIndex', () => {
-    it('should use the indexAnimation', () => {
-      const wrapper = mount(
-        <SwipeableViews index={1}>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
-          <div>{'slide n°3'}</div>
-        </SwipeableViews>,
-      );
-
-      const instance = wrapper.instance();
-      instance.indexAnimation = 80;
-      wrapper.simulate('touchStart', {
-        touches: [{
-          pageX: 50,
-          pageY: 0,
-        }],
-      });
-      instance.viewLength = 100;
-      assert.strictEqual(instance.startIndex, 0.8,
-        'should take into account the indexAnimation',
-      );
-      wrapper.simulate('touchMove', {
-        touches: [{
-          pageX: 40,
-          pageY: 0,
-        }],
-      });
-      wrapper.simulate('touchMove', {
-        touches: [{
-          pageX: 30,
-          pageY: 0,
-        }],
-      });
-      assert.strictEqual(wrapper.state().indexCurrent, 0.9,
-        'should use the startIndex');
-    });
-  });
-
   describe('findNativeHandler', () => {
     it('should work in a simple case', () => {
       const hasFoundNativeHandler = findNativeHandler({
@@ -473,6 +434,7 @@ describe('SwipeableViews', () => {
         parentNode: optionNode,
         clientWidth: 10,
         scrollWidth: 20,
+        style: {},
       };
 
       const domTreeShapes = getDomTreeShapes(targetNode, optionNode);
@@ -499,7 +461,7 @@ describe('SwipeableViews', () => {
     });
   });
 
-  describe.only('tabs', () => {
+  describe('tabs', () => {
     it('should reset the scroll position and call onChangeIndex', () => {
       const handleScroll = spy();
       const handleChangeIndex = spy();
@@ -515,17 +477,16 @@ describe('SwipeableViews', () => {
         </SwipeableViews>,
       );
 
-      const event = {
-        target: {
-          scrollLeft: 80,
-          clientWidth: 100,
-        },
+      const rootNode = {
+        scrollLeft: 80,
+        clientWidth: 100,
       };
-
-      wrapper.instance().handleScroll(event);
-
+      wrapper.instance().rootNode = rootNode;
+      wrapper.instance().handleScroll({
+        target: rootNode,
+      });
       assert.strictEqual(handleScroll.callCount, 1, 'should forward the event');
-      assert.strictEqual(event.target.scrollLeft, 0, 'should reset the scroll position');
+      assert.strictEqual(rootNode.scrollLeft, 0, 'should reset the scroll position');
       assert.strictEqual(handleChangeIndex.callCount, 1, 'should detect a new index');
       assert.deepEqual(handleChangeIndex.args[0], [
         2,
