@@ -3,3 +3,4 @@ node_modules
 packages/*/lib
 /ios
 /android
+/flow/interfaces

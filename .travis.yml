@@ -7,3 +7,4 @@ cache:
     - node_modules
 script:
   - npm run bootstrap
+  - npm run test

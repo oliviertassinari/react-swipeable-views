@@ -6,6 +6,25 @@ import transitionInfo from 'dom-helpers/transition/properties';
 import addEventListener from 'dom-helpers/events/on';
 import { constant, checkIndexBounds, computeIndex, getDisplaySameSlide } from 'react-swipeable-views-core';
 
+let styleInjected = false;
+
+// Support old version of iOS.
+// To be deleted in 2018.
+function injectStyle() {
+  // Inject once for all the instances
+  if (!styleInjected) {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .react-swipeable-view-container {
+        display: -webkit-box;
+      }
+    `;
+
+    document.body.appendChild(style);
+    styleInjected = true;
+  }
+}
+
 const styles = {
   container: {
     display: 'flex',
@@ -14,6 +33,7 @@ const styles = {
   },
   slide: {
     width: '100%',
+    WebkitFlexShrink: 0,
     flexShrink: 0,
     overflow: 'auto',
   },
@@ -342,6 +362,8 @@ class SwipeableViews extends Component {
       isFirstRender: false,
     });
     /* eslint-enable react/no-did-mount-set-state */
+
+    injectStyle();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -395,20 +417,25 @@ class SwipeableViews extends Component {
     this.isSwiping = undefined;
     this.started = true;
 
-    const transform = getComputedStyle(this.containerNode).transform;
-    const transformValues = transform.split('(')[1].split(')')[0].split(',');
-    const rootStyle = getComputedStyle(this.rootNode);
+    const computedStyle = getComputedStyle(this.containerNode);
+    const transform = computedStyle.getPropertyValue('-webkit-transform') ||
+      computedStyle.getPropertyValue('transform');
 
-    const tranformNormalized = applyRotationMatrix({
-      pageX: parseInt(transformValues[4], 10),
-      pageY: parseInt(transformValues[5], 10),
-    }, axis);
+    if (transform) {
+      const transformValues = transform.split('(')[1].split(')')[0].split(',');
+      const rootStyle = getComputedStyle(this.rootNode);
 
-    this.startIndex = -tranformNormalized.pageX / (
-      this.viewLength -
-      parseInt(rootStyle.paddingLeft, 10) -
-      parseInt(rootStyle.paddingRight, 10)
-    );
+      const tranformNormalized = applyRotationMatrix({
+        pageX: parseInt(transformValues[4], 10),
+        pageY: parseInt(transformValues[5], 10),
+      }, axis);
+
+      this.startIndex = -tranformNormalized.pageX / (
+        this.viewLength -
+        parseInt(rootStyle.paddingLeft, 10) -
+        parseInt(rootStyle.paddingRight, 10)
+      );
+    }
   };
 
   handleTouchMove = (event) => {
@@ -693,11 +720,12 @@ class SwipeableViews extends Component {
       }
     }
 
-    const transform = axisProperties.transform[axis](indexCurrent * 100);
+    const transform = axisProperties.transform[axis](Math.round(indexCurrent * 100));
     const containerStyle = {
       WebkitTransform: transform,
       transform,
       height: null,
+      WebkitFlexDirection: axisProperties.flexDirection[axis],
       flexDirection: axisProperties.flexDirection[axis],
       WebkitTransition: transition,
       transition,
@@ -719,6 +747,7 @@ class SwipeableViews extends Component {
         <div
           ref={(node) => { this.containerNode = node; }}
           style={Object.assign({}, containerStyle, styles.container, containerStyleProp)}
+          className="react-swipeable-view-container"
         >
           {Children.map(children, (child, indexChild) => {
             if (isFirstRender && indexChild > 0) {
