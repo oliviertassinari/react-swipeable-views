@@ -12,7 +12,7 @@
     "bootstrap": "lerna bootstrap && npm run build",
     "build": "rm -rf packages/*/lib && NODE_ENV=release lerna exec -- babel src --out-dir lib --ignore spec.js",
     "watch": "lerna exec --concurrency 99 -- babel src --out-dir lib --watch",
-    "publish": "npm run build && lerna exec -- npm run prepublish"
+    "publish": "npm run build && lerna exec -- npm run prepublish && lerna publish"
   },
   "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
   "license": "MIT",
