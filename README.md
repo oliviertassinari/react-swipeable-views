@@ -298,14 +298,12 @@ const EnhancedSwipeableViews = flowRight(
 ## Performance on browser
 
 Having 60 FPS is critical for this type of component.
-We are **no longer** using `react-motion`.
-The performance is not as good as they could have been
-using data binding to apply the needed styles.
-However, the implementation was simpler.
+We are rendering the slides at each request animation frame.
+That has one specific implication for package users.
+You need to add a **pure logic** in the *slides* components if your render method is expensive.
 
-`react-motion` is rendering the components at each request animation frame.
-That had one specific implication for package users.
-You need to have a **pure logic** in the *slides* components if the render method is expensive.
+The performance is not as good as they could be if we were using a data binding to update the styles.
+However, the implementation is simpler.
 
 ## Packages stucture
 
