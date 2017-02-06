@@ -40,6 +40,7 @@ module.exports = {
       eventHandlerPropPrefix: 'on',
     }],
     'react/forbid-prop-types': 'off', // airbnb use error
+    'react/require-default-props': 'off', // That's not performant
     'react/jsx-filename-extension': ['error', {extensions: ['.js']}], // airbnb is using .jsx
     'react/jsx-max-props-per-line': ['error', {maximum: 3}], // airbnb is disabling this rule
     'react/no-danger': 'error', // airbnb is using warn
