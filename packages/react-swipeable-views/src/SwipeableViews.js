@@ -709,11 +709,14 @@ class SwipeableViews extends Component {
     const slideStyle = Object.assign({}, styles.slide, slideStyleProp);
 
     let transition;
+    let WebkitTransition;
 
     if (isDragging || !animateTransitions || displaySameSlide) {
       transition = 'all 0s ease 0s';
+      WebkitTransition = 'all 0s ease 0s';
     } else {
       transition = createTransition('transform', springConfig);
+      WebkitTransition = createTransition('-webkit-transform', springConfig);
 
       if (heightLatest !== 0) {
         transition += `, ${createTransition('height', springConfig)}`;
@@ -727,7 +730,7 @@ class SwipeableViews extends Component {
       height: null,
       WebkitFlexDirection: axisProperties.flexDirection[axis],
       flexDirection: axisProperties.flexDirection[axis],
-      WebkitTransition: transition,
+      WebkitTransition,
       transition,
     };
 
