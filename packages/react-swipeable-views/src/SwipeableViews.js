@@ -719,7 +719,9 @@ class SwipeableViews extends Component {
       WebkitTransition = createTransition('-webkit-transform', springConfig);
 
       if (heightLatest !== 0) {
-        transition += `, ${createTransition('height', springConfig)}`;
+        const additionalTranstion = `, ${createTransition('height', springConfig)}`;
+        transition += additionalTranstion;
+        WebkitTransition += additionalTranstion;
       }
     }
 

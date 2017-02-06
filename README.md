@@ -144,7 +144,7 @@ the same component can be used independently on where it's running.
 
 | IE    | Edge | Windows Phone | Firefox | Chrome | Safari |
 |:------|:-----|:--------------|:--------|:-------|:-------|
-| >= 11 | ✓    | x             | >= 28   | >= 29  | >= 9   |
+| >= 11 | ✓    | x             | >= 28   | >= 29  | >= 8   |
 
 ### iOS
 ![ios](docs/platformIOS.gif)

@@ -56,7 +56,7 @@ class SwipeableViews extends Component {
      * This is the inlined style that will be applied
      * to each slide container.
      */
-    containerStyle: ScrollView.propTypes.style,
+    containerStyle: PropTypes.object,
     /**
      * If `true`, it will disable touch events.
      * This is useful when you want to prohibit the user from changing slides.
@@ -99,12 +99,12 @@ class SwipeableViews extends Component {
      * This is the inlined style that will be applied
      * on the slide component.
      */
-    slideStyle: View.propTypes.style,
+    slideStyle: PropTypes.object,
     /**
      * This is the inlined style that will be applied
      * on the root component.
      */
-    style: View.propTypes.style,
+    style: PropTypes.object,
   };
 
   static defaultProps = {
