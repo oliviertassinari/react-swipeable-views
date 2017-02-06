@@ -44,7 +44,7 @@ for (let i = 0; i < 30; i += 1) {
   );
 }
 
-const Demo3 = () => (
+const DemoScroll = () => (
   <SwipeableViews containerStyle={styles.slideContainer}>
     <ScrollView style={[styles.slide, styles.slide1]}>
       {list}
@@ -62,4 +62,4 @@ const Demo3 = () => (
   </SwipeableViews>
 );
 
-export default Demo3;
+export default DemoScroll;
