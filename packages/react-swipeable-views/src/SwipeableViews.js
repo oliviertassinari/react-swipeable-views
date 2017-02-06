@@ -4,7 +4,17 @@ import React, { Component, PropTypes, Children } from 'react';
 import warning from 'warning';
 import transitionInfo from 'dom-helpers/transition/properties';
 import addEventListener from 'dom-helpers/events/on';
+import removeEventListener from 'dom-helpers/events/off';
 import { constant, checkIndexBounds, computeIndex, getDisplaySameSlide } from 'react-swipeable-views-core';
+
+function addEventListenerEnhanced(node, event, handler, options) {
+  addEventListener(node, event, handler, options);
+  return {
+    remove() {
+      removeEventListener(node, event, handler, options);
+    },
+  };
+}
 
 let styleInjected = false;
 
@@ -353,9 +363,16 @@ class SwipeableViews extends Component {
 
   componentDidMount() {
     // Subscribe to transition end events.
-    addEventListener(this.containerNode, transitionInfo.end, () => {
+    this.transitionListener = addEventListenerEnhanced(this.containerNode, transitionInfo.end, () => {
       this.handleTransitionEnd();
     });
+
+    // Block the thread to handle that event.
+    this.touchMoveListener = addEventListenerEnhanced(this.rootNode, 'touchmove',
+      this.handleTouchMove, {
+        passive: false,
+      },
+    );
 
     /* eslint-disable react/no-did-mount-set-state */
     this.setState({
@@ -385,6 +402,11 @@ class SwipeableViews extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.transitionListener.remove();
+    this.touchMoveListener.remove();
+  }
+
   rootNode = null;
   containerNode = null;
   ignoreNextScrollEvents = false;
@@ -396,6 +418,8 @@ class SwipeableViews extends Component {
   isSwiping = undefined;
   started = false;
   startIndex = 0;
+  transitionListener = null;
+  touchMoveListener = null;
 
   handleTouchStart = (event) => {
     const {
@@ -439,10 +463,6 @@ class SwipeableViews extends Component {
   };
 
   handleTouchMove = (event) => {
-    if (this.props.onTouchMove) {
-      this.props.onTouchMove(event);
-    }
-
     // The touch start event can be cancel.
     // Makes sure we set a starting point.
     if (!this.started) {
@@ -692,7 +712,6 @@ class SwipeableViews extends Component {
 
     const touchEvents = disabled ? {} : {
       onTouchStart: this.handleTouchStart,
-      onTouchMove: this.handleTouchMove,
       onTouchEnd: this.handleTouchEnd,
     };
 
