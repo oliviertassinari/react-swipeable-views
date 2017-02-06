@@ -7,6 +7,13 @@ import { assert } from 'chai';
 import { spy } from 'sinon';
 import SwipeableViews, { findNativeHandler, getDomTreeShapes } from './SwipeableViews';
 
+function simulateMouseMove(wrapper, event) {
+  return wrapper.instance().handleTouchMove({
+    preventDefault: () => {},
+    ...event,
+  });
+}
+
 describe('SwipeableViews', () => {
   describe('prop: children', () => {
     it('should render the children', () => {
@@ -43,7 +50,7 @@ describe('SwipeableViews', () => {
           pageY: 50,
         }],
       });
-      wrapper.simulate('touchMove', {
+      simulateMouseMove(wrapper, {
         touches: [{
           pageX: 150,
           pageY: 50,
@@ -57,7 +64,7 @@ describe('SwipeableViews', () => {
     it('should not change slide when swipe was not enough', () => {
       const wrapper = createWrapper();
 
-      wrapper.simulate('touchMove', {
+      simulateMouseMove(wrapper, {
         touches: [{
           pageX: 80,
           pageY: 50,
@@ -71,7 +78,7 @@ describe('SwipeableViews', () => {
     it('should change slide after long swipe', () => {
       const wrapper = createWrapper();
 
-      wrapper.simulate('touchMove', {
+      simulateMouseMove(wrapper, {
         touches: [{
           pageX: 20,
           pageY: 50,
@@ -86,7 +93,7 @@ describe('SwipeableViews', () => {
     it('should change slider hysteresis via prop', () => {
       const wrapper = createWrapper(0.3);
 
-      wrapper.simulate('touchMove', {
+      simulateMouseMove(wrapper, {
         touches: [{
           pageX: 80,
           pageY: 50,
@@ -199,7 +206,7 @@ describe('SwipeableViews', () => {
     });
 
     it('should not detect a swipe when scrolling', () => {
-      wrapper.simulate('touchMove', {
+      simulateMouseMove(wrapper, {
         touches: [{
           pageX: 50,
           pageY: 60,
@@ -209,18 +216,17 @@ describe('SwipeableViews', () => {
     });
 
     it('should detect a swipe when doing a clear movement', () => {
-      wrapper.simulate('touchMove', {
+      simulateMouseMove(wrapper, {
         touches: [{
           pageX: 60,
           pageY: 50,
         }],
-        preventDefault: () => {},
       });
       assert.strictEqual(instance.isSwiping, true, 'Should detect a swipe');
     });
 
     it('should wait for a clear movement to detect a swipe', () => {
-      wrapper.simulate('touchMove', {
+      simulateMouseMove(wrapper, {
         touches: [{
           pageX: 48,
           pageY: 50,
@@ -228,7 +234,7 @@ describe('SwipeableViews', () => {
       });
       assert.strictEqual(instance.isSwiping, undefined, 'We do not know yet');
 
-      wrapper.simulate('touchMove', {
+      simulateMouseMove(wrapper, {
         touches: [{
           pageX: 50,
           pageY: 48,
@@ -236,12 +242,11 @@ describe('SwipeableViews', () => {
       });
       assert.strictEqual(instance.isSwiping, undefined, 'We do not know yet');
 
-      wrapper.simulate('touchMove', {
+      simulateMouseMove(wrapper, {
         touches: [{
           pageX: 40,
           pageY: 50,
         }],
-        preventDefault: () => {},
       });
       assert.strictEqual(instance.isSwiping, true, 'Should detect a swipe');
     });
@@ -299,8 +304,8 @@ describe('SwipeableViews', () => {
         }],
       };
 
-      wrapperNester.simulate('touchMove', touchMoveEvent1);
-      wrapperParent.simulate('touchMove', touchMoveEvent1);
+      simulateMouseMove(wrapperNester, touchMoveEvent1);
+      simulateMouseMove(wrapperParent, touchMoveEvent1);
 
       const touchMoveEvent2 = {
         touches: [{
@@ -309,8 +314,8 @@ describe('SwipeableViews', () => {
         }],
       };
 
-      wrapperNester.simulate('touchMove', touchMoveEvent2);
-      wrapperParent.simulate('touchMove', touchMoveEvent2);
+      simulateMouseMove(wrapperNester, touchMoveEvent2);
+      simulateMouseMove(wrapperParent, touchMoveEvent2);
 
       assert.strictEqual(wrapperNester.state().indexCurrent, 0.025);
       assert.strictEqual(wrapperParent.state().indexCurrent, 1);
@@ -324,8 +329,8 @@ describe('SwipeableViews', () => {
         }],
       };
 
-      wrapperNester.simulate('touchMove', touchMoveEvent1);
-      wrapperParent.simulate('touchMove', touchMoveEvent1);
+      simulateMouseMove(wrapperNester, touchMoveEvent1);
+      simulateMouseMove(wrapperParent, touchMoveEvent1);
 
       const touchMoveEvent2 = {
         touches: [{
@@ -334,8 +339,8 @@ describe('SwipeableViews', () => {
         }],
       };
 
-      wrapperNester.simulate('touchMove', touchMoveEvent2);
-      wrapperParent.simulate('touchMove', touchMoveEvent2);
+      simulateMouseMove(wrapperNester, touchMoveEvent2);
+      simulateMouseMove(wrapperParent, touchMoveEvent2);
 
       assert.strictEqual(wrapperNester.state().indexCurrent, 0);
       assert.strictEqual(wrapperParent.state().indexCurrent, 0.975);
