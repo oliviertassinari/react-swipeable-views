@@ -30,7 +30,9 @@ function injectStyle() {
       }
     `;
 
-    document.body.appendChild(style);
+    if (document.body) {
+      document.body.appendChild(style);
+    }
     styleInjected = true;
   }
 }
