@@ -3,7 +3,7 @@
   "privte": true,
   "scripts": {
     "lint": "eslint . && echo \"eslint: no lint errors\"",
-    "test": "npm run lint && npm run test:unit",
+    "test": "npm run lint && npm run test:unit && npm run flow",
     "test:unit": "NODE_ENV=release babel-node test/unit.js",
     "test:watch": "NODE_ENV=release babel-node test/watch.js",
     "docs:browser:development": "NODE_ENV=docs-browser-development babel-node ./node_modules/.bin/webpack-dev-server --config=docs/webpack/developmentConfig.js --progress",

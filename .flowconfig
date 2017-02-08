@@ -7,6 +7,7 @@
 
 ; Ignore unexpected extra "@providesModule"
 .*/node_modules/.*/node_modules/fbjs/.*
+.*/packages/.*/node_modules/fbjs/.*
 
 ; Ignore duplicate module providers
 ; For RN Apps installed via npm, "Libraries" folder is inside
@@ -14,20 +15,20 @@
 .*/Libraries/react-native/React.js
 .*/Libraries/react-native/ReactNative.js
 
-[include]
-
 [libs]
 node_modules/react-native/Libraries/react-native/react-native-interface.js
 node_modules/react-native/flow
-flow/
+flow/interfaces
 
 [options]
 module.system=haste
+module.system.node.resolve_dirname=node_modules
 
 experimental.strict_type_args=true
 
 munge_underscores=true
 
+module.name_mapper='.*\.\(less\|png\|jpg\)$' -> '<PROJECT_ROOT>/flow/stubs/url-loader.js'
 module.name_mapper='^[./a-zA-Z0-9$_-]+\.\(bmp\|gif\|jpg\|jpeg\|png\|psd\|svg\|webp\|m4v\|mov\|mp4\|mpeg\|mpg\|webm\|aac\|aiff\|caf\|m4a\|mp3\|wav\|html\|pdf\)$' -> 'RelativeImageStub'
 
 suppress_type=$FlowIssue
