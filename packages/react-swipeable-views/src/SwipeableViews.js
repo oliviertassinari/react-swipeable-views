@@ -429,6 +429,11 @@ class SwipeableViews extends Component {
       onTouchStart,
     } = this.props;
 
+    // Latency and rapid rerenders on some devices can leave a period where rootNode briefly equals null
+    if (this.rootNode === null) {
+      return;
+    }
+
     if (onTouchStart) {
       onTouchStart(event);
     }
@@ -469,6 +474,11 @@ class SwipeableViews extends Component {
     // Makes sure we set a starting point.
     if (!this.started) {
       this.handleTouchStart(event);
+      return;
+    }
+
+    // Latency and rapid rerenders on some devices can leave a period where rootNode briefly equals null
+    if (this.rootNode === null) {
       return;
     }
 
