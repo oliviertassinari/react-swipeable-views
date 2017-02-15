@@ -148,7 +148,7 @@ export function getDomTreeShapes(element, rootNode) {
 
   while (element && element !== rootNode) {
     // We reach a Swipeable View, no need to look higher in the dom tree.
-    if (element.getAttribute('role') === 'option') {
+    if (element.hasAttribute('data-swipeable')) {
       break;
     }
 
@@ -776,7 +776,6 @@ class SwipeableViews extends Component {
       <div
         ref={(node) => { this.rootNode = node; }}
         style={Object.assign({}, axisProperties.root[axis], style)}
-        role="listbox"
         {...other}
         {...touchEvents}
         onScroll={this.handleScroll}
@@ -809,7 +808,7 @@ class SwipeableViews extends Component {
                 style={slideStyle}
                 className={slideClassName}
                 aria-hidden={hidden}
-                role="option"
+                data-swipeable="true"
               >
                 {child}
               </div>
