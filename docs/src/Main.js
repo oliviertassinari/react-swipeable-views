@@ -17,6 +17,7 @@ import DemoKeyboard from './demo/DemoKeyboard';
 import DemoVirtualize from './demo/DemoVirtualize';
 import DemoHocs from './demo/DemoHocs';
 import DemoWidth from './demo/DemoWidth';
+import DemoRtl from './demo/DemoRtl';
 import Footer from './Footer';
 
 injectTapEventPlugin();
@@ -103,6 +104,12 @@ const Main = () => (
         description="Custom width of slides."
       >
         <DemoWidth />
+      </Demo>
+      <Demo
+        name="Demo 13"
+        description="Right-to-left direction"
+      >
+        <DemoRtl />
       </Demo>
       <Footer
         maintainerName="oliviertassinari"
