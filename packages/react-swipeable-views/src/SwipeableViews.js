@@ -144,7 +144,7 @@ function applyRotationMatrix(touch, axis) {
 }
 
 export function getDomTreeShapes(element, rootNode) {
-  const domTreeShapes = [];
+  let domTreeShapes = [];
 
   while (element && element !== rootNode) {
     // We reach a Swipeable View, no need to look higher in the dom tree.
@@ -152,14 +152,18 @@ export function getDomTreeShapes(element, rootNode) {
       break;
     }
 
-    // Ignore the scroll containers if an element is absolute positioned.
-    if (element.style.position === 'absolute') {
-      return [];
-    }
+    const style = window.getComputedStyle(element);
 
-    // Ignore the nodes that have no width.
-    // Keep elements with a scroll
-    if (element.clientWidth > 0 && element.scrollWidth > element.clientWidth) {
+    if (
+      // Ignore the scroll children if the element is absolute positioned.
+      style.getPropertyValue('position') === 'absolute' ||
+      // Ignore the scroll children if the element has an overflowX hidden
+      style.getPropertyValue('overflow-x') === 'hidden'
+    ) {
+      domTreeShapes = [];
+    } else if (element.clientWidth > 0 && element.scrollWidth > element.clientWidth) {
+      // Ignore the nodes that have no width.
+      // Keep elements with a scroll
       domTreeShapes.push({
         element,
         scrollWidth: element.scrollWidth,
@@ -449,13 +453,13 @@ class SwipeableViews extends Component {
     this.isSwiping = undefined;
     this.started = true;
 
-    const computedStyle = getComputedStyle(this.containerNode);
+    const computedStyle = window.getComputedStyle(this.containerNode);
     const transform = computedStyle.getPropertyValue('-webkit-transform') ||
       computedStyle.getPropertyValue('transform');
 
     if (transform) {
       const transformValues = transform.split('(')[1].split(')')[0].split(',');
-      const rootStyle = getComputedStyle(this.rootNode);
+      const rootStyle = window.getComputedStyle(this.rootNode);
 
       const tranformNormalized = applyRotationMatrix({
         pageX: parseInt(transformValues[4], 10),
