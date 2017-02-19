@@ -422,7 +422,7 @@ describe('SwipeableViews', () => {
   });
 
   describe('getDomTreeShapes', () => {
-    it('should stop at the role === option', () => {
+    it('should stop at the data-swipeable attribute', () => {
       const rootNode = {};
 
       const optionNode = {
