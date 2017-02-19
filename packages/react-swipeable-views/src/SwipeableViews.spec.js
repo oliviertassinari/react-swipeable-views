@@ -158,14 +158,10 @@ describe('SwipeableViews', () => {
         </SwipeableViews>,
       );
 
-      assert.deepEqual(wrapper.childAt(0).props().style, {
+      assert.include(wrapper.childAt(0).props().style, {
         WebkitFlexDirection: 'row',
         WebkitTransform: 'translate(0%, 0)',
         WebkitTransition: '-webkit-transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
-        display: 'flex',
-        flexDirection: 'row',
-        height: null,
-        transform: 'translate(0%, 0)',
         transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
       });
     });
