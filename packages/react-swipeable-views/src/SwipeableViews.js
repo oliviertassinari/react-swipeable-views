@@ -253,6 +253,11 @@ class SwipeableViews extends Component {
      */
     hysteresis: PropTypes.number,
     /**
+     * If `true`, it will ignore native scroll container.
+     * It can be used to filter out false positive that blocks the swipe.
+     */
+    ignoreNativeScroll: PropTypes.bool,
+    /**
      * This is the index of the slide to show.
      * This is useful when you want to change the default slide shown.
      * Or when you have tabs linked to each slide.
@@ -338,6 +343,7 @@ class SwipeableViews extends Component {
     axis: 'x',
     disabled: false,
     hysteresis: 0.6,
+    ignoreNativeScroll: false,
     index: 0,
     threshold: 5,
     springConfig: {
@@ -491,6 +497,7 @@ class SwipeableViews extends Component {
     const {
       axis,
       children,
+      ignoreNativeScroll,
       onSwitching,
       resistance,
     } = this.props;
@@ -541,7 +548,7 @@ class SwipeableViews extends Component {
     });
 
     // Add support for native scroll elements.
-    if (nodeHowClaimedTheScroll === null) {
+    if (nodeHowClaimedTheScroll === null && !ignoreNativeScroll) {
       const domTreeShapes = getDomTreeShapes(event.target, this.rootNode);
       const hasFoundNativeHandler = findNativeHandler({
         domTreeShapes,
@@ -702,6 +709,7 @@ class SwipeableViews extends Component {
       containerStyle: containerStyleProp,
       disabled,
       hysteresis, // eslint-disable-line no-unused-vars
+      ignoreNativeScroll, // eslint-disable-line no-unused-vars
       index, // eslint-disable-line no-unused-vars
       onChangeIndex, // eslint-disable-line no-unused-vars
       onSwitching, // eslint-disable-line no-unused-vars
