@@ -4,7 +4,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { assert } from 'chai';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import SwipeableViews, { findNativeHandler, getDomTreeShapes } from './SwipeableViews';
 
 function simulateMouseMove(wrapper, event) {
@@ -422,6 +422,18 @@ describe('SwipeableViews', () => {
   });
 
   describe('getDomTreeShapes', () => {
+    before(() => {
+      stub(window, 'getComputedStyle').returns({
+        getPropertyValue: () => {
+          return '';
+        },
+      });
+    });
+
+    after(() => {
+      window.getComputedStyle.restore();
+    });
+
     it('should stop at the data-swipeable attribute', () => {
       const rootNode = {};
 
