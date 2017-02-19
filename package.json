@@ -17,6 +17,10 @@
   },
   "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oliviertassinari/react-swipeable-views.git"
+  },
   "dependencies": {
     "react": "^15.4.2",
     "react-native": "^0.41.2"
