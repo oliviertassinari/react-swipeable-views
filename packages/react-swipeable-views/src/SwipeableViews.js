@@ -161,7 +161,10 @@ export function getDomTreeShapes(element, rootNode) {
       style.getPropertyValue('overflow-x') === 'hidden'
     ) {
       domTreeShapes = [];
-    } else if (element.clientWidth > 0 && element.scrollWidth > element.clientWidth) {
+    } else if (element.clientWidth > 0 && (
+      (element.scrollWidth > element.clientWidth) ||
+      (element.scrollHeight > element.clientHeight)
+    )) {
       // Ignore the nodes that have no width.
       // Keep elements with a scroll
       domTreeShapes.push({
@@ -508,6 +511,34 @@ class SwipeableViews extends Component {
 
     const touch = applyRotationMatrix(event.touches[0], axis);
 
+    const {
+      index,
+      startX,
+    } = computeIndex({
+      children,
+      resistance,
+      pageX: touch.pageX,
+      startIndex: this.startIndex,
+      startX: this.startX,
+      viewLength: this.viewLength,
+    });
+
+    // Add support for native scroll elements.
+    if (nodeHowClaimedTheScroll === null && !ignoreNativeScroll) {
+      const domTreeShapes = getDomTreeShapes(event.target, this.rootNode);
+      const hasFoundNativeHandler = findNativeHandler({
+        domTreeShapes,
+        indexCurrent: this.state.indexCurrent,
+        index,
+        axis,
+      });
+
+      // We abort the touch move handler.
+      if (hasFoundNativeHandler) {
+        return;
+      }
+    }
+
     // We don't know yet.
     if (this.isSwiping === undefined) {
       const dx = Math.abs(this.startX - touch.pageX);
@@ -538,34 +569,6 @@ class SwipeableViews extends Component {
     // Low Pass filter.
     this.vx = (this.vx * 0.5) + ((touch.pageX - this.lastX) * 0.5);
     this.lastX = touch.pageX;
-
-    const {
-      index,
-      startX,
-    } = computeIndex({
-      children,
-      resistance,
-      pageX: touch.pageX,
-      startIndex: this.startIndex,
-      startX: this.startX,
-      viewLength: this.viewLength,
-    });
-
-    // Add support for native scroll elements.
-    if (nodeHowClaimedTheScroll === null && !ignoreNativeScroll) {
-      const domTreeShapes = getDomTreeShapes(event.target, this.rootNode);
-      const hasFoundNativeHandler = findNativeHandler({
-        domTreeShapes,
-        indexCurrent: this.state.indexCurrent,
-        index,
-        axis,
-      });
-
-      // We abort the touch move handler.
-      if (hasFoundNativeHandler) {
-        return;
-      }
-    }
 
     // We are moving toward the edges.
     if (startX) {
