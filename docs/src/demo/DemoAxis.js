@@ -18,7 +18,12 @@ const styles = {
   slide2: {
     backgroundColor: '#B3DC4A',
   },
+  scroll: {
+    height: 100,
+    overflow: 'scroll',
+  },
   slide3: {
+    height: 200,
     backgroundColor: '#6AC0FF',
   },
 };
@@ -31,8 +36,10 @@ const DemoAxis = () => (
     <div style={Object.assign({}, styles.slide, styles.slide2)}>
       slide n°2
     </div>
-    <div style={Object.assign({}, styles.slide, styles.slide3)}>
-      slide n°3
+    <div style={styles.scroll}>
+      <div style={Object.assign({}, styles.slide, styles.slide3)}>
+        slide n°3
+      </div>
     </div>
   </SwipeableViews>
 );
