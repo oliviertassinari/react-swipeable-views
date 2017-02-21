@@ -481,6 +481,11 @@ class SwipeableViews extends Component {
   };
 
   handleTouchMove = (event) => {
+    // Handling touch events is disabled.
+    if (this.props.disabled) {
+      return;
+    }
+
     // The touch start event can be cancel.
     // Makes sure we set a starting point.
     if (!this.started) {
