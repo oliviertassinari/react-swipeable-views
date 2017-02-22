@@ -192,14 +192,14 @@ let nodeHowClaimedTheScroll = null;
 export function findNativeHandler(params) {
   const {
     domTreeShapes,
-    indexCurrent,
-    index,
+    startX,
+    pageX,
     axis,
   } = params;
 
   return domTreeShapes.some((shape) => {
     // Determine if we are going backward or forward.
-    let goingForward = index <= indexCurrent;
+    let goingForward = startX <= pageX;
     if (axis === 'x' || axis === 'y') {
       goingForward = !goingForward;
     }
@@ -511,34 +511,6 @@ class SwipeableViews extends Component {
 
     const touch = applyRotationMatrix(event.touches[0], axis);
 
-    const {
-      index,
-      startX,
-    } = computeIndex({
-      children,
-      resistance,
-      pageX: touch.pageX,
-      startIndex: this.startIndex,
-      startX: this.startX,
-      viewLength: this.viewLength,
-    });
-
-    // Add support for native scroll elements.
-    if (nodeHowClaimedTheScroll === null && !ignoreNativeScroll) {
-      const domTreeShapes = getDomTreeShapes(event.target, this.rootNode);
-      const hasFoundNativeHandler = findNativeHandler({
-        domTreeShapes,
-        indexCurrent: this.state.indexCurrent,
-        index,
-        axis,
-      });
-
-      // We abort the touch move handler.
-      if (hasFoundNativeHandler) {
-        return;
-      }
-    }
-
     // We don't know yet.
     if (this.isSwiping === undefined) {
       const dx = Math.abs(this.startX - touch.pageX);
@@ -548,6 +520,23 @@ class SwipeableViews extends Component {
 
       // We are likely to be swiping, let's prevent the scroll event.
       if (dx > dy) {
+        // Add support for native scroll elements. This must be done before
+        // preventDefault is called or no scroll happens iOS Safari
+        if (nodeHowClaimedTheScroll === null && !ignoreNativeScroll) {
+          const domTreeShapes = getDomTreeShapes(event.target, this.rootNode);
+          const hasFoundNativeHandler = findNativeHandler({
+            domTreeShapes,
+            startX: this.startX,
+            pageX: touch.pageX,
+            axis,
+          });
+
+          // We abort the touch move handler.
+          if (hasFoundNativeHandler) {
+            return;
+          }
+        }
+
         event.preventDefault();
       }
 
@@ -569,6 +558,18 @@ class SwipeableViews extends Component {
     // Low Pass filter.
     this.vx = (this.vx * 0.5) + ((touch.pageX - this.lastX) * 0.5);
     this.lastX = touch.pageX;
+
+    const {
+      index,
+      startX,
+    } = computeIndex({
+      children,
+      resistance,
+      pageX: touch.pageX,
+      startIndex: this.startIndex,
+      startX: this.startX,
+      viewLength: this.viewLength,
+    });
 
     // We are moving toward the edges.
     if (startX) {

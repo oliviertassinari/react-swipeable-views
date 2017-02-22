@@ -397,8 +397,8 @@ describe('SwipeableViews', () => {
           scrollWidth: 200,
           clientWidth: 100,
         }],
-        indexCurrent: 1,
-        index: 1.1,
+        startX: 50,
+        pageX: 40,
         axis: 'x',
       });
 
