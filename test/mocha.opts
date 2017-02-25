@@ -1,0 +1,5 @@
+--require babel-register
+--reporter dot
+--recursive
+test/setup.js
+packages/{,**/}*.spec.js

@@ -4,8 +4,8 @@
   "scripts": {
     "lint": "eslint . && echo \"eslint: no lint errors\"",
     "test": "npm run lint && npm run test:unit && npm run flow",
-    "test:unit": "NODE_ENV=release babel-node test/unit.js",
-    "test:watch": "NODE_ENV=release babel-node test/watch.js",
+    "test:unit": "NODE_ENV=release mocha",
+    "test:watch": "NODE_ENV=release mocha -w",
     "start": "npm run docs:browser:development",
     "docs:browser:development": "NODE_ENV=docs-browser-development babel-node ./node_modules/.bin/webpack-dev-server --config=docs/webpack/developmentConfig.js --progress",
     "docs:browser:production": "rm -rf docs/dist && NODE_ENV=docs-browser-production babel-node ./node_modules/.bin/webpack --config=docs/webpack/productionConfig.js --progress",
@@ -63,7 +63,6 @@
     "less-loader": "^2.2.1",
     "material-ui": "^0.16.7",
     "mocha": "^3.2.0",
-    "nodemon": "^1.11.0",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-hot-loader": "3.0.0-beta.6",
