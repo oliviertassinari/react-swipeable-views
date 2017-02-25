@@ -161,7 +161,10 @@ export function getDomTreeShapes(element, rootNode) {
       style.getPropertyValue('overflow-x') === 'hidden'
     ) {
       domTreeShapes = [];
-    } else if (element.clientWidth > 0 && element.scrollWidth > element.clientWidth) {
+    } else if (
+      (element.clientWidth > 0 && element.scrollWidth > element.clientWidth) ||
+      (element.clientHeight > 0 && element.scrollHeight > element.clientHeight)
+    ) {
       // Ignore the nodes that have no width.
       // Keep elements with a scroll
       domTreeShapes.push({
