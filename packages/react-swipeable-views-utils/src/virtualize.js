@@ -4,10 +4,6 @@ import React, { Component, PropTypes } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import { mod } from 'react-swipeable-views-core';
 
-// Render one more slide for going backward as it's more difficult to
-// keep the window up to date.
-const LEFT_OFFSET = 1;
-
 export default function virtualize(MyComponent) {
   class Virtualize extends Component {
     static propTypes = {
@@ -34,9 +30,13 @@ export default function virtualize(MyComponent) {
        */
       onTransitionEnd: PropTypes.func,
       /**
-       * Number of slide to render before/after the visible slide.
+       * Number of slide to render after the visible slide.
        */
-      overscanSlideCount: PropTypes.number,
+      overscanSlideAfter: PropTypes.number,
+      /**
+       * Number of slide to render before the visible slide.
+       */
+      overscanSlideBefore: PropTypes.number,
       /**
        * When set, it's adding a limit to the number of slide: [0, slideCount].
        */
@@ -49,7 +49,10 @@ export default function virtualize(MyComponent) {
     };
 
     static defaultProps = {
-      overscanSlideCount: 2,
+      overscanSlideAfter: 2,
+      // Render one more slide for going backward as it's more difficult to
+      // keep the window up to date.
+      overscanSlideBefore: 3,
     };
 
     /**
@@ -66,7 +69,6 @@ export default function virtualize(MyComponent) {
     componentWillMount() {
       this.setState({
         index: this.props.index || 0,
-        indexContainer: this.props.overscanSlideCount,
       });
 
       this.setWindow(this.props.index || 0);
@@ -146,12 +148,12 @@ export default function virtualize(MyComponent) {
         nextState.indexStop = index;
       }
 
-      const leftAhead = nextState.indexStart - index;
+      const beforeAhead = nextState.indexStart - index;
 
       // Extend the bounds if needed.
-      if (leftAhead > 0) {
-        nextState.indexContainer += leftAhead;
-        nextState.indexStart -= leftAhead;
+      if (beforeAhead > 0) {
+        nextState.indexContainer += beforeAhead;
+        nextState.indexStart -= beforeAhead;
       }
 
       this.setState(nextState);
@@ -162,23 +164,23 @@ export default function virtualize(MyComponent) {
         slideCount,
       } = this.props;
 
-      let leftAhead = this.props.overscanSlideCount + LEFT_OFFSET;
-      let rightAhead = this.props.overscanSlideCount;
+      let beforeAhead = this.props.overscanSlideBefore;
+      let afterAhead = this.props.overscanSlideAfter;
 
       if (slideCount) {
-        if (leftAhead > index) {
-          leftAhead = index;
+        if (beforeAhead > index) {
+          beforeAhead = index;
         }
 
-        if (rightAhead + index > slideCount - 1) {
-          rightAhead = slideCount - index - 1;
+        if (afterAhead + index > slideCount - 1) {
+          afterAhead = slideCount - index - 1;
         }
       }
 
       this.setState({
-        indexContainer: leftAhead,
-        indexStart: index - leftAhead,
-        indexStop: index + rightAhead,
+        indexContainer: beforeAhead,
+        indexStart: index - beforeAhead,
+        indexStop: index + afterAhead,
       });
     }
 
@@ -187,7 +189,8 @@ export default function virtualize(MyComponent) {
         children, // eslint-disable-line no-unused-vars
         index: indexProp, // eslint-disable-line no-unused-vars
         onChangeIndex, // eslint-disable-line no-unused-vars
-        overscanSlideCount, // eslint-disable-line no-unused-vars
+        overscanSlideAfter, // eslint-disable-line no-unused-vars
+        overscanSlideBefore, // eslint-disable-line no-unused-vars
         slideCount, // eslint-disable-line no-unused-vars
         slideRenderer,
         ...other

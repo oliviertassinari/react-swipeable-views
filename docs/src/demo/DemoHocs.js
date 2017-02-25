@@ -57,10 +57,7 @@ function slideRenderer(params) {
 }
 
 const DemoHocs = () => (
-  <EnhancedSwipeableViews
-    slideCount={10}
-    slideRenderer={slideRenderer}
-  />
+  <EnhancedSwipeableViews slideCount={10} slideRenderer={slideRenderer} />
 );
 
 export default DemoHocs;
