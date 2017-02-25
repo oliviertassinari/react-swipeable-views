@@ -422,7 +422,7 @@ describe('SwipeableViews', () => {
   });
 
   describe('getDomTreeShapes', () => {
-    before(() => {
+    beforeEach(() => {
       stub(window, 'getComputedStyle').returns({
         getPropertyValue: () => {
           return '';
@@ -430,7 +430,7 @@ describe('SwipeableViews', () => {
       });
     });
 
-    after(() => {
+    afterEach(() => {
       window.getComputedStyle.restore();
     });
 

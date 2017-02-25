@@ -17,6 +17,36 @@ const slideRenderer = (params) => {
 };
 
 describe('virtualize', () => {
+  describe('prop: overscanSlideAfter', () => {
+    it('should update the window', () => {
+      const wrapper = shallow(
+        <VirtualizeSwipeableViews overscanSlideAfter={1} slideRenderer={slideRenderer} />,
+      );
+
+      assert.deepEqual(wrapper.state(), {
+        index: 0,
+        indexContainer: 3,
+        indexStart: -3,
+        indexStop: 1,
+      });
+    });
+  });
+
+  describe('prop: overscanSlideBefore', () => {
+    it('should update the window', () => {
+      const wrapper = shallow(
+        <VirtualizeSwipeableViews overscanSlideBefore={1} slideRenderer={slideRenderer} />,
+      );
+
+      assert.deepEqual(wrapper.state(), {
+        index: 0,
+        indexContainer: 1,
+        indexStart: -1,
+        indexStop: 2,
+      });
+    });
+  });
+
   describe('window', () => {
     it('should use a correct window when mounting', () => {
       const wrapper = shallow(
