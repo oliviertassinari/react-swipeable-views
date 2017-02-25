@@ -161,7 +161,10 @@ export function getDomTreeShapes(element, rootNode) {
       style.getPropertyValue('overflow-x') === 'hidden'
     ) {
       domTreeShapes = [];
-    } else if (element.clientWidth > 0 && element.scrollWidth > element.clientWidth) {
+    } else if (element.clientWidth > 0 && (
+      (element.scrollWidth > element.clientWidth) ||
+      (element.scrollHeight > element.clientHeight)
+    )) {
       // Ignore the nodes that have no width.
       // Keep elements with a scroll
       domTreeShapes.push({
@@ -189,14 +192,14 @@ let nodeHowClaimedTheScroll = null;
 export function findNativeHandler(params) {
   const {
     domTreeShapes,
-    indexCurrent,
-    index,
+    startX,
+    pageX,
     axis,
   } = params;
 
   return domTreeShapes.some((shape) => {
     // Determine if we are going backward or forward.
-    let goingForward = index <= indexCurrent;
+    let goingForward = startX <= pageX;
     if (axis === 'x' || axis === 'y') {
       goingForward = !goingForward;
     }
@@ -522,6 +525,23 @@ class SwipeableViews extends Component {
 
       // We are likely to be swiping, let's prevent the scroll event.
       if (dx > dy) {
+        // Add support for native scroll elements. This must be done before
+        // preventDefault is called or no scroll happens iOS Safari
+        if (nodeHowClaimedTheScroll === null && !ignoreNativeScroll) {
+          const domTreeShapes = getDomTreeShapes(event.target, this.rootNode);
+          const hasFoundNativeHandler = findNativeHandler({
+            domTreeShapes,
+            startX: this.startX,
+            pageX: touch.pageX,
+            axis,
+          });
+
+          // We abort the touch move handler.
+          if (hasFoundNativeHandler) {
+            return;
+          }
+        }
+
         event.preventDefault();
       }
 
@@ -555,22 +575,6 @@ class SwipeableViews extends Component {
       startX: this.startX,
       viewLength: this.viewLength,
     });
-
-    // Add support for native scroll elements.
-    if (nodeHowClaimedTheScroll === null && !ignoreNativeScroll) {
-      const domTreeShapes = getDomTreeShapes(event.target, this.rootNode);
-      const hasFoundNativeHandler = findNativeHandler({
-        domTreeShapes,
-        indexCurrent: this.state.indexCurrent,
-        index,
-        axis,
-      });
-
-      // We abort the touch move handler.
-      if (hasFoundNativeHandler) {
-        return;
-      }
-    }
 
     // We are moving toward the edges.
     if (startX) {
