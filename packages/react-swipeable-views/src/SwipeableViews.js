@@ -789,6 +789,14 @@ class SwipeableViews extends Component {
           this.handleTouchEnd(event);
         }
       },
+      onMouseLeave: (event) => {
+        if (enableMouseEvents && this.started) {
+          if (onMouseUp) onMouseUp(event);
+          event.persist();
+          event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
+          this.handleTouchEnd(event);
+        }
+      },
     };
 
     // There is no point to animate if we are already providing a height.
