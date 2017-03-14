@@ -255,6 +255,11 @@ class SwipeableViews extends Component {
      */
     disabled: PropTypes.bool,
     /**
+     * If `true`, it will enable mouse events.
+     * This will allow the user to perform the relevant swipe actions with a mouse.
+     */
+    enableMouseEvents: PropTypes.bool,
+    /**
      * Configure hysteresis between slides. This value determines how far
      * should user swipe to switch slide.
      */
@@ -279,6 +284,18 @@ class SwipeableViews extends Component {
      * @param {integer} indexLatest This is the oldest index of the slide.
      */
     onChangeIndex: PropTypes.func,
+    /**
+     * @ignore
+     */
+    onMouseDown: PropTypes.func,
+    /**
+     * @ignore
+     */
+    onMouseDrag: PropTypes.func,
+    /**
+     * @ignore
+     */
+    onMouseUp: PropTypes.func,
     /**
      * @ignore
      */
@@ -389,13 +406,12 @@ class SwipeableViews extends Component {
         passive: false,
       },
     );
-    this.mouseMoveListener = addEventListenerEnhanced(this.rootNode, 'mousemove', (e) => {
-      if (this.started) {
-        e.touches = [{ pageX: e.pageX, pageY: e.pageY }];
-        this.handleTouchMove(e);
+    this.mouseMoveListener = addEventListener(this.rootNode, 'mousemove', (event) => {
+      if (this.started && this.props.enableMouseEvents) {
+        if (this.props.onMouseDrag) this.props.onMouseDrag(event);
+        event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
+        this.handleTouchMove(event);
       }
-    }, {
-      passive: false,
     });
 
     /* eslint-disable react/no-did-mount-set-state */
@@ -448,18 +464,11 @@ class SwipeableViews extends Component {
   mouseMoveListener = null;
 
   handleTouchStart = (event) => {
-    const {
-      axis,
-      onTouchStart,
-    } = this.props;
+    const { axis } = this.props;
 
     // Latency and rapid rerenders on some devices can leave a period where rootNode briefly equals null
     if (this.rootNode === null) {
       return;
-    }
-
-    if (onTouchStart) {
-      onTouchStart(event);
     }
 
     const touch = applyRotationMatrix(event.touches[0], axis);
@@ -603,11 +612,7 @@ class SwipeableViews extends Component {
     });
   };
 
-  handleTouchEnd = (event) => {
-    if (this.props.onTouchEnd) {
-      this.props.onTouchEnd(event);
-    }
-
+  handleTouchEnd = () => {
     nodeHowClaimedTheScroll = null;
 
     // The touch start event can be cancel.
@@ -742,6 +747,12 @@ class SwipeableViews extends Component {
       springConfig,
       style,
       threshold, // eslint-disable-line no-unused-vars
+      onTouchStart,
+      onTouchEnd,
+      onMouseDown,
+      onMouseDrag, // eslint-disable-line no-unused-vars
+      onMouseUp,
+      enableMouseEvents,
       ...other
     } = this.props;
 
@@ -754,18 +765,29 @@ class SwipeableViews extends Component {
     } = this.state;
 
     const touchEvents = disabled ? {} : {
-      onTouchStart: this.handleTouchStart,
-      onTouchEnd: this.handleTouchEnd,
-      onMouseDown: (e) => {
-        e.preventDefault();
-        e.persist();
-        e.touches = [{ pageX: e.pageX, pageY: e.pageY }];
-        this.handleTouchStart(e);
+      onTouchStart: (event) => {
+        if (onTouchStart) onTouchStart(event);
+        this.handleTouchStart(event);
       },
-      onMouseUp: (e) => {
-        e.persist();
-        e.touches = [{ pageX: e.pageX, pageY: e.pageY }];
-        this.handleTouchEnd(e);
+      onTouchEnd: (event) => {
+        if (onTouchEnd) onTouchEnd(event);
+        this.handleTouchEnd(event);
+      },
+      onMouseDown: (event) => {
+        if (enableMouseEvents) {
+          if (onMouseDown) onMouseDown(event);
+          event.persist();
+          event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
+          this.handleTouchStart(event);
+        }
+      },
+      onMouseUp: (event) => {
+        if (enableMouseEvents) {
+          if (onMouseUp) onMouseUp(event);
+          event.persist();
+          event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
+          this.handleTouchEnd(event);
+        }
       },
     };
 
