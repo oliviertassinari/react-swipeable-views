@@ -389,6 +389,14 @@ class SwipeableViews extends Component {
         passive: false,
       },
     );
+    this.mouseMoveListener = addEventListenerEnhanced(this.rootNode, 'mousemove', (e) => {
+      if (this.started) {
+        e.touches = [{ pageX: e.pageX, pageY: e.pageY }];
+        this.handleTouchMove(e);
+      }
+    }, {
+      passive: false,
+    });
 
     /* eslint-disable react/no-did-mount-set-state */
     this.setState({
@@ -421,6 +429,7 @@ class SwipeableViews extends Component {
   componentWillUnmount() {
     this.transitionListener.remove();
     this.touchMoveListener.remove();
+    this.mouseMoveListener.remove();
   }
 
   rootNode = null;
@@ -436,6 +445,7 @@ class SwipeableViews extends Component {
   startIndex = 0;
   transitionListener = null;
   touchMoveListener = null;
+  mouseMoveListener = null;
 
   handleTouchStart = (event) => {
     const {
@@ -746,6 +756,17 @@ class SwipeableViews extends Component {
     const touchEvents = disabled ? {} : {
       onTouchStart: this.handleTouchStart,
       onTouchEnd: this.handleTouchEnd,
+      onMouseDown: (e) => {
+        e.preventDefault();
+        e.persist();
+        e.touches = [{ pageX: e.pageX, pageY: e.pageY }];
+        this.handleTouchStart(e);
+      },
+      onMouseUp: (e) => {
+        e.persist();
+        e.touches = [{ pageX: e.pageX, pageY: e.pageY }];
+        this.handleTouchEnd(e);
+      },
     };
 
     // There is no point to animate if we are already providing a height.
