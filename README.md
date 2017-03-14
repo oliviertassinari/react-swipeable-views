@@ -28,7 +28,7 @@ npm install --save react-swipeable-views-native
 ## The problem solved
 
 Check out the [demos](http://oliviertassinari.github.io/react-swipeable-views/) from a mobile device (real or emulated).
-It is tiny (<4kB) and quickly render the first slide then lazy-load the other.
+It's tiny (<4kB), it quickly renders the first slide, then lazy-loads the others.
 
 ## Simple example
 ![usage](docs/usage.gif)
@@ -154,9 +154,9 @@ the same component can be used independently on where it's running.
 
 ## Example with `virtualize`
 
-The infinite feature is provided thanks to an *High Order Component*.
+The infinite feature is provided thanks to a *higher order component*.
 It's working independently of the targeted platform.
-You can have a look at the *Demo 8* to see it in action.
+You can have a look at *Demo 8* to see it in action.
 It's higly inspired by [react-virtualized](https://github.com/bvaughn/react-virtualized).
 Let's see an example with the browser:
 
@@ -182,9 +182,9 @@ export default MyComponent;
 
 ## Example with `autoPlay`
 
-The auto play feature is provided thanks to an *High Order Component*.
+The auto play feature is provided thanks to a *higher order component*.
 It's working independently of the targeted platform.
-You can have a look at the *Demo 7* to see it in action.
+You can have a look at *Demo 7* to see it in action.
 Let's see an example with the browser:
 
 ```jsx
@@ -207,8 +207,8 @@ export default MyComponent;
 
 ## Example with `bindKeyboard`
 
-The keyboard navigation feature is provided thanks to an *High Order Component*.
-You can have a look at the *Demo 9* to see it in action.
+The keyboard navigation feature is provided thanks to a *higher order component*.
+You can have a look at *Demo 9* to see it in action.
 Let's see an example with the browser:
 
 ```jsx
