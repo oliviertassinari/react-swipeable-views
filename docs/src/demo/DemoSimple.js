@@ -21,7 +21,7 @@ const styles = {
 };
 
 const DemoSimple = () => (
-  <SwipeableViews>
+  <SwipeableViews enableMouseEvents>
     <div style={Object.assign({}, styles.slide, styles.slide1)}>
       slide n°1
     </div>
