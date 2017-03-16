@@ -406,7 +406,7 @@ class SwipeableViews extends Component {
         passive: false,
       },
     );
-    this.mouseMoveListener = addEventListener(this.rootNode, 'mousemove', (event) => {
+    this.mouseMoveListener = addEventListenerEnhanced(this.rootNode, 'mousemove', (event) => {
       if (this.started && this.props.enableMouseEvents) {
         if (this.props.onMouseDrag) this.props.onMouseDrag(event);
         event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
