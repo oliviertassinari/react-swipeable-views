@@ -255,6 +255,11 @@ class SwipeableViews extends Component {
      */
     disabled: PropTypes.bool,
     /**
+     * If `true`, it will enable mouse events.
+     * This will allow the user to perform the relevant swipe actions with a mouse.
+     */
+    enableMouseEvents: PropTypes.bool,
+    /**
      * Configure hysteresis between slides. This value determines how far
      * should user swipe to switch slide.
      */
@@ -279,6 +284,22 @@ class SwipeableViews extends Component {
      * @param {integer} indexLatest This is the oldest index of the slide.
      */
     onChangeIndex: PropTypes.func,
+    /**
+     * @ignore
+     */
+    onMouseDown: PropTypes.func,
+    /**
+     * @ignore
+     */
+    onMouseLeave: PropTypes.func,
+    /**
+     * @ignore
+     */
+    onMouseMove: PropTypes.func,
+    /**
+     * @ignore
+     */
+    onMouseUp: PropTypes.func,
     /**
      * @ignore
      */
@@ -349,6 +370,7 @@ class SwipeableViews extends Component {
     animateTransitions: true,
     axis: 'x',
     disabled: false,
+    enableMouseEvents: false,
     hysteresis: 0.6,
     ignoreNativeScroll: false,
     index: 0,
@@ -385,7 +407,7 @@ class SwipeableViews extends Component {
 
     // Block the thread to handle that event.
     this.touchMoveListener = addEventListenerEnhanced(this.rootNode, 'touchmove',
-      this.handleTouchMove, {
+      this.handleSwipe, {
         passive: false,
       },
     );
@@ -437,19 +459,12 @@ class SwipeableViews extends Component {
   transitionListener = null;
   touchMoveListener = null;
 
-  handleTouchStart = (event) => {
-    const {
-      axis,
-      onTouchStart,
-    } = this.props;
+  handleSwipeStart = (event) => {
+    const { axis } = this.props;
 
     // Latency and rapid rerenders on some devices can leave a period where rootNode briefly equals null
     if (this.rootNode === null) {
       return;
-    }
-
-    if (onTouchStart) {
-      onTouchStart(event);
     }
 
     const touch = applyRotationMatrix(event.touches[0], axis);
@@ -483,7 +498,7 @@ class SwipeableViews extends Component {
     }
   };
 
-  handleTouchMove = (event) => {
+  handleSwipe = (event) => {
     // Handling touch events is disabled.
     if (this.props.disabled) {
       return;
@@ -593,11 +608,7 @@ class SwipeableViews extends Component {
     });
   };
 
-  handleTouchEnd = (event) => {
-    if (this.props.onTouchEnd) {
-      this.props.onTouchEnd(event);
-    }
-
+  handleSwipeEnd = () => {
     nodeHowClaimedTheScroll = null;
 
     // The touch start event can be cancel.
@@ -658,6 +669,51 @@ class SwipeableViews extends Component {
         this.handleTransitionEnd();
       }
     });
+  };
+
+  handleTouchStart = (event) => {
+    if (this.props.onTouchStart) this.props.onTouchStart(event);
+    this.handleSwipeStart(event);
+  };
+
+  handleTouchEnd = (event) => {
+    if (this.props.onTouchEnd) this.props.onTouchEnd(event);
+    this.handleSwipeEnd(event);
+  };
+
+  handleMouseDown = (event) => {
+    if (this.props.onMouseDown) this.props.onMouseDown(event);
+    if (this.props.enableMouseEvents) {
+      event.persist();
+      event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
+      this.handleSwipeStart(event);
+    }
+  };
+
+  handleMouseUp = (event) => {
+    if (this.props.onMouseUp) this.props.onMouseUp(event);
+    if (this.props.enableMouseEvents) {
+      event.persist();
+      event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
+      this.handleSwipeEnd(event);
+    }
+  };
+
+  handleMouseLeave = (event) => {
+    if (this.props.onMouseLeave) this.props.onMouseLeave(event);
+    if (this.props.enableMouseEvents && this.started) {
+      event.persist();
+      event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
+      this.handleSwipeEnd(event);
+    }
+  };
+
+  handleMouseMove = (event) => {
+    if (this.props.onMouseMove) this.props.onMouseMove(event);
+    if (this.props.enableMouseEvents && this.started) {
+      event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
+      this.handleSwipe(event);
+    }
   };
 
   handleTransitionEnd() {
@@ -732,6 +788,13 @@ class SwipeableViews extends Component {
       springConfig,
       style,
       threshold, // eslint-disable-line no-unused-vars
+      onTouchStart, // eslint-disable-line no-unused-vars
+      onTouchEnd, // eslint-disable-line no-unused-vars
+      onMouseDown, // eslint-disable-line no-unused-vars
+      onMouseLeave, // eslint-disable-line no-unused-vars
+      onMouseMove, // eslint-disable-line no-unused-vars
+      onMouseUp, // eslint-disable-line no-unused-vars
+      enableMouseEvents, // eslint-disable-line no-unused-vars
       ...other
     } = this.props;
 
@@ -746,6 +809,10 @@ class SwipeableViews extends Component {
     const touchEvents = disabled ? {} : {
       onTouchStart: this.handleTouchStart,
       onTouchEnd: this.handleTouchEnd,
+      onMouseDown: this.handleMouseDown,
+      onMouseUp: this.handleMouseUp,
+      onMouseLeave: this.handleMouseLeave,
+      onMouseMove: this.handleMouseMove,
     };
 
     // There is no point to animate if we are already providing a height.
