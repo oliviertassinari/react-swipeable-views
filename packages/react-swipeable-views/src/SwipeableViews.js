@@ -291,7 +291,11 @@ class SwipeableViews extends Component {
     /**
      * @ignore
      */
-    onMouseDrag: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    /**
+     * @ignore
+     */
+    onMouseMove: PropTypes.func,
     /**
      * @ignore
      */
@@ -366,6 +370,7 @@ class SwipeableViews extends Component {
     animateTransitions: true,
     axis: 'x',
     disabled: false,
+    enableMouseEvents: false,
     hysteresis: 0.6,
     ignoreNativeScroll: false,
     index: 0,
@@ -402,17 +407,10 @@ class SwipeableViews extends Component {
 
     // Block the thread to handle that event.
     this.touchMoveListener = addEventListenerEnhanced(this.rootNode, 'touchmove',
-      this.handleTouchMove, {
+      this.handleSwipe, {
         passive: false,
       },
     );
-    this.mouseMoveListener = addEventListenerEnhanced(this.rootNode, 'mousemove', (event) => {
-      if (this.started && this.props.enableMouseEvents) {
-        if (this.props.onMouseDrag) this.props.onMouseDrag(event);
-        event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
-        this.handleTouchMove(event);
-      }
-    });
 
     /* eslint-disable react/no-did-mount-set-state */
     this.setState({
@@ -445,7 +443,6 @@ class SwipeableViews extends Component {
   componentWillUnmount() {
     this.transitionListener.remove();
     this.touchMoveListener.remove();
-    this.mouseMoveListener.remove();
   }
 
   rootNode = null;
@@ -461,9 +458,8 @@ class SwipeableViews extends Component {
   startIndex = 0;
   transitionListener = null;
   touchMoveListener = null;
-  mouseMoveListener = null;
 
-  handleTouchStart = (event) => {
+  handleSwipeStart = (event) => {
     const { axis } = this.props;
 
     // Latency and rapid rerenders on some devices can leave a period where rootNode briefly equals null
@@ -502,7 +498,7 @@ class SwipeableViews extends Component {
     }
   };
 
-  handleTouchMove = (event) => {
+  handleSwipe = (event) => {
     // Handling touch events is disabled.
     if (this.props.disabled) {
       return;
@@ -612,7 +608,7 @@ class SwipeableViews extends Component {
     });
   };
 
-  handleTouchEnd = () => {
+  handleSwipeEnd = () => {
     nodeHowClaimedTheScroll = null;
 
     // The touch start event can be cancel.
@@ -673,6 +669,51 @@ class SwipeableViews extends Component {
         this.handleTransitionEnd();
       }
     });
+  };
+
+  handleTouchStart = (event) => {
+    if (this.props.onTouchStart) this.props.onTouchStart(event);
+    this.handleSwipeStart(event);
+  };
+
+  handleTouchEnd = (event) => {
+    if (this.props.onTouchEnd) this.props.onTouchEnd(event);
+    this.handleSwipeEnd(event);
+  };
+
+  handleMouseDown = (event) => {
+    if (this.props.onMouseDown) this.props.onMouseDown(event);
+    if (this.props.enableMouseEvents) {
+      event.persist();
+      event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
+      this.handleSwipeStart(event);
+    }
+  };
+
+  handleMouseUp = (event) => {
+    if (this.props.onMouseUp) this.props.onMouseUp(event);
+    if (this.props.enableMouseEvents) {
+      event.persist();
+      event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
+      this.handleSwipeEnd(event);
+    }
+  };
+
+  handleMouseLeave = (event) => {
+    if (this.props.onMouseLeave) this.props.onMouseLeave(event);
+    if (this.props.enableMouseEvents && this.started) {
+      event.persist();
+      event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
+      this.handleSwipeEnd(event);
+    }
+  };
+
+  handleMouseMove = (event) => {
+    if (this.props.onMouseMove) this.props.onMouseMove(event);
+    if (this.props.enableMouseEvents && this.started) {
+      event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
+      this.handleSwipe(event);
+    }
   };
 
   handleTransitionEnd() {
@@ -747,12 +788,13 @@ class SwipeableViews extends Component {
       springConfig,
       style,
       threshold, // eslint-disable-line no-unused-vars
-      onTouchStart,
-      onTouchEnd,
-      onMouseDown,
-      onMouseDrag, // eslint-disable-line no-unused-vars
-      onMouseUp,
-      enableMouseEvents,
+      onTouchStart, // eslint-disable-line no-unused-vars
+      onTouchEnd, // eslint-disable-line no-unused-vars
+      onMouseDown, // eslint-disable-line no-unused-vars
+      onMouseLeave, // eslint-disable-line no-unused-vars
+      onMouseMove, // eslint-disable-line no-unused-vars
+      onMouseUp, // eslint-disable-line no-unused-vars
+      enableMouseEvents, // eslint-disable-line no-unused-vars
       ...other
     } = this.props;
 
@@ -765,38 +807,12 @@ class SwipeableViews extends Component {
     } = this.state;
 
     const touchEvents = disabled ? {} : {
-      onTouchStart: (event) => {
-        if (onTouchStart) onTouchStart(event);
-        this.handleTouchStart(event);
-      },
-      onTouchEnd: (event) => {
-        if (onTouchEnd) onTouchEnd(event);
-        this.handleTouchEnd(event);
-      },
-      onMouseDown: (event) => {
-        if (enableMouseEvents) {
-          if (onMouseDown) onMouseDown(event);
-          event.persist();
-          event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
-          this.handleTouchStart(event);
-        }
-      },
-      onMouseUp: (event) => {
-        if (enableMouseEvents) {
-          if (onMouseUp) onMouseUp(event);
-          event.persist();
-          event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
-          this.handleTouchEnd(event);
-        }
-      },
-      onMouseLeave: (event) => {
-        if (enableMouseEvents && this.started) {
-          if (onMouseUp) onMouseUp(event);
-          event.persist();
-          event.touches = [{ pageX: event.pageX, pageY: event.pageY }];
-          this.handleTouchEnd(event);
-        }
-      },
+      onTouchStart: this.handleTouchStart,
+      onTouchEnd: this.handleTouchEnd,
+      onMouseDown: this.handleMouseDown,
+      onMouseUp: this.handleMouseUp,
+      onMouseLeave: this.handleMouseLeave,
+      onMouseMove: this.handleMouseMove,
     };
 
     // There is no point to animate if we are already providing a height.
