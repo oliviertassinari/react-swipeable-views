@@ -5,7 +5,8 @@
  * I'm keeping the two versions here until we figured out.
  */
 
-import React, { Component, PropTypes, Children } from 'react';
+import React, { Component, Children } from 'react';
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
