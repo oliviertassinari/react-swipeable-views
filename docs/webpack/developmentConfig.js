@@ -1,7 +1,7 @@
 // @flow weak
 
 import webpack from 'webpack';
-import ForceCaseSensitivityPlugin from 'force-case-sensitivity-webpack-plugin';
+import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import baseConfig from './baseConfig';
 
 const PORT = 8001;
@@ -69,7 +69,7 @@ export default {
   plugins: [
     ...baseConfig.plugins,
     // Prevent naming issues.
-    new ForceCaseSensitivityPlugin(),
+    new CaseSensitivePathsPlugin(),
     // Activates HMR.
     new webpack.HotModuleReplacementPlugin(),
     // Prints more readable module names in the browser console on HMR updates.

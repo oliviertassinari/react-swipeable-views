@@ -22,10 +22,6 @@
     "type": "git",
     "url": "https://github.com/oliviertassinari/react-swipeable-views.git"
   },
-  "dependencies": {
-    "react": "^15.4.2",
-    "react-native": "^0.42.0"
-  },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
     "babel-cli": "^6.23.0",
@@ -42,6 +38,7 @@
     "babel-preset-react-native": "^1.9.1",
     "babel-preset-stage-1": "^6.22.0",
     "babel-runtime": "^6.23.0",
+    "case-sensitive-paths-webpack-plugin": "^2.0.0",
     "chai": "^3.5.0",
     "css-loader": "^0.26.2",
     "enzyme": "^2.7.1",
@@ -54,7 +51,6 @@
     "eslint-plugin-mocha": "^4.8.0",
     "eslint-plugin-react": "^6.10.0",
     "flow-bin": "^0.38.0",
-    "force-case-sensitivity-webpack-plugin": "^0.2.1",
     "glob": "^7.1.1",
     "html-webpack-plugin": "^2.28.0",
     "jsdom": "^9.11.0",
@@ -63,9 +59,11 @@
     "less-loader": "^2.2.1",
     "material-ui": "^0.17.0",
     "mocha": "^3.2.0",
+    "react": "^15.4.1",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-hot-loader": "3.0.0-beta.6",
+    "react-native": "^0.42.3",
     "react-native-button": "^1.8.2",
     "react-tap-event-plugin": "^2.0.1",
     "recompose": "^0.22.0",
