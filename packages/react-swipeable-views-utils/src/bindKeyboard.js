@@ -1,6 +1,7 @@
 // @flow weak
 
-import React, { Component, PropTypes, Children } from 'react';
+import React, { Component, Children } from 'react';
+import PropTypes from 'prop-types';
 import keycode from 'keycode';
 import EventListener from 'react-event-listener';
 import { mod } from 'react-swipeable-views-core';
