@@ -1,11 +1,11 @@
 // @flow weak
 
-import React, { Component, PropTypes } from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { mod } from 'react-swipeable-views-core';
 
 export default function virtualize(MyComponent) {
-  class Virtualize extends Component {
+  class Virtualize extends PureComponent {
     static propTypes = {
       /**
        * @ignore
@@ -83,10 +83,6 @@ export default function virtualize(MyComponent) {
         const indexDiff = index - this.props.index;
         this.setIndex(index, this.state.indexContainer + indexDiff, indexDiff);
       }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-      return shallowCompare(this, nextProps, nextState);
     }
 
     componentWillUnmount() {

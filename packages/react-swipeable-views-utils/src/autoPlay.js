@@ -1,10 +1,9 @@
 // @flow weak
 
-import React, { Component, PropTypes, Children } from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import React, { Component, Children } from 'react';
+import PropTypes from 'prop-types';
+import shallowEqual from 'fbjs/lib/shallowEqual';
 import { mod } from 'react-swipeable-views-core';
-
-const ignore = {};
 
 export default function autoPlay(MyComponent) {
   class AutoPlay extends Component {
@@ -77,18 +76,15 @@ export default function autoPlay(MyComponent) {
     }
 
     componentDidUpdate(prevProps) {
-      const shouldResetInterval = shallowCompare({
-        props: {
-          index: prevProps.index,
-          interval: prevProps.interval,
-          autoplay: prevProps.autoplay,
-        },
-        state: ignore,
+      const shouldResetInterval = !shallowEqual({
+        index: prevProps.index,
+        interval: prevProps.interval,
+        autoplay: prevProps.autoplay,
       }, {
         index: this.props.index,
         interval: this.props.interval,
         autoplay: this.props.autoplay,
-      }, ignore);
+      });
 
       if (shouldResetInterval) {
         this.startInterval();
