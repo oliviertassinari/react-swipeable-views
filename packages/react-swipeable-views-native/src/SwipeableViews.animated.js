@@ -5,7 +5,7 @@
  * I'm keeping the two versions here until we figured out.
  */
 
-import React, { Component, Children } from 'react';
+import React, { Component, Children, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import {
   Animated,
@@ -359,6 +359,11 @@ class SwipeableViews extends Component {
     const slideStyleObj = [styles.slide, slideStyle];
 
     const childrenToRender = Children.map(children, (child) => {
+      warning(
+        isValidElement(child),
+        `react-swipeable-view: one of the children provided is invalid: ${child}.
+We are expecting a valid React Element`);
+
       return (
         <View style={slideStyleObj}>
           {child}
