@@ -5,7 +5,7 @@
  * I'm keeping the two versions here until we figured out.
  */
 
-import React, { Component, Children } from 'react';
+import React, { Component, Children, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
@@ -100,12 +100,12 @@ class SwipeableViews extends Component {
      * This is the inlined style that will be applied
      * on the slide component.
      */
-    slideStyle: View.propTypes,
+    slideStyle: View.propTypes.style,
     /**
      * This is the inlined style that will be applied
      * on the root component.
      */
-    style: View.propTypes,
+    style: View.propTypes.style,
   };
 
   static defaultProps = {
@@ -238,14 +238,19 @@ class SwipeableViews extends Component {
       slideStyle,
     ];
 
-    const childrenToRender = Children.map(children, (element, index) => {
+    const childrenToRender = Children.map(children, (child, index) => {
       if (disabled && indexLatest !== index) {
         return null;
       }
 
+      warning(
+        isValidElement(child),
+        `react-swipeable-view: one of the children provided is invalid: ${child}.
+We are expecting a valid React Element`);
+
       return (
         <View style={slideStyleObj}>
-          {element}
+          {child}
         </View>
       );
     });

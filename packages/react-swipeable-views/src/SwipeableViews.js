@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, { Component, Children } from 'react';
+import React, { Component, Children, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import warning from 'warning';
 import transitionInfo from 'dom-helpers/transition/properties';
@@ -830,8 +830,8 @@ class SwipeableViews extends Component {
       !containerStyleProp ||
       (!containerStyleProp.height && !containerStyleProp.maxHeight && !containerStyleProp.minHeight),
       `react-swipeable-view: You are setting animateHeight to true but you are also providing a custom height.
-      The custom height has a higher priority than the animateHeight property.
-      So animateHeight is most likely having no effect at all.`,
+The custom height has a higher priority than the animateHeight property.
+So animateHeight is most likely having no effect at all.`,
     );
 
     const slideStyle = Object.assign({}, styles.slide, slideStyleProp);
@@ -886,6 +886,11 @@ class SwipeableViews extends Component {
             if (isFirstRender && indexChild > 0) {
               return null;
             }
+
+            warning(
+              isValidElement(child),
+              `react-swipeable-view: one of the children provided is invalid: ${child}.
+We are expecting a valid React Element`);
 
             let ref;
             let hidden = true;
