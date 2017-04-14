@@ -389,7 +389,21 @@ class SwipeableViews extends Component {
     resistance: false,
   };
 
+  static childContextTypes = {
+    refreshSwipeableContainerHeight: PropTypes.func,
+  };
+
   state = {};
+
+  getChildContext() {
+    return {
+      refreshSwipeableContainerHeight: () => {
+        this.setState({
+          heightLatest: this.state.heightLatest + 1,
+        });
+      },
+    };
+  }
 
   componentWillMount() {
     if (process.env.NODE_ENV !== 'production') {
