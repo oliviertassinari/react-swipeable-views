@@ -399,7 +399,7 @@ class SwipeableViews extends Component {
     return {
       refreshSwipeableContainerHeight: () => {
         this.setState({
-          heightLatest: 0,
+          heightLatest: this.state.heightLatest + 1,
         });
       },
     };
