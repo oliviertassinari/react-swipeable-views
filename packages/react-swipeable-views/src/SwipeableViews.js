@@ -389,7 +389,23 @@ class SwipeableViews extends Component {
     resistance: false,
   };
 
+  static childContextTypes = {
+    swipeableViews: PropTypes.shape({
+      slideUpdateHeight: PropTypes.func,
+    }),
+  };
+
   state = {};
+
+  getChildContext() {
+    return {
+      swipeableViews: {
+        slideUpdateHeight: () => {
+          this.updateHeight();
+        },
+      },
+    };
+  }
 
   componentWillMount() {
     if (process.env.NODE_ENV !== 'production') {
@@ -469,6 +485,7 @@ class SwipeableViews extends Component {
   startIndex = 0;
   transitionListener = null;
   touchMoveListener = null;
+  activeSlide = null;
 
   handleSwipeStart = (event) => {
     const { axis } = this.props;
@@ -768,9 +785,9 @@ class SwipeableViews extends Component {
     }
   };
 
-  updateHeight(node) {
-    if (node !== null) {
-      const child = node.children[0];
+  updateHeight() {
+    if (this.activeSlide !== null) {
+      const child = this.activeSlide.children[0];
       if (child !== undefined && child.offsetHeight !== undefined &&
         this.state.heightLatest !== child.offsetHeight) {
         this.setState({
@@ -899,7 +916,10 @@ We are expecting a valid React Element`);
               hidden = false;
 
               if (animateHeight) {
-                ref = (node) => this.updateHeight(node);
+                ref = (node) => {
+                  this.activeSlide = node;
+                  this.updateHeight();
+                };
                 slideStyle.overflowY = 'hidden';
               }
             }

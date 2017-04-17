@@ -1,6 +1,7 @@
 // @flow weak
 
-import React from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 
 const styles = {
@@ -24,6 +25,9 @@ const styles = {
   slide4: {
     backgroundColor: '#FEA900',
   },
+  button: {
+    marginTop: 14,
+  },
 };
 
 const list = [];
@@ -34,6 +38,37 @@ for (let i = 0; i < 30; i += 1) {
       {`item n°${i + 1}`}
     </div>,
   );
+}
+
+class Slide4 extends PureComponent {
+  static contextTypes = {
+    swipeableViews: PropTypes.object.isRequired,
+  };
+
+  state = {
+    large: false,
+  };
+
+  componentDidUpdate() {
+    this.context.swipeableViews.slideUpdateHeight();
+  }
+
+  handleClick = () => {
+    this.setState(() => ({
+      large: !this.state.large,
+    }));
+  };
+
+  render() {
+    return (
+      <div style={Object.assign({}, styles.slide, styles.slide4)}>
+        {list.slice(0, this.state.large ? 8 : 3)}
+        <button onClick={this.handleClick} type="button" style={styles.button}>
+          {this.state.large ? 'Collaspe' : 'Expand'}
+        </button>
+      </div>
+    );
+  }
 }
 
 const DemoAnimateHeight = () => {
@@ -51,9 +86,7 @@ const DemoAnimateHeight = () => {
       <div style={Object.assign({}, styles.slide, styles.slide3)}>
         {list.slice(0, 7)}
       </div>
-      <div style={Object.assign({}, styles.slide, styles.slide4)}>
-        {list.slice(0, 3)}
-      </div>
+      <Slide4 />
     </SwipeableViews>
   );
 };
