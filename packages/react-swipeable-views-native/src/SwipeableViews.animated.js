@@ -163,6 +163,8 @@ class SwipeableViews extends Component {
     });
 
     this.panResponder = PanResponder.create({
+      // So it's working inside a Modal
+      onStartShouldSetPanResponder: () => true,
       // Claim responder if it's a horizontal pan
       onMoveShouldSetPanResponder: (event, gestureState) => {
         const dx = Math.abs(gestureState.dx);
