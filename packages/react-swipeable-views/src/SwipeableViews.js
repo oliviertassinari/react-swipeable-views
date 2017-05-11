@@ -752,6 +752,10 @@ class SwipeableViews extends Component {
   };
 
   handleTransitionEnd() {
+    if (!this.props.onTransitionEnd) {
+      return;
+    }
+
     // Filters out when changing the children
     if (this.state.displaySameSlide) {
       return;
@@ -759,7 +763,7 @@ class SwipeableViews extends Component {
 
     // The rest callback is triggered when swiping. It's just noise.
     // We filter it out.
-    if (this.props.onTransitionEnd && !this.state.isDragging) {
+    if (!this.state.isDragging) {
       this.props.onTransitionEnd();
     }
   }
