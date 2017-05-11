@@ -467,6 +467,12 @@ class SwipeableViews extends Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (!this.props.animateTransitions && prevState.indexCurrent !== this.state.indexCurrent) {
+      this.handleTransitionEnd();
+    }
+  }
+
   componentWillUnmount() {
     this.transitionListener.remove();
     this.touchMoveListener.remove();
