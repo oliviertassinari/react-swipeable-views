@@ -198,14 +198,14 @@ let nodeHowClaimedTheScroll = null;
 export function findNativeHandler(params) {
   const {
     domTreeShapes,
-    indexCurrent,
-    index,
+    pageX,
+    startX,
     axis,
   } = params;
 
   return domTreeShapes.some((shape) => {
     // Determine if we are going backward or forward.
-    let goingForward = index <= indexCurrent;
+    let goingForward = pageX >= startX;
     if (axis === 'x' || axis === 'y') {
       goingForward = !goingForward;
     }
@@ -608,8 +608,8 @@ class SwipeableViews extends Component {
       const domTreeShapes = getDomTreeShapes(event.target, this.rootNode);
       const hasFoundNativeHandler = findNativeHandler({
         domTreeShapes,
-        indexCurrent: this.state.indexCurrent,
-        index,
+        startX: this.startX,
+        pageX: touch.pageX,
         axis,
       });
 
