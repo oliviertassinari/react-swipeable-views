@@ -2,9 +2,8 @@
 /* eslint-disable react/no-multi-comp */
 
 import React, { Component } from 'react';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import SwipeableViews from 'react-swipeable-views';
 import { virtualize, bindKeyboard } from 'react-swipeable-views-utils';
 import { mod } from 'react-swipeable-views-core';
@@ -78,7 +77,7 @@ class DemoVirtualize extends Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme()}>
+      <MuiThemeProvider>
         <div>
           <VirtualizeSwipeableViews
             index={this.state.index}
@@ -86,7 +85,9 @@ class DemoVirtualize extends Component {
             slideRenderer={slideRenderer}
           />
           <br />
-          <FlatButton label="go to slide n°50" onClick={this.handleClick} />
+          <Button onClick={this.handleClick}>
+            {'go to slide n°50'}
+          </Button>
         </div>
       </MuiThemeProvider>
     );
