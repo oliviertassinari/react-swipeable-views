@@ -1,7 +1,11 @@
 [ignore]
+
 ; We fork some components by platform
 .*/*[.]android.js
 .*/node_modules/conventional-changelog-core/.*\.json$
+.*/node_modules/material-ui/.*
+.*/node_modules/jss/.*
+.*/docs/src/demo/.*
 
 ; Ignore "BUCK" generated dirs
 <PROJECT_ROOT>/\.buckd/
