@@ -337,6 +337,14 @@ class SwipeableViews extends Component {
      */
     onTransitionEnd: PropTypes.func,
     /**
+     * If `true`, it will ignore forward swiping.
+     */
+    preventNext: PropTypes.bool,
+    /**
+     * If `true`, it will ignore backward swiping.
+     */
+    preventPrevious: PropTypes.bool,
+    /**
      * If `true`, it will add bounds effect on the edges.
      */
     resistance: PropTypes.bool,
@@ -380,6 +388,8 @@ class SwipeableViews extends Component {
     hysteresis: 0.6,
     ignoreNativeScroll: false,
     index: 0,
+    preventNext: false,
+    preventPrevious: false,
     threshold: 5,
     springConfig: {
       duration: '0.35s',
@@ -555,6 +565,8 @@ class SwipeableViews extends Component {
       children,
       ignoreNativeScroll,
       onSwitching,
+      preventNext,
+      preventPrevious,
       resistance,
     } = this.props;
 
@@ -581,6 +593,11 @@ class SwipeableViews extends Component {
     }
 
     if (this.isSwiping !== true) {
+      return;
+    }
+
+    if ((this.startX - touch.pageX < 0 && preventPrevious) ||
+        (this.startX - touch.pageX > 0 && preventNext)) {
       return;
     }
 
@@ -822,6 +839,8 @@ class SwipeableViews extends Component {
       onChangeIndex, // eslint-disable-line no-unused-vars
       onSwitching, // eslint-disable-line no-unused-vars
       onTransitionEnd, // eslint-disable-line no-unused-vars
+      preventNext,  // eslint-disable-line no-unused-vars
+      preventPrevious,  // eslint-disable-line no-unused-vars
       resistance, // eslint-disable-line no-unused-vars
       slideStyle: slideStyleProp,
       slideClassName,
