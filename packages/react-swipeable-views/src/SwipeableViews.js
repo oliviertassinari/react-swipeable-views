@@ -369,6 +369,10 @@ class SwipeableViews extends Component {
      * If the computed speed is above this value, the index change.
      */
     threshold: PropTypes.number,
+    /**
+     * This is the config used to disable lazyloding
+     */
+    lazyLoading: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -387,6 +391,7 @@ class SwipeableViews extends Component {
       delay: '0s',
     },
     resistance: false,
+    lazyLoading: true
   };
 
   static childContextTypes = {
@@ -416,7 +421,7 @@ class SwipeableViews extends Component {
       indexCurrent: this.props.index,
       indexLatest: this.props.index,
       isDragging: false,
-      isFirstRender: true,
+      isFirstRender: this.props.lazyLoading,
       heightLatest: 0,
     });
   }
