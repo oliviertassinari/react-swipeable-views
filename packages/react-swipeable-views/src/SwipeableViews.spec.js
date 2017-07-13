@@ -2,7 +2,7 @@
 /* eslint-env mocha */
 
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount, shallow, render } from 'enzyme';
 import { assert } from 'chai';
 import { spy, stub } from 'sinon';
 import SwipeableViews, { findNativeHandler, getDomTreeShapes } from './SwipeableViews';
@@ -505,6 +505,44 @@ describe('SwipeableViews', () => {
         2,
         1,
       ]);
+    });
+  });
+
+  describe('disableLazyLoading', () => {
+    it('should render the first child', () => {
+      const wrapper = render(
+        <SwipeableViews>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
+          <div>{'slide n°4'}</div>
+          <div>{'slide n°5'}</div>
+        </SwipeableViews>,
+      );
+
+      assert.strictEqual(
+        wrapper.text(),
+        'slide n°1',
+        'Should render first slide.',
+      );
+    });
+
+    it('should render all children', () => {
+      const wrapper = render(
+        <SwipeableViews disableLazyLoading>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
+          <div>{'slide n°4'}</div>
+          <div>{'slide n°5'}</div>
+        </SwipeableViews>,
+      );
+
+      assert.strictEqual(
+        wrapper.text(),
+        'slide n°1slide n°2slide n°3slide n°4slide n°5',
+        'Should render each slide.',
+      );
     });
   });
 });
