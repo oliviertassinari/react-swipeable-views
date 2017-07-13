@@ -261,7 +261,7 @@ class SwipeableViews extends Component {
      */
     disabled: PropTypes.bool,
     /**
-     * This is the config used to disable lazyloding.
+     * This is the config used to disable lazyloding, if `true` will render all the views in first rendering.
      */
     disableLazyLoading: PropTypes.bool,
     /**
@@ -380,6 +380,7 @@ class SwipeableViews extends Component {
     animateTransitions: true,
     axis: 'x',
     disabled: false,
+    disableLazyLoading: false,
     enableMouseEvents: false,
     hysteresis: 0.6,
     ignoreNativeScroll: false,
@@ -391,7 +392,6 @@ class SwipeableViews extends Component {
       delay: '0s',
     },
     resistance: false,
-    disableLazyLoading: false,
   };
 
   static childContextTypes = {
