@@ -241,11 +241,11 @@ export default MyComponent;
 | children | node | | all | Use this property to provide your slides. |
 | containerStyle | object | `{}` | all | Whether or not the auto complete is animated as it is toggled. |
 | disabled | bool | `false` | all | If `true`, it will disable touch events. This is useful when you want to prohibit the user from changing slides. |
+| disableLazyLoading | bool | false | browser | This is the config used to disable lazyloding, if `true` will render all the views in first rendering |
 | enableMouseEvents | bool | `false` | browser | If `true`, it will enable mouse events. This will allow the user to perform the relevant swipe actions with a mouse. |
 | hysteresis | float | `0.6` | all | Configure hysteresis between slides. This value determines how far should user swipe to switch slide. |
 | ignoreNativeScroll | bool | false | browser | If `true`, it will ignore native scroll container. It can be used to filter out false positive that blocks the swipe. |
 | index | integer | `0` | all | This is the index of the slide to show. This is useful when you want to change the default slide shown. Or when you have tabs linked to each slide. |
-| lazyLoading | bool | true | browser | This is the config used to disable lazyloding, if `false` will render all the views in first rendering |
 | onChangeIndex | function(index, indexLatest) | | all | This is callback prop. It's call by the component when the shown slide change after a swipe made by the user. This is useful when you have tabs linked to each slide. |
 | onSwitching | function(index, type) | | all | This is callback prop. It's called by the component when the slide switching. This is useful when you want to implement something corresponding to the current slide position. |
 | onTransitionEnd | function | | all | The callback that fires when the animation comes to a rest. This is useful to defer CPU intensive task. |

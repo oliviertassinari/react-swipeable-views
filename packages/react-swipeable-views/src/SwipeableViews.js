@@ -261,6 +261,10 @@ class SwipeableViews extends Component {
      */
     disabled: PropTypes.bool,
     /**
+     * This is the config used to disable lazyloding.
+     */
+    disableLazyLoading: PropTypes.bool,
+    /**
      * If `true`, it will enable mouse events.
      * This will allow the user to perform the relevant swipe actions with a mouse.
      */
@@ -369,10 +373,6 @@ class SwipeableViews extends Component {
      * If the computed speed is above this value, the index change.
      */
     threshold: PropTypes.number,
-    /**
-     * This is the config used to disable lazyloding
-     */
-    lazyLoading: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -391,7 +391,7 @@ class SwipeableViews extends Component {
       delay: '0s',
     },
     resistance: false,
-    lazyLoading: true
+    disableLazyLoading: false,
   };
 
   static childContextTypes = {
@@ -421,7 +421,7 @@ class SwipeableViews extends Component {
       indexCurrent: this.props.index,
       indexLatest: this.props.index,
       isDragging: false,
-      isFirstRender: this.props.lazyLoading,
+      isFirstRender: !this.props.disableLazyLoading,
       heightLatest: 0,
     });
   }
@@ -820,6 +820,7 @@ class SwipeableViews extends Component {
       children,
       containerStyle: containerStyleProp,
       disabled,
+      disableLazyLoading,
       enableMouseEvents,
       hysteresis, // eslint-disable-line no-unused-vars
       ignoreNativeScroll, // eslint-disable-line no-unused-vars
