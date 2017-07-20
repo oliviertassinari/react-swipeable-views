@@ -151,17 +151,25 @@ class SwipeableViews extends Component {
       this.setState({
         displaySameSlide,
         indexLatest: index,
-      }, () => {
-        if (this.scrollViewNode) {
-          this.scrollViewNode.scrollTo({
-            x: this.state.viewWidth * index,
-            y: 0,
-            animated: this.props.animateTransitions && !displaySameSlide,
-          });
-        }
+      }, () => this._scrollTo(
+          index,
+          this.props.animateTransitions && !displaySameSlide
+        )
       });
     }
   }
+
+  _scrollTo = (index, animated) => {
+    let toObject = {
+      x: this.state.viewWidth * index,
+      y: 0,
+      animated
+    };
+
+    if (this.scrollViewNode) {
+      this.scrollViewNode.scrollTo(toObject);
+    }
+  };
 
   scrollViewNode = null;
 
@@ -265,7 +273,10 @@ We are expecting a valid React Element`);
         {...other}
       >
         <ScrollView
-          ref={(node) => { this.scrollViewNode = node; }}
+          ref={(node) => { 
+            this.scrollViewNode = node;
+            this._scrollTo(this.props.index, false);
+          }}
           horizontal
           pagingEnabled
           automaticallyAdjustContentInsets={false}
@@ -281,7 +292,7 @@ We are expecting a valid React Element`);
           keyboardDismissMode="on-drag"
           style={[styles.container, containerStyle]}
         >
-          {childrenToRender}
+          {this.scrollViewNode ? childrenToRender : null}
         </ScrollView>
       </View>
     );
