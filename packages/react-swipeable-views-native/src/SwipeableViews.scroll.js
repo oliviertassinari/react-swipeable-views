@@ -159,6 +159,12 @@ class SwipeableViews extends Component {
     }
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      this._scrollTo(this.props.index)
+    }, 1)
+  }
+
   _scrollTo = (index, animated) => {
     let toObject = {
       x: this.state.viewWidth * index,
