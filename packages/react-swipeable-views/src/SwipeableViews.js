@@ -773,7 +773,7 @@ class SwipeableViews extends Component {
     // The rest callback is triggered when swiping. It's just noise.
     // We filter it out.
     if (!this.state.isDragging) {
-      this.props.onTransitionEnd();
+      this.props.onTransitionEnd(this.state.indexCurrent);
     }
   }
 
