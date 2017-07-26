@@ -10,7 +10,7 @@ import virtualize from './virtualize';
 
 const Empty = () => <div />;
 const VirtualizeSwipeableViews = virtualize(Empty);
-const slideRenderer = (params) => {
+const slideRenderer = params => {
   const { key } = params;
 
   return <div key={key} />;
@@ -49,9 +49,7 @@ describe('virtualize', () => {
 
   describe('window', () => {
     it('should use a correct window when mounting', () => {
-      const wrapper = shallow(
-        <VirtualizeSwipeableViews slideRenderer={slideRenderer} />,
-      );
+      const wrapper = shallow(<VirtualizeSwipeableViews slideRenderer={slideRenderer} />);
 
       assert.deepEqual(wrapper.state(), {
         index: 0,
@@ -62,9 +60,7 @@ describe('virtualize', () => {
     });
 
     it('should update the state when swipping forward', () => {
-      const wrapper = shallow(
-        <VirtualizeSwipeableViews slideRenderer={slideRenderer} />,
-      );
+      const wrapper = shallow(<VirtualizeSwipeableViews slideRenderer={slideRenderer} />);
 
       wrapper.find(Empty).simulate('changeIndex', 4, 3);
 
@@ -86,9 +82,7 @@ describe('virtualize', () => {
     });
 
     it('should update the state when swipping backward', () => {
-      const wrapper = shallow(
-        <VirtualizeSwipeableViews slideRenderer={slideRenderer} />,
-      );
+      const wrapper = shallow(<VirtualizeSwipeableViews slideRenderer={slideRenderer} />);
 
       wrapper.find(Empty).simulate('changeIndex', 2, 3);
 
@@ -109,10 +103,8 @@ describe('virtualize', () => {
       });
     });
 
-    it('should update the state when the transition if finished', (done) => {
-      const wrapper = shallow(
-        <VirtualizeSwipeableViews slideRenderer={slideRenderer} />,
-      );
+    it('should update the state when the transition if finished', done => {
+      const wrapper = shallow(<VirtualizeSwipeableViews slideRenderer={slideRenderer} />);
 
       wrapper.find(Empty).simulate('changeIndex', 2, 3);
 
@@ -218,9 +210,7 @@ describe('virtualize', () => {
 
   describe('prop: index', () => {
     it('should be able to control the component', () => {
-      const wrapper = shallow(
-        <VirtualizeSwipeableViews index={1} slideRenderer={slideRenderer} />,
-      );
+      const wrapper = shallow(<VirtualizeSwipeableViews index={1} slideRenderer={slideRenderer} />);
 
       assert.deepEqual(wrapper.state(), {
         index: 1,
@@ -251,9 +241,7 @@ describe('virtualize', () => {
     });
 
     it('should be able to widen the window when going back', () => {
-      const wrapper = shallow(
-        <VirtualizeSwipeableViews index={9} slideRenderer={slideRenderer} />,
-      );
+      const wrapper = shallow(<VirtualizeSwipeableViews index={9} slideRenderer={slideRenderer} />);
 
       wrapper.setProps({
         index: 0,
@@ -268,9 +256,7 @@ describe('virtualize', () => {
     });
 
     it('should be able to widen the window when going forward', () => {
-      const wrapper = shallow(
-        <VirtualizeSwipeableViews index={0} slideRenderer={slideRenderer} />,
-      );
+      const wrapper = shallow(<VirtualizeSwipeableViews index={0} slideRenderer={slideRenderer} />);
 
       wrapper.setProps({
         index: 9,

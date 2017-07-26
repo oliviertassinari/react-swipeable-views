@@ -1,11 +1,7 @@
 // @flow weak
 
 import React, { Component, PropTypes } from 'react';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const styles = StyleSheet.create({
   root: {
@@ -31,14 +27,12 @@ export default class PaginationDot extends Component {
     onClick: PropTypes.func.isRequired,
   };
 
-  handleClick = (event) => {
+  handleClick = event => {
     this.props.onClick(event, this.props.index);
   };
 
   render() {
-    const {
-      active,
-    } = this.props;
+    const { active } = this.props;
 
     let styleDot;
 

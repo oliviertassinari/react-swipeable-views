@@ -1,12 +1,7 @@
 // @flow weak
 
 import React from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  ScrollView,
-  StatusBar,
-} from 'react-native';
+import { AppRegistry, StyleSheet, ScrollView, StatusBar } from 'react-native';
 
 import Main from './Main.native';
 
@@ -16,16 +11,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const App = () => (
+const App = () =>
   <ScrollView style={styles.root}>
-    <StatusBar
-      backgroundColor="#0F3D6C"
-      translucent
-      barStyle="light-content"
-    />
+    <StatusBar backgroundColor="#0F3D6C" translucent barStyle="light-content" />
     <Main />
-  </ScrollView>
-);
+  </ScrollView>;
 
 export default {
   start() {

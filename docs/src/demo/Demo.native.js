@@ -2,11 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
   name: {
@@ -22,12 +18,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const Demo = (props) => {
-  const {
-    name,
-    description,
-    children,
-  } = props;
+const Demo = props => {
+  const { name, description, children } = props;
 
   return (
     <View>

@@ -2,11 +2,7 @@
 /* eslint-disable react/no-multi-comp */
 
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-} from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import SwipeableViews from '../../../packages/react-swipeable-views-native/src';
 import { virtualize } from '../../../packages/react-swipeable-views-utils/src';
 import { mod } from '../../../packages/react-swipeable-views-core/src';
@@ -34,10 +30,7 @@ const styles = StyleSheet.create({
 });
 
 function slideRenderer(params) {
-  const {
-    index,
-    key,
-  } = params;
+  const { index, key } = params;
   let style;
 
   switch (mod(index, 3)) {
@@ -71,7 +64,7 @@ class DemoVirtualize extends Component {
     index: 0,
   };
 
-  handleChangeIndex = (index) => {
+  handleChangeIndex = index => {
     this.setState({
       index,
     });

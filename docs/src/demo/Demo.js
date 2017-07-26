@@ -20,12 +20,8 @@ const styles = {
   },
 };
 
-const Demo = (props) => {
-  const {
-    children,
-    description,
-    name,
-  } = props;
+const Demo = props => {
+  const { children, description, name } = props;
 
   return (
     <div>
@@ -38,8 +34,7 @@ const Demo = (props) => {
           <span className="pl-id">
             <br />
             You need a touch device to swipe between the 3 slides.
-          </span>
-        }
+          </span>}
       </p>
       {children}
     </div>

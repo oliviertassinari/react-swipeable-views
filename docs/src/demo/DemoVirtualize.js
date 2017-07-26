@@ -3,7 +3,6 @@
 
 import React, { Component } from 'react';
 import Button from 'material-ui/Button';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import SwipeableViews from 'react-swipeable-views';
 import { virtualize, bindKeyboard } from 'react-swipeable-views-utils';
 import { mod } from 'react-swipeable-views-core';
@@ -28,10 +27,7 @@ const styles = {
 };
 
 function slideRenderer(params) {
-  const {
-    index,
-    key,
-  } = params;
+  const { index, key } = params;
   let style;
 
   switch (mod(index, 3)) {
@@ -63,7 +59,7 @@ class DemoVirtualize extends Component {
     index: 0,
   };
 
-  handleChangeIndex = (index) => {
+  handleChangeIndex = index => {
     this.setState({
       index,
     });
@@ -77,22 +73,19 @@ class DemoVirtualize extends Component {
 
   render() {
     return (
-      <MuiThemeProvider>
-        <div>
-          <VirtualizeSwipeableViews
-            index={this.state.index}
-            onChangeIndex={this.handleChangeIndex}
-            slideRenderer={slideRenderer}
-          />
-          <br />
-          <Button onClick={this.handleClick}>
-            {'go to slide n°50'}
-          </Button>
-        </div>
-      </MuiThemeProvider>
+      <div>
+        <VirtualizeSwipeableViews
+          index={this.state.index}
+          onChangeIndex={this.handleChangeIndex}
+          slideRenderer={slideRenderer}
+        />
+        <br />
+        <Button onClick={this.handleClick}>
+          {'go to slide n°50'}
+        </Button>
+      </div>
     );
   }
 }
-
 
 export default DemoVirtualize;

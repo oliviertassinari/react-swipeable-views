@@ -7,18 +7,11 @@
 
 import React, { Component, Children, isValidElement } from 'react';
 import PropTypes from 'prop-types';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Dimensions,
-} from 'react-native';
+import { StyleSheet, View, ScrollView, Dimensions } from 'react-native';
 import warning from 'warning';
 import { checkIndexBounds, getDisplaySameSlide } from 'react-swipeable-views-core';
 
-const {
-  width: windowWidth,
-} = Dimensions.get('window');
+const { width: windowWidth } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   root: {
@@ -81,7 +74,8 @@ class SwipeableViews extends Component {
     /**
      * This is callback prop. It's called by the
      * component when the slide switching.
-     * This is useful when you want to implement something corresponding to the current slide position.
+     * This is useful when you want to implement something
+     * corresponding to the current slide position.
      *
      * @param {integer} index This is the current index of the slide.
      * @param {string} type Can be either `move` or `end`.
@@ -130,15 +124,15 @@ class SwipeableViews extends Component {
       },
     });
 
-    warning(!this.props.animateHeight,
-      'react-swipeable-view: The animateHeight property is not implement yet.');
+    warning(
+      !this.props.animateHeight,
+      'react-swipeable-view: The animateHeight property is not implement yet.',
+    );
     warning(!this.props.axis, 'react-swipeable-view: The axis property is not implement yet.');
   }
 
   componentWillReceiveProps(nextProps) {
-    const {
-      index,
-    } = nextProps;
+    const { index } = nextProps;
 
     if (typeof index === 'number' && index !== this.props.index) {
       if (process.env.NODE_ENV !== 'production') {
@@ -148,24 +142,27 @@ class SwipeableViews extends Component {
       // If true, we are going to change the children. We shoudn't animate it.
       const displaySameSlide = getDisplaySameSlide(this.props, nextProps);
 
-      this.setState({
-        displaySameSlide,
-        indexLatest: index,
-      }, () => {
-        if (this.scrollViewNode) {
-          this.scrollViewNode.scrollTo({
-            x: this.state.viewWidth * index,
-            y: 0,
-            animated: this.props.animateTransitions && !displaySameSlide,
-          });
-        }
-      });
+      this.setState(
+        {
+          displaySameSlide,
+          indexLatest: index,
+        },
+        () => {
+          if (this.scrollViewNode) {
+            this.scrollViewNode.scrollTo({
+              x: this.state.viewWidth * index,
+              y: 0,
+              animated: this.props.animateTransitions && !displaySameSlide,
+            });
+          }
+        },
+      );
     }
   }
 
   scrollViewNode = null;
 
-  handleScroll = (event) => {
+  handleScroll = event => {
     // Filters out when changing the children
     if (this.state.displaySameSlide) {
       return;
@@ -176,31 +173,32 @@ class SwipeableViews extends Component {
     }
   };
 
-  handleMomentumScrollEnd = (event) => {
+  handleMomentumScrollEnd = event => {
     const indexNew = event.nativeEvent.contentOffset.x / this.state.viewWidth;
     const indexLatest = this.state.indexLatest;
 
-    this.setState({
-      indexLatest: indexNew,
-    }, () => {
-      if (this.props.onSwitching) {
-        this.props.onSwitching(indexNew, 'end');
-      }
+    this.setState(
+      {
+        indexLatest: indexNew,
+      },
+      () => {
+        if (this.props.onSwitching) {
+          this.props.onSwitching(indexNew, 'end');
+        }
 
-      if (this.props.onChangeIndex && indexNew !== indexLatest) {
-        this.props.onChangeIndex(indexNew, indexLatest);
-      }
+        if (this.props.onChangeIndex && indexNew !== indexLatest) {
+          this.props.onChangeIndex(indexNew, indexLatest);
+        }
 
-      if (this.props.onTransitionEnd) {
-        this.props.onTransitionEnd();
-      }
-    });
+        if (this.props.onTransitionEnd) {
+          this.props.onTransitionEnd();
+        }
+      },
+    );
   };
 
-  handleLayout = (event) => {
-    const {
-      width,
-    } = event.nativeEvent.layout;
+  handleLayout = event => {
+    const { width } = event.nativeEvent.layout;
 
     if (width) {
       this.setState({
@@ -224,11 +222,7 @@ class SwipeableViews extends Component {
       ...other
     } = this.props;
 
-    const {
-      viewWidth,
-      indexLatest,
-      offset,
-    } = this.state;
+    const { viewWidth, indexLatest, offset } = this.state;
 
     const slideStyleObj = [
       styles.slide,
@@ -246,7 +240,8 @@ class SwipeableViews extends Component {
       warning(
         isValidElement(child),
         `react-swipeable-view: one of the children provided is invalid: ${child}.
-We are expecting a valid React Element`);
+We are expecting a valid React Element`,
+      );
 
       return (
         <View style={slideStyleObj}>
@@ -256,16 +251,11 @@ We are expecting a valid React Element`);
     });
 
     return (
-      <View
-        onLayout={this.handleLayout}
-        style={[
-          styles.root,
-          style,
-        ]}
-        {...other}
-      >
+      <View onLayout={this.handleLayout} style={[styles.root, style]} {...other}>
         <ScrollView
-          ref={(node) => { this.scrollViewNode = node; }}
+          ref={node => {
+            this.scrollViewNode = node;
+          }}
           horizontal
           pagingEnabled
           automaticallyAdjustContentInsets={false}

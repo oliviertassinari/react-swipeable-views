@@ -26,10 +26,7 @@ const styles = {
 };
 
 function slideRenderer(params) {
-  const {
-    index,
-    key,
-  } = params;
+  const { index, key } = params;
   let style;
 
   switch (mod(index, 3)) {
@@ -56,8 +53,6 @@ function slideRenderer(params) {
   );
 }
 
-const DemoHocs = () => (
-  <EnhancedSwipeableViews slideCount={10} slideRenderer={slideRenderer} />
-);
+const DemoHocs = () => <EnhancedSwipeableViews slideCount={10} slideRenderer={slideRenderer} />;
 
 export default DemoHocs;

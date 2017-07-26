@@ -3,12 +3,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Head = (props) => {
-  const {
-    children,
-    description,
-    name,
-  } = props;
+const Head = props => {
+  const { children, description, name } = props;
 
   return (
     <section className="page-header">

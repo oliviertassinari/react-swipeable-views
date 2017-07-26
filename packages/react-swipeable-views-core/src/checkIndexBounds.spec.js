@@ -12,10 +12,7 @@ describe('checkIndexBounds', () => {
   let consoleStub;
 
   beforeEach(() => {
-    children = [
-      <div key="1" />,
-      <div key="2" />,
-    ];
+    children = [<div key="1" />, <div key="2" />];
     consoleStub = stub(console, 'error');
   });
 
@@ -37,7 +34,9 @@ describe('checkIndexBounds', () => {
       children,
     });
     assert.strictEqual(consoleStub.callCount, 1);
-    assert.strictEqual(consoleStub.args[0][0],
-      'Warning: react-swipeable-view: the new index: 3 is out of bounds: [0-2].');
+    assert.strictEqual(
+      consoleStub.args[0][0],
+      'Warning: react-swipeable-view: the new index: 3 is out of bounds: [0-2].',
+    );
   });
 });

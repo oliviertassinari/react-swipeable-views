@@ -30,14 +30,12 @@ export default class PaginationDot extends Component {
     onClick: PropTypes.func.isRequired,
   };
 
-  handleClick = (event) => {
+  handleClick = event => {
     this.props.onClick(event, this.props.index);
   };
 
   render() {
-    const {
-      active,
-    } = this.props;
+    const { active } = this.props;
 
     let styleDot;
 

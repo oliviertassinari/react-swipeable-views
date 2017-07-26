@@ -9,11 +9,7 @@ describe('computeIndex', () => {
   let children;
 
   beforeEach(() => {
-    children = [
-      <div key="1" />,
-      <div key="2" />,
-      <div key="3" />,
-    ];
+    children = [<div key="1" />, <div key="2" />, <div key="3" />];
   });
 
   it('should compute the next index correctly', () => {

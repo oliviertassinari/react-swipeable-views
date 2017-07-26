@@ -5,6 +5,7 @@
 .*/node_modules/conventional-changelog-core/.*\.json$
 .*/node_modules/material-ui/.*
 .*/node_modules/jss/.*
+.*/node_modules/babel-plugin-transform-react-remove-prop-types/.*
 .*/docs/src/demo/.*
 
 ; Ignore "BUCK" generated dirs

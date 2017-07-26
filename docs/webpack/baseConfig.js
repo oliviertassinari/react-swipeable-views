@@ -4,9 +4,7 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
-  entry: [
-    './docs/src/app.js',
-  ],
+  entry: ['./docs/src/app.js'],
   output: {
     pathinfo: false,
     path: path.join(__dirname, '../dist'), // No used by webpack dev server
@@ -17,12 +15,15 @@ export default {
   resolve: {
     extensions: ['.js'],
     alias: {
-      'react-swipeable-views': path.resolve(__dirname,
-        '../../packages/react-swipeable-views/src'),
-      'react-swipeable-views-core': path.resolve(__dirname,
-        '../../packages/react-swipeable-views-core/src'),
-      'react-swipeable-views-utils': path.resolve(__dirname,
-        '../../packages/react-swipeable-views-utils/src'),
+      'react-swipeable-views': path.resolve(__dirname, '../../packages/react-swipeable-views/src'),
+      'react-swipeable-views-core': path.resolve(
+        __dirname,
+        '../../packages/react-swipeable-views-core/src',
+      ),
+      'react-swipeable-views-utils': path.resolve(
+        __dirname,
+        '../../packages/react-swipeable-views-utils/src',
+      ),
     },
   },
   module: {
