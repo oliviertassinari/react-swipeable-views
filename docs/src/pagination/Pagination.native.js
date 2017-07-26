@@ -1,10 +1,7 @@
 // @flow weak
 
 import React, { Component, PropTypes } from 'react';
-import {
-  StyleSheet,
-  View,
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import PaginationDot from './PaginationDot.native';
 
@@ -29,21 +26,13 @@ export default class Pagination extends Component {
   };
 
   render() {
-    const {
-      index,
-      dots,
-    } = this.props;
+    const { index, dots } = this.props;
 
     const children = [];
 
     for (let i = 0; i < dots; i += 1) {
       children.push(
-        <PaginationDot
-          key={i}
-          index={i}
-          active={i === index}
-          onClick={this.handleClick}
-        />,
+        <PaginationDot key={i} index={i} active={i === index} onClick={this.handleClick} />,
       );
     }
 

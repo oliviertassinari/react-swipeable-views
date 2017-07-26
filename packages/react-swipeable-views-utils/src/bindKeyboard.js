@@ -40,9 +40,7 @@ export default function bindKeyboard(MyComponent) {
     }
 
     componentWillReceiveProps(nextProps) {
-      const {
-        index,
-      } = nextProps;
+      const { index } = nextProps;
 
       if (typeof index === 'number' && index !== this.props.index) {
         this.setState({
@@ -51,14 +49,9 @@ export default function bindKeyboard(MyComponent) {
       }
     }
 
-    handleKeyDown = (event) => {
+    handleKeyDown = event => {
       let action;
-      const {
-        axis = 'x',
-        children,
-        onChangeIndex,
-        slideCount,
-      } = this.props;
+      const { axis = 'x', children, onChangeIndex, slideCount } = this.props;
 
       switch (keycode(event)) {
         case 'page down':
@@ -146,17 +139,11 @@ export default function bindKeyboard(MyComponent) {
         ...other
       } = this.props;
 
-      const {
-        index,
-      } = this.state;
+      const { index } = this.state;
 
       return (
         <EventListener target="window" onKeyDown={this.handleKeyDown}>
-          <MyComponent
-            index={index}
-            onChangeIndex={this.handleChangeIndex}
-            {...other}
-          />
+          <MyComponent index={index} onChangeIndex={this.handleChangeIndex} {...other} />
         </EventListener>
       );
     }

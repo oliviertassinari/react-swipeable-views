@@ -22,27 +22,18 @@ import Footer from './Footer';
 
 injectTapEventPlugin();
 
-const Main = () => (
+const Main = () =>
   <div>
-    <Head
-      name="React swipeable views"
-      description="A React component for swipeable views"
-    >
+    <Head name="React swipeable views" description="A React component for swipeable views">
       <a className="btn" href="https://github.com/oliviertassinari/react-swipeable-views">
         View on GitHub
       </a>
     </Head>
     <Body>
-      <Demo
-        name="Demo 1"
-        description="A Simple case."
-      >
+      <Demo name="Demo 1" description="A Simple case.">
         <DemoSimple />
       </Demo>
-      <Demo
-        name="Demo 2"
-        description="With a header."
-      >
+      <Demo name="Demo 2" description="With a header.">
         <DemoTabs />
       </Demo>
       <Demo
@@ -51,64 +42,34 @@ const Main = () => (
       >
         <DemoScroll />
       </Demo>
-      <Demo
-        name="Demo 4"
-        description="The container responds dynamically to its children."
-      >
+      <Demo name="Demo 4" description="The container responds dynamically to its children.">
         <DemoAnimateHeight />
       </Demo>
-      <Demo
-        name="Demo 5"
-        description="With a resistance bounds effet on the edges."
-      >
+      <Demo name="Demo 5" description="With a resistance bounds effet on the edges.">
         <DemoResitance />
       </Demo>
-      <Demo
-        name="Demo 6"
-        description="With nested swipeable-view component."
-      >
+      <Demo name="Demo 6" description="With nested swipeable-view component.">
         <DemoNested />
       </Demo>
-      <Demo
-        name="Demo 7"
-        description="With the auto play HOC."
-      >
+      <Demo name="Demo 7" description="With the auto play HOC.">
         <DemoAutoPlay />
       </Demo>
-      <Demo
-        name="Demo 8"
-        description="With the virtualize HOC."
-      >
+      <Demo name="Demo 8" description="With the virtualize HOC.">
         <DemoVirtualize />
       </Demo>
-      <Demo
-        name="Demo 9"
-        description="Swipe up and down."
-      >
+      <Demo name="Demo 9" description="Swipe up and down.">
         <DemoAxis />
       </Demo>
-      <Demo
-        name="Demo 10"
-        description="With a keyboard binding."
-      >
+      <Demo name="Demo 10" description="With a keyboard binding.">
         <DemoKeyboard />
       </Demo>
-      <Demo
-        name="Demo 11"
-        description="With all the HOCs."
-      >
+      <Demo name="Demo 11" description="With all the HOCs.">
         <DemoHocs />
       </Demo>
-      <Demo
-        name="Demo 12"
-        description="Custom width of slides."
-      >
+      <Demo name="Demo 12" description="Custom width of slides.">
         <DemoWidth />
       </Demo>
-      <Demo
-        name="Demo 13"
-        description="Right-to-left direction"
-      >
+      <Demo name="Demo 13" description="Right-to-left direction">
         <DemoRtl />
       </Demo>
       <Footer
@@ -118,7 +79,6 @@ const Main = () => (
         repositoryUrl="https://github.com/oliviertassinari/react-swipeable-views"
       />
     </Body>
-  </div>
-);
+  </div>;
 
 export default Main;

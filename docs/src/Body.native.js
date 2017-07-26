@@ -2,10 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  StyleSheet,
-  View,
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 const styles = StyleSheet.create({
   root: {
@@ -13,10 +10,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const Body = (props) => {
-  const {
-    children,
-  } = props;
+const Body = props => {
+  const { children } = props;
 
   return (
     <View style={styles.root}>

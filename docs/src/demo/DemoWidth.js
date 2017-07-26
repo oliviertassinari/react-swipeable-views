@@ -26,18 +26,11 @@ const styles = {
   },
 };
 
-const DemoWidth = () => (
+const DemoWidth = () =>
   <SwipeableViews style={styles.root} slideStyle={styles.slideContainer}>
-    <div style={Object.assign({}, styles.slide, styles.slide1)}>
-      slide n°1
-    </div>
-    <div style={Object.assign({}, styles.slide, styles.slide2)}>
-      slide n°2
-    </div>
-    <div style={Object.assign({}, styles.slide, styles.slide3)}>
-      slide n°3
-    </div>
-  </SwipeableViews>
-);
+    <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
+    <div style={Object.assign({}, styles.slide, styles.slide2)}>slide n°2</div>
+    <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
+  </SwipeableViews>;
 
 export default DemoWidth;

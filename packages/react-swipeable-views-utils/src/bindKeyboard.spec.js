@@ -17,9 +17,15 @@ describe('bindKeyboard', () => {
   beforeEach(() => {
     wrapper = shallow(
       <BindKeyboardSwipeableViews>
-        <div>{'slide n°1'}</div>
-        <div>{'slide n°2'}</div>
-        <div>{'slide n°3'}</div>
+        <div>
+          {'slide n°1'}
+        </div>
+        <div>
+          {'slide n°2'}
+        </div>
+        <div>
+          {'slide n°3'}
+        </div>
       </BindKeyboardSwipeableViews>,
     );
   });
@@ -75,10 +81,12 @@ describe('bindKeyboard', () => {
         keyCode: keycode('right'),
       });
 
-      assert.strictEqual(handleChangeIndex.callCount, 1, 'Should be called the right number of time.');
-      assert.deepEqual(handleChangeIndex.args, [
-        [1, 0],
-      ]);
+      assert.strictEqual(
+        handleChangeIndex.callCount,
+        1,
+        'Should be called the right number of time.',
+      );
+      assert.deepEqual(handleChangeIndex.args, [[1, 0]]);
     });
 
     it('should be called with the right value when swiping', () => {
@@ -89,9 +97,7 @@ describe('bindKeyboard', () => {
         onChangeIndex: handleChangeIndex,
       });
       wrapper.find(Empty).simulate('changeIndex', 1, 0);
-      assert.deepEqual(handleChangeIndex.args, [
-        [1, 0],
-      ]);
+      assert.deepEqual(handleChangeIndex.args, [[1, 0]]);
       assert.strictEqual(wrapper.state().index, 0, 'should no update the state index');
     });
   });

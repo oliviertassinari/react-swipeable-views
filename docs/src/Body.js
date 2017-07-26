@@ -9,10 +9,8 @@ const styles = {
   },
 };
 
-const Body = (props) => {
-  const {
-    children,
-  } = props;
+const Body = props => {
+  const { children } = props;
 
   return (
     <div style={styles.root}>

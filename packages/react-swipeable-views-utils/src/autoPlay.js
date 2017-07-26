@@ -19,10 +19,7 @@ export default function autoPlay(MyComponent) {
       /**
        * This is the auto play direction.
        */
-      direction: PropTypes.oneOf([
-        'incremental',
-        'decremental',
-      ]),
+      direction: PropTypes.oneOf(['incremental', 'decremental']),
       /**
        * @ignore
        */
@@ -64,9 +61,7 @@ export default function autoPlay(MyComponent) {
     }
 
     componentWillReceiveProps(nextProps) {
-      const {
-        index,
-      } = nextProps;
+      const { index } = nextProps;
 
       if (typeof index === 'number' && index !== this.props.index) {
         this.setState({
@@ -76,15 +71,18 @@ export default function autoPlay(MyComponent) {
     }
 
     componentDidUpdate(prevProps) {
-      const shouldResetInterval = !shallowEqual({
-        index: prevProps.index,
-        interval: prevProps.interval,
-        autoplay: prevProps.autoplay,
-      }, {
-        index: this.props.index,
-        interval: this.props.interval,
-        autoplay: this.props.autoplay,
-      });
+      const shouldResetInterval = !shallowEqual(
+        {
+          index: prevProps.index,
+          interval: prevProps.interval,
+          autoplay: prevProps.autoplay,
+        },
+        {
+          index: this.props.index,
+          interval: this.props.interval,
+          autoplay: this.props.autoplay,
+        },
+      );
 
       if (shouldResetInterval) {
         this.startInterval();
@@ -98,10 +96,7 @@ export default function autoPlay(MyComponent) {
     timer = null;
 
     startInterval() {
-      const {
-        autoplay,
-        interval,
-      } = this.props;
+      const { autoplay, interval } = this.props;
 
       clearInterval(this.timer);
 
@@ -111,12 +106,7 @@ export default function autoPlay(MyComponent) {
     }
 
     handleInterval = () => {
-      const {
-        children,
-        direction,
-        onChangeIndex,
-        slideCount,
-      } = this.props;
+      const { children, direction, onChangeIndex, slideCount } = this.props;
 
       const indexLatest = this.state.index;
       let indexNew = indexLatest;
@@ -179,17 +169,10 @@ export default function autoPlay(MyComponent) {
         ...other
       } = this.props;
 
-      const {
-        index,
-      } = this.state;
+      const { index } = this.state;
 
       if (!autoplay) {
-        return (
-          <MyComponent
-            index={index}
-            {...other}
-          />
-        );
+        return <MyComponent index={index} {...other} />;
       }
 
       return (

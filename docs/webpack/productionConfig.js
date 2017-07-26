@@ -7,19 +7,20 @@ export default {
   ...baseConfig,
   module: {
     rules: [
-      ...baseConfig.module.rules.map((rule) => {
+      ...baseConfig.module.rules.map(rule => {
         if (rule.loader === 'babel-loader') {
           return {
             ...rule,
             query: {
               presets: [
-                ['es2015', {
-                  modules: false,
-                }],
+                [
+                  'es2015',
+                  {
+                    modules: false,
+                  },
+                ],
               ],
-              plugins: [
-                'transform-class-properties',
-              ],
+              plugins: ['transform-class-properties'],
             },
           };
         }

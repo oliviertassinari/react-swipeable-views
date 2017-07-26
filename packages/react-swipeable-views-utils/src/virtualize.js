@@ -75,9 +75,7 @@ export default function virtualize(MyComponent) {
     }
 
     componentWillReceiveProps(nextProps) {
-      const {
-        index,
-      } = nextProps;
+      const { index } = nextProps;
 
       if (typeof index === 'number' && index !== this.props.index) {
         const indexDiff = index - this.props.index;
@@ -92,10 +90,7 @@ export default function virtualize(MyComponent) {
     timer = null;
 
     handleChangeIndex = (indexContainer, indexLatest) => {
-      const {
-        slideCount,
-        onChangeIndex,
-      } = this.props;
+      const { slideCount, onChangeIndex } = this.props;
 
       const indexDiff = indexContainer - indexLatest;
       let index = this.state.index + indexDiff;
@@ -134,8 +129,10 @@ export default function virtualize(MyComponent) {
       };
 
       // We are going forward, let's render one more slide ahead.
-      if (indexDiff > 0 &&
-        (!this.props.slideCount || nextState.indexStop < this.props.slideCount - 1)) {
+      if (
+        indexDiff > 0 &&
+        (!this.props.slideCount || nextState.indexStop < this.props.slideCount - 1)
+      ) {
         nextState.indexStop += 1;
       }
 
@@ -156,9 +153,7 @@ export default function virtualize(MyComponent) {
     }
 
     setWindow(index = this.state.index) {
-      const {
-        slideCount,
-      } = this.props;
+      const { slideCount } = this.props;
 
       let beforeAhead = this.props.overscanSlideBefore;
       let afterAhead = this.props.overscanSlideAfter;
@@ -192,19 +187,17 @@ export default function virtualize(MyComponent) {
         ...other
       } = this.props;
 
-      const {
-        indexContainer,
-        indexStart,
-        indexStop,
-      } = this.state;
+      const { indexContainer, indexStart, indexStop } = this.state;
 
       const slides = [];
 
       for (let slideIndex = indexStart; slideIndex <= indexStop; slideIndex += 1) {
-        slides.push(slideRenderer({
-          index: slideIndex,
-          key: slideIndex,
-        }));
+        slides.push(
+          slideRenderer({
+            index: slideIndex,
+            key: slideIndex,
+          }),
+        );
       }
 
       return (

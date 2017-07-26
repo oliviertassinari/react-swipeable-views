@@ -43,20 +43,20 @@ export default {
   },
   module: {
     rules: [
-      ...baseConfig.module.rules.map((rule) => {
+      ...baseConfig.module.rules.map(rule => {
         if (rule.loader === 'babel-loader') {
           return {
             ...rule,
             query: {
               presets: [
-                ['es2015', {
-                  modules: false,
-                }],
+                [
+                  'es2015',
+                  {
+                    modules: false,
+                  },
+                ],
               ],
-              plugins: [
-                'react-hot-loader/babel',
-                'transform-class-properties',
-              ],
+              plugins: ['react-hot-loader/babel', 'transform-class-properties'],
             },
           };
         }

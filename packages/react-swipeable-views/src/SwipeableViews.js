@@ -6,7 +6,12 @@ import warning from 'warning';
 import transitionInfo from 'dom-helpers/transition/properties';
 import addEventListener from 'dom-helpers/events/on';
 import removeEventListener from 'dom-helpers/events/off';
-import { constant, checkIndexBounds, computeIndex, getDisplaySameSlide } from 'react-swipeable-views-core';
+import {
+  constant,
+  checkIndexBounds,
+  computeIndex,
+  getDisplaySameSlide,
+} from 'react-swipeable-views-core';
 
 function addEventListenerEnhanced(node, event, handler, options) {
   addEventListener(node, event, handler, options);
@@ -75,10 +80,10 @@ const axisProperties = {
     'y-reverse': 'column-reverse',
   },
   transform: {
-    x: (translate) => `translate(${-translate}%, 0)`,
-    'x-reverse': (translate) => `translate(${translate}%, 0)`,
-    y: (translate) => `translate(0, ${-translate}%)`,
-    'y-reverse': (translate) => `translate(0, ${translate}%)`,
+    x: translate => `translate(${-translate}%, 0)`,
+    'x-reverse': translate => `translate(${translate}%, 0)`,
+    y: translate => `translate(0, ${-translate}%)`,
+    'y-reverse': translate => `translate(0, ${translate}%)`,
   },
   length: {
     x: 'width',
@@ -125,11 +130,7 @@ const axisProperties = {
 };
 
 function createTransition(property, options) {
-  const {
-    duration,
-    easeFunction,
-    delay,
-  } = options;
+  const { duration, easeFunction, delay } = options;
 
   return `${property} ${duration} ${easeFunction} ${delay}`;
 }
@@ -139,8 +140,8 @@ function applyRotationMatrix(touch, axis) {
   const rotationMatrix = axisProperties.rotationMatrix[axis];
 
   return {
-    pageX: (rotationMatrix.x[0] * touch.pageX) + (rotationMatrix.x[1] * touch.pageY),
-    pageY: (rotationMatrix.y[0] * touch.pageX) + (rotationMatrix.y[1] * touch.pageY),
+    pageX: rotationMatrix.x[0] * touch.pageX + rotationMatrix.x[1] * touch.pageY,
+    pageY: rotationMatrix.y[0] * touch.pageX + rotationMatrix.y[1] * touch.pageY,
   };
 }
 
@@ -196,14 +197,9 @@ export function getDomTreeShapes(element, rootNode) {
 let nodeHowClaimedTheScroll = null;
 
 export function findNativeHandler(params) {
-  const {
-    domTreeShapes,
-    pageX,
-    startX,
-    axis,
-  } = params;
+  const { domTreeShapes, pageX, startX, axis } = params;
 
-  return domTreeShapes.some((shape) => {
+  return domTreeShapes.some(shape => {
     // Determine if we are going backward or forward.
     let goingForward = pageX >= startX;
     if (axis === 'x' || axis === 'y') {
@@ -213,13 +209,11 @@ export function findNativeHandler(params) {
     const scrollPosition = shape[axisProperties.scrollPosition[axis]];
 
     const areNotAtStart = scrollPosition > 0;
-    const areNotAtEnd = scrollPosition +
-      shape[axisProperties.clientLength[axis]] < shape[axisProperties.scrollLength[axis]];
+    const areNotAtEnd =
+      scrollPosition + shape[axisProperties.clientLength[axis]] <
+      shape[axisProperties.scrollLength[axis]];
 
-    if (
-      (goingForward && areNotAtEnd) ||
-      (!goingForward && areNotAtStart)
-    ) {
+    if ((goingForward && areNotAtEnd) || (!goingForward && areNotAtStart)) {
       nodeHowClaimedTheScroll = shape.element;
       return true;
     }
@@ -261,7 +255,8 @@ class SwipeableViews extends Component {
      */
     disabled: PropTypes.bool,
     /**
-     * This is the config used to disable lazyloding, if `true` will render all the views in first rendering.
+     * This is the config used to disable lazyloding,
+     * if `true` will render all the views in first rendering.
      */
     disableLazyLoading: PropTypes.bool,
     /**
@@ -317,7 +312,8 @@ class SwipeableViews extends Component {
     /**
      * This is callback prop. It's called by the
      * component when the slide switching.
-     * This is useful when you want to implement something corresponding to the current slide position.
+     * This is useful when you want to implement something corresponding
+     * to the current slide position.
      *
      * @param {integer} index This is the current index of the slide.
      * @param {string} type Can be either `move` or `end`.
@@ -428,25 +424,33 @@ class SwipeableViews extends Component {
 
   componentDidMount() {
     // Subscribe to transition end events.
-    this.transitionListener = addEventListenerEnhanced(this.containerNode, transitionInfo.end, (event) => {
-      if (event.target !== this.containerNode) {
-        return;
-      }
+    this.transitionListener = addEventListenerEnhanced(
+      this.containerNode,
+      transitionInfo.end,
+      event => {
+        if (event.target !== this.containerNode) {
+          return;
+        }
 
-      this.handleTransitionEnd();
-    });
+        this.handleTransitionEnd();
+      },
+    );
 
     // Block the thread to handle that event.
-    this.touchMoveListener = addEventListenerEnhanced(this.rootNode, 'touchmove',
-      (event) => {
+    this.touchMoveListener = addEventListenerEnhanced(
+      this.rootNode,
+      'touchmove',
+      event => {
         // Handling touch events is disabled.
         if (this.props.disabled) {
           return;
         }
         this.handleSwipeMove(event);
-      }, {
+      },
+      {
         passive: false,
-      });
+      },
+    );
 
     /* eslint-disable react/no-did-mount-set-state */
     this.setState({
@@ -458,9 +462,7 @@ class SwipeableViews extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {
-      index,
-    } = nextProps;
+    const { index } = nextProps;
 
     if (typeof index === 'number' && index !== this.props.index) {
       if (process.env.NODE_ENV !== 'production') {
@@ -502,10 +504,11 @@ class SwipeableViews extends Component {
   touchMoveListener = null;
   activeSlide = null;
 
-  handleSwipeStart = (event) => {
+  handleSwipeStart = event => {
     const { axis } = this.props;
 
-    // Latency and rapid rerenders on some devices can leave a period where rootNode briefly equals null
+    // Latency and rapid rerenders on some devices can leave
+    // a period where rootNode briefly equals null.
     if (this.rootNode === null) {
       return;
     }
@@ -521,27 +524,31 @@ class SwipeableViews extends Component {
     this.started = true;
 
     const computedStyle = window.getComputedStyle(this.containerNode);
-    const transform = computedStyle.getPropertyValue('-webkit-transform') ||
+    const transform =
+      computedStyle.getPropertyValue('-webkit-transform') ||
       computedStyle.getPropertyValue('transform');
 
     if (transform) {
       const transformValues = transform.split('(')[1].split(')')[0].split(',');
       const rootStyle = window.getComputedStyle(this.rootNode);
 
-      const tranformNormalized = applyRotationMatrix({
-        pageX: parseInt(transformValues[4], 10),
-        pageY: parseInt(transformValues[5], 10),
-      }, axis);
-
-      this.startIndex = -tranformNormalized.pageX / (
-        this.viewLength -
-        parseInt(rootStyle.paddingLeft, 10) -
-        parseInt(rootStyle.paddingRight, 10)
+      const tranformNormalized = applyRotationMatrix(
+        {
+          pageX: parseInt(transformValues[4], 10),
+          pageY: parseInt(transformValues[5], 10),
+        },
+        axis,
       );
+
+      this.startIndex =
+        -tranformNormalized.pageX /
+        (this.viewLength -
+          parseInt(rootStyle.paddingLeft, 10) -
+          parseInt(rootStyle.paddingRight, 10));
     }
   };
 
-  handleSwipeMove = (event) => {
+  handleSwipeMove = event => {
     // The touch start event can be cancel.
     // Makes sure we set a starting point.
     if (!this.started) {
@@ -549,7 +556,8 @@ class SwipeableViews extends Component {
       return;
     }
 
-    // Latency and rapid rerenders on some devices can leave a period where rootNode briefly equals null
+    // Latency and rapid rerenders on some devices
+    // can leave a period where rootNode briefly equals null.
     if (this.rootNode === null) {
       return;
     }
@@ -559,13 +567,7 @@ class SwipeableViews extends Component {
       return;
     }
 
-    const {
-      axis,
-      children,
-      ignoreNativeScroll,
-      onSwitching,
-      resistance,
-    } = this.props;
+    const { axis, children, ignoreNativeScroll, onSwitching, resistance } = this.props;
 
     const touch = applyRotationMatrix(event.touches[0], axis);
 
@@ -597,13 +599,10 @@ class SwipeableViews extends Component {
     event.preventDefault();
 
     // Low Pass filter.
-    this.vx = (this.vx * 0.5) + ((touch.pageX - this.lastX) * 0.5);
+    this.vx = this.vx * 0.5 + (touch.pageX - this.lastX) * 0.5;
     this.lastX = touch.pageX;
 
-    const {
-      index,
-      startX,
-    } = computeIndex({
+    const { index, startX } = computeIndex({
       children,
       resistance,
       pageX: touch.pageX,
@@ -635,15 +634,18 @@ class SwipeableViews extends Component {
       nodeHowClaimedTheScroll = this.rootNode;
     }
 
-    this.setState({
-      displaySameSlide: false,
-      isDragging: true,
-      indexCurrent: index,
-    }, () => {
-      if (onSwitching) {
-        onSwitching(index, 'move');
-      }
-    });
+    this.setState(
+      {
+        displaySameSlide: false,
+        isDragging: true,
+        indexCurrent: index,
+      },
+      () => {
+        if (onSwitching) {
+          onSwitching(index, 'move');
+        }
+      },
+    );
   };
 
   handleSwipeEnd = () => {
@@ -689,41 +691,44 @@ class SwipeableViews extends Component {
       indexNew = indexMax;
     }
 
-    this.setState({
-      indexCurrent: indexNew,
-      indexLatest: indexNew,
-      isDragging: false,
-    }, () => {
-      if (this.props.onSwitching) {
-        this.props.onSwitching(indexNew, 'end');
-      }
+    this.setState(
+      {
+        indexCurrent: indexNew,
+        indexLatest: indexNew,
+        isDragging: false,
+      },
+      () => {
+        if (this.props.onSwitching) {
+          this.props.onSwitching(indexNew, 'end');
+        }
 
-      if (this.props.onChangeIndex && indexNew !== indexLatest) {
-        this.props.onChangeIndex(indexNew, indexLatest);
-      }
+        if (this.props.onChangeIndex && indexNew !== indexLatest) {
+          this.props.onChangeIndex(indexNew, indexLatest);
+        }
 
-      // Manually calling handleTransitionEnd in that case as isn't otherwise.
-      if (indexCurrent === indexLatest) {
-        this.handleTransitionEnd();
-      }
-    });
+        // Manually calling handleTransitionEnd in that case as isn't otherwise.
+        if (indexCurrent === indexLatest) {
+          this.handleTransitionEnd();
+        }
+      },
+    );
   };
 
-  handleTouchStart = (event) => {
+  handleTouchStart = event => {
     if (this.props.onTouchStart) {
       this.props.onTouchStart(event);
     }
     this.handleSwipeStart(event);
   };
 
-  handleTouchEnd = (event) => {
+  handleTouchEnd = event => {
     if (this.props.onTouchEnd) {
       this.props.onTouchEnd(event);
     }
     this.handleSwipeEnd(event);
   };
 
-  handleMouseDown = (event) => {
+  handleMouseDown = event => {
     if (this.props.onMouseDown) {
       this.props.onMouseDown(event);
     }
@@ -731,14 +736,14 @@ class SwipeableViews extends Component {
     this.handleSwipeStart(adaptMouse(event));
   };
 
-  handleMouseUp = (event) => {
+  handleMouseUp = event => {
     if (this.props.onMouseUp) {
       this.props.onMouseUp(event);
     }
     this.handleSwipeEnd(adaptMouse(event));
   };
 
-  handleMouseLeave = (event) => {
+  handleMouseLeave = event => {
     if (this.props.onMouseLeave) {
       this.props.onMouseLeave(event);
     }
@@ -749,7 +754,7 @@ class SwipeableViews extends Component {
     }
   };
 
-  handleMouseMove = (event) => {
+  handleMouseMove = event => {
     if (this.props.onMouseMove) {
       this.props.onMouseMove(event);
     }
@@ -777,7 +782,7 @@ class SwipeableViews extends Component {
     }
   }
 
-  handleScroll = (event) => {
+  handleScroll = event => {
     if (this.props.onScroll) {
       this.props.onScroll(event);
     }
@@ -807,8 +812,11 @@ class SwipeableViews extends Component {
   updateHeight() {
     if (this.activeSlide !== null) {
       const child = this.activeSlide.children[0];
-      if (child !== undefined && child.offsetHeight !== undefined &&
-        this.state.heightLatest !== child.offsetHeight) {
+      if (
+        child !== undefined &&
+        child.offsetHeight !== undefined &&
+        this.state.heightLatest !== child.offsetHeight
+      ) {
         this.setState({
           heightLatest: child.offsetHeight,
         });
@@ -841,32 +849,34 @@ class SwipeableViews extends Component {
       ...other
     } = this.props;
 
-    const {
-      displaySameSlide,
-      heightLatest,
-      indexCurrent,
-      isDragging,
-      isFirstRender,
-    } = this.state;
+    const { displaySameSlide, heightLatest, indexCurrent, isDragging, isFirstRender } = this.state;
 
-    const touchEvents = !disabled ? {
-      onTouchStart: this.handleTouchStart,
-      onTouchEnd: this.handleTouchEnd,
-    } : {};
+    const touchEvents = !disabled
+      ? {
+          onTouchStart: this.handleTouchStart,
+          onTouchEnd: this.handleTouchEnd,
+        }
+      : {};
 
-    const mouseEvents = !disabled && enableMouseEvents ? {
-      onMouseDown: this.handleMouseDown,
-      onMouseUp: this.handleMouseUp,
-      onMouseLeave: this.handleMouseLeave,
-      onMouseMove: this.handleMouseMove,
-    } : {};
+    const mouseEvents =
+      !disabled && enableMouseEvents
+        ? {
+            onMouseDown: this.handleMouseDown,
+            onMouseUp: this.handleMouseUp,
+            onMouseLeave: this.handleMouseLeave,
+            onMouseMove: this.handleMouseMove,
+          }
+        : {};
 
     // There is no point to animate if we are already providing a height.
     warning(
       !animateHeight ||
-      !containerStyleProp ||
-      (!containerStyleProp.height && !containerStyleProp.maxHeight && !containerStyleProp.minHeight),
-      `react-swipeable-view: You are setting animateHeight to true but you are also providing a custom height.
+        !containerStyleProp ||
+        (!containerStyleProp.height &&
+          !containerStyleProp.maxHeight &&
+          !containerStyleProp.minHeight),
+      `react-swipeable-view: You are setting animateHeight to true but you are
+also providing a custom height.
 The custom height has a higher priority than the animateHeight property.
 So animateHeight is most likely having no effect at all.`,
     );
@@ -907,7 +917,9 @@ So animateHeight is most likely having no effect at all.`,
 
     return (
       <div
-        ref={(node) => { this.rootNode = node; }}
+        ref={node => {
+          this.rootNode = node;
+        }}
         style={Object.assign({}, axisProperties.root[axis], style)}
         {...other}
         {...touchEvents}
@@ -915,7 +927,9 @@ So animateHeight is most likely having no effect at all.`,
         onScroll={this.handleScroll}
       >
         <div
-          ref={(node) => { this.containerNode = node; }}
+          ref={node => {
+            this.containerNode = node;
+          }}
           style={Object.assign({}, containerStyle, styles.container, containerStyleProp)}
           className="react-swipeable-view-container"
         >
@@ -927,7 +941,8 @@ So animateHeight is most likely having no effect at all.`,
             warning(
               isValidElement(child),
               `react-swipeable-view: one of the children provided is invalid: ${child}.
-We are expecting a valid React Element`);
+We are expecting a valid React Element`,
+            );
 
             let ref;
             let hidden = true;
@@ -936,7 +951,7 @@ We are expecting a valid React Element`);
               hidden = false;
 
               if (animateHeight) {
-                ref = (node) => {
+                ref = node => {
                   this.activeSlide = node;
                   this.updateHeight();
                 };

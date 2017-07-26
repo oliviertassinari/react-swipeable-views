@@ -19,11 +19,21 @@ describe('SwipeableViews', () => {
     it('should render the children', () => {
       const wrapper = mount(
         <SwipeableViews>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
-          <div>{'slide n°3'}</div>
-          <div>{'slide n°4'}</div>
-          <div>{'slide n°5'}</div>
+          <div>
+            {'slide n°1'}
+          </div>
+          <div>
+            {'slide n°2'}
+          </div>
+          <div>
+            {'slide n°3'}
+          </div>
+          <div>
+            {'slide n°4'}
+          </div>
+          <div>
+            {'slide n°5'}
+          </div>
         </SwipeableViews>,
       );
 
@@ -39,22 +49,30 @@ describe('SwipeableViews', () => {
     function createWrapper(hysteresis) {
       const wrapper = mount(
         <SwipeableViews hysteresis={hysteresis}>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
+          <div>
+            {'slide n°1'}
+          </div>
+          <div>
+            {'slide n°2'}
+          </div>
         </SwipeableViews>,
       );
 
       wrapper.simulate('touchStart', {
-        touches: [{
-          pageX: 155,
-          pageY: 50,
-        }],
+        touches: [
+          {
+            pageX: 155,
+            pageY: 50,
+          },
+        ],
       });
       simulateSwipeMove(wrapper, {
-        touches: [{
-          pageX: 150,
-          pageY: 50,
-        }],
+        touches: [
+          {
+            pageX: 150,
+            pageY: 50,
+          },
+        ],
       });
       const instance = wrapper.instance();
       instance.viewLength = 200;
@@ -65,10 +83,12 @@ describe('SwipeableViews', () => {
       const wrapper = createWrapper();
 
       simulateSwipeMove(wrapper, {
-        touches: [{
-          pageX: 80,
-          pageY: 50,
-        }],
+        touches: [
+          {
+            pageX: 80,
+            pageY: 50,
+          },
+        ],
       });
       wrapper.instance().vx = 0;
       wrapper.simulate('touchEnd');
@@ -79,10 +99,12 @@ describe('SwipeableViews', () => {
       const wrapper = createWrapper();
 
       simulateSwipeMove(wrapper, {
-        touches: [{
-          pageX: 20,
-          pageY: 50,
-        }],
+        touches: [
+          {
+            pageX: 20,
+            pageY: 50,
+          },
+        ],
       });
 
       wrapper.instance().vx = 0;
@@ -94,10 +116,12 @@ describe('SwipeableViews', () => {
       const wrapper = createWrapper(0.3);
 
       simulateSwipeMove(wrapper, {
-        touches: [{
-          pageX: 80,
-          pageY: 50,
-        }],
+        touches: [
+          {
+            pageX: 80,
+            pageY: 50,
+          },
+        ],
       });
 
       wrapper.instance().vx = 0;
@@ -111,7 +135,9 @@ describe('SwipeableViews', () => {
       const handleTouchStart = spy();
       const wrapper = mount(
         <SwipeableViews onTouchStart={handleTouchStart}>
-          <div>{'slide n°1'}</div>
+          <div>
+            {'slide n°1'}
+          </div>
         </SwipeableViews>,
       );
 
@@ -125,7 +151,9 @@ describe('SwipeableViews', () => {
       const handleTouchStart = spy();
       const wrapper = mount(
         <SwipeableViews disabled onTouchStart={handleTouchStart}>
-          <div>{'slide n°1'}</div>
+          <div>
+            {'slide n°1'}
+          </div>
         </SwipeableViews>,
       );
 
@@ -141,7 +169,9 @@ describe('SwipeableViews', () => {
       const handleTouchEnd = spy();
       const wrapper = mount(
         <SwipeableViews onTouchEnd={handleTouchEnd}>
-          <div>{'slide n°1'}</div>
+          <div>
+            {'slide n°1'}
+          </div>
         </SwipeableViews>,
       );
 
@@ -154,7 +184,9 @@ describe('SwipeableViews', () => {
     it('should use a spring if animateTransitions is true', () => {
       const wrapper = shallow(
         <SwipeableViews>
-          <div>{'slide n°1'}</div>
+          <div>
+            {'slide n°1'}
+          </div>
         </SwipeableViews>,
       );
 
@@ -169,7 +201,9 @@ describe('SwipeableViews', () => {
     it('should not use a spring if animateTransitions is false', () => {
       const wrapper = shallow(
         <SwipeableViews animateTransitions={false}>
-          <div>{'slide n°1'}</div>
+          <div>
+            {'slide n°1'}
+          </div>
         </SwipeableViews>,
       );
 
@@ -186,16 +220,22 @@ describe('SwipeableViews', () => {
     beforeEach(() => {
       wrapper = mount(
         <SwipeableViews>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
+          <div>
+            {'slide n°1'}
+          </div>
+          <div>
+            {'slide n°2'}
+          </div>
         </SwipeableViews>,
       );
 
       wrapper.simulate('touchStart', {
-        touches: [{
-          pageX: 50,
-          pageY: 50,
-        }],
+        touches: [
+          {
+            pageX: 50,
+            pageY: 50,
+          },
+        ],
       });
       instance = wrapper.instance();
       instance.viewLength = 200;
@@ -203,46 +243,56 @@ describe('SwipeableViews', () => {
 
     it('should not detect a swipe when scrolling', () => {
       simulateSwipeMove(wrapper, {
-        touches: [{
-          pageX: 50,
-          pageY: 60,
-        }],
+        touches: [
+          {
+            pageX: 50,
+            pageY: 60,
+          },
+        ],
       });
       assert.strictEqual(instance.isSwiping, false, 'Should not detect a swipe');
     });
 
     it('should detect a swipe when doing a clear movement', () => {
       simulateSwipeMove(wrapper, {
-        touches: [{
-          pageX: 60,
-          pageY: 50,
-        }],
+        touches: [
+          {
+            pageX: 60,
+            pageY: 50,
+          },
+        ],
       });
       assert.strictEqual(instance.isSwiping, true, 'Should detect a swipe');
     });
 
     it('should wait for a clear movement to detect a swipe', () => {
       simulateSwipeMove(wrapper, {
-        touches: [{
-          pageX: 48,
-          pageY: 50,
-        }],
+        touches: [
+          {
+            pageX: 48,
+            pageY: 50,
+          },
+        ],
       });
       assert.strictEqual(instance.isSwiping, undefined, 'We do not know yet');
 
       simulateSwipeMove(wrapper, {
-        touches: [{
-          pageX: 50,
-          pageY: 48,
-        }],
+        touches: [
+          {
+            pageX: 50,
+            pageY: 48,
+          },
+        ],
       });
       assert.strictEqual(instance.isSwiping, undefined, 'We do not know yet');
 
       simulateSwipeMove(wrapper, {
-        touches: [{
-          pageX: 40,
-          pageY: 50,
-        }],
+        touches: [
+          {
+            pageX: 40,
+            pageY: 50,
+          },
+        ],
       });
       assert.strictEqual(instance.isSwiping, true, 'Should detect a swipe');
     });
@@ -255,25 +305,39 @@ describe('SwipeableViews', () => {
     beforeEach(() => {
       wrapperParent = mount(
         <SwipeableViews index={1}>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
-          <div>{'slide n°3'}</div>
+          <div>
+            {'slide n°1'}
+          </div>
+          <div>
+            {'slide n°2'}
+          </div>
+          <div>
+            {'slide n°3'}
+          </div>
         </SwipeableViews>,
       );
 
       wrapperNester = mount(
         <SwipeableViews index={0}>
-          <div>{'slide n°4'}</div>
-          <div>{'slide n°5'}</div>
-          <div>{'slide n°6'}</div>
+          <div>
+            {'slide n°4'}
+          </div>
+          <div>
+            {'slide n°5'}
+          </div>
+          <div>
+            {'slide n°6'}
+          </div>
         </SwipeableViews>,
       );
 
       const touchStartEvent = {
-        touches: [{
-          pageX: 50,
-          pageY: 0,
-        }],
+        touches: [
+          {
+            pageX: 50,
+            pageY: 0,
+          },
+        ],
       };
 
       wrapperNester.simulate('touchStart', touchStartEvent);
@@ -294,20 +358,24 @@ describe('SwipeableViews', () => {
 
     it('only the nested swipe should respond to the touch', () => {
       const touchMoveEvent1 = {
-        touches: [{
-          pageX: 45,
-          pageY: 0,
-        }],
+        touches: [
+          {
+            pageX: 45,
+            pageY: 0,
+          },
+        ],
       };
 
       simulateSwipeMove(wrapperNester, touchMoveEvent1);
       simulateSwipeMove(wrapperParent, touchMoveEvent1);
 
       const touchMoveEvent2 = {
-        touches: [{
-          pageX: 40,
-          pageY: 0,
-        }],
+        touches: [
+          {
+            pageX: 40,
+            pageY: 0,
+          },
+        ],
       };
 
       simulateSwipeMove(wrapperNester, touchMoveEvent2);
@@ -319,20 +387,24 @@ describe('SwipeableViews', () => {
 
     it('only the parent swipe should respond to the touch', () => {
       const touchMoveEvent1 = {
-        touches: [{
-          pageX: 55,
-          pageY: 0,
-        }],
+        touches: [
+          {
+            pageX: 55,
+            pageY: 0,
+          },
+        ],
       };
 
       simulateSwipeMove(wrapperNester, touchMoveEvent1);
       simulateSwipeMove(wrapperParent, touchMoveEvent1);
 
       const touchMoveEvent2 = {
-        touches: [{
-          pageX: 60,
-          pageY: 0,
-        }],
+        touches: [
+          {
+            pageX: 60,
+            pageY: 0,
+          },
+        ],
       };
 
       simulateSwipeMove(wrapperNester, touchMoveEvent2);
@@ -347,8 +419,12 @@ describe('SwipeableViews', () => {
     it('should only update the state when the index change', () => {
       const wrapper = mount(
         <SwipeableViews>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
+          <div>
+            {'slide n°1'}
+          </div>
+          <div>
+            {'slide n°2'}
+          </div>
         </SwipeableViews>,
       );
       assert.strictEqual(wrapper.state().indexCurrent, 0, 'should start at the begining');
@@ -368,13 +444,17 @@ describe('SwipeableViews', () => {
     });
   });
 
-  describe('prop: onTransitionEnd', (done) => {
+  describe('prop: onTransitionEnd', done => {
     it('should be called once the transition comes to a rest.', () => {
       const handleTranstionEnd = spy();
       const wrapper = mount(
         <SwipeableViews index={1} onTransitionEnd={handleTranstionEnd}>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
+          <div>
+            {'slide n°1'}
+          </div>
+          <div>
+            {'slide n°2'}
+          </div>
         </SwipeableViews>,
       );
 
@@ -392,11 +472,13 @@ describe('SwipeableViews', () => {
   describe('findNativeHandler', () => {
     it('should work in a simple case', () => {
       const hasFoundNativeHandler = findNativeHandler({
-        domTreeShapes: [{
-          scrollLeft: 0,
-          scrollWidth: 200,
-          clientWidth: 100,
-        }],
+        domTreeShapes: [
+          {
+            scrollLeft: 0,
+            scrollWidth: 200,
+            clientWidth: 100,
+          },
+        ],
         indexCurrent: 1,
         index: 1.1,
         axis: 'x',
@@ -407,11 +489,13 @@ describe('SwipeableViews', () => {
 
     it('should work with different axis', () => {
       const hasFoundNativeHandler = findNativeHandler({
-        domTreeShapes: [{
-          scrollTop: 0,
-          scrollHeight: 100,
-          clientHeight: 100,
-        }],
+        domTreeShapes: [
+          {
+            scrollTop: 0,
+            scrollHeight: 100,
+            clientHeight: 100,
+          },
+        ],
         indexCurrent: 1,
         index: 1.1,
         axis: 'y',
@@ -468,9 +552,13 @@ describe('SwipeableViews', () => {
         </SwipeableViews>,
       );
 
-      assert.strictEqual(wrapper.find(Slide)
-        .everyWhere((slide) => slide.parent().prop('className') === classNameToApply),
-        true, 'should apply the className prop');
+      assert.strictEqual(
+        wrapper
+          .find(Slide)
+          .everyWhere(slide => slide.parent().prop('className') === classNameToApply),
+        true,
+        'should apply the className prop',
+      );
     });
   });
 
@@ -479,14 +567,16 @@ describe('SwipeableViews', () => {
       const handleScroll = spy();
       const handleChangeIndex = spy();
       const wrapper = shallow(
-        <SwipeableViews
-          index={1}
-          onScroll={handleScroll}
-          onChangeIndex={handleChangeIndex}
-        >
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
-          <div>{'slide n°3'}</div>
+        <SwipeableViews index={1} onScroll={handleScroll} onChangeIndex={handleChangeIndex}>
+          <div>
+            {'slide n°1'}
+          </div>
+          <div>
+            {'slide n°2'}
+          </div>
+          <div>
+            {'slide n°3'}
+          </div>
         </SwipeableViews>,
       );
 
@@ -501,10 +591,7 @@ describe('SwipeableViews', () => {
       assert.strictEqual(handleScroll.callCount, 1, 'should forward the event');
       assert.strictEqual(rootNode.scrollLeft, 0, 'should reset the scroll position');
       assert.strictEqual(handleChangeIndex.callCount, 1, 'should detect a new index');
-      assert.deepEqual(handleChangeIndex.args[0], [
-        2,
-        1,
-      ]);
+      assert.deepEqual(handleChangeIndex.args[0], [2, 1]);
     });
   });
 
@@ -512,29 +599,45 @@ describe('SwipeableViews', () => {
     it('should render the first child', () => {
       const wrapper = render(
         <SwipeableViews>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
-          <div>{'slide n°3'}</div>
-          <div>{'slide n°4'}</div>
-          <div>{'slide n°5'}</div>
+          <div>
+            {'slide n°1'}
+          </div>
+          <div>
+            {'slide n°2'}
+          </div>
+          <div>
+            {'slide n°3'}
+          </div>
+          <div>
+            {'slide n°4'}
+          </div>
+          <div>
+            {'slide n°5'}
+          </div>
         </SwipeableViews>,
       );
 
-      assert.strictEqual(
-        wrapper.text(),
-        'slide n°1',
-        'Should render first slide.',
-      );
+      assert.strictEqual(wrapper.text(), 'slide n°1', 'Should render first slide.');
     });
 
     it('should render all children', () => {
       const wrapper = render(
         <SwipeableViews disableLazyLoading>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
-          <div>{'slide n°3'}</div>
-          <div>{'slide n°4'}</div>
-          <div>{'slide n°5'}</div>
+          <div>
+            {'slide n°1'}
+          </div>
+          <div>
+            {'slide n°2'}
+          </div>
+          <div>
+            {'slide n°3'}
+          </div>
+          <div>
+            {'slide n°4'}
+          </div>
+          <div>
+            {'slide n°5'}
+          </div>
         </SwipeableViews>,
       );
 

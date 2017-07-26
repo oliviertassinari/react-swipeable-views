@@ -1,11 +1,7 @@
 // @flow weak
 
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-} from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import Button from 'react-native-button';
 import SwipeableViews from '../../../packages/react-swipeable-views-native/src';
 
@@ -34,58 +30,41 @@ class DemoTabs extends Component {
     index: 0,
   };
 
-  handleChangeTabs = (value) => () => {
+  handleChangeTabs = value => () => {
     this.setState({
       index: value,
     });
   };
 
-  handleChangeIndex = (index) => {
+  handleChangeIndex = index => {
     this.setState({
       index,
     });
   };
 
   render() {
-    const {
-      index,
-    } = this.state;
+    const { index } = this.state;
 
     return (
       <View>
-        <Button
-          style={index === 0 && { color: 'green' }}
-          onPress={this.handleChangeTabs(0)}
-        >
+        <Button style={index === 0 && { color: 'green' }} onPress={this.handleChangeTabs(0)}>
           tab n°1
         </Button>
-        <Button
-          style={index === 1 && { color: 'green' }}
-          onPress={this.handleChangeTabs(1)}
-        >
+        <Button style={index === 1 && { color: 'green' }} onPress={this.handleChangeTabs(1)}>
           tab n°2
         </Button>
-        <Button
-          style={index === 2 && { color: 'green' }}
-          onPress={this.handleChangeTabs(2)}
-        >
+        <Button style={index === 2 && { color: 'green' }} onPress={this.handleChangeTabs(2)}>
           tab n°3
         </Button>
         <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
           <View style={[styles.slide, styles.slide1]}>
-            <Text style={styles.text}>
-              slide n°1
-            </Text>
+            <Text style={styles.text}>slide n°1</Text>
           </View>
           <View style={[styles.slide, styles.slide2]}>
-            <Text style={styles.text}>
-              slide n°2
-            </Text>
+            <Text style={styles.text}>slide n°2</Text>
           </View>
           <View style={[styles.slide, styles.slide3]}>
-            <Text style={styles.text}>
-              slide n°3
-            </Text>
+            <Text style={styles.text}>slide n°3</Text>
           </View>
         </SwipeableViews>
       </View>

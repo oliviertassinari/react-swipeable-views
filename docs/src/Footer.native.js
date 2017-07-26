@@ -2,11 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 const styles = StyleSheet.create({
   hr: {
@@ -21,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Footer = (props) => {
+const Footer = props => {
   const {
     maintainerName,
     // maintainerUrl,

@@ -17,9 +17,15 @@ describe('autoPlay', () => {
     beforeEach(() => {
       wrapper = shallow(
         <AutoPlaySwipeableViews>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
-          <div>{'slide n°3'}</div>
+          <div>
+            {'slide n°1'}
+          </div>
+          <div>
+            {'slide n°2'}
+          </div>
+          <div>
+            {'slide n°3'}
+          </div>
         </AutoPlaySwipeableViews>,
       );
     });
@@ -38,9 +44,7 @@ describe('autoPlay', () => {
           onChangeIndex: handleChangeIndex,
         });
         wrapper.find(Empty).simulate('changeIndex', 1, 0);
-        assert.deepEqual(handleChangeIndex.args, [
-          [1, 0],
-        ]);
+        assert.deepEqual(handleChangeIndex.args, [[1, 0]]);
         assert.strictEqual(wrapper.state().index, 0, 'should not update the state index');
       });
     });
@@ -59,14 +63,24 @@ describe('autoPlay', () => {
     });
 
     describe('prop: interval', () => {
-      it('should be able to update the interval', (done) => {
+      it('should be able to update the interval', done => {
         wrapper = mount(
           <AutoPlaySwipeableViews interval={100}>
-            <div>{'slide n°1'}</div>
-            <div>{'slide n°2'}</div>
-            <div>{'slide n°3'}</div>
-            <div>{'slide n°4'}</div>
-            <div>{'slide n°5'}</div>
+            <div>
+              {'slide n°1'}
+            </div>
+            <div>
+              {'slide n°2'}
+            </div>
+            <div>
+              {'slide n°3'}
+            </div>
+            <div>
+              {'slide n°4'}
+            </div>
+            <div>
+              {'slide n°5'}
+            </div>
           </AutoPlaySwipeableViews>,
         );
 
@@ -91,14 +105,24 @@ describe('autoPlay', () => {
     });
 
     describe('prop: direction', () => {
-      it('should increment the index', (done) => {
+      it('should increment the index', done => {
         wrapper = mount(
           <AutoPlaySwipeableViews interval={100}>
-            <div>{'slide n°1'}</div>
-            <div>{'slide n°2'}</div>
-            <div>{'slide n°3'}</div>
-            <div>{'slide n°4'}</div>
-            <div>{'slide n°5'}</div>
+            <div>
+              {'slide n°1'}
+            </div>
+            <div>
+              {'slide n°2'}
+            </div>
+            <div>
+              {'slide n°3'}
+            </div>
+            <div>
+              {'slide n°4'}
+            </div>
+            <div>
+              {'slide n°5'}
+            </div>
           </AutoPlaySwipeableViews>,
         );
 
@@ -108,14 +132,24 @@ describe('autoPlay', () => {
         }, 250);
       });
 
-      it('should decrement the index', (done) => {
+      it('should decrement the index', done => {
         wrapper = mount(
           <AutoPlaySwipeableViews interval={100} direction="decremental">
-            <div>{'slide n°1'}</div>
-            <div>{'slide n°2'}</div>
-            <div>{'slide n°3'}</div>
-            <div>{'slide n°4'}</div>
-            <div>{'slide n°5'}</div>
+            <div>
+              {'slide n°1'}
+            </div>
+            <div>
+              {'slide n°2'}
+            </div>
+            <div>
+              {'slide n°3'}
+            </div>
+            <div>
+              {'slide n°4'}
+            </div>
+            <div>
+              {'slide n°5'}
+            </div>
           </AutoPlaySwipeableViews>,
         );
 
@@ -127,36 +161,53 @@ describe('autoPlay', () => {
     });
 
     describe('prop: onChangeIndex', () => {
-      it('should be called each time by the interval', (done) => {
+      it('should be called each time by the interval', done => {
         const handleChangeIndex = spy();
         wrapper = mount(
           <AutoPlaySwipeableViews interval={100} onChangeIndex={handleChangeIndex}>
-            <div>{'slide n°1'}</div>
-            <div>{'slide n°2'}</div>
-            <div>{'slide n°3'}</div>
-            <div>{'slide n°4'}</div>
-            <div>{'slide n°5'}</div>
+            <div>
+              {'slide n°1'}
+            </div>
+            <div>
+              {'slide n°2'}
+            </div>
+            <div>
+              {'slide n°3'}
+            </div>
+            <div>
+              {'slide n°4'}
+            </div>
+            <div>
+              {'slide n°5'}
+            </div>
           </AutoPlaySwipeableViews>,
         );
 
         setTimeout(() => {
-          assert.strictEqual(handleChangeIndex.callCount, 2, 'Should be called the right number of time.');
-          assert.deepEqual(handleChangeIndex.args, [
-            [1, 0],
-            [2, 1],
-          ]);
+          assert.strictEqual(
+            handleChangeIndex.callCount,
+            2,
+            'Should be called the right number of time.',
+          );
+          assert.deepEqual(handleChangeIndex.args, [[1, 0], [2, 1]]);
           done();
         }, 250);
       });
     });
 
     describe('prop: slideCount', () => {
-      it('should use the slideCount to compute the index limit', (done) => {
+      it('should use the slideCount to compute the index limit', done => {
         wrapper = mount(
           <AutoPlaySwipeableViews slideCount={2} interval={100}>
-            <div>{'slide n°1'}</div>
-            <div>{'slide n°2'}</div>
-            <div>{'slide n°3'}</div>
+            <div>
+              {'slide n°1'}
+            </div>
+            <div>
+              {'slide n°2'}
+            </div>
+            <div>
+              {'slide n°3'}
+            </div>
           </AutoPlaySwipeableViews>,
         );
 
@@ -168,12 +219,18 @@ describe('autoPlay', () => {
     });
 
     describe('prop: autoplay', () => {
-      it('should not increment when disabled', (done) => {
+      it('should not increment when disabled', done => {
         wrapper = mount(
           <AutoPlaySwipeableViews autoplay interval={100}>
-            <div>{'slide n°1'}</div>
-            <div>{'slide n°2'}</div>
-            <div>{'slide n°3'}</div>
+            <div>
+              {'slide n°1'}
+            </div>
+            <div>
+              {'slide n°2'}
+            </div>
+            <div>
+              {'slide n°3'}
+            </div>
           </AutoPlaySwipeableViews>,
         );
 

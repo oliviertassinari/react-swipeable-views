@@ -8,7 +8,7 @@ import Main from './Main';
 require('./normalize.less');
 require('./stylesheet.less');
 
-const renderRoot = (Component) => {
+const renderRoot = Component => {
   render(
     <AppContainer>
       <Component />
@@ -22,7 +22,7 @@ renderRoot(Main);
 // Hot Module Replacement API
 if (module.hot) {
   module.hot.accept('./Main', () => {
-    const NewMain = require('./Main').default;
+    const NewMain = require('./Main').default; // eslint-disable-line global-require
     renderRoot(NewMain);
   });
 }

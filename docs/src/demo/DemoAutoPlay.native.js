@@ -1,11 +1,7 @@
 // @flow weak
 
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-} from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import SwipeableViews from '../../../packages/react-swipeable-views-native/src';
 import { autoPlay } from '../../../packages/react-swipeable-views-utils/src';
 import Pagination from '../pagination/Pagination.native';
@@ -40,41 +36,29 @@ class DemoAutoPlay extends Component {
     index: 0,
   };
 
-  handleChangeIndex = (index) => {
+  handleChangeIndex = index => {
     this.setState({
       index,
     });
   };
 
   render() {
-    const {
-      index,
-    } = this.state;
+    const { index } = this.state;
 
     return (
       <View style={styles.root}>
         <AutoPlaySwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
           <View style={[styles.slide, styles.slide1]}>
-            <Text style={styles.text}>
-              slide n°1
-            </Text>
+            <Text style={styles.text}>slide n°1</Text>
           </View>
           <View style={[styles.slide, styles.slide2]}>
-            <Text style={styles.text}>
-              slide n°2
-            </Text>
+            <Text style={styles.text}>slide n°2</Text>
           </View>
           <View style={[styles.slide, styles.slide3]}>
-            <Text style={styles.text}>
-              slide n°3
-            </Text>
+            <Text style={styles.text}>slide n°3</Text>
           </View>
         </AutoPlaySwipeableViews>
-        <Pagination
-          dots={3}
-          index={index}
-          onChangeIndex={this.handleChangeIndex}
-        />
+        <Pagination dots={3} index={index} onChangeIndex={this.handleChangeIndex} />
       </View>
     );
   }
