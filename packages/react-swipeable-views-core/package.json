@@ -4,7 +4,7 @@
   "description": "react-swipeable-views core modules",
   "main": "lib/index.js",
   "scripts": {
-    "prepublishOnly": "pkgfiles"
+    "prepublish": "pkgfiles"
   },
   "repository": {
     "type": "git",

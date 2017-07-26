@@ -4,7 +4,7 @@
   "description": "A React component for swipeable views",
   "main": "lib/index.js",
   "scripts": {
-    "prepublishOnly": "pkgfiles"
+    "prepublish": "pkgfiles"
   },
   "repository": {
     "type": "git",
