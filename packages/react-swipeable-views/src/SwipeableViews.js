@@ -870,11 +870,7 @@ class SwipeableViews extends Component {
 
     // There is no point to animate if we are already providing a height.
     warning(
-      !animateHeight ||
-        !containerStyleProp ||
-        (!containerStyleProp.height &&
-          !containerStyleProp.maxHeight &&
-          !containerStyleProp.minHeight),
+      !animateHeight || !containerStyleProp || !containerStyleProp.height,
       `react-swipeable-view: You are setting animateHeight to true but you are
 also providing a custom height.
 The custom height has a higher priority than the animateHeight property.

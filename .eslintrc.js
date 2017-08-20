@@ -1,6 +1,9 @@
 module.exports = {
   // So parent files don't get applied
   root: true,
+  globals: {
+    preval: false,
+  },
   env: {
     es6: true,
     browser: true,
@@ -13,11 +16,11 @@ module.exports = {
     ecmaVersion: 7,
     sourceType: 'module',
   },
-  plugins: ['babel', 'import', 'jsx-a11y', 'mocha', 'flowtype', 'prettier'],
+  plugins: ['babel', 'import', 'jsx-a11y', 'mocha', 'prettier'],
   settings: {
     'import/resolver': {
       webpack: {
-        config: './docs/webpack/productionConfig.js',
+        config: './docs/webpackBaseConfig.js',
       },
     },
   },
@@ -91,15 +94,6 @@ module.exports = {
     'mocha/no-global-tests': 'error',
     'mocha/no-pending-tests': 'error',
     'mocha/no-skipped-tests': 'error',
-
-    'flowtype/define-flow-type': 'error',
-    'flowtype/require-valid-file-annotation': ['error', 'always'],
-    'flowtype/require-parameter-type': 'off',
-    'flowtype/require-return-type': 'off',
-    'flowtype/space-after-type-colon': 'off',
-    'flowtype/space-before-type-colon': 'off',
-    'flowtype/type-id-match': 'off',
-    'flowtype/use-flow-type': 'error',
 
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
