@@ -8,14 +8,14 @@ import Main from './Main';
 require('./normalize.less');
 require('./stylesheet.less');
 
-const renderRoot = Component => {
+function renderRoot(Component) {
   render(
     <AppContainer>
       <Component />
     </AppContainer>,
     document.querySelector('#main'),
   );
-};
+}
 
 renderRoot(Main);
 

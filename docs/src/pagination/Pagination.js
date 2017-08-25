@@ -14,13 +14,7 @@ const styles = {
   },
 };
 
-export default class Pagination extends Component {
-  static propTypes = {
-    dots: PropTypes.number.isRequired,
-    index: PropTypes.number.isRequired,
-    onChangeIndex: PropTypes.func.isRequired,
-  };
-
+class Pagination extends Component {
   handleClick = (event, index) => {
     this.props.onChangeIndex(index);
   };
@@ -43,3 +37,11 @@ export default class Pagination extends Component {
     );
   }
 }
+
+Pagination.propTypes = {
+  dots: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+  onChangeIndex: PropTypes.func.isRequired,
+};
+
+export default Pagination;

@@ -20,7 +20,7 @@ const styles = {
   },
 };
 
-const Demo = props => {
+function Demo(props) {
   const { children, description, name } = props;
 
   return (
@@ -39,7 +39,7 @@ const Demo = props => {
       {children}
     </div>
   );
-};
+}
 
 Demo.propTypes = {
   children: PropTypes.node.isRequired,

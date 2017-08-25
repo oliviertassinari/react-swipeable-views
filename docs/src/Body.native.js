@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Body = props => {
+function Body(props) {
   const { children } = props;
 
   return (
@@ -18,7 +18,7 @@ const Body = props => {
       {children}
     </View>
   );
-};
+}
 
 Body.propTypes = {
   children: PropTypes.node.isRequired,

@@ -25,13 +25,16 @@ const styles = {
   },
 };
 
-const DemoRtl = () =>
-  <div style={styles.root}>
-    <SwipeableViews axis="x-reverse">
-      <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
-      <div style={Object.assign({}, styles.slide, styles.slide2)}>slide n°2</div>
-      <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
-    </SwipeableViews>
-  </div>;
+function DemoRtl() {
+  return (
+    <div style={styles.root}>
+      <SwipeableViews axis="x-reverse">
+        <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
+        <div style={Object.assign({}, styles.slide, styles.slide2)}>slide n°2</div>
+        <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
+      </SwipeableViews>
+    </div>
+  );
+}
 
 export default DemoRtl;

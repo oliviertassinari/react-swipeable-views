@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Head = props => {
+function Head(props) {
   const { children, description, name } = props;
 
   return (
@@ -39,7 +39,7 @@ const Head = props => {
       {children}
     </View>
   );
-};
+}
 
 Head.propTypes = {
   children: PropTypes.node,

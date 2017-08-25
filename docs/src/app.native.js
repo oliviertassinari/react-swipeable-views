@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { AppRegistry, StyleSheet, ScrollView, StatusBar } from 'react-native';
-
 import Main from './Main.native';
 
 const styles = StyleSheet.create({
@@ -11,11 +10,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const App = () =>
-  <ScrollView style={styles.root}>
-    <StatusBar backgroundColor="#0F3D6C" translucent barStyle="light-content" />
-    <Main />
-  </ScrollView>;
+function App() {
+  return (
+    <ScrollView style={styles.root}>
+      <StatusBar backgroundColor="#0F3D6C" translucent barStyle="light-content" />
+      <Main />
+    </ScrollView>
+  );
+}
 
 export default {
   start() {
