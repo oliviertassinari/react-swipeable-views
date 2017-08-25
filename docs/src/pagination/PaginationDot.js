@@ -24,13 +24,7 @@ const styles = {
   },
 };
 
-export default class PaginationDot extends Component {
-  static propTypes = {
-    active: PropTypes.bool.isRequired,
-    index: PropTypes.number.isRequired,
-    onClick: PropTypes.func.isRequired,
-  };
-
+class PaginationDot extends Component {
   handleClick = event => {
     this.props.onClick(event, this.props.index);
   };
@@ -53,3 +47,11 @@ export default class PaginationDot extends Component {
     );
   }
 }
+
+PaginationDot.propTypes = {
+  active: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
+export default PaginationDot;

@@ -20,11 +20,14 @@ const styles = {
   },
 };
 
-const DemoSimple = () =>
-  <SwipeableViews enableMouseEvents>
-    <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
-    <div style={Object.assign({}, styles.slide, styles.slide2)}>slide n°2</div>
-    <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
-  </SwipeableViews>;
+function DemoSimple() {
+  return (
+    <SwipeableViews enableMouseEvents>
+      <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
+      <div style={Object.assign({}, styles.slide, styles.slide2)}>slide n°2</div>
+      <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
+    </SwipeableViews>
+  );
+}
 
 export default DemoSimple;

@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Footer = props => {
+function Footer(props) {
   const {
     maintainerName,
     // maintainerUrl,
@@ -35,7 +35,7 @@ const Footer = props => {
       </Text>
     </View>
   );
-};
+}
 
 Footer.propTypes = {
   maintainerName: PropTypes.string.isRequired,

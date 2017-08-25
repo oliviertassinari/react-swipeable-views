@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Footer = props => {
+function Footer(props) {
   const { maintainerName, maintainerUrl, repositoryName, repositoryUrl } = props;
 
   return (
@@ -23,7 +23,7 @@ const Footer = props => {
       </span>
     </footer>
   );
-};
+}
 
 Footer.propTypes = {
   maintainerName: PropTypes.string.isRequired,

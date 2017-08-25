@@ -39,17 +39,20 @@ for (let i = 0; i < 30; i += 1) {
   );
 }
 
-const DemoScroll = () =>
-  <SwipeableViews containerStyle={styles.slideContainer}>
-    <ScrollView style={[styles.slide, styles.slide1]}>
-      {list}
-    </ScrollView>
-    <View style={[styles.slide, styles.slide2]}>
-      <Text style={styles.text}>slide n°2</Text>
-    </View>
-    <View style={[styles.slide, styles.slide3]}>
-      <Text style={styles.text}>slide n°3</Text>
-    </View>
-  </SwipeableViews>;
+function DemoScroll() {
+  return (
+    <SwipeableViews containerStyle={styles.slideContainer}>
+      <ScrollView style={[styles.slide, styles.slide1]}>
+        {list}
+      </ScrollView>
+      <View style={[styles.slide, styles.slide2]}>
+        <Text style={styles.text}>slide n°2</Text>
+      </View>
+      <View style={[styles.slide, styles.slide3]}>
+        <Text style={styles.text}>slide n°3</Text>
+      </View>
+    </SwipeableViews>
+  );
+}
 
 export default DemoScroll;

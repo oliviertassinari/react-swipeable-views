@@ -68,7 +68,6 @@
     "react-dom": "^15.6.1",
     "react-hot-loader": "3.0.0-beta.7",
     "react-native-button": "^2.1.0",
-    "react-tap-event-plugin": "^2.0.1",
     "react-test-renderer": "^15.6.1",
     "recompose": "^0.25.0",
     "sinon": "^3.2.1",

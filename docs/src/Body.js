@@ -9,7 +9,7 @@ const styles = {
   },
 };
 
-const Body = props => {
+function Body(props) {
   const { children } = props;
 
   return (
@@ -17,7 +17,7 @@ const Body = props => {
       {children}
     </div>
   );
-};
+}
 
 Body.propTypes = {
   children: PropTypes.node.isRequired,

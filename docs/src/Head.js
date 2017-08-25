@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Head = props => {
+function Head(props) {
   const { children, description, name } = props;
 
   return (
@@ -17,7 +17,7 @@ const Head = props => {
       {children}
     </section>
   );
-};
+}
 
 Head.propTypes = {
   children: PropTypes.node,
