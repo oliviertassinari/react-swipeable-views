@@ -27,7 +27,7 @@
     "warning": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^15.0.0 || ^0.14.0",
+    "react": "^15.0.0 || ^16.0.0-alpha.12",
     "react-native": ">= 0.39.0"
   },
   "devDependencies": {
