@@ -45,7 +45,7 @@ class DemoTabs extends Component {
 
     return (
       <div>
-        <Tabs index={index} fullWidth onChange={this.handleChange}>
+        <Tabs value={index} fullWidth onChange={this.handleChange}>
           <Tab label="tab n°1" />
           <Tab label="tab n°2" />
           <Tab label="tab n°3" />

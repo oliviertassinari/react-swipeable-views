@@ -1,8 +1,8 @@
 // @flow weak
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-
+import PropTypes from 'prop-types';
 import PaginationDot from './PaginationDot.native';
 
 const styles = StyleSheet.create({
