@@ -23,12 +23,8 @@ const Demo = props => {
 
   return (
     <View>
-      <Text style={styles.name}>
-        {name}
-      </Text>
-      <Text style={styles.description}>
-        {description}
-      </Text>
+      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.description}>{description}</Text>
       {children}
     </View>
   );

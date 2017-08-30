@@ -27,19 +27,13 @@ const styles = {
 const list = [];
 
 for (let i = 0; i < 30; i += 1) {
-  list.push(
-    <div key={i}>
-      {`item n°${i + 1}`}
-    </div>,
-  );
+  list.push(<div key={i}>{`item n°${i + 1}`}</div>);
 }
 
 function DemoScroll() {
   return (
     <SwipeableViews containerStyle={styles.slideContainer}>
-      <div style={Object.assign({}, styles.slide, styles.slide1)}>
-        {list}
-      </div>
+      <div style={Object.assign({}, styles.slide, styles.slide1)}>{list}</div>
       <div style={Object.assign({}, styles.slide, styles.slide2)}>slide n°2</div>
       <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
     </SwipeableViews>

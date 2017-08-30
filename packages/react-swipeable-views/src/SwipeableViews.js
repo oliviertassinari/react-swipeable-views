@@ -24,8 +24,8 @@ function addEventListenerEnhanced(node, event, handler, options) {
 
 let styleInjected = false;
 
-// Support old version of iOS.
-// To be deleted in 2018.
+// Support old version of iOS and IE 10.
+// To be deleted in 2019.
 function injectStyle() {
   // Inject once for all the instances
   if (!styleInjected) {
@@ -36,7 +36,7 @@ function injectStyle() {
         display: -ms-flexbox;
       }
       .react-swipeable-view-container > div {
-          -ms-flex-negative: 0;
+        -ms-flex-negative: 0;
       }
     `;
 
@@ -533,7 +533,10 @@ class SwipeableViews extends Component {
       computedStyle.getPropertyValue('transform');
 
     if (transform) {
-      const transformValues = transform.split('(')[1].split(')')[0].split(',');
+      const transformValues = transform
+        .split('(')[1]
+        .split(')')[0]
+        .split(',');
       const rootStyle = window.getComputedStyle(this.rootNode);
 
       const tranformNormalized = applyRotationMatrix(

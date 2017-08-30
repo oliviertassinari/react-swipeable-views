@@ -97,11 +97,11 @@ class SwipeableViews extends Component {
     /**
      * @ignore
      */
-    onTouchEnd: React.PropTypes.func,
+    onTouchEnd: PropTypes.func,
     /**
      * @ignore
      */
-    onTouchStart: React.PropTypes.func,
+    onTouchStart: PropTypes.func,
     /**
      * The callback that fires when the animation comes to a rest.
      * This is useful to defer CPU intensive task.
@@ -359,11 +359,7 @@ class SwipeableViews extends Component {
 We are expecting a valid React Element`,
       );
 
-      return (
-        <View style={slideStyleObj}>
-          {child}
-        </View>
-      );
+      return <View style={slideStyleObj}>{child}</View>;
     });
 
     const sceneContainerStyle = [

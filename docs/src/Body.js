@@ -12,11 +12,7 @@ const styles = {
 function Body(props) {
   const { children } = props;
 
-  return (
-    <div style={styles.root}>
-      {children}
-    </div>
-  );
+  return <div style={styles.root}>{children}</div>;
 }
 
 Body.propTypes = {

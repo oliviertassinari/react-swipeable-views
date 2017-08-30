@@ -30,11 +30,7 @@ class Pagination extends Component {
       );
     }
 
-    return (
-      <div style={styles.root}>
-        {children}
-      </div>
-    );
+    return <div style={styles.root}>{children}</div>;
   }
 }
 

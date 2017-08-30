@@ -243,11 +243,7 @@ class SwipeableViews extends Component {
 We are expecting a valid React Element`,
       );
 
-      return (
-        <View style={slideStyleObj}>
-          {child}
-        </View>
-      );
+      return <View style={slideStyleObj}>{child}</View>;
     });
 
     return (
