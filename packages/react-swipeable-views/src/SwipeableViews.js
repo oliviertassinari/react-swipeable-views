@@ -33,6 +33,10 @@ function injectStyle() {
     style.innerHTML = `
       .react-swipeable-view-container {
         display: -webkit-box;
+        display: -ms-flexbox;
+      }
+      .react-swipeable-view-container > div {
+          -ms-flex-negative: 0;
       }
     `;
 
