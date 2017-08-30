@@ -33,11 +33,7 @@ const styles = {
 const list = [];
 
 for (let i = 0; i < 30; i += 1) {
-  list.push(
-    <div key={i}>
-      {`item n°${i + 1}`}
-    </div>,
-  );
+  list.push(<div key={i}>{`item n°${i + 1}`}</div>);
 }
 
 class Slide4 extends PureComponent {
@@ -74,18 +70,14 @@ class Slide4 extends PureComponent {
 const DemoAnimateHeight = () => {
   return (
     <SwipeableViews animateHeight>
-      <div style={Object.assign({}, styles.slide, styles.slide1)}>
-        {list.slice(0, 10)}
-      </div>
+      <div style={Object.assign({}, styles.slide, styles.slide1)}>{list.slice(0, 10)}</div>
       <div style={Object.assign({}, styles.slide, styles.slide2)}>
         {'This slide has a max-height limit:'}
         <br />
         <br />
         {list.slice(0, 7)}
       </div>
-      <div style={Object.assign({}, styles.slide, styles.slide3)}>
-        {list.slice(0, 7)}
-      </div>
+      <div style={Object.assign({}, styles.slide, styles.slide3)}>{list.slice(0, 7)}</div>
       <Slide4 />
     </SwipeableViews>
   );

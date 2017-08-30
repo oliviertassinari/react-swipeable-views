@@ -8,12 +8,8 @@ function Head(props) {
 
   return (
     <section className="page-header">
-      <h1 className="project-name">
-        {name}
-      </h1>
-      <h2 className="project-tagline">
-        {description}
-      </h2>
+      <h1 className="project-name">{name}</h1>
+      <h2 className="project-tagline">{description}</h2>
       {children}
     </section>
   );

@@ -25,16 +25,15 @@ function Demo(props) {
 
   return (
     <div>
-      <h3 style={styles.name}>
-        {name}
-      </h3>
+      <h3 style={styles.name}>{name}</h3>
       <p style={styles.description}>
         {description}
-        {!supportsTouch &&
+        {!supportsTouch && (
           <span className="pl-id">
             <br />
             You need a touch device to swipe between the 3 slides.
-          </span>}
+          </span>
+        )}
       </p>
       {children}
     </div>

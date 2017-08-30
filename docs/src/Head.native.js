@@ -30,12 +30,8 @@ function Head(props) {
 
   return (
     <View style={styles.root}>
-      <Text style={styles.name}>
-        {name}
-      </Text>
-      <Text style={styles.description}>
-        {description}
-      </Text>
+      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.description}>{description}</Text>
       {children}
     </View>
   );

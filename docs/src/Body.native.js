@@ -13,11 +13,7 @@ const styles = StyleSheet.create({
 function Body(props) {
   const { children } = props;
 
-  return (
-    <View style={styles.root}>
-      {children}
-    </View>
-  );
+  return <View style={styles.root}>{children}</View>;
 }
 
 Body.propTypes = {

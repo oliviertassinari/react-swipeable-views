@@ -32,9 +32,7 @@ const list = [];
 for (let i = 0; i < 30; i += 1) {
   list.push(
     <View key={i}>
-      <Text style={styles.text}>
-        {`item n°${i + 1}`}
-      </Text>
+      <Text style={styles.text}>{`item n°${i + 1}`}</Text>
     </View>,
   );
 }
@@ -42,9 +40,7 @@ for (let i = 0; i < 30; i += 1) {
 function DemoScroll() {
   return (
     <SwipeableViews containerStyle={styles.slideContainer}>
-      <ScrollView style={[styles.slide, styles.slide1]}>
-        {list}
-      </ScrollView>
+      <ScrollView style={[styles.slide, styles.slide1]}>{list}</ScrollView>
       <View style={[styles.slide, styles.slide2]}>
         <Text style={styles.text}>slide n°2</Text>
       </View>

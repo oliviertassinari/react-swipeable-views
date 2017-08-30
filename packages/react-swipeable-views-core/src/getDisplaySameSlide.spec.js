@@ -15,26 +15,16 @@ describe('getDisplaySameSlide', () => {
   it('should return false if there is no key', () => {
     const oldState = mount(
       <SwipeableViews index={2}>
-        <div>
-          {'slide n°1'}
-        </div>
-        <div>
-          {'slide n°2'}
-        </div>
-        <div>
-          {'slide n°3'}
-        </div>
+        <div>{'slide n°1'}</div>
+        <div>{'slide n°2'}</div>
+        <div>{'slide n°3'}</div>
       </SwipeableViews>,
     );
 
     const newState = mount(
       <SwipeableViews index={1}>
-        <div>
-          {'slide n°2'}
-        </div>
-        <div>
-          {'slide n°3'}
-        </div>
+        <div>{'slide n°2'}</div>
+        <div>{'slide n°3'}</div>
       </SwipeableViews>,
     );
 

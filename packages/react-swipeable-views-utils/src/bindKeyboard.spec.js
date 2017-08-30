@@ -17,15 +17,9 @@ describe('bindKeyboard', () => {
   beforeEach(() => {
     wrapper = shallow(
       <BindKeyboardSwipeableViews>
-        <div>
-          {'slide n°1'}
-        </div>
-        <div>
-          {'slide n°2'}
-        </div>
-        <div>
-          {'slide n°3'}
-        </div>
+        <div>{'slide n°1'}</div>
+        <div>{'slide n°2'}</div>
+        <div>{'slide n°3'}</div>
       </BindKeyboardSwipeableViews>,
     );
   });

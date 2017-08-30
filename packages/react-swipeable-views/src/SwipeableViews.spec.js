@@ -19,21 +19,11 @@ describe('SwipeableViews', () => {
     it('should render the children', () => {
       const wrapper = mount(
         <SwipeableViews>
-          <div>
-            {'slide n°1'}
-          </div>
-          <div>
-            {'slide n°2'}
-          </div>
-          <div>
-            {'slide n°3'}
-          </div>
-          <div>
-            {'slide n°4'}
-          </div>
-          <div>
-            {'slide n°5'}
-          </div>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
+          <div>{'slide n°4'}</div>
+          <div>{'slide n°5'}</div>
         </SwipeableViews>,
       );
 
@@ -49,12 +39,8 @@ describe('SwipeableViews', () => {
     function createWrapper(hysteresis) {
       const wrapper = mount(
         <SwipeableViews hysteresis={hysteresis}>
-          <div>
-            {'slide n°1'}
-          </div>
-          <div>
-            {'slide n°2'}
-          </div>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
         </SwipeableViews>,
       );
 
@@ -135,9 +121,7 @@ describe('SwipeableViews', () => {
       const handleTouchStart = spy();
       const wrapper = mount(
         <SwipeableViews onTouchStart={handleTouchStart}>
-          <div>
-            {'slide n°1'}
-          </div>
+          <div>{'slide n°1'}</div>
         </SwipeableViews>,
       );
 
@@ -151,9 +135,7 @@ describe('SwipeableViews', () => {
       const handleTouchStart = spy();
       const wrapper = mount(
         <SwipeableViews disabled onTouchStart={handleTouchStart}>
-          <div>
-            {'slide n°1'}
-          </div>
+          <div>{'slide n°1'}</div>
         </SwipeableViews>,
       );
 
@@ -169,9 +151,7 @@ describe('SwipeableViews', () => {
       const handleTouchEnd = spy();
       const wrapper = mount(
         <SwipeableViews onTouchEnd={handleTouchEnd}>
-          <div>
-            {'slide n°1'}
-          </div>
+          <div>{'slide n°1'}</div>
         </SwipeableViews>,
       );
 
@@ -184,9 +164,7 @@ describe('SwipeableViews', () => {
     it('should use a spring if animateTransitions is true', () => {
       const wrapper = shallow(
         <SwipeableViews>
-          <div>
-            {'slide n°1'}
-          </div>
+          <div>{'slide n°1'}</div>
         </SwipeableViews>,
       );
 
@@ -201,9 +179,7 @@ describe('SwipeableViews', () => {
     it('should not use a spring if animateTransitions is false', () => {
       const wrapper = shallow(
         <SwipeableViews animateTransitions={false}>
-          <div>
-            {'slide n°1'}
-          </div>
+          <div>{'slide n°1'}</div>
         </SwipeableViews>,
       );
 
@@ -220,12 +196,8 @@ describe('SwipeableViews', () => {
     beforeEach(() => {
       wrapper = mount(
         <SwipeableViews>
-          <div>
-            {'slide n°1'}
-          </div>
-          <div>
-            {'slide n°2'}
-          </div>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
         </SwipeableViews>,
       );
 
@@ -305,29 +277,17 @@ describe('SwipeableViews', () => {
     beforeEach(() => {
       wrapperParent = mount(
         <SwipeableViews index={1}>
-          <div>
-            {'slide n°1'}
-          </div>
-          <div>
-            {'slide n°2'}
-          </div>
-          <div>
-            {'slide n°3'}
-          </div>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
         </SwipeableViews>,
       );
 
       wrapperNester = mount(
         <SwipeableViews index={0}>
-          <div>
-            {'slide n°4'}
-          </div>
-          <div>
-            {'slide n°5'}
-          </div>
-          <div>
-            {'slide n°6'}
-          </div>
+          <div>{'slide n°4'}</div>
+          <div>{'slide n°5'}</div>
+          <div>{'slide n°6'}</div>
         </SwipeableViews>,
       );
 
@@ -419,12 +379,8 @@ describe('SwipeableViews', () => {
     it('should only update the state when the index change', () => {
       const wrapper = mount(
         <SwipeableViews>
-          <div>
-            {'slide n°1'}
-          </div>
-          <div>
-            {'slide n°2'}
-          </div>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
         </SwipeableViews>,
       );
       assert.strictEqual(wrapper.state().indexCurrent, 0, 'should start at the begining');
@@ -449,12 +405,8 @@ describe('SwipeableViews', () => {
       const handleTranstionEnd = spy();
       const wrapper = mount(
         <SwipeableViews index={1} onTransitionEnd={handleTranstionEnd}>
-          <div>
-            {'slide n°1'}
-          </div>
-          <div>
-            {'slide n°2'}
-          </div>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
         </SwipeableViews>,
       );
 
@@ -568,15 +520,9 @@ describe('SwipeableViews', () => {
       const handleChangeIndex = spy();
       const wrapper = shallow(
         <SwipeableViews index={1} onScroll={handleScroll} onChangeIndex={handleChangeIndex}>
-          <div>
-            {'slide n°1'}
-          </div>
-          <div>
-            {'slide n°2'}
-          </div>
-          <div>
-            {'slide n°3'}
-          </div>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
         </SwipeableViews>,
       );
 
@@ -599,21 +545,11 @@ describe('SwipeableViews', () => {
     it('should render the first child', () => {
       const wrapper = render(
         <SwipeableViews>
-          <div>
-            {'slide n°1'}
-          </div>
-          <div>
-            {'slide n°2'}
-          </div>
-          <div>
-            {'slide n°3'}
-          </div>
-          <div>
-            {'slide n°4'}
-          </div>
-          <div>
-            {'slide n°5'}
-          </div>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
+          <div>{'slide n°4'}</div>
+          <div>{'slide n°5'}</div>
         </SwipeableViews>,
       );
 
@@ -623,21 +559,11 @@ describe('SwipeableViews', () => {
     it('should render all children', () => {
       const wrapper = render(
         <SwipeableViews disableLazyLoading>
-          <div>
-            {'slide n°1'}
-          </div>
-          <div>
-            {'slide n°2'}
-          </div>
-          <div>
-            {'slide n°3'}
-          </div>
-          <div>
-            {'slide n°4'}
-          </div>
-          <div>
-            {'slide n°5'}
-          </div>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
+          <div>{'slide n°4'}</div>
+          <div>{'slide n°5'}</div>
         </SwipeableViews>,
       );
 

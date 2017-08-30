@@ -17,15 +17,9 @@ describe('autoPlay', () => {
     beforeEach(() => {
       wrapper = shallow(
         <AutoPlaySwipeableViews>
-          <div>
-            {'slide n°1'}
-          </div>
-          <div>
-            {'slide n°2'}
-          </div>
-          <div>
-            {'slide n°3'}
-          </div>
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
         </AutoPlaySwipeableViews>,
       );
     });
@@ -66,21 +60,11 @@ describe('autoPlay', () => {
       it('should be able to update the interval', done => {
         wrapper = mount(
           <AutoPlaySwipeableViews interval={100}>
-            <div>
-              {'slide n°1'}
-            </div>
-            <div>
-              {'slide n°2'}
-            </div>
-            <div>
-              {'slide n°3'}
-            </div>
-            <div>
-              {'slide n°4'}
-            </div>
-            <div>
-              {'slide n°5'}
-            </div>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
+            <div>{'slide n°4'}</div>
+            <div>{'slide n°5'}</div>
           </AutoPlaySwipeableViews>,
         );
 
@@ -108,21 +92,11 @@ describe('autoPlay', () => {
       it('should increment the index', done => {
         wrapper = mount(
           <AutoPlaySwipeableViews interval={100}>
-            <div>
-              {'slide n°1'}
-            </div>
-            <div>
-              {'slide n°2'}
-            </div>
-            <div>
-              {'slide n°3'}
-            </div>
-            <div>
-              {'slide n°4'}
-            </div>
-            <div>
-              {'slide n°5'}
-            </div>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
+            <div>{'slide n°4'}</div>
+            <div>{'slide n°5'}</div>
           </AutoPlaySwipeableViews>,
         );
 
@@ -135,21 +109,11 @@ describe('autoPlay', () => {
       it('should decrement the index', done => {
         wrapper = mount(
           <AutoPlaySwipeableViews interval={100} direction="decremental">
-            <div>
-              {'slide n°1'}
-            </div>
-            <div>
-              {'slide n°2'}
-            </div>
-            <div>
-              {'slide n°3'}
-            </div>
-            <div>
-              {'slide n°4'}
-            </div>
-            <div>
-              {'slide n°5'}
-            </div>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
+            <div>{'slide n°4'}</div>
+            <div>{'slide n°5'}</div>
           </AutoPlaySwipeableViews>,
         );
 
@@ -165,21 +129,11 @@ describe('autoPlay', () => {
         const handleChangeIndex = spy();
         wrapper = mount(
           <AutoPlaySwipeableViews interval={100} onChangeIndex={handleChangeIndex}>
-            <div>
-              {'slide n°1'}
-            </div>
-            <div>
-              {'slide n°2'}
-            </div>
-            <div>
-              {'slide n°3'}
-            </div>
-            <div>
-              {'slide n°4'}
-            </div>
-            <div>
-              {'slide n°5'}
-            </div>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
+            <div>{'slide n°4'}</div>
+            <div>{'slide n°5'}</div>
           </AutoPlaySwipeableViews>,
         );
 
@@ -199,15 +153,9 @@ describe('autoPlay', () => {
       it('should use the slideCount to compute the index limit', done => {
         wrapper = mount(
           <AutoPlaySwipeableViews slideCount={2} interval={100}>
-            <div>
-              {'slide n°1'}
-            </div>
-            <div>
-              {'slide n°2'}
-            </div>
-            <div>
-              {'slide n°3'}
-            </div>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
           </AutoPlaySwipeableViews>,
         );
 
@@ -222,15 +170,9 @@ describe('autoPlay', () => {
       it('should not increment when disabled', done => {
         wrapper = mount(
           <AutoPlaySwipeableViews autoplay interval={100}>
-            <div>
-              {'slide n°1'}
-            </div>
-            <div>
-              {'slide n°2'}
-            </div>
-            <div>
-              {'slide n°3'}
-            </div>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
           </AutoPlaySwipeableViews>,
         );
 

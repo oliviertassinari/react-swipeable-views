@@ -80,9 +80,7 @@ class DemoVirtualize extends Component {
           slideRenderer={slideRenderer}
         />
         <br />
-        <Button onClick={this.handleClick}>
-          {'go to slide n°50'}
-        </Button>
+        <Button onClick={this.handleClick}>{'go to slide n°50'}</Button>
       </div>
     );
   }

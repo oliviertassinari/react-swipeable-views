@@ -52,9 +52,7 @@ function slideRenderer(params) {
 
   return (
     <View style={[styles.slide, style]} key={key}>
-      <Text style={styles.text}>
-        {`slide n°${index + 1}`}
-      </Text>
+      <Text style={styles.text}>{`slide n°${index + 1}`}</Text>
     </View>
   );
 }
