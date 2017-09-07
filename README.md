@@ -157,7 +157,7 @@ the same component can be used independently on where it's running.
 The infinite feature is provided thanks to a *higher order component*.
 It's working independently of the targeted platform.
 You can have a look at *Demo 8* to see it in action.
-It's higly inspired by [react-virtualized](https://github.com/bvaughn/react-virtualized).
+It's highly inspired by [react-virtualized](https://github.com/bvaughn/react-virtualized).
 Let's see an example with the browser:
 
 ```jsx
@@ -241,7 +241,7 @@ export default MyComponent;
 | children | node | | all | Use this property to provide your slides. |
 | containerStyle | object | `{}` | all | Whether or not the auto complete is animated as it is toggled. |
 | disabled | bool | `false` | all | If `true`, it will disable touch events. This is useful when you want to prohibit the user from changing slides. |
-| disableLazyLoading | bool | false | browser | This is the config used to disable lazyloding, if `true` will render all the views in first rendering. |
+| disableLazyLoading | bool | false | browser | This is the config used to disable lazy loading, if `true` it will render all the views in first rendering. |
 | enableMouseEvents | bool | `false` | browser | If `true`, it will enable mouse events. This will allow the user to perform the relevant swipe actions with a mouse. |
 | hysteresis | float | `0.6` | all | Configure hysteresis between slides. This value determines how far should user swipe to switch slide. |
 | ignoreNativeScroll | bool | false | browser | If `true`, it will ignore native scroll container. It can be used to filter out false positive that blocks the swipe. |
@@ -311,7 +311,7 @@ However, the implementation is simpler.
 
 ## Packages stucture
 
-The project is split into mutliple packages.
+The project is split into multiple packages.
 This is really useful for code sharing and isolation.
 We are using [Lerna](https://github.com/lerna/lerna) to do so.
 The project has the following packages:
