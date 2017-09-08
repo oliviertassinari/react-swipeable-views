@@ -11,8 +11,6 @@
 
 [![TypeScript definitions on DefinitelyTyped](http://definitelytyped.org/badges/standard-flat.svg)](http://definitelytyped.org)
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/exeebWrRmXisY5kkhcJd58AS/oliviertassinari/react-swipeable-views'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/exeebWrRmXisY5kkhcJd58AS/oliviertassinari/react-swipeable-views.svg' /></a>
-
 ## Installation
 
 ### Browser
@@ -325,3 +323,5 @@ The project has the following packages:
 ## License
 
 MIT
+
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/exeebWrRmXisY5kkhcJd58AS/oliviertassinari/react-swipeable-views'><img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/exeebWrRmXisY5kkhcJd58AS/oliviertassinari/react-swipeable-views.svg' /></a>
