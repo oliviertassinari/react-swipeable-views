@@ -25,6 +25,8 @@ npm install --save react-swipeable-views
 npm install --save react-swipeable-views-native
 ```
 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/exeebWrRmXisY5kkhcJd58AS/oliviertassinari/react-swipeable-views'><img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/exeebWrRmXisY5kkhcJd58AS/oliviertassinari/react-swipeable-views.svg' /></a>
+
 ## The problem solved
 
 Check out the [demos](http://oliviertassinari.github.io/react-swipeable-views/) from a mobile device (real or emulated).
@@ -323,5 +325,3 @@ The project has the following packages:
 ## License
 
 MIT
-
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/exeebWrRmXisY5kkhcJd58AS/oliviertassinari/react-swipeable-views'><img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/exeebWrRmXisY5kkhcJd58AS/oliviertassinari/react-swipeable-views.svg' /></a>
