@@ -227,10 +227,21 @@ export function findNativeHandler(params) {
 }
 
 class SwipeableViews extends Component {
-  // Added as an ads.
+  // Added as an ads for people using the React dev tools in production.
+  // So they know, the tool used to build the awesome UI they
+  // are looking at/retro engineering.
   static displayName = 'ReactSwipableView';
 
   static propTypes = {
+    /**
+     * This is callback property. It's called by the component on mount.
+     * This is useful when you want to trigger an action programmatically.
+     * It currently only supports updateHeight() action.
+     *
+     * @param {object} actions This object contains all posible actions
+     * that can be triggered programmatically.
+     */
+    action: PropTypes.func,
     /**
      * If `true`, the height of the container will be animated to match the current slide height.
      * Animating another style property has a negative impact regarding performance.
@@ -463,6 +474,13 @@ class SwipeableViews extends Component {
     /* eslint-enable react/no-did-mount-set-state */
 
     injectStyle();
+
+    // Send all functions in an object if action param is set.
+    if (this.props.action) {
+      this.props.action({
+        updateHeight: this.updateHeight,
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
