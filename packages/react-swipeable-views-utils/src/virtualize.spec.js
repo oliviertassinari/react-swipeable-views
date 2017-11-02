@@ -17,7 +17,7 @@ const slideRenderer = params => {
 };
 
 describe('virtualize', () => {
-  describe('prop: overscanSlideAfter', () => {
+  describe.only('prop: overscanSlideAfter', () => {
     it('should update the window', () => {
       const wrapper = shallow(
         <VirtualizeSwipeableViews overscanSlideAfter={1} slideRenderer={slideRenderer} />,
