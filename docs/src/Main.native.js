@@ -17,28 +17,28 @@ function Main() {
     <View>
       <Head name="React swipeable views" description="A React component for swipeable views" />
       <Body>
-        <Demo name="Demo 1" description="A simple case.">
+        <Demo name="Simple" description="A simple case.">
           <DemoSimple />
         </Demo>
-        <Demo name="Demo 2" description="With a header.">
+        <Demo name="Tabs" description="With a header.">
           <DemoTabs />
         </Demo>
         <Demo
-          name="Demo 3"
+          name="Scroll"
           description="Set a constant height and let the swipe and scroll behavior work in harmony."
         >
           <DemoScroll />
         </Demo>
-        <Demo name="Demo 5" description="With a resistance bounds effet on the edges.">
+        <Demo name="Resitance" description="With a resistance bounds effet on the edges.">
           <DemoResitance />
         </Demo>
-        <Demo name="Demo 7" description="With the auto play HOC.">
+        <Demo name="Auto play" description="With the auto play HOC.">
           <DemoAutoPlay />
         </Demo>
-        <Demo name="Demo 8" description="With the virtualize HOC.">
+        <Demo name="Virtualize" description="With the virtualize HOC.">
           <DemoVirtualize />
         </Demo>
-        <Demo name="Demo 11" description="With all the HOCs.">
+        <Demo name="Hocs" description="With all the HOCs.">
           <DemoHocs />
         </Demo>
         <Footer

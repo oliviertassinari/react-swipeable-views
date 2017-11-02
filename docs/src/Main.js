@@ -26,46 +26,49 @@ function Main() {
         </a>
       </Head>
       <Body>
-        <Demo name="Demo 1" description="A Simple case.">
+        <Demo name="Simple" description="A Simple case.">
           <DemoSimple />
         </Demo>
-        <Demo name="Demo 2" description="With a header.">
+        <Demo name="Tabs" description="With a header.">
           <DemoTabs />
         </Demo>
         <Demo
-          name="Demo 3"
+          name="Scroll"
           description="Set a constant height and let the swipe and scroll behavior work in harmony."
         >
           <DemoScroll />
         </Demo>
-        <Demo name="Demo 4" description="The container responds dynamically to its children.">
+        <Demo
+          name="Animate height"
+          description="The container responds dynamically to its children."
+        >
           <DemoAnimateHeight />
         </Demo>
-        <Demo name="Demo 5" description="With a resistance bounds effet on the edges.">
+        <Demo name="Resitance" description="With a resistance bounds effet on the edges.">
           <DemoResitance />
         </Demo>
-        <Demo name="Demo 6" description="With nested swipeable-view component.">
+        <Demo name="Nested" description="With nested swipeable-view component.">
           <DemoNested />
         </Demo>
-        <Demo name="Demo 7" description="With the auto play HOC.">
+        <Demo name="Auto play" description="With the auto play HOC.">
           <DemoAutoPlay />
         </Demo>
-        <Demo name="Demo 8" description="With the virtualize HOC.">
+        <Demo name="Virtualize" description="With the virtualize HOC.">
           <DemoVirtualize />
         </Demo>
-        <Demo name="Demo 9" description="Swipe up and down.">
+        <Demo name="Axis" description="Swipe up and down.">
           <DemoAxis />
         </Demo>
-        <Demo name="Demo 10" description="With a keyboard binding.">
+        <Demo name="Keyboard" description="With a keyboard binding.">
           <DemoKeyboard />
         </Demo>
-        <Demo name="Demo 11" description="With all the HOCs.">
+        <Demo name="Hocs" description="With all the HOCs.">
           <DemoHocs />
         </Demo>
-        <Demo name="Demo 12" description="Custom width of slides.">
+        <Demo name="Custom width" description="Custom width of slides.">
           <DemoWidth />
         </Demo>
-        <Demo name="Demo 13" description="Right-to-left direction">
+        <Demo name="Rtl" description="Right-to-left direction">
           <DemoRtl />
         </Demo>
         <Footer

@@ -87,39 +87,6 @@ export default function virtualize(MyComponent) {
       clearInterval(this.timer);
     }
 
-    timer = null;
-
-    handleChangeIndex = (indexContainer, indexLatest) => {
-      const { slideCount, onChangeIndex } = this.props;
-
-      const indexDiff = indexContainer - indexLatest;
-      let index = this.state.index + indexDiff;
-
-      if (slideCount) {
-        index = mod(index, slideCount);
-      }
-
-      // Is uncontrolled
-      if (this.props.index === undefined) {
-        this.setIndex(index, indexContainer, indexDiff);
-      }
-
-      if (onChangeIndex) {
-        onChangeIndex(index, this.state.index);
-      }
-    };
-
-    handleTransitionEnd = () => {
-      // Delay the update of the window to fix an issue with react-motion.
-      this.timer = setTimeout(() => {
-        this.setWindow();
-      }, 0);
-
-      if (this.props.onTransitionEnd) {
-        this.props.onTransitionEnd();
-      }
-    };
-
     setIndex(index, indexContainer, indexDiff) {
       const nextState = {
         index,
@@ -174,6 +141,39 @@ export default function virtualize(MyComponent) {
         indexStop: index + afterAhead,
       });
     }
+
+    timer = null;
+
+    handleChangeIndex = (indexContainer, indexLatest) => {
+      const { slideCount, onChangeIndex } = this.props;
+
+      const indexDiff = indexContainer - indexLatest;
+      let index = this.state.index + indexDiff;
+
+      if (slideCount) {
+        index = mod(index, slideCount);
+      }
+
+      // Is uncontrolled
+      if (this.props.index === undefined) {
+        this.setIndex(index, indexContainer, indexDiff);
+      }
+
+      if (onChangeIndex) {
+        onChangeIndex(index, this.state.index);
+      }
+    };
+
+    handleTransitionEnd = () => {
+      // Delay the update of the window to fix an issue with react-motion.
+      this.timer = setTimeout(() => {
+        this.setWindow();
+      }, 0);
+
+      if (this.props.onTransitionEnd) {
+        this.props.onTransitionEnd();
+      }
+    };
 
     render() {
       const {
