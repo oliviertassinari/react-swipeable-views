@@ -574,4 +574,27 @@ describe('SwipeableViews', () => {
       );
     });
   });
+
+  describe('prop: action', () => {
+    it('should be able to access updateHeight function', () => {
+      let swipeableActions = {};
+      mount(
+        <SwipeableViews
+          action={actions => {
+            swipeableActions = actions;
+          }}
+        >
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+          <div>{'slide n°3'}</div>
+        </SwipeableViews>,
+      );
+
+      assert.strictEqual(
+        typeof swipeableActions.updateHeight === 'function',
+        true,
+        'Should be a function.',
+      );
+    });
+  });
 });

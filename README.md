@@ -237,6 +237,7 @@ export default MyComponent;
 
 | Name | Type | Default | Platform | Description |
 |:-----|:-----|:--------|:---------|:------------|
+| action | function(hooks) |  | browser | This is callback property. It's called by the component on mount. This is useful when you want to trigger an action programmatically. It currently only supports updateHeight() action. |
 | animateHeight | bool | `false` | browser | If `true`, the height of the container will be animated to match the current slide height. Animating another style property has a negative impact regarding performance. |
 | animateTransitions | bool | `true` | all | If `false`, changes to the index prop will not cause an animated transition. |
 | axis | enum [`'x'`, `'x-reverse'`, `'y'`, `'y-reverse'`] | `'x'` | browser | The axis on which the slides will slide. |
