@@ -1,9 +1,8 @@
 // @flow weak
-/* eslint-env mocha */
 
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy } from 'sinon';
+import { spy, useFakeTimers } from 'sinon';
 import { assert } from 'chai';
 import autoPlay from './autoPlay';
 
@@ -12,6 +11,10 @@ const AutoPlaySwipeableViews = autoPlay(Empty);
 
 describe('autoPlay', () => {
   let wrapper;
+
+  afterEach(() => {
+    wrapper.unmount(); // Unmount to clear the setInterval of the autoPlay HOC.
+  });
 
   describe('static', () => {
     beforeEach(() => {
@@ -52,12 +55,18 @@ describe('autoPlay', () => {
   });
 
   describe('interval', () => {
-    afterEach(() => {
-      wrapper.unmount(); // Unmount to clear the setInterval of the autoPlay HOC.
-    });
-
     describe('prop: interval', () => {
-      it('should be able to update the interval', done => {
+      let clock;
+
+      before(() => {
+        clock = useFakeTimers();
+      });
+
+      after(() => {
+        clock.restore();
+      });
+
+      it('should be able to update the interval', () => {
         wrapper = mount(
           <AutoPlaySwipeableViews interval={100}>
             <div>{'slide n°1'}</div>
@@ -69,22 +78,22 @@ describe('autoPlay', () => {
         );
 
         // Disturb the interval.
-        setTimeout(() => {
-          assert.strictEqual(wrapper.state().index, 1, 'Should have the right index.');
-          wrapper.update();
-        }, 150);
+        clock.tick(150);
 
-        setTimeout(() => {
-          assert.strictEqual(wrapper.state().index, 2, 'Should have the right index.');
-          wrapper.setProps({
-            interval: 200,
-          });
-        }, 250);
+        wrapper.setProps({
+          interval: 200,
+        });
 
-        setTimeout(() => {
-          assert.strictEqual(wrapper.state().index, 2, 'Should have the right index.');
-          done();
-        }, 400);
+        assert.strictEqual(wrapper.state().index, 1, 'Should have the right index.');
+
+        clock.tick(250);
+        assert.strictEqual(wrapper.state().index, 2, 'Should have the right index.');
+        wrapper.setProps({
+          interval: 200,
+        });
+
+        clock.tick(400);
+        assert.strictEqual(wrapper.state().index, 4, 'Should have the right index.');
       });
     });
 
