@@ -48,13 +48,12 @@ export default function autoPlay(MyComponent) {
       interval: 3000,
     };
 
-    state = {};
-
-    componentWillMount() {
-      this.setState({
-        index: this.props.index || 0,
-      });
+    constructor(props, context) {
+      super(props, context);
+      this.state.index = this.props.index || 0;
     }
+
+    state = {};
 
     componentDidMount() {
       this.startInterval();

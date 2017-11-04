@@ -1,5 +1,4 @@
 // @flow weak
-/* eslint-env mocha */
 
 import React from 'react';
 import { shallow } from 'enzyme';

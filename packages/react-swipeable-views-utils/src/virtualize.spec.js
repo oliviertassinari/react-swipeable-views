@@ -1,5 +1,4 @@
 // @flow weak
-/* eslint-env mocha */
 /* eslint-disable react/no-multi-comp */
 
 import React from 'react';
@@ -22,7 +21,6 @@ describe('virtualize', () => {
       const wrapper = shallow(
         <VirtualizeSwipeableViews overscanSlideAfter={1} slideRenderer={slideRenderer} />,
       );
-
       assert.deepEqual(wrapper.state(), {
         index: 0,
         indexContainer: 3,

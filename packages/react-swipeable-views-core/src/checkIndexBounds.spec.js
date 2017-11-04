@@ -1,5 +1,4 @@
 // @flow weak
-/* eslint-env mocha */
 /* eslint-disable no-console */
 
 import React from 'react';

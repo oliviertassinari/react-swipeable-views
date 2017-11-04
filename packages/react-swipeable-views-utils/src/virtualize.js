@@ -55,6 +55,11 @@ export default function virtualize(MyComponent) {
       overscanSlideBefore: 3,
     };
 
+    constructor(props, context) {
+      super(props, context);
+      this.state.index = this.props.index || 0;
+    }
+
     /**
      *
      *           index          indexStop
@@ -67,11 +72,7 @@ export default function virtualize(MyComponent) {
     state = {};
 
     componentWillMount() {
-      this.setState({
-        index: this.props.index || 0,
-      });
-
-      this.setWindow(this.props.index || 0);
+      this.setWindow(this.state.index);
     }
 
     componentWillReceiveProps(nextProps) {

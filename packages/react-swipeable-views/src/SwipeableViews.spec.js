@@ -1,5 +1,4 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
-/* eslint-env mocha */
 
 import React from 'react';
 import { mount, shallow, render } from 'enzyme';
@@ -166,6 +165,7 @@ describe('SwipeableViews', () => {
         <SwipeableViews>
           <div>{'slide n°1'}</div>
         </SwipeableViews>,
+        { disableLifecycleMethods: true },
       );
 
       assert.include(wrapper.childAt(0).props().style, {
@@ -181,6 +181,7 @@ describe('SwipeableViews', () => {
         <SwipeableViews animateTransitions={false}>
           <div>{'slide n°1'}</div>
         </SwipeableViews>,
+        { disableLifecycleMethods: true },
       );
 
       assert.include(wrapper.childAt(0).props().style, {
@@ -524,6 +525,7 @@ describe('SwipeableViews', () => {
           <div>{'slide n°2'}</div>
           <div>{'slide n°3'}</div>
         </SwipeableViews>,
+        { disableLifecycleMethods: true },
       );
 
       const rootNode = {
