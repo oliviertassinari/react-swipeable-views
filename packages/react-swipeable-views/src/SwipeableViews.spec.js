@@ -597,6 +597,7 @@ describe('SwipeableViews', () => {
         true,
         'Should be a function.',
       );
+      swipeableActions.updateHeight();
     });
   });
 });

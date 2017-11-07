@@ -834,7 +834,7 @@ class SwipeableViews extends Component {
     }
   };
 
-  updateHeight() {
+  updateHeight = () => {
     if (this.activeSlide !== null) {
       const child = this.activeSlide.children[0];
       if (
@@ -847,7 +847,7 @@ class SwipeableViews extends Component {
         });
       }
     }
-  }
+  };
 
   render() {
     const {
