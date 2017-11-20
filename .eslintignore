@@ -4,3 +4,4 @@ node_modules
 /ios
 /android
 /flow/interfaces
+/lib
