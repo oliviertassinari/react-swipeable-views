@@ -66,6 +66,7 @@ describe('SwipeableViews', () => {
 
     it('should not change slide when swipe was not enough', () => {
       const wrapper = createWrapper();
+      const instance = wrapper.instance();
 
       simulateSwipeMove(wrapper, {
         touches: [
@@ -75,13 +76,14 @@ describe('SwipeableViews', () => {
           },
         ],
       });
-      wrapper.instance().vx = 0;
+      instance.vx = 0;
       wrapper.simulate('touchEnd');
-      assert.equal(wrapper.state().indexCurrent, 0);
+      assert.strictEqual(instance.indexCurrent, 0);
     });
 
     it('should change slide after long swipe', () => {
       const wrapper = createWrapper();
+      const instance = wrapper.instance();
 
       simulateSwipeMove(wrapper, {
         touches: [
@@ -92,13 +94,14 @@ describe('SwipeableViews', () => {
         ],
       });
 
-      wrapper.instance().vx = 0;
+      instance.vx = 0;
       wrapper.simulate('touchEnd');
-      assert.equal(wrapper.state().indexCurrent, 1);
+      assert.strictEqual(instance.indexCurrent, 1);
     });
 
     it('should change slider hysteresis via prop', () => {
       const wrapper = createWrapper(0.3);
+      const instance = wrapper.instance();
 
       simulateSwipeMove(wrapper, {
         touches: [
@@ -109,9 +112,9 @@ describe('SwipeableViews', () => {
         ],
       });
 
-      wrapper.instance().vx = 0;
+      instance.vx = 0;
       wrapper.simulate('touchEnd');
-      assert.equal(wrapper.state().indexCurrent, 1);
+      assert.strictEqual(instance.indexCurrent, 1);
     });
   });
 
@@ -326,6 +329,8 @@ describe('SwipeableViews', () => {
           },
         ],
       };
+      const instanceNester = wrapperNester.instance();
+      const instanceParent = wrapperParent.instance();
 
       simulateSwipeMove(wrapperNester, touchMoveEvent1);
       simulateSwipeMove(wrapperParent, touchMoveEvent1);
@@ -342,8 +347,8 @@ describe('SwipeableViews', () => {
       simulateSwipeMove(wrapperNester, touchMoveEvent2);
       simulateSwipeMove(wrapperParent, touchMoveEvent2);
 
-      assert.strictEqual(wrapperNester.state().indexCurrent, 0.025);
-      assert.strictEqual(wrapperParent.state().indexCurrent, 1);
+      assert.strictEqual(instanceNester.indexCurrent, 0.025);
+      assert.strictEqual(instanceParent.indexCurrent, 1);
     });
 
     it('only the parent swipe should respond to the touch', () => {
@@ -355,6 +360,8 @@ describe('SwipeableViews', () => {
           },
         ],
       };
+      const instanceNester = wrapperNester.instance();
+      const instanceParent = wrapperParent.instance();
 
       simulateSwipeMove(wrapperNester, touchMoveEvent1);
       simulateSwipeMove(wrapperParent, touchMoveEvent1);
@@ -371,8 +378,8 @@ describe('SwipeableViews', () => {
       simulateSwipeMove(wrapperNester, touchMoveEvent2);
       simulateSwipeMove(wrapperParent, touchMoveEvent2);
 
-      assert.strictEqual(wrapperNester.state().indexCurrent, 0);
-      assert.strictEqual(wrapperParent.state().indexCurrent, 0.975);
+      assert.strictEqual(instanceNester.indexCurrent, 0);
+      assert.strictEqual(instanceParent.indexCurrent, 0.975);
     });
   });
 
@@ -384,20 +391,19 @@ describe('SwipeableViews', () => {
           <div>{'slide n°2'}</div>
         </SwipeableViews>,
       );
-      assert.strictEqual(wrapper.state().indexCurrent, 0, 'should start at the begining');
+      const instance = wrapper.instance();
+      assert.strictEqual(instance.indexCurrent, 0, 'should start at the begining');
 
       wrapper.setProps({
         index: 1,
       });
-      assert.strictEqual(wrapper.state().indexCurrent, 1, 'should update the state');
+      assert.strictEqual(instance.indexCurrent, 1, 'should update the state');
 
-      wrapper.setState({
-        indexCurrent: 0,
-      });
+      instance.indexCurrent = 0;
       wrapper.setProps({
         index: 1,
       });
-      assert.strictEqual(wrapper.state().indexCurrent, 0, 'should keep the same state');
+      assert.strictEqual(instance.indexCurrent, 0, 'should keep the same state');
     });
   });
 
