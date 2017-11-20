@@ -428,8 +428,8 @@ class SwipeableViews extends Component {
       checkIndexBounds(this.props);
     }
 
+    this.setIndexCurrent(this.props.index);
     this.setState({
-      indexCurrent: this.props.index,
       indexLatest: this.props.index,
       isDragging: false,
       isFirstRender: !this.props.disableLazyLoading,
@@ -467,11 +467,10 @@ class SwipeableViews extends Component {
       },
     );
 
-    /* eslint-disable react/no-did-mount-set-state */
+    // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({
       isFirstRender: false,
     });
-    /* eslint-enable react/no-did-mount-set-state */
 
     injectStyle();
 
@@ -491,24 +490,33 @@ class SwipeableViews extends Component {
         checkIndexBounds(nextProps);
       }
 
+      this.setIndexCurrent(index);
       this.setState({
         // If true, we are going to change the children. We shoudn't animate it.
         displaySameSlide: getDisplaySameSlide(this.props, nextProps),
-        indexCurrent: index,
         indexLatest: index,
       });
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (!this.props.animateTransitions && prevState.indexCurrent !== this.state.indexCurrent) {
-      this.handleTransitionEnd();
     }
   }
 
   componentWillUnmount() {
     this.transitionListener.remove();
     this.touchMoveListener.remove();
+  }
+
+  setIndexCurrent(indexCurrent) {
+    if (!this.props.animateTransitions && this.indexCurrent !== indexCurrent) {
+      this.handleTransitionEnd();
+    }
+
+    this.indexCurrent = indexCurrent;
+
+    if (this.containerNode) {
+      const { axis } = this.props;
+      const transform = axisProperties.transform[axis](indexCurrent * 100);
+      this.containerNode.style.WebkitTransform = transform;
+      this.containerNode.style.transform = transform;
+    }
   }
 
   rootNode = null;
@@ -525,6 +533,7 @@ class SwipeableViews extends Component {
   transitionListener = null;
   touchMoveListener = null;
   activeSlide = null;
+  indexCurrent = null;
 
   handleSwipeStart = event => {
     const { axis } = this.props;
@@ -550,7 +559,7 @@ class SwipeableViews extends Component {
       computedStyle.getPropertyValue('-webkit-transform') ||
       computedStyle.getPropertyValue('transform');
 
-    if (transform) {
+    if (transform && transform !== 'none') {
       const transformValues = transform
         .split('(')[1]
         .split(')')[0]
@@ -659,18 +668,25 @@ class SwipeableViews extends Component {
       nodeHowClaimedTheScroll = this.rootNode;
     }
 
-    this.setState(
-      {
-        displaySameSlide: false,
-        isDragging: true,
-        indexCurrent: index,
-      },
-      () => {
-        if (onSwitching) {
-          onSwitching(index, 'move');
-        }
-      },
-    );
+    this.setIndexCurrent(index);
+
+    const callback = () => {
+      if (onSwitching) {
+        onSwitching(index, 'move');
+      }
+    };
+
+    if (this.state.displaySameSlide || !this.state.isDragging) {
+      this.setState(
+        {
+          displaySameSlide: false,
+          isDragging: true,
+        },
+        callback,
+      );
+    }
+
+    callback();
   };
 
   handleSwipeEnd = () => {
@@ -689,7 +705,7 @@ class SwipeableViews extends Component {
     }
 
     const indexLatest = this.state.indexLatest;
-    const indexCurrent = this.state.indexCurrent;
+    const indexCurrent = this.indexCurrent;
     const delta = indexLatest - indexCurrent;
 
     let indexNew;
@@ -716,9 +732,9 @@ class SwipeableViews extends Component {
       indexNew = indexMax;
     }
 
+    this.setIndexCurrent(indexNew);
     this.setState(
       {
-        indexCurrent: indexNew,
         indexLatest: indexNew,
         isDragging: false,
       },
@@ -875,15 +891,13 @@ class SwipeableViews extends Component {
       ...other
     } = this.props;
 
-    const { displaySameSlide, heightLatest, indexCurrent, isDragging, isFirstRender } = this.state;
-
+    const { displaySameSlide, heightLatest, isDragging, isFirstRender } = this.state;
     const touchEvents = !disabled
       ? {
           onTouchStart: this.handleTouchStart,
           onTouchEnd: this.handleTouchEnd,
         }
       : {};
-
     const mouseEvents =
       !disabled && enableMouseEvents
         ? {
@@ -922,16 +936,20 @@ So animateHeight is most likely having no effect at all.`,
       }
     }
 
-    const transform = axisProperties.transform[axis](indexCurrent * 100);
     const containerStyle = {
-      WebkitTransform: transform,
-      transform,
       height: null,
       WebkitFlexDirection: axisProperties.flexDirection[axis],
       flexDirection: axisProperties.flexDirection[axis],
       WebkitTransition,
       transition,
     };
+
+    // Apply the styles for SSR considerations
+    if (isFirstRender) {
+      const transform = axisProperties.transform[axis](this.indexCurrent * 100);
+      containerStyle.WebkitTransform = transform;
+      containerStyle.transform = transform;
+    }
 
     if (animateHeight) {
       containerStyle.height = heightLatest;
