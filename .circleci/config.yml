@@ -1,0 +1,58 @@
+defaults: &defaults
+  working_directory: /tmp/react-swipeable-views
+  docker:
+    - image: circleci/node:6.11
+restore_repo: &restore_repo
+  restore_cache:
+    keys:
+      - v1-repo-{{ .Branch }}-{{ .Revision }}
+version: 2
+jobs:
+  checkout:
+    <<: *defaults
+    steps:
+      - *restore_repo
+      - checkout
+      - run:
+          name: Check versions and env
+          command: |
+            yarn --version
+            node --version
+            docker --version
+            docker-compose --version
+            env
+            yarn cache dir
+      - restore_cache:
+          key: v1-yarn-sha-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install js dependencies
+          command: yarn install --frozen-lockfile
+      - run:
+          name: Lerna
+          command: yarn bootstrap
+      - save_cache:
+          key: v1-yarn-sha-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn/v1
+      - save_cache:
+          key: v1-repo-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - /tmp/react-swipeable-views
+  test_unit:
+    <<: *defaults
+    steps:
+      - *restore_repo
+      - run:
+          name: Lint
+          command: yarn lint
+      - run:
+          name: Unit
+          command: yarn test:unit
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - checkout
+      - test_unit:
+          requires:
+            - checkout
