@@ -2,19 +2,18 @@
   "name": "SwipeableViewsDocs",
   "private": true,
   "scripts": {
+    "start": "yarn docs:browser:dev",
     "lint": "eslint . && echo \"eslint: no lint errors\"",
-    "test": "npm run lint && npm run test:unit",
     "test:unit": "NODE_ENV=release mocha",
     "test:watch": "NODE_ENV=release mocha -w",
-    "start": "npm run docs:browser:dev",
     "docs:browser:dev": "NODE_ENV=docs-browser-development babel-node ./node_modules/.bin/webpack-dev-server --config=docs/webpack/developmentConfig.js --progress",
     "docs:browser:build": "rm -rf docs/dist && NODE_ENV=docs-browser-production babel-node ./node_modules/.bin/webpack --config=docs/webpack/productionConfig.js --progress",
     "docs:native:dev": "NODE_ENV=docs-native-development node node_modules/react-native/local-cli/cli.js start --reset-cache --verbose",
     "prettier": "find . -name \"*.js\" | grep -v -f .eslintignore | xargs prettier --write --single-quote --trailing-comma all --print-width 100",
-    "bootstrap": "lerna bootstrap && npm run build",
-    "build": "rm -rf packages/*/lib && NODE_ENV=release lerna exec -- babel src --out-dir lib --ignore spec.js",
+    "bootstrap": "lerna bootstrap && yarn build",
     "watch": "lerna exec --concurrency 99 -- babel src --out-dir lib --watch",
-    "publish": "npm run build && lerna exec -- npm run prepublish && lerna publish"
+    "build": "rm -rf packages/*/lib && NODE_ENV=release lerna exec -- babel src --out-dir lib --ignore spec.js",
+    "publish": "yarn build && lerna exec -- yarn prepublish && lerna publish"
   },
   "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
   "license": "MIT",
