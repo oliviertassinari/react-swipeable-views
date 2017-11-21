@@ -2,14 +2,18 @@
 
 > A React component for swipeable views.
 
-[![npm version](https://img.shields.io/npm/v/react-swipeable-views.svg)](https://www.npmjs.com/package/react-swipeable-views)
-[![npm downloads](https://img.shields.io/npm/dm/react-swipeable-views.svg)](https://www.npmjs.com/package/react-swipeable-views)
+| Package | Version | Download |
+|---------|:--------|:---------|
+| react-swipeable-views | [![npm version](https://img.shields.io/npm/v/react-swipeable-views.svg)](https://www.npmjs.com/package/react-swipeable-views) | [![npm downloads](https://img.shields.io/npm/dm/react-swipeable-views.svg)](https://www.npmjs.com/package/react-swipeable-views) |
+| react-swipeable-views-utils | [![npm version](https://img.shields.io/npm/v/react-swipeable-views-utils.svg)](https://www.npmjs.com/package/react-swipeable-views-utils) | [![npm downloads](https://img.shields.io/npm/dm/react-swipeable-views-utils.svg)](https://www.npmjs.com/package/react-swipeable-views-utils) |
+| react-swipeable-views-native | [![npm version](https://img.shields.io/npm/v/react-swipeable-views-native.svg)](https://www.npmjs.com/package/react-swipeable-views-native) | [![npm downloads](https://img.shields.io/npm/dm/react-swipeable-views-native.svg)](https://www.npmjs.com/package/react-swipeable-views-native) |
+
 [![Build Status](https://travis-ci.org/oliviertassinari/react-swipeable-views.svg?branch=master)](https://travis-ci.org/oliviertassinari/react-swipeable-views)
 
 [![Dependencies](https://img.shields.io/david/oliviertassinari/react-swipeable-views.svg)](https://david-dm.org/oliviertassinari/react-swipeable-views)
 [![DevDependencies](https://img.shields.io/david/dev/oliviertassinari/react-swipeable-views.svg)](https://david-dm.org/oliviertassinari/react-swipeable-views#info=devDependencies&view=list)
 [![Donate](https://img.shields.io/badge/$-support-green.svg)](https://www.paypal.me/oliviertassinari/10)
-[![TypeScript definitions on DefinitelyTyped](http://definitelytyped.org/badges/standard-flat.svg)](http://definitelytyped.org)
+[![TypeScript definitions on DefinitelyTyped](https://img.shields.io/badge/style-.d.ts-green.svg?style=flat&label=DefinitelyTyped)](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-swipeable-views)
 
 ## Installation
 
