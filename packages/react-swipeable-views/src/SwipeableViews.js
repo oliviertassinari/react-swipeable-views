@@ -1,5 +1,3 @@
-// @flow weak
-
 import React, { Component, Children, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import warning from 'warning';
