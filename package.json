@@ -10,6 +10,7 @@
     "docs:build": "rm -rf docs/dist && NODE_ENV=docs-browser-production babel-node ./node_modules/.bin/webpack --config=docs/webpack/productionConfig.js --progress",
     "prettier": "find . -name \"*.js\" | grep -v -f .eslintignore | xargs prettier --write --single-quote --trailing-comma all --print-width 100",
     "bootstrap": "lerna bootstrap && yarn build",
+    "size": "size-limit",
     "watch": "lerna exec --concurrency 99 -- babel src --out-dir lib --watch",
     "build": "rm -rf packages/*/lib && NODE_ENV=release lerna exec -- babel src --out-dir lib --ignore spec.js",
     "publish": "yarn build && lerna exec -- yarn prepublish && lerna publish"
@@ -68,6 +69,7 @@
     "react-native-button": "^2.1.0",
     "recompose": "^0.26.0",
     "sinon": "^4.1.2",
+    "size-limit": "^0.13.2",
     "style-loader": "^0.19.0",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4"

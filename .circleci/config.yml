@@ -48,6 +48,9 @@ jobs:
       - run:
           name: Unit
           command: yarn test:unit
+      - run:
+          name: Is the size acceptable?
+          command: yarn size
 workflows:
   version: 2
   pipeline:
