@@ -23,7 +23,7 @@
 npm install --save react-swipeable-views
 ```
 
-### Native
+### Native (experimental)
 
 ```sh
 npm install --save react-swipeable-views-native
@@ -79,7 +79,11 @@ const MyComponent = () => (
 export default MyComponent;
 ```
 
-### Native
+### Native (experimental)
+
+react-native support is experimental and I have no plan pushing it forward.
+I start to think that lower level abstraction to share the implementation between the platforms are more appropriate.
+We have two different implementations of the react-swipeable-views API.
 
 ```jsx
 import React from 'react';
@@ -146,6 +150,7 @@ The API is as consistent as possible between the three platforms so
 the same component can be used independently on where it's running.
 
 ### Browser
+
 ![browser](docs/platformBrowser.gif)
 
 | IE    | Edge | Windows Phone | Firefox | Chrome | Safari |
@@ -153,9 +158,11 @@ the same component can be used independently on where it's running.
 | >= 10 | ✓    | x             | >= 28   | >= 29  | >= 8   |
 
 ### iOS
+
 ![ios](docs/platformIOS.gif)
 
 ### Android
+
 ![android](docs/platformAndroid.gif)
 
 ## Example with `virtualize`
