@@ -1,5 +1,3 @@
-// @flow weak
-
 const getDisplaySameSlide = (props, nextProps) => {
   let displaySameSlide = false;
 

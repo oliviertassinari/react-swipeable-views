@@ -1,5 +1,3 @@
-// @flow weak
-
 export default {
   RESISTANCE_COEF: 0.6,
 

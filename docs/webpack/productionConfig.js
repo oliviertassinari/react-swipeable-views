@@ -1,5 +1,3 @@
-// @flow weak
-
 import webpack from 'webpack';
 import baseConfig from './baseConfig';
 

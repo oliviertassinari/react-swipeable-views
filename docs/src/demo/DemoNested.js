@@ -1,5 +1,3 @@
-// @flow weak
-
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 
