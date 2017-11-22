@@ -1,9 +1,6 @@
-// @flow weak
-/**
- * This is an alternative version that use `Animated.View`.
- * I'm not sure what version give the best UX experience.
- * I'm keeping the two versions here until we figured out.
- */
+// This is an alternative version that use `Animated.View`.
+// I'm not sure what version give the best UX experience.
+// I'm keeping the two versions here until we figured out.
 
 import React, { Component, Children, isValidElement } from 'react';
 import PropTypes from 'prop-types';

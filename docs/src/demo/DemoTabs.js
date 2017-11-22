@@ -1,5 +1,3 @@
-// @flow weak
-
 import React, { Component } from 'react';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Checkbox from 'material-ui/Checkbox';

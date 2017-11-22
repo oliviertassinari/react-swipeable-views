@@ -1,5 +1,3 @@
-// @flow weak
-
 import React from 'react';
 import { AppRegistry, StyleSheet, ScrollView, StatusBar } from 'react-native';
 import Main from './Main.native';
