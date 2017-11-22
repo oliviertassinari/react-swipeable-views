@@ -1,13 +1,14 @@
 {
-  "name": "react-swipeable-views-dev",
+  "name": "react-swipeable-views-native-dev",
   "private": true,
   "scripts": {
-    "start": "yarn docs:dev",
+    "start": "yarn docs:browser:dev",
     "lint": "eslint . && echo \"eslint: no lint errors\"",
     "test:unit": "NODE_ENV=release mocha",
     "test:watch": "NODE_ENV=release mocha -w",
-    "docs:dev": "NODE_ENV=docs-browser-development babel-node ./node_modules/.bin/webpack-dev-server --config=docs/webpack/developmentConfig.js --progress",
-    "docs:build": "rm -rf docs/dist && NODE_ENV=docs-browser-production babel-node ./node_modules/.bin/webpack --config=docs/webpack/productionConfig.js --progress",
+    "docs:browser:dev": "NODE_ENV=docs-browser-development babel-node ./node_modules/.bin/webpack-dev-server --config=docs/webpack/developmentConfig.js --progress",
+    "docs:browser:build": "rm -rf docs/dist && NODE_ENV=docs-browser-production babel-node ./node_modules/.bin/webpack --config=docs/webpack/productionConfig.js --progress",
+    "docs:native:dev": "NODE_ENV=docs-native-development node node_modules/react-native/local-cli/cli.js start --reset-cache --verbose",
     "prettier": "find . -name \"*.js\" | grep -v -f .eslintignore | xargs prettier --write --single-quote --trailing-comma all --print-width 100",
     "bootstrap": "lerna bootstrap && yarn build",
     "watch": "lerna exec --concurrency 99 -- babel src --out-dir lib --watch",
