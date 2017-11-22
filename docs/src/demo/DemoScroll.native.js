@@ -1,5 +1,3 @@
-// @flow weak
-
 import React from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import SwipeableViews from '../../../packages/react-swipeable-views-native/src';

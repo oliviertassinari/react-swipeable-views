@@ -1,5 +1,3 @@
-// @flow weak
-
 import webpack from 'webpack';
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import baseConfig from './baseConfig';

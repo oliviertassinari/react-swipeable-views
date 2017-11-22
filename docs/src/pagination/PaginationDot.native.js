@@ -1,5 +1,3 @@
-// @flow weak
-
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 

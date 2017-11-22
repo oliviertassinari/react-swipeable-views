@@ -1,5 +1,3 @@
-// @flow weak
-
 import React, { Component } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';

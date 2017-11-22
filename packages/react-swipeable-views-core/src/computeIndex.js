@@ -1,5 +1,3 @@
-// @flow weak
-
 import { Children } from 'react';
 import constant from './constant';
 
