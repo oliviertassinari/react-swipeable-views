@@ -34,7 +34,7 @@ npm install --save react-swipeable-views-native
 ## The problem solved
 
 Check out the [demos](http://oliviertassinari.github.io/react-swipeable-views/) from a mobile device (real or emulated).
-It's tiny (<4kB), it quickly renders the first slide, then lazy-loads the others.
+It's tiny (<15 kB gzipped), it quickly renders the first slide, then lazy-loads the others.
 
 ## Simple example
 ![usage](docs/usage.gif)
