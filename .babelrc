@@ -1,30 +1,60 @@
 {
+  "presets": ["./scripts/babel-preset-env", "stage-1", "react"],
+  "plugins": [
+    "transform-object-assign"
+  ],
   "env": {
-    "docs-browser-development": {
-      "presets": ["es2015", "react", "stage-1"],
-      "plugins": [
-        "transform-runtime"
+    "docs-development": {
+      "presets": [
+        "next/babel"
       ],
-    },
-    "docs-browser-production": {
-      "presets": ["es2015", "react", "stage-1"],
       "plugins": [
-        "transform-runtime",
-        "transform-react-remove-prop-types",
-        "transform-react-constant-elements",
-        "transform-react-inline-elements"
+        "preval",
+        [
+          "module-resolver",
+          {
+            "alias": {
+              "pages": "./pages",
+              "react-swipeable-views": './packages/react-swipeable-views/src',
+              "react-swipeable-views-utils": './packages/react-swipeable-views-utils/src',
+              "react-swipeable-views-core": './packages/react-swipeable-views-core/src',
+              "docs": "./docs"
+            }
+          }
+        ]
       ]
     },
-    "release": {
-      "presets": ["es2015", "react", "stage-1"],
+    "docs-production": {
+      "presets": [
+        "next/babel"
+      ],
       "plugins": [
+        "preval",
+        [
+          "module-resolver",
+          {
+            "alias": {
+              "pages": "./pages",
+              "react-swipeable-views": './packages/react-swipeable-views/src',
+              "react-swipeable-views-utils": './packages/react-swipeable-views-utils/src',
+              "react-swipeable-views-core": './packages/react-swipeable-views-core/src',
+              "docs": "./docs"
+            }
+          }
+        ],
+        "transform-react-constant-elements",
+        "transform-dev-warning",
+        "transform-runtime",
+        ["transform-react-remove-prop-types", {"mode": "remove"}]
+      ]
+    },
+    "production": {
+      "plugins": [
+        "transform-react-constant-elements",
+        "transform-dev-warning",
         "transform-runtime",
         ["transform-react-remove-prop-types", {"mode": "wrap"}],
-        "transform-dev-warning"
       ]
-    },
-    "development": {
-      "presets": ["react-native"]
     }
   }
 }

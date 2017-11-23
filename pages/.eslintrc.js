@@ -1,5 +1,5 @@
 module.exports = {
   rules: {
-    'react/jsx-no-literals': 'off',
+    'global-require': 'off',
   },
 };
