@@ -3,7 +3,7 @@
 import { create, SheetsRegistry } from 'jss';
 import preset from 'jss-preset-default';
 import { createMuiTheme } from 'material-ui/styles';
-import blue from 'material-ui/colors/blue';
+import amber from 'material-ui/colors/amber';
 import pink from 'material-ui/colors/pink';
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
 
@@ -11,7 +11,7 @@ function getTheme(theme) {
   return createMuiTheme({
     direction: theme.direction,
     palette: {
-      primary: blue,
+      primary: amber,
       secondary: pink,
       type: theme.paletteType,
     },

@@ -7,15 +7,39 @@ import AppWrapper from 'docs/src/modules/components/AppWrapper';
 
 const pages = [
   {
-    pathname: '/installation',
+    pathname: '/getting-started',
+    children: [
+      {
+        pathname: '/getting-started/installation',
+      },
+      {
+        pathname: '/getting-started/usage',
+      },
+      {
+        pathname: '/getting-started/example-projects',
+      },
+      {
+        pathname: '/getting-started/supported-platforms',
+      },
+    ],
   },
   {
     pathname: '/demos',
     title: 'Component Demos',
+    children: [
+      {
+        pathname: '/demos/demos',
+      },
+    ],
   },
   {
     pathname: '/api',
     title: 'Component API',
+    children: [
+      {
+        pathname: '/api/api',
+      },
+    ],
   },
   {
     pathname: '/',

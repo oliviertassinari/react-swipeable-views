@@ -53,7 +53,7 @@ OnClick.propTypes = {
   onCustomClick: PropTypes.func,
 };
 
-function Link(props) {
+function Link(props, context) {
   const {
     activeClassName,
     children: childrenProp,
@@ -89,7 +89,7 @@ function Link(props) {
       prefetch,
       passHref: true,
     };
-    const active = this.context.url.pathname === href;
+    const active = context.url.pathname === href;
     children = (
       <OnClick
         component="a"
