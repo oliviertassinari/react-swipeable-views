@@ -16,13 +16,22 @@ const styles = theme => ({
     marginBottom: 40,
     marginLeft: -theme.spacing.unit * 2,
     marginRight: -theme.spacing.unit * 2,
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: 0,
+      marginRight: 0,
+    },
   },
-  demo: theme.mixins.gutters({
-    display: 'flex',
-    justifyContent: 'center',
-    paddingTop: 20,
-    paddingBottom: 20,
-  }),
+  demo: {
+    ...theme.mixins.gutters({
+      paddingTop: theme.spacing.unit * 2,
+      paddingBottom: theme.spacing.unit * 2,
+    }),
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: theme.spacing.unit * 3,
+      paddingRight: theme.spacing.unit * 3,
+      paddingTop: theme.spacing.unit * 6,
+    },
+  },
   codeButton: {
     flip: false,
     display: 'none',
@@ -30,27 +39,21 @@ const styles = theme => ({
     position: 'absolute',
     top: 2,
     right: 7,
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
   },
   code: {
     display: 'none',
     padding: 0,
     margin: 0,
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
     '& pre': {
       overflow: 'auto',
       margin: '0px !important',
       borderRadius: '0px !important',
-    },
-  },
-  [theme.breakpoints.up(600)]: {
-    codeButton: {
-      display: 'block',
-    },
-    code: {
-      display: 'block',
-    },
-    root: {
-      marginLeft: 0,
-      marginRight: 0,
     },
   },
 });

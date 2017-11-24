@@ -2,14 +2,14 @@
 set -e # exit with nonzero exit code if anything fails
 
 # run our compile script
-npm run docs:build
+yarn docs:export
 
 # go to the out directory and create a *new* Git repo
-cd docs/dist
+cd docs/export
 git init
 
 # inside this git repo we'll pretend to be a new user
-git config user.name "Travis CI"
+git config user.name "Bot"
 git config user.email "olivier.tassinari@gmail.com"
 
 # The first and only commit to this new Git repo contains all the

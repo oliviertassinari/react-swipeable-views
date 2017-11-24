@@ -50,7 +50,7 @@ function renderNavItems(props, pages, activePage) {
 }
 
 function reduceChildRoutes(props, activePage, items, childPage, index) {
-  if (childPage.children && childPage.children.length > 1) {
+  if (childPage.children && childPage.children.length > 0) {
     const openImmediately = activePage.pathname.indexOf(childPage.pathname) !== -1 || false;
 
     items.push(
@@ -63,9 +63,6 @@ function reduceChildRoutes(props, activePage, items, childPage, index) {
       </AppDrawerNavItem>,
     );
   } else if (childPage.title !== false) {
-    childPage =
-      childPage.children && childPage.children.length === 1 ? childPage.children[0] : childPage;
-
     items.push(
       <AppDrawerNavItem
         key={index}
