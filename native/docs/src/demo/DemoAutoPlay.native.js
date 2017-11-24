@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import SwipeableViews from '../../../packages/react-swipeable-views-native/src';
 import { autoPlay } from '../../../packages/react-swipeable-views-utils/src';
-import Pagination from '../pagination/Pagination.native';
+import Pagination from '../pagination/Pagination';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 

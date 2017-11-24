@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import Pagination from '../pagination/Pagination';
+import Pagination from 'docs/src/modules/components/Pagination';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
