@@ -22,23 +22,10 @@ const styles = {
 };
 
 const demoRegexp = /^demo='(.*)'$/;
-const SOURCE_CODE_ROOT_URL = 'https://github.com/oliviertassinari/react-swipeable-views';
+const SOURCE_CODE_ROOT_URL =
+  'https://github.com/oliviertassinari/react-swipeable-views/tree/master/';
 
-type InjectedProps = {
-  classes: Object,
-  theme?: Object,
-};
-
-type Props = {
-  classes: Object,
-  demos?: { [key: string]: any },
-  markdown: string,
-  // You can define the direction location of the markdown file.
-  // Otherwise, we try to determine it with an heuristic.
-  sourceLocation?: string,
-};
-
-function MarkdownDocs(props: Props & InjectedProps, context: Object) {
+function MarkdownDocs(props, context) {
   const { classes, demos, markdown, sourceLocation: sourceLocationProp } = props;
   const contents = getContents(markdown);
   const headers = getHeaders(markdown);
@@ -46,13 +33,6 @@ function MarkdownDocs(props: Props & InjectedProps, context: Object) {
   let sourceLocation = sourceLocationProp || context.activePage.pathname;
 
   if (!sourceLocationProp) {
-    // Hack for handling the nested demos
-    if (sourceLocation.indexOf('/demos') === 0) {
-      const token = sourceLocation.split('/');
-      token.push(token[token.length - 1]);
-      sourceLocation = token.join('/');
-    }
-
     if (headers.filename) {
       sourceLocation = headers.filename;
     } else {
@@ -95,6 +75,15 @@ ${headers.components
     </AppContent>
   );
 }
+
+MarkdownDocs.propTypes = {
+  classes: PropTypes.object.isRequired,
+  demos: PropTypes.object,
+  markdown: PropTypes.string.isRequired,
+  // You can define the direction location of the markdown file.
+  // Otherwise, we try to determine it with an heuristic.
+  sourceLocation: PropTypes.string,
+};
 
 MarkdownDocs.contextTypes = {
   activePage: PropTypes.shape({
