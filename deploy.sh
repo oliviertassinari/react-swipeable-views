@@ -2,10 +2,12 @@
 set -e # exit with nonzero exit code if anything fails
 
 # run our compile script
-yarn docs:export
+yarn docs:deploy
 
 # go to the out directory and create a *new* Git repo
 cd docs/export
+touch .nojekyll # So _next is available
+
 git init
 
 # inside this git repo we'll pretend to be a new user

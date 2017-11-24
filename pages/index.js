@@ -70,7 +70,7 @@ function PageHome(props) {
               className={classes.button}
               raised
               prefetch
-              href="/getting-started/installation"
+              href={`${process.env.BACKEND_URL}/getting-started/installation`}
               variant="button"
             >
               {'Get Started'}
