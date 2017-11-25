@@ -610,6 +610,18 @@ class SwipeableViews extends Component {
 
       const isSwiping = dx > dy && dx > constant.UNCERTAINTY_THRESHOLD;
 
+      // We let the parent handle the scroll.
+      if (
+        !resistance &&
+        (axis === 'y' || axis === 'y-reverse') &&
+        ((this.indexCurrent === 0 && this.startX < touch.pageX) ||
+          (this.indexCurrent === Children.count(this.props.children) - 1 &&
+            this.startX > touch.pageX))
+      ) {
+        this.isSwiping = false;
+        return;
+      }
+
       // We are likely to be swiping, let's prevent the scroll event.
       if (dx > dy) {
         event.preventDefault();
