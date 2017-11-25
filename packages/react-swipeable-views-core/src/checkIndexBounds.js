@@ -1,5 +1,3 @@
-/* eslint-disable flowtype/require-valid-file-annotation */
-
 import { Children } from 'react';
 import warning from 'warning';
 
