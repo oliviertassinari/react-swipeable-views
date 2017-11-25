@@ -144,4 +144,5 @@ export default MyComponent;
 
 ## License
 
-MIT
+This project is licensed under the terms of the
+[MIT license](https://github.com/oliviertassinari/react-swipeable-views/blob/master/LICENSE).
