@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
+import SupportTouch from 'docs/src/modules/components/SupportTouch';
 
 const styles = {
   slide: {
@@ -67,17 +68,19 @@ class Slide4 extends PureComponent {
 
 const DemoAnimateHeight = () => {
   return (
-    <SwipeableViews animateHeight>
-      <div style={Object.assign({}, styles.slide, styles.slide1)}>{list.slice(0, 10)}</div>
-      <div style={Object.assign({}, styles.slide, styles.slide2)}>
-        {'This slide has a max-height limit:'}
-        <br />
-        <br />
-        {list.slice(0, 7)}
-      </div>
-      <div style={Object.assign({}, styles.slide, styles.slide3)}>{list.slice(0, 7)}</div>
-      <Slide4 />
-    </SwipeableViews>
+    <SupportTouch>
+      <SwipeableViews animateHeight>
+        <div style={Object.assign({}, styles.slide, styles.slide1)}>{list.slice(0, 10)}</div>
+        <div style={Object.assign({}, styles.slide, styles.slide2)}>
+          {'This slide has a max-height limit:'}
+          <br />
+          <br />
+          {list.slice(0, 7)}
+        </div>
+        <div style={Object.assign({}, styles.slide, styles.slide3)}>{list.slice(0, 7)}</div>
+        <Slide4 />
+      </SwipeableViews>
+    </SupportTouch>
   );
 };
 

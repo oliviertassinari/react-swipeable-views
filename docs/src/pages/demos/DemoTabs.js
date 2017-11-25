@@ -3,6 +3,7 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import Checkbox from 'material-ui/Checkbox';
 import { FormControlLabel } from 'material-ui/Form';
 import SwipeableViews from 'react-swipeable-views';
+import SupportTouch from 'docs/src/modules/components/SupportTouch';
 
 const styles = {
   slide: {
@@ -42,7 +43,7 @@ class DemoTabs extends Component {
     const { index } = this.state;
 
     return (
-      <div>
+      <SupportTouch>
         <Tabs value={index} fullWidth onChange={this.handleChange}>
           <Tab label="tab n°1" />
           <Tab label="tab n°2" />
@@ -58,7 +59,7 @@ class DemoTabs extends Component {
           </div>
           <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
         </SwipeableViews>
-      </div>
+      </SupportTouch>
     );
   }
 }

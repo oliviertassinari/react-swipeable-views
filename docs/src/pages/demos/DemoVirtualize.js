@@ -5,6 +5,7 @@ import Button from 'material-ui/Button';
 import SwipeableViews from 'react-swipeable-views';
 import { virtualize, bindKeyboard } from 'react-swipeable-views-utils';
 import { mod } from 'react-swipeable-views-core';
+import SupportTouch from 'docs/src/modules/components/SupportTouch';
 
 const VirtualizeSwipeableViews = bindKeyboard(virtualize(SwipeableViews));
 
@@ -72,7 +73,7 @@ class DemoVirtualize extends Component {
 
   render() {
     return (
-      <div>
+      <SupportTouch>
         <VirtualizeSwipeableViews
           index={this.state.index}
           onChangeIndex={this.handleChangeIndex}
@@ -80,7 +81,7 @@ class DemoVirtualize extends Component {
         />
         <br />
         <Button onClick={this.handleClick}>{'go to slide n°50'}</Button>
-      </div>
+      </SupportTouch>
     );
   }
 }
