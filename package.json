@@ -13,6 +13,7 @@
     "prettier": "find . -name \"*.js\" | grep -v -f .eslintignore | xargs prettier --write --single-quote --trailing-comma all --print-width 100",
     "bootstrap": "lerna bootstrap && yarn build",
     "size": "size-limit",
+    "size:why": "size-limit --why packages/react-swipeable-views/lib/index.js",
     "watch": "lerna exec --concurrency 99 -- babel src --out-dir lib --watch",
     "build": "rm -rf packages/*/lib && cross-env NODE_ENV=production lerna exec -- babel src --out-dir lib --ignore spec.js",
     "publish": "yarn build && lerna exec -- yarn prepublish && lerna publish"
@@ -22,9 +23,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/oliviertassinari/react-swipeable-views.git"
-  },
-  "dependencies": {
-    "react": "^16.0.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
@@ -71,6 +69,7 @@
     "prismjs": "^1.8.4",
     "prop-types": "^15.6.0",
     "raw-loader": "^0.5.1",
+    "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "recompose": "^0.26.0",
     "sinon": "^4.1.2",
