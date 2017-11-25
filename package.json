@@ -9,7 +9,7 @@
     "docs:dev": "rimraf node_modules/.cache/babel-loader && cross-env BABEL_ENV=docs-development next dev",
     "docs:build": "cross-env BABEL_ENV=docs-production next build",
     "docs:export": "cross-env BABEL_ENV=docs-production next export -o docs/export",
-    "docs:deploy": "yarn docs:build && yarn docs:export",
+    "docs:deploy": "yarn docs:build && yarn docs:export && firebase use react-swipeable-views-395e4 && firebase deploy",
     "prettier": "find . -name \"*.js\" | grep -v -f .eslintignore | xargs prettier --write --single-quote --trailing-comma all --print-width 100",
     "bootstrap": "lerna bootstrap && yarn build",
     "size": "size-limit",

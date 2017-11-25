@@ -6,8 +6,6 @@ const { findPages } = require('./docs/src/modules/utils/find');
 const ENABLE_STATS = false;
 process.env.LIB_VERSION = pkg.version;
 
-const githubPage = process.env.BABEL_ENV === 'docs-production'
-
 module.exports = {
   webpack: config => {
     const plugins = config.plugins.concat([
@@ -54,10 +52,6 @@ module.exports = {
   },
   webpackDevMiddleware: config => config,
   poweredByHeader: false,
-  assetPrefix:
-    githubPage
-      ? 'http://oliviertassinari.github.io/react-swipeable-views/'
-      : '',
   exportPathMap: () => {
     const pages = findPages();
     const map = {
