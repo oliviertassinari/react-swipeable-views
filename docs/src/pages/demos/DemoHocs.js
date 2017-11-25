@@ -4,6 +4,7 @@ import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay, virtualize, bindKeyboard } from 'react-swipeable-views-utils';
 import { mod } from 'react-swipeable-views-core';
+import SupportTouch from 'docs/src/modules/components/SupportTouch';
 
 const EnhancedSwipeableViews = bindKeyboard(autoPlay(virtualize(SwipeableViews)));
 
@@ -52,6 +53,12 @@ function slideRenderer(params) {
   );
 }
 
-const DemoHocs = () => <EnhancedSwipeableViews slideCount={10} slideRenderer={slideRenderer} />;
+function DemoHocs() {
+  return (
+    <SupportTouch>
+      <EnhancedSwipeableViews slideCount={10} slideRenderer={slideRenderer} />
+    </SupportTouch>
+  );
+}
 
 export default DemoHocs;
