@@ -37,7 +37,7 @@ describe('SwipeableViews', () => {
   describe('prop: hysteresis', () => {
     function createWrapper(hysteresis) {
       const wrapper = mount(
-        <SwipeableViews hysteresis={hysteresis}>
+        <SwipeableViews hysteresis={hysteresis} onChangeIndex={spy()}>
           <div>{'slide n°1'}</div>
           <div>{'slide n°2'}</div>
         </SwipeableViews>,
@@ -97,6 +97,15 @@ describe('SwipeableViews', () => {
       instance.vx = 0;
       wrapper.simulate('touchEnd');
       assert.strictEqual(instance.indexCurrent, 1);
+      assert.deepEqual(wrapper.props().onChangeIndex.args, [
+        [
+          1,
+          0,
+          {
+            reason: 'swipe',
+          },
+        ],
+      ]);
     });
 
     it('should change slider hysteresis via prop', () => {
@@ -514,7 +523,7 @@ describe('SwipeableViews', () => {
       assert.strictEqual(
         wrapper
           .find(Slide)
-          .everyWhere(slide => slide.parent().prop('className') === classNameToApply),
+          .everyWhere(slide => slide.parent().props().className === classNameToApply),
         true,
         'should apply the className prop',
       );
@@ -545,7 +554,7 @@ describe('SwipeableViews', () => {
       assert.strictEqual(handleScroll.callCount, 1, 'should forward the event');
       assert.strictEqual(rootNode.scrollLeft, 0, 'should reset the scroll position');
       assert.strictEqual(handleChangeIndex.callCount, 1, 'should detect a new index');
-      assert.deepEqual(handleChangeIndex.args[0], [2, 1]);
+      assert.deepEqual(handleChangeIndex.args[0], [2, 1, { reason: 'focus' }]);
     });
   });
 

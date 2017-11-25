@@ -299,6 +299,7 @@ class SwipeableViews extends Component {
      *
      * @param {integer} index This is the current index of the slide.
      * @param {integer} indexLatest This is the oldest index of the slide.
+     * @param {object} meta Meta data containing more information about the event.
      */
     onChangeIndex: PropTypes.func,
     /**
@@ -741,7 +742,9 @@ class SwipeableViews extends Component {
         }
 
         if (this.props.onChangeIndex && indexNew !== indexLatest) {
-          this.props.onChangeIndex(indexNew, indexLatest);
+          this.props.onChangeIndex(indexNew, indexLatest, {
+            reason: 'swipe',
+          });
         }
 
         // Manually calling handleTransitionEnd in that case as isn't otherwise.
@@ -843,7 +846,9 @@ class SwipeableViews extends Component {
     event.target.scrollLeft = 0;
 
     if (this.props.onChangeIndex && indexNew !== indexLatest) {
-      this.props.onChangeIndex(indexNew, indexLatest);
+      this.props.onChangeIndex(indexNew, indexLatest, {
+        reason: 'focus',
+      });
     }
   };
 
@@ -873,18 +878,18 @@ class SwipeableViews extends Component {
       disabled,
       disableLazyLoading,
       enableMouseEvents,
-      hysteresis, // eslint-disable-line no-unused-vars
-      ignoreNativeScroll, // eslint-disable-line no-unused-vars
-      index, // eslint-disable-line no-unused-vars
-      onChangeIndex, // eslint-disable-line no-unused-vars
-      onSwitching, // eslint-disable-line no-unused-vars
-      onTransitionEnd, // eslint-disable-line no-unused-vars
-      resistance, // eslint-disable-line no-unused-vars
+      hysteresis,
+      ignoreNativeScroll,
+      index,
+      onChangeIndex,
+      onSwitching,
+      onTransitionEnd,
+      resistance,
       slideStyle: slideStyleProp,
       slideClassName,
       springConfig,
       style,
-      threshold, // eslint-disable-line no-unused-vars
+      threshold,
       ...other
     } = this.props;
 

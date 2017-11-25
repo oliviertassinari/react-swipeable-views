@@ -1,6 +1,6 @@
 # API
 
-## `<SwipeableViews />`
+## `SwipeableViews`
 
 | Name | Type | Default | Platform | Description |
 |:-----|:-----|:--------|:---------|:------------|
@@ -16,7 +16,7 @@
 | hysteresis | float | `0.6` | all | Configure hysteresis between slides. This value determines how far should user swipe to switch slide. |
 | ignoreNativeScroll | bool | false | browser | If `true`, it will ignore native scroll container. It can be used to filter out false positive that blocks the swipe. |
 | index | integer | `0` | all | This is the index of the slide to show. This is useful when you want to change the default slide shown. Or when you have tabs linked to each slide. |
-| onChangeIndex | function(index, indexLatest) | | all | This is callback prop. It's call by the component when the shown slide change after a swipe made by the user. This is useful when you have tabs linked to each slide. |
+| onChangeIndex | function(index, indexLatest, meta) | | all | This is callback prop. It's call by the component when the shown slide change after a swipe made by the user. This is useful when you have tabs linked to each slide. |
 | onSwitching | function(index, type) | | all | This is callback prop. It's called by the component when the slide switching. This is useful when you want to implement something corresponding to the current slide position. |
 | onTransitionEnd | function | | all | The callback that fires when the animation comes to a rest. This is useful to defer CPU intensive task. |
 | resistance | bool | `false` | all | If true, it will add bounds effect on the edges. |
@@ -30,7 +30,7 @@ Any other properties like `className` will be applied to the root component.
 
 ## `virtualize`
 
-This HOC extends the properties of `<SwipeableViews />` and adds the following ones:
+This HOC extends the properties of `SwipeableViews` and adds the following ones:
 
 | Name | Type | Default | Platform | Description |
 |:-----|:-----|:--------|:---------|:------------|
@@ -41,7 +41,7 @@ This HOC extends the properties of `<SwipeableViews />` and adds the following o
 
 ## `autoPlay`
 
-This HOC extends the properties of `<SwipeableViews />` and adds the following ones:
+This HOC extends the properties of `SwipeableViews` and adds the following ones:
 
 | Name | Type | Default | Platform | Description |
 |:-----|:-----|:--------|:---------|:------------|
@@ -51,4 +51,4 @@ This HOC extends the properties of `<SwipeableViews />` and adds the following o
 
 ## `bindKeyboard`
 
-This HOC exposes the same properties as `<SwipeableViews />`.
+This HOC exposes the same properties as `SwipeableViews`.
