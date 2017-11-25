@@ -49,8 +49,7 @@ const styles = {
   container: {
     direction: 'ltr',
     display: 'flex',
-    // Cause an issue on Firefox. We can't enable it for now.
-    // willChange: 'transform',
+    willChange: 'transform',
   },
   slide: {
     width: '100%',
