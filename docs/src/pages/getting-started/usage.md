@@ -189,7 +189,7 @@ export default MyComponent;
 
 ## API
 
-You can find the [API documentation section online](/api/).
+You can find the [API documentation section online](/api/api/).
 
 ## Composition of HOCs
 
