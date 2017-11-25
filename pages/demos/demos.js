@@ -99,6 +99,13 @@ module.exports = require('fs')
   .readFileSync(require.resolve('docs/src/pages/demos/DemoRtl'), 'utf8')
 `,
         },
+        'pages/demos/DemoCircular.js': {
+          js: require('docs/src/pages/demos/DemoCircular').default,
+          raw: preval`
+module.exports = require('fs')
+  .readFileSync(require.resolve('docs/src/pages/demos/DemoCircular'), 'utf8')
+`,
+        },
       }}
     />
   );

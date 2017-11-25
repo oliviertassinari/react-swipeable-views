@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import getDisplaySameSlide from './getDisplaySameSlide';
 
 const SwipeableViews = ({
-  index, // eslint-disable-line no-unused-vars, react/prop-types
+  index, // eslint-disable-line react/prop-types
   ...props
 }) => <div {...props} />;
 

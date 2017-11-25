@@ -77,3 +77,9 @@ Custom width of slides.
 Right-to-left direction
 
 {{demo='pages/demos/DemoRtl.js'}}
+
+## Circular
+
+The 3 slides are repeated indefinitely.
+
+{{demo='pages/demos/DemoCircular.js'}}
