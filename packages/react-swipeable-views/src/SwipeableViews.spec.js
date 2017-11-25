@@ -283,6 +283,43 @@ describe('SwipeableViews', () => {
     });
   });
 
+  describe('vertical swipe detection', () => {
+    let instance;
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(
+        <SwipeableViews axis="y">
+          <div>{'slide n°1'}</div>
+          <div>{'slide n°2'}</div>
+        </SwipeableViews>,
+      );
+
+      wrapper.simulate('touchStart', {
+        touches: [
+          {
+            pageX: 50,
+            pageY: 50,
+          },
+        ],
+      });
+      instance = wrapper.instance();
+      instance.viewLength = 200;
+    });
+
+    it('should let the parent handle the swipe', () => {
+      simulateSwipeMove(wrapper, {
+        touches: [
+          {
+            pageX: 50,
+            pageY: 51,
+          },
+        ],
+      });
+      assert.strictEqual(instance.isSwiping, false);
+    });
+  });
+
   describe('nested views', () => {
     let wrapperParent;
     let wrapperNester;

@@ -59,7 +59,7 @@ function PageHome(props) {
       <div className={classes.hero}>
         <div className={classes.content}>
           <div className={classes.text}>
-            <Typography type="display2" component="h1" color="inherit" gutterBottom>
+            <Typography type="display2" component="h1" align="center" color="inherit" gutterBottom>
               {'react-swipeable-views'}
             </Typography>
             <Typography type="headline" component="h2" color="inherit" className={classes.headline}>
