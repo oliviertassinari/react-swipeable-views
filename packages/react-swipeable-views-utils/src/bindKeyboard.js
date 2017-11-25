@@ -131,11 +131,7 @@ export default function bindKeyboard(MyComponent) {
     };
 
     render() {
-      const {
-        index: indexProp, // eslint-disable-line no-unused-vars
-        onChangeIndex, // eslint-disable-line no-unused-vars
-        ...other
-      } = this.props;
+      const { index: indexProp, onChangeIndex, ...other } = this.props;
 
       const { index } = this.state;
 

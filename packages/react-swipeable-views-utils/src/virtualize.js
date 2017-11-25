@@ -176,12 +176,12 @@ export default function virtualize(MyComponent) {
 
     render() {
       const {
-        children, // eslint-disable-line no-unused-vars
-        index: indexProp, // eslint-disable-line no-unused-vars
-        onChangeIndex, // eslint-disable-line no-unused-vars
-        overscanSlideAfter, // eslint-disable-line no-unused-vars
-        overscanSlideBefore, // eslint-disable-line no-unused-vars
-        slideCount, // eslint-disable-line no-unused-vars
+        children,
+        index: indexProp,
+        onChangeIndex,
+        overscanSlideAfter,
+        overscanSlideBefore,
+        slideCount,
         slideRenderer,
         ...other
       } = this.props;

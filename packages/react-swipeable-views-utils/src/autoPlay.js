@@ -158,11 +158,11 @@ export default function autoPlay(MyComponent) {
 
     render() {
       const {
-        autoplay, // eslint-disable-line no-unused-vars
-        direction, // eslint-disable-line no-unused-vars
-        interval, // eslint-disable-line no-unused-vars
-        index: indexProp, // eslint-disable-line no-unused-vars
-        onChangeIndex, // eslint-disable-line no-unused-vars
+        autoplay,
+        direction,
+        interval,
+        index: indexProp,
+        onChangeIndex,
         ...other
       } = this.props;
 
