@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow, render } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { assert } from 'chai';
 import { spy, stub } from 'sinon';
 import SwipeableViews, { findNativeHandler, getDomTreeShapes } from './SwipeableViews';
@@ -171,19 +171,30 @@ describe('SwipeableViews', () => {
 
   describe('prop: animateTransitions', () => {
     it('should use a spring if animateTransitions is true', () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <SwipeableViews>
           <div>{'slide n°1'}</div>
         </SwipeableViews>,
         { disableLifecycleMethods: true },
       );
 
-      assert.include(wrapper.childAt(0).props().style, {
-        WebkitFlexDirection: 'row',
-        WebkitTransform: 'translate(0%, 0)',
-        WebkitTransition: '-webkit-transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
-        transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
+      wrapper.setProps({
+        index: 1,
       });
+
+      assert.include(
+        wrapper
+          .childAt(0)
+          .childAt(0)
+          .props().style,
+        {
+          WebkitFlexDirection: 'row',
+          transform: 'translate(-100%, 0)',
+          WebkitTransform: 'translate(-100%, 0)',
+          WebkitTransition: '-webkit-transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
+          transition: 'transform 0.35s cubic-bezier(0.15, 0.3, 0.25, 1) 0s',
+        },
+      );
     });
 
     it('should not use a spring if animateTransitions is false', () => {
@@ -593,37 +604,72 @@ describe('SwipeableViews', () => {
     });
   });
 
-  describe('disableLazyLoading', () => {
-    it('should render the first child', () => {
-      const wrapper = render(
-        <SwipeableViews>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
-          <div>{'slide n°3'}</div>
-          <div>{'slide n°4'}</div>
-          <div>{'slide n°5'}</div>
-        </SwipeableViews>,
-      );
+  describe('prop: disableLazyLoading', () => {
+    describe('false', () => {
+      it('should render the right child', () => {
+        const wrapper = shallow(
+          <SwipeableViews index={1}>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
+            <div>{'slide n°4'}</div>
+            <div>{'slide n°5'}</div>
+          </SwipeableViews>,
+          { disableLifecycleMethods: true },
+        );
 
-      assert.strictEqual(wrapper.text(), 'slide n°1', 'Should render first slide.');
+        assert.strictEqual(wrapper.text(), 'slide n°2');
+        assert.shallowDeepEqual(wrapper.childAt(0).props().style, {
+          transition: 'all 0s ease 0s',
+          transform: undefined,
+        });
+      });
+
+      it('should render all the children during the second render', () => {
+        const wrapper = mount(
+          <SwipeableViews index={1}>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
+            <div>{'slide n°4'}</div>
+            <div>{'slide n°5'}</div>
+          </SwipeableViews>,
+          { disableLifecycleMethods: true },
+        );
+
+        assert.strictEqual(wrapper.text(), 'slide n°1slide n°2slide n°3slide n°4slide n°5');
+        assert.shallowDeepEqual(
+          wrapper
+            .childAt(0)
+            .childAt(0)
+            .props().style,
+          {
+            transition: 'all 0s ease 0s',
+            transform: 'translate(-100%, 0)',
+          },
+        );
+      });
     });
 
-    it('should render all children', () => {
-      const wrapper = render(
-        <SwipeableViews disableLazyLoading>
-          <div>{'slide n°1'}</div>
-          <div>{'slide n°2'}</div>
-          <div>{'slide n°3'}</div>
-          <div>{'slide n°4'}</div>
-          <div>{'slide n°5'}</div>
-        </SwipeableViews>,
-      );
+    describe('true', () => {
+      it('should render the right child', () => {
+        const wrapper = shallow(
+          <SwipeableViews index={1} disableLazyLoading>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
+            <div>{'slide n°4'}</div>
+            <div>{'slide n°5'}</div>
+          </SwipeableViews>,
+          { disableLifecycleMethods: true },
+        );
 
-      assert.strictEqual(
-        wrapper.text(),
-        'slide n°1slide n°2slide n°3slide n°4slide n°5',
-        'Should render each slide.',
-      );
+        assert.strictEqual(wrapper.text(), 'slide n°1slide n°2slide n°3slide n°4slide n°5');
+        assert.shallowDeepEqual(wrapper.childAt(0).props().style, {
+          transition: 'all 0s ease 0s',
+          transform: 'translate(-100%, 0)',
+        });
+      });
     });
   });
 

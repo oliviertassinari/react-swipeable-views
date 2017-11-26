@@ -66,7 +66,7 @@ class Slide4 extends PureComponent {
   }
 }
 
-const DemoAnimateHeight = () => {
+function DemoAnimateHeight() {
   return (
     <SupportTouch>
       <SwipeableViews animateHeight>
@@ -82,6 +82,6 @@ const DemoAnimateHeight = () => {
       </SwipeableViews>
     </SupportTouch>
   );
-};
+}
 
 export default DemoAnimateHeight;
