@@ -63,6 +63,7 @@
     "jsdom": "^11.4.0",
     "lerna": "^2.5.1",
     "less": "^2.7.3",
+    "lz-string": "^1.4.4",
     "marked": "^0.3.6",
     "material-ui": "^1.0.0-beta.21",
     "material-ui-icons": "^1.0.0-beta.5",

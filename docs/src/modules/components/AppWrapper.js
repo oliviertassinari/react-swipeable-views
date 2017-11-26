@@ -19,7 +19,7 @@ if (process.browser && !global.__INSERTION_POINT__) {
   }
 }
 
-class AppWrapper extends React.Component<any, any> {
+class AppWrapper extends React.Component {
   componentWillMount() {
     this.styleContext = getContext();
   }
