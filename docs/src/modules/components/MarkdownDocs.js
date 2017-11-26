@@ -43,7 +43,7 @@ function MarkdownDocs(props, context) {
   return (
     <AppContent className={classes.root}>
       <Head>
-        <title>{`${getTitle(markdown)} - Material-UI`}</title>
+        <title>{`${getTitle(markdown)} - react-swipeable-views`}</title>
       </Head>
       <div className={classes.header}>
         <Button component="a" href={`${SOURCE_CODE_ROOT_URL}${sourceLocation}`}>

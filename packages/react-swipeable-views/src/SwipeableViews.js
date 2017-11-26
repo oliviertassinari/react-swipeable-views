@@ -224,192 +224,17 @@ export function findNativeHandler(params) {
 }
 
 class SwipeableViews extends Component {
-  // Added as an ads for people using the React dev tools in production.
-  // So they know, the tool used to build the awesome UI they
-  // are looking at/retro engineering.
-  static displayName = 'ReactSwipableView';
-
-  static propTypes = {
-    /**
-     * This is callback property. It's called by the component on mount.
-     * This is useful when you want to trigger an action programmatically.
-     * It currently only supports updateHeight() action.
-     *
-     * @param {object} actions This object contains all posible actions
-     * that can be triggered programmatically.
-     */
-    action: PropTypes.func,
-    /**
-     * If `true`, the height of the container will be animated to match the current slide height.
-     * Animating another style property has a negative impact regarding performance.
-     */
-    animateHeight: PropTypes.bool,
-    /**
-     * If `false`, changes to the index prop will not cause an animated transition.
-     */
-    animateTransitions: PropTypes.bool,
-    /**
-     * The axis on which the slides will slide.
-     */
-    axis: PropTypes.oneOf(['x', 'x-reverse', 'y', 'y-reverse']),
-    /**
-     * Use this property to provide your slides.
-     */
-    children: PropTypes.node.isRequired,
-    /**
-     * This is the inlined style that will be applied
-     * to each slide container.
-     */
-    containerStyle: PropTypes.object,
-    /**
-     * If `true`, it will disable touch events.
-     * This is useful when you want to prohibit the user from changing slides.
-     */
-    disabled: PropTypes.bool,
-    /**
-     * This is the config used to disable lazyloding,
-     * if `true` will render all the views in first rendering.
-     */
-    disableLazyLoading: PropTypes.bool,
-    /**
-     * If `true`, it will enable mouse events.
-     * This will allow the user to perform the relevant swipe actions with a mouse.
-     */
-    enableMouseEvents: PropTypes.bool,
-    /**
-     * Configure hysteresis between slides. This value determines how far
-     * should user swipe to switch slide.
-     */
-    hysteresis: PropTypes.number,
-    /**
-     * If `true`, it will ignore native scroll container.
-     * It can be used to filter out false positive that blocks the swipe.
-     */
-    ignoreNativeScroll: PropTypes.bool,
-    /**
-     * This is the index of the slide to show.
-     * This is useful when you want to change the default slide shown.
-     * Or when you have tabs linked to each slide.
-     */
-    index: PropTypes.number,
-    /**
-     * This is callback prop. It's call by the
-     * component when the shown slide change after a swipe made by the user.
-     * This is useful when you have tabs linked to each slide.
-     *
-     * @param {integer} index This is the current index of the slide.
-     * @param {integer} indexLatest This is the oldest index of the slide.
-     * @param {object} meta Meta data containing more information about the event.
-     */
-    onChangeIndex: PropTypes.func,
-    /**
-     * @ignore
-     */
-    onMouseDown: PropTypes.func,
-    /**
-     * @ignore
-     */
-    onMouseLeave: PropTypes.func,
-    /**
-     * @ignore
-     */
-    onMouseMove: PropTypes.func,
-    /**
-     * @ignore
-     */
-    onMouseUp: PropTypes.func,
-    /**
-     * @ignore
-     */
-    onScroll: PropTypes.func,
-    /**
-     * This is callback prop. It's called by the
-     * component when the slide switching.
-     * This is useful when you want to implement something corresponding
-     * to the current slide position.
-     *
-     * @param {integer} index This is the current index of the slide.
-     * @param {string} type Can be either `move` or `end`.
-     */
-    onSwitching: PropTypes.func,
-    /**
-     * @ignore
-     */
-    onTouchEnd: PropTypes.func,
-    /**
-     * @ignore
-     */
-    onTouchMove: PropTypes.func,
-    /**
-     * @ignore
-     */
-    onTouchStart: PropTypes.func,
-    /**
-     * The callback that fires when the animation comes to a rest.
-     * This is useful to defer CPU intensive task.
-     */
-    onTransitionEnd: PropTypes.func,
-    /**
-     * If `true`, it will add bounds effect on the edges.
-     */
-    resistance: PropTypes.bool,
-    /**
-     * This is the className that will be applied
-     * on the slide component.
-     */
-    slideClassName: PropTypes.string,
-    /**
-     * This is the inlined style that will be applied
-     * on the slide component.
-     */
-    slideStyle: PropTypes.object,
-    /**
-     * This is the config used to create CSS transitions.
-     * This is useful to change the dynamic of the transition.
-     */
-    springConfig: PropTypes.shape({
-      duration: PropTypes.string,
-      easeFunction: PropTypes.string,
-      delay: PropTypes.string,
-    }),
-    /**
-     * This is the inlined style that will be applied
-     * on the root component.
-     */
-    style: PropTypes.object,
-    /**
-     * This is the threshold used for detecting a quick swipe.
-     * If the computed speed is above this value, the index change.
-     */
-    threshold: PropTypes.number,
+  state = {
+    indexLatest: null,
+    // Set to true as soon as the component is swiping.
+    // It's the state counter part of this.isSwiping.
+    isDragging: false,
+    // Help with SSR logic and lazy loading logic.
+    isFirstRender: true,
+    heightLatest: 0,
+    // Let the render method that we are going to display the same slide than previously.
+    displaySameSlide: true,
   };
-
-  static defaultProps = {
-    animateHeight: false,
-    animateTransitions: true,
-    axis: 'x',
-    disabled: false,
-    disableLazyLoading: false,
-    enableMouseEvents: false,
-    hysteresis: 0.6,
-    ignoreNativeScroll: false,
-    index: 0,
-    threshold: 5,
-    springConfig: {
-      duration: '0.35s',
-      easeFunction: 'cubic-bezier(0.15, 0.3, 0.25, 1)',
-      delay: '0s',
-    },
-    resistance: false,
-  };
-
-  static childContextTypes = {
-    swipeableViews: PropTypes.shape({
-      slideUpdateHeight: PropTypes.func,
-    }),
-  };
-
-  state = {};
 
   getChildContext() {
     return {
@@ -429,9 +254,6 @@ class SwipeableViews extends Component {
     this.setIndexCurrent(this.props.index);
     this.setState({
       indexLatest: this.props.index,
-      isDragging: false,
-      isFirstRender: !this.props.disableLazyLoading,
-      heightLatest: 0,
     });
   }
 
@@ -905,7 +727,7 @@ class SwipeableViews extends Component {
       ...other
     } = this.props;
 
-    const { displaySameSlide, heightLatest, isDragging, isFirstRender } = this.state;
+    const { displaySameSlide, heightLatest, isDragging, isFirstRender, indexLatest } = this.state;
     const touchEvents = !disabled
       ? {
           onTouchStart: this.handleTouchStart,
@@ -959,7 +781,7 @@ So animateHeight is most likely having no effect at all.`,
     };
 
     // Apply the styles for SSR considerations
-    if (isFirstRender) {
+    if (disableLazyLoading || !isFirstRender) {
       const transform = axisProperties.transform[axis](this.indexCurrent * 100);
       containerStyle.WebkitTransform = transform;
       containerStyle.transform = transform;
@@ -988,7 +810,7 @@ So animateHeight is most likely having no effect at all.`,
           className="react-swipeable-view-container"
         >
           {Children.map(children, (child, indexChild) => {
-            if (isFirstRender && indexChild > 0) {
+            if (!disableLazyLoading && isFirstRender && indexChild !== indexLatest) {
               return null;
             }
 
@@ -1001,7 +823,7 @@ We are expecting a valid React Element`,
             let ref;
             let hidden = true;
 
-            if (indexChild === this.state.indexLatest) {
+            if (indexChild === indexLatest) {
               hidden = false;
 
               if (animateHeight) {
@@ -1030,5 +852,190 @@ We are expecting a valid React Element`,
     );
   }
 }
+
+// Added as an ads for people using the React dev tools in production.
+// So they know, the tool used to build the awesome UI they
+// are looking at/retro engineering.
+SwipeableViews.displayName = 'ReactSwipableView';
+
+SwipeableViews.propTypes = {
+  /**
+   * This is callback property. It's called by the component on mount.
+   * This is useful when you want to trigger an action programmatically.
+   * It currently only supports updateHeight() action.
+   *
+   * @param {object} actions This object contains all posible actions
+   * that can be triggered programmatically.
+   */
+  action: PropTypes.func,
+  /**
+   * If `true`, the height of the container will be animated to match the current slide height.
+   * Animating another style property has a negative impact regarding performance.
+   */
+  animateHeight: PropTypes.bool,
+  /**
+   * If `false`, changes to the index prop will not cause an animated transition.
+   */
+  animateTransitions: PropTypes.bool,
+  /**
+   * The axis on which the slides will slide.
+   */
+  axis: PropTypes.oneOf(['x', 'x-reverse', 'y', 'y-reverse']),
+  /**
+   * Use this property to provide your slides.
+   */
+  children: PropTypes.node.isRequired,
+  /**
+   * This is the inlined style that will be applied
+   * to each slide container.
+   */
+  containerStyle: PropTypes.object,
+  /**
+   * If `true`, it will disable touch events.
+   * This is useful when you want to prohibit the user from changing slides.
+   */
+  disabled: PropTypes.bool,
+  /**
+   * This is the config used to disable lazyloding,
+   * if `true` will render all the views in first rendering.
+   */
+  disableLazyLoading: PropTypes.bool,
+  /**
+   * If `true`, it will enable mouse events.
+   * This will allow the user to perform the relevant swipe actions with a mouse.
+   */
+  enableMouseEvents: PropTypes.bool,
+  /**
+   * Configure hysteresis between slides. This value determines how far
+   * should user swipe to switch slide.
+   */
+  hysteresis: PropTypes.number,
+  /**
+   * If `true`, it will ignore native scroll container.
+   * It can be used to filter out false positive that blocks the swipe.
+   */
+  ignoreNativeScroll: PropTypes.bool,
+  /**
+   * This is the index of the slide to show.
+   * This is useful when you want to change the default slide shown.
+   * Or when you have tabs linked to each slide.
+   */
+  index: PropTypes.number,
+  /**
+   * This is callback prop. It's call by the
+   * component when the shown slide change after a swipe made by the user.
+   * This is useful when you have tabs linked to each slide.
+   *
+   * @param {integer} index This is the current index of the slide.
+   * @param {integer} indexLatest This is the oldest index of the slide.
+   * @param {object} meta Meta data containing more information about the event.
+   */
+  onChangeIndex: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onMouseDown: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onMouseLeave: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onMouseMove: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onMouseUp: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onScroll: PropTypes.func,
+  /**
+   * This is callback prop. It's called by the
+   * component when the slide switching.
+   * This is useful when you want to implement something corresponding
+   * to the current slide position.
+   *
+   * @param {integer} index This is the current index of the slide.
+   * @param {string} type Can be either `move` or `end`.
+   */
+  onSwitching: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onTouchEnd: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onTouchMove: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onTouchStart: PropTypes.func,
+  /**
+   * The callback that fires when the animation comes to a rest.
+   * This is useful to defer CPU intensive task.
+   */
+  onTransitionEnd: PropTypes.func,
+  /**
+   * If `true`, it will add bounds effect on the edges.
+   */
+  resistance: PropTypes.bool,
+  /**
+   * This is the className that will be applied
+   * on the slide component.
+   */
+  slideClassName: PropTypes.string,
+  /**
+   * This is the inlined style that will be applied
+   * on the slide component.
+   */
+  slideStyle: PropTypes.object,
+  /**
+   * This is the config used to create CSS transitions.
+   * This is useful to change the dynamic of the transition.
+   */
+  springConfig: PropTypes.shape({
+    duration: PropTypes.string,
+    easeFunction: PropTypes.string,
+    delay: PropTypes.string,
+  }),
+  /**
+   * This is the inlined style that will be applied
+   * on the root component.
+   */
+  style: PropTypes.object,
+  /**
+   * This is the threshold used for detecting a quick swipe.
+   * If the computed speed is above this value, the index change.
+   */
+  threshold: PropTypes.number,
+};
+
+SwipeableViews.defaultProps = {
+  animateHeight: false,
+  animateTransitions: true,
+  axis: 'x',
+  disabled: false,
+  disableLazyLoading: false,
+  enableMouseEvents: false,
+  hysteresis: 0.6,
+  ignoreNativeScroll: false,
+  index: 0,
+  threshold: 5,
+  springConfig: {
+    duration: '0.35s',
+    easeFunction: 'cubic-bezier(0.15, 0.3, 0.25, 1)',
+    delay: '0s',
+  },
+  resistance: false,
+};
+
+SwipeableViews.childContextTypes = {
+  swipeableViews: PropTypes.shape({
+    slideUpdateHeight: PropTypes.func,
+  }),
+};
 
 export default SwipeableViews;
