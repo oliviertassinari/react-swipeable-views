@@ -46,11 +46,21 @@ jobs:
           name: Lint
           command: yarn lint
       - run:
-          name: Unit
-          command: yarn test:unit
-      - run:
           name: Is the size acceptable?
           command: yarn size
+      - run:
+          name: Tests fake browser
+          command: yarn test:coverage
+      - run:
+          name: Check coverage generated
+          command: |
+            if ! [[ -s coverage/lcov.info ]]
+            then
+              exit 1
+            fi
+      - run:
+          name: Coverage
+          command: bash <(curl -s https://codecov.io/bash)
 workflows:
   version: 2
   pipeline:
