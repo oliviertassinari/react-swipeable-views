@@ -13,6 +13,7 @@
 [![DevDependencies](https://img.shields.io/david/dev/oliviertassinari/react-swipeable-views.svg)](https://david-dm.org/oliviertassinari/react-swipeable-views#info=devDependencies&view=list)
 [![Donate](https://img.shields.io/badge/$-support-green.svg)](https://www.paypal.me/oliviertassinari/10)
 [![TypeScript definitions on DefinitelyTyped](https://img.shields.io/badge/style-.d.ts-green.svg?style=flat&label=DefinitelyTyped)](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-swipeable-views)
+[![Coverage Status](https://img.shields.io/codecov/c/github/oliviertassinari/react-swipeable-views/master.svg)](https://codecov.io/gh/oliviertassinari/react-swipeable-views/branch/master)
 
 ## Installation
 
