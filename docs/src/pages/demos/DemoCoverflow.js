@@ -73,7 +73,7 @@ class DemoCoverflow extends React.Component {
 
   handleSwitch = (index, type) => {
     if (type === 'end') {
-      Animated.timing(this.state.position, { toValue: index, duration: 150 }).start();
+      Animated.spring(this.state.position, { toValue: index }).start();
       return;
     }
 
