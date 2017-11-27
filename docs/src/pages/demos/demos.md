@@ -83,3 +83,9 @@ Right-to-left direction
 The 3 slides are repeated indefinitely.
 
 {{demo='pages/demos/DemoCircular.js'}}
+
+## Coverflow
+
+Custom display with a coverflow effect.
+
+{{demo='pages/demos/DemoCoverflow.js'}}
