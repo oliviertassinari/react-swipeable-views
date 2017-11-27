@@ -106,6 +106,13 @@ module.exports = require('fs')
   .readFileSync(require.resolve('docs/src/pages/demos/DemoCircular'), 'utf8')
 `,
         },
+        'pages/demos/DemoCoverflow.js': {
+          js: require('docs/src/pages/demos/DemoCoverflow').default,
+          raw: preval`
+module.exports = require('fs')
+  .readFileSync(require.resolve('docs/src/pages/demos/DemoCoverflow'), 'utf8')
+`,
+        },
       }}
     />
   );

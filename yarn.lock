@@ -234,6 +234,13 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+animated@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/animated/-/animated-0.2.1.tgz#c3e19c60207597493e0b93f9f009b1b7bc603c41"
+  dependencies:
+    invariant "^2.2.0"
+    normalize-css-color "^1.0.1"
+
 ansi-escapes@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-2.0.0.tgz#5bae52be424878dd9783e8910e3fc2922e83c81b"
@@ -5461,6 +5468,10 @@ nopt@~3.0.1:
   resolved "https://registry.yarnpkg.com/nopt/-/nopt-3.0.6.tgz#c6465dbf08abcd4db359317f79ac68a646b28ff9"
   dependencies:
     abbrev "1"
+
+normalize-css-color@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/normalize-css-color/-/normalize-css-color-1.0.2.tgz#02991e97cccec6623fe573afbbf0de6a1f3e9f8d"
 
 normalize-package-data@^2.3.0, normalize-package-data@^2.3.2, normalize-package-data@^2.3.4, normalize-package-data@^2.3.5, "normalize-package-data@~1.0.1 || ^2.0.0":
   version "2.4.0"
