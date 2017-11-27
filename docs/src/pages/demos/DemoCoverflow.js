@@ -1,6 +1,7 @@
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import Animated from 'animated/lib/targets/react-dom';
+import SupportTouch from 'docs/src/modules/components/SupportTouch';
 
 const styles = {
   root: {
@@ -83,61 +84,63 @@ class DemoCoverflow extends React.Component {
     const { index, position } = this.state;
 
     return (
-      <SwipeableViews
-        index={index}
-        style={styles.root}
-        onChangeIndex={this.handleChangeIndex}
-        onSwitching={this.handleSwitch}
-      >
-        {albums.map((album, currentIndex) => {
-          const inputRange = albums.map((_, i) => i);
-          const scaleOutputRange = inputRange.map(i => {
-            if (currentIndex === i) {
-              return 1;
-            }
+      <SupportTouch>
+        <SwipeableViews
+          index={index}
+          style={styles.root}
+          onChangeIndex={this.handleChangeIndex}
+          onSwitching={this.handleSwitch}
+        >
+          {albums.map((album, currentIndex) => {
+            const inputRange = albums.map((_, i) => i);
+            const scaleOutputRange = inputRange.map(i => {
+              if (currentIndex === i) {
+                return 1;
+              }
 
-            return 0.7;
-          });
-          const scale = position.interpolate({
-            inputRange,
-            outputRange: scaleOutputRange,
-          });
-          const opacityOutputRange = inputRange.map(i => {
-            if (currentIndex === i) {
-              return 1;
-            }
+              return 0.7;
+            });
+            const scale = position.interpolate({
+              inputRange,
+              outputRange: scaleOutputRange,
+            });
+            const opacityOutputRange = inputRange.map(i => {
+              if (currentIndex === i) {
+                return 1;
+              }
 
-            return 0.3;
-          });
-          const opacity = position.interpolate({
-            inputRange,
-            outputRange: opacityOutputRange,
-          });
-          const translateOutputRange = inputRange.map(i => {
-            return 100 / 2 * (i - currentIndex);
-          });
-          const translateX = position.interpolate({
-            inputRange,
-            outputRange: translateOutputRange,
-          });
+              return 0.3;
+            });
+            const opacity = position.interpolate({
+              inputRange,
+              outputRange: opacityOutputRange,
+            });
+            const translateOutputRange = inputRange.map(i => {
+              return 100 / 2 * (i - currentIndex);
+            });
+            const translateX = position.interpolate({
+              inputRange,
+              outputRange: translateOutputRange,
+            });
 
-          return (
-            <Animated.div
-              key={String(currentIndex)}
-              style={Object.assign(
-                {
-                  opacity,
-                  transform: [{ scale }, { translateX }],
-                },
-                styles.slide,
-              )}
-            >
-              <img style={styles.img} src={album.src} alt="cover" />
-              {album.name}
-            </Animated.div>
-          );
-        })}
-      </SwipeableViews>
+            return (
+              <Animated.div
+                key={String(currentIndex)}
+                style={Object.assign(
+                  {
+                    opacity,
+                    transform: [{ scale }, { translateX }],
+                  },
+                  styles.slide,
+                )}
+              >
+                <img style={styles.img} src={album.src} alt="cover" />
+                {album.name}
+              </Animated.div>
+            );
+          })}
+        </SwipeableViews>
+      </SupportTouch>
     );
   }
 }
