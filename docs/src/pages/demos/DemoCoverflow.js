@@ -66,9 +66,7 @@ class DemoCoverflow extends React.Component {
   };
 
   handleChangeIndex = index => {
-    this.setState({
-      index,
-    });
+    this.setState({ index });
   };
 
   handleSwitch = (index, type) => {
@@ -76,7 +74,6 @@ class DemoCoverflow extends React.Component {
       Animated.spring(this.state.position, { toValue: index }).start();
       return;
     }
-
     this.state.position.setValue(index);
   };
 
@@ -93,34 +90,23 @@ class DemoCoverflow extends React.Component {
         >
           {albums.map((album, currentIndex) => {
             const inputRange = albums.map((_, i) => i);
-            const scaleOutputRange = inputRange.map(i => {
-              if (currentIndex === i) {
-                return 1;
-              }
-
-              return 0.7;
-            });
             const scale = position.interpolate({
               inputRange,
-              outputRange: scaleOutputRange,
-            });
-            const opacityOutputRange = inputRange.map(i => {
-              if (currentIndex === i) {
-                return 1;
-              }
-
-              return 0.3;
+              outputRange: inputRange.map(i => {
+                return currentIndex === i ? 1 : 0.7;
+              }),
             });
             const opacity = position.interpolate({
               inputRange,
-              outputRange: opacityOutputRange,
-            });
-            const translateOutputRange = inputRange.map(i => {
-              return 100 / 2 * (i - currentIndex);
+              outputRange: inputRange.map(i => {
+                return currentIndex === i ? 1 : 0.3;
+              }),
             });
             const translateX = position.interpolate({
               inputRange,
-              outputRange: translateOutputRange,
+              outputRange: inputRange.map(i => {
+                return 100 / 2 * (i - currentIndex);
+              }),
             });
 
             return (
