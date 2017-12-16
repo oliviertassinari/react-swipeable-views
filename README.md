@@ -143,6 +143,13 @@ const MyComponent = () => (
 export default MyComponent;
 ```
 
+## Who's using react-swipeable-views?
+
+- [Doctolib](https://github.com/doctolib)
+- [mastodon](https://github.com/tootsuite/mastodon)
+- [Material-UI](https://github.com/mui-org/material-ui)
+- Are you using this library? Add your company or project.
+
 ## License
 
 This project is licensed under the terms of the
