@@ -148,6 +148,7 @@ export default MyComponent;
 - [Doctolib](https://github.com/doctolib)
 - [mastodon](https://github.com/tootsuite/mastodon)
 - [Material-UI](https://github.com/mui-org/material-ui)
+- [Tinder](https://tinder.com)
 - Are you using this library? Add your company or project.
 
 ## License
