@@ -179,6 +179,7 @@ export default function virtualize(MyComponent) {
         children,
         index: indexProp,
         onChangeIndex,
+        onTransitionEnd,
         overscanSlideAfter,
         overscanSlideBefore,
         slideCount,
