@@ -18,7 +18,7 @@
     "size:why": "size-limit --why packages/react-swipeable-views/lib/index.js",
     "watch": "lerna exec --concurrency 99 -- babel src --out-dir lib --watch",
     "build": "rm -rf packages/*/lib && cross-env NODE_ENV=production lerna exec -- babel src --out-dir lib --ignore spec.js",
-    "release": "yarn build && lerna exec -- yarn prepublish && lerna publish",
+    "release": "yarn build && yarn lerna exec yarn prepublish && lerna publish",
     "postrelease": "yarn docs:deploy"
   },
   "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
