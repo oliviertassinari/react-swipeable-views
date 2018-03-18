@@ -9,6 +9,6 @@
   },
   {
     path: "packages/react-swipeable-views-core/lib/index.js",
-    limit: "3 KB"
+    limit: "4 KB"
   }
 ]

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Tabs, { Tab } from 'material-ui/Tabs';
+import { MenuItem, Select } from 'material-ui';
 import SwipeableViews from 'react-swipeable-views';
 import SupportTouch from 'docs/src/modules/components/SupportTouch';
 
@@ -52,7 +53,15 @@ class DemoTabs extends Component {
         </Tabs>
         <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
           <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
-          <div style={Object.assign({}, styles.slide, styles.slide2)}>slide n°2</div>
+          <div style={Object.assign({}, styles.slide, styles.slide2)}>
+            slide n°2
+            <Select value={10}>
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={10}>Ten</MenuItem>
+            </Select>
+          </div>
           <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
         </SwipeableViews>
       </SupportTouch>
