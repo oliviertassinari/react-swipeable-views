@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import NextLink from 'next/link';
 import { withStyles } from 'material-ui/styles';
-import { capitalizeFirstLetter } from 'material-ui/utils/helpers';
 
 const styles = theme => ({
   root: {
@@ -14,16 +13,16 @@ const styles = theme => ({
       textDecoration: 'underline',
     },
   },
-  variantDefault: {
+  default: {
     color: 'inherit',
   },
-  variantPrimary: {
+  primary: {
     color: theme.palette.primary[500],
   },
-  variantAccent: {
+  accent: {
     color: theme.palette.secondary.A400,
   },
-  variantButton: {
+  button: {
     '&:hover': {
       textDecoration: 'inherit',
     },
@@ -68,11 +67,7 @@ function Link(props, context) {
   } = props;
 
   let ComponentRoot;
-  const className = classNames(
-    classes.root,
-    classes[`variant${capitalizeFirstLetter(variant)}`],
-    classNameProp,
-  );
+  const className = classNames(classes.root, classes[variant], classNameProp);
   let rootProps;
   let children = childrenProp;
 

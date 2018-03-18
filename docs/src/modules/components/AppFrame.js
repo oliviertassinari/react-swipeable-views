@@ -170,7 +170,7 @@ class AppFrame extends React.Component {
         <AppBar className={appBarClassName}>
           <Toolbar>
             <IconButton
-              color="contrast"
+              color="inherit"
               aria-label="open drawer"
               onClick={this.handleDrawerToggle}
               className={navIconClassName}
@@ -178,7 +178,7 @@ class AppFrame extends React.Component {
               <MenuIcon />
             </IconButton>
             {title !== null && (
-              <Typography className={classes.title} type="title" color="inherit" noWrap>
+              <Typography className={classes.title} variant="title" color="inherit" noWrap>
                 {title}
               </Typography>
             )}
@@ -186,7 +186,7 @@ class AppFrame extends React.Component {
             <IconButton
               component="a"
               title="GitHub"
-              color="contrast"
+              color="inherit"
               href="https://github.com/oliviertassinari/react-swipeable-views"
             >
               <Github />
@@ -196,7 +196,7 @@ class AppFrame extends React.Component {
         <AppDrawer
           className={classes.drawer}
           disablePermanent={disablePermanent}
-          onRequestClose={this.handleDrawerToggle}
+          onClose={this.handleDrawerToggle}
           mobileOpen={this.state.mobileOpen}
         />
         {children}

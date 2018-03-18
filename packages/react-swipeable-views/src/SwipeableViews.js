@@ -224,17 +224,26 @@ export function findNativeHandler(params) {
 }
 
 class SwipeableViews extends Component {
-  state = {
-    indexLatest: null,
-    // Set to true as soon as the component is swiping.
-    // It's the state counter part of this.isSwiping.
-    isDragging: false,
-    // Help with SSR logic and lazy loading logic.
-    isFirstRender: true,
-    heightLatest: 0,
-    // Let the render method that we are going to display the same slide than previously.
-    displaySameSlide: true,
-  };
+  constructor(props, context) {
+    super(props, context);
+
+    if (process.env.NODE_ENV !== 'production') {
+      checkIndexBounds(this.props);
+    }
+
+    this.setIndexCurrent(this.props.index);
+    this.state = {
+      indexLatest: this.props.index,
+      // Set to true as soon as the component is swiping.
+      // It's the state counter part of this.isSwiping.
+      isDragging: false,
+      // Help with SSR logic and lazy loading logic.
+      isFirstRender: true,
+      heightLatest: 0,
+      // Let the render method that we are going to display the same slide than previously.
+      displaySameSlide: true,
+    };
+  }
 
   getChildContext() {
     return {
@@ -244,17 +253,6 @@ class SwipeableViews extends Component {
         },
       },
     };
-  }
-
-  componentWillMount() {
-    if (process.env.NODE_ENV !== 'production') {
-      checkIndexBounds(this.props);
-    }
-
-    this.setIndexCurrent(this.props.index);
-    this.setState({
-      indexLatest: this.props.index,
-    });
   }
 
   componentDidMount() {

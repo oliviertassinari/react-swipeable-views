@@ -1,80 +1,83 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'docs/src/modules/components/Link';
-import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import { ListItem } from 'material-ui/List';
 import Button from 'material-ui/Button';
 import Collapse from 'material-ui/transitions/Collapse';
+import polyfill from 'react-lifecycles-compat';
+import Link from 'docs/src/modules/components/Link';
 
 const styles = theme => ({
-  button: theme.mixins.gutters({
-    borderRadius: 0,
-    justifyContent: 'flex-start',
-    textTransform: 'none',
-    width: '100%',
-    transition: theme.transitions.create('background-color', {
-      duration: theme.transitions.duration.shortest,
-    }),
-    '&:hover': {
-      textDecoration: 'none',
-    },
-  }),
-  navItem: {
-    ...theme.typography.body2,
+  item: {
     display: 'block',
     paddingTop: 0,
     paddingBottom: 0,
   },
-  navLink: {
-    fontWeight: theme.typography.fontWeightRegular,
+  itemLeaf: {
     display: 'flex',
     paddingTop: 0,
     paddingBottom: 0,
   },
-  navLinkButton: {
-    color: theme.palette.text.secondary,
-    textIndent: theme.spacing.unit * 3,
-    fontSize: theme.typography.pxToRem(13),
+  button: {
+    justifyContent: 'flex-start',
+    textTransform: 'none',
+    width: '100%',
   },
-  activeButton: {
+  buttonLeaf: {
+    justifyContent: 'flex-start',
+    textTransform: 'none',
+    width: '100%',
+    color: theme.palette.text.secondary,
+  },
+  active: {
     color: theme.palette.text.primary,
   },
 });
 
 class AppDrawerNavItem extends React.Component {
-  static defaultProps = {
-    openImmediately: false,
-  };
-
-  state = {
-    open: false,
-  };
-
-  componentWillMount() {
-    if (this.props.openImmediately) {
-      this.setState({ open: true });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (typeof prevState.open === 'undefined') {
+      return {
+        open: nextProps.openImmediately,
+      };
     }
+
+    return null;
   }
+
+  state = {};
 
   handleClick = () => {
     this.setState({ open: !this.state.open });
   };
 
   render() {
-    const { children, classes, href, title } = this.props;
+    const {
+      children,
+      classes,
+      depth,
+      href,
+      onClick,
+      openImmediately,
+      title,
+      ...other
+    } = this.props;
+
+    const style = {
+      paddingLeft: 8 * (3 + 2 * depth),
+    };
 
     if (href) {
       return (
-        <ListItem className={classes.navLink} disableGutters>
+        <ListItem className={classes.itemLeaf} disableGutters {...other}>
           <Button
-            component={Link}
-            variant="button"
-            href={href}
-            activeClassName={classes.activeButton}
-            className={classNames(classes.button, classes.navLinkButton)}
+            component={props => (
+              <Link variant="button" activeClassName={classes.active} href={href} {...props} />
+            )}
+            className={classes.buttonLeaf}
             disableRipple
-            onClick={this.props.onClick}
+            onClick={onClick}
+            style={style}
           >
             {title}
           </Button>
@@ -83,8 +86,15 @@ class AppDrawerNavItem extends React.Component {
     }
 
     return (
-      <ListItem className={classes.navItem} disableGutters>
-        <Button className={classes.button} onClick={this.handleClick}>
+      <ListItem className={classes.item} disableGutters {...other}>
+        <Button
+          classes={{
+            root: classes.button,
+            label: openImmediately ? 'algolia-lvl0' : '',
+          }}
+          onClick={this.handleClick}
+          style={style}
+        >
           {title}
         </Button>
         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
@@ -98,10 +108,15 @@ class AppDrawerNavItem extends React.Component {
 AppDrawerNavItem.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
+  depth: PropTypes.number.isRequired,
   href: PropTypes.string,
   onClick: PropTypes.func,
   openImmediately: PropTypes.bool,
   title: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(AppDrawerNavItem);
+AppDrawerNavItem.defaultProps = {
+  openImmediately: false,
+};
+
+export default withStyles(styles)(polyfill(AppDrawerNavItem));
