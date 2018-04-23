@@ -49,7 +49,6 @@ const styles = {
   container: {
     direction: 'ltr',
     display: 'flex',
-    willChange: 'transform',
   },
   slide: {
     width: '100%',
@@ -361,6 +360,7 @@ class SwipeableViews extends Component {
     if (this.rootNode === null) {
       return;
     }
+    this.containerNode.style.willChange = 'transform';
 
     const touch = applyRotationMatrix(event.touches[0], axis);
 
@@ -528,6 +528,7 @@ class SwipeableViews extends Component {
       return;
     }
 
+    this.containerNode.style.willChange = '';
     this.started = false;
 
     if (this.isSwiping !== true) {
