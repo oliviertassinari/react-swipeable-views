@@ -334,6 +334,8 @@ class SwipeableViews extends Component {
       const transform = axisProperties.transform[axis](indexCurrent * 100);
       this.containerNode.style.WebkitTransform = transform;
       this.containerNode.style.transform = transform;
+      // Prevent animation jumping before DOM is updated
+      this.containerNode.style.transition = 'all 0s ease 0s';
     }
   }
 
@@ -777,6 +779,11 @@ So animateHeight is most likely having no effect at all.`,
       WebkitTransition,
       transition,
     };
+
+    // Overwrite transition set directly to the ref in this.setIndexCurrent
+    if (this.containerNode) {
+      this.containerNode.style.transition = transition;
+    }
 
     // Apply the styles for SSR considerations
     if (disableLazyLoading || !isFirstRender) {
