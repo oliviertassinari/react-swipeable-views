@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import find from 'lodash/find';
+import { withRouter } from 'next/router';
 import pure from 'recompose/pure';
 import wrapDisplayName from 'recompose/wrapDisplayName';
 import AppWrapper from 'docs/src/modules/components/AppWrapper';
@@ -47,14 +48,14 @@ const pages = [
   },
 ];
 
-function findActivePage(currentPages, url) {
+function findActivePage(currentPages, router) {
   const activePage = find(currentPages, page => {
     if (page.children) {
-      return url.pathname.indexOf(page.pathname) !== -1;
+      return router.pathname.indexOf(page.pathname) === 0;
     }
 
     // Should be an exact match if no children
-    return url.pathname === page.pathname;
+    return router.pathname === page.pathname;
   });
 
   if (!activePage) {
@@ -62,8 +63,8 @@ function findActivePage(currentPages, url) {
   }
 
   // We need to drill down
-  if (activePage.pathname !== url.pathname) {
-    return findActivePage(activePage.children, url);
+  if (activePage.pathname !== router.pathname) {
+    return findActivePage(activePage.children, router);
   }
 
   return activePage;
@@ -74,17 +75,19 @@ function withRoot(BaseComponent) {
   const PureBaseComponent = pure(BaseComponent);
 
   class WithRoot extends React.Component {
-    static childContextTypes = {
-      url: PropTypes.object,
-      pages: PropTypes.array,
-      activePage: PropTypes.object,
-    };
-
     getChildContext() {
+      const { router } = this.props;
+
+      let pathname = router.pathname;
+      if (pathname !== '/') {
+        // The leading / is only added to support static hosting (resolve /index.html).
+        // We remove it to normalize the pathname.
+        pathname = pathname.replace(/\/$/, '');
+      }
+
       return {
-        url: this.props.url ? this.props.url : null,
         pages,
-        activePage: findActivePage(pages, this.props.url),
+        activePage: findActivePage(pages, { ...router, pathname }),
       };
     }
 
@@ -100,8 +103,13 @@ function withRoot(BaseComponent) {
   }
 
   WithRoot.propTypes = {
+    router: PropTypes.object.isRequired,
     sheetsRegistry: PropTypes.object,
-    url: PropTypes.object,
+  };
+
+  WithRoot.childContextTypes = {
+    pages: PropTypes.array,
+    activePage: PropTypes.object,
   };
 
   WithRoot.getInitialProps = ctx => {
@@ -126,7 +134,7 @@ function withRoot(BaseComponent) {
     WithRoot.displayName = wrapDisplayName(BaseComponent, 'withRoot');
   }
 
-  return WithRoot;
+  return withRouter(WithRoot);
 }
 
 export default withRoot;

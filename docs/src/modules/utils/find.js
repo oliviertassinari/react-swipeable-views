@@ -84,7 +84,9 @@ function findPages(
     const pathname = itemPath
       .replace(new RegExp(`\\${path.sep}`, 'g'), '/')
       .replace(/^.*\/pages/, '')
-      .replace('.js', '');
+      .replace('.js', '')
+      .replace(/^\/index$/, '/') // Replace `index` by `/`.
+      .replace(/\/index$/, '');
 
     if (options.front && pathname.indexOf('/demos') === -1 && pathname.indexOf('/api') === -1) {
       return;
