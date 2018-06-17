@@ -195,7 +195,7 @@ export function getDomTreeShapes(element, rootNode) {
 // We can only have one node at the time claiming ownership for handling the swipe.
 // Otherwise, the UX would be confusing.
 // That's why we use a singleton here.
-let nodeHowClaimedTheScroll = null;
+let nodeWhoClaimedTheScroll = null;
 
 export function findNativeHandler(params) {
   const { domTreeShapes, pageX, startX, axis } = params;
@@ -215,7 +215,7 @@ export function findNativeHandler(params) {
       shape[axisProperties.scrollLength[axis]];
 
     if ((goingForward && areNotAtEnd) || (!goingForward && areNotAtStart)) {
-      nodeHowClaimedTheScroll = shape.element;
+      nodeWhoClaimedTheScroll = shape.element;
       return true;
     }
 
@@ -415,18 +415,17 @@ class SwipeableViews extends Component {
     }
 
     // We are not supposed to hanlde this touch move.
-    if (nodeHowClaimedTheScroll !== null && nodeHowClaimedTheScroll !== this.rootNode) {
+    if (nodeWhoClaimedTheScroll !== null && nodeWhoClaimedTheScroll !== this.rootNode) {
       return;
     }
 
     const { axis, children, ignoreNativeScroll, onSwitching, resistance } = this.props;
-
     const touch = applyRotationMatrix(event.touches[0], axis);
 
     // We don't know yet.
     if (this.isSwiping === undefined) {
-      const dx = Math.abs(this.startX - touch.pageX);
-      const dy = Math.abs(this.startY - touch.pageY);
+      const dx = Math.abs(touch.pageX - this.startX);
+      const dy = Math.abs(touch.pageY - this.startY);
 
       const isSwiping = dx > dy && dx > constant.UNCERTAINTY_THRESHOLD;
 
@@ -476,7 +475,7 @@ class SwipeableViews extends Component {
     });
 
     // Add support for native scroll elements.
-    if (nodeHowClaimedTheScroll === null && !ignoreNativeScroll) {
+    if (nodeWhoClaimedTheScroll === null && !ignoreNativeScroll) {
       const domTreeShapes = getDomTreeShapes(event.target, this.rootNode);
       const hasFoundNativeHandler = findNativeHandler({
         domTreeShapes,
@@ -494,8 +493,8 @@ class SwipeableViews extends Component {
     // We are moving toward the edges.
     if (startX) {
       this.startX = startX;
-    } else if (nodeHowClaimedTheScroll === null) {
-      nodeHowClaimedTheScroll = this.rootNode;
+    } else if (nodeWhoClaimedTheScroll === null) {
+      nodeWhoClaimedTheScroll = this.rootNode;
     }
 
     this.setIndexCurrent(index);
@@ -520,7 +519,7 @@ class SwipeableViews extends Component {
   };
 
   handleSwipeEnd = () => {
-    nodeHowClaimedTheScroll = null;
+    nodeWhoClaimedTheScroll = null;
 
     // The touch start event can be cancel.
     // Makes sure that a starting point is set.
