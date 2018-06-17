@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 
-import React, { Component } from 'react';
-import Button from 'material-ui/Button';
+import React from 'react';
+import Button from '@material-ui/core/Button';
 import SwipeableViews from 'react-swipeable-views';
 import { virtualize, bindKeyboard } from 'react-swipeable-views-utils';
 import { mod } from 'react-swipeable-views-core';
@@ -54,7 +54,7 @@ function slideRenderer(params) {
   );
 }
 
-class DemoVirtualize extends Component {
+class DemoVirtualize extends React.Component {
   state = {
     index: 0,
   };

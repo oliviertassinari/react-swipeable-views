@@ -1,23 +1,25 @@
 {
-  "presets": ["./scripts/babel-preset-env", "stage-1", "react"],
+  "presets": [
+    "./scripts/babel-preset-env",
+    ["@babel/preset-stage-1", { "loose": true }],
+    "@babel/preset-react"
+  ],
   "plugins": [
-    "transform-object-assign"
+    "@babel/plugin-transform-object-assign",
+    ["@babel/transform-runtime", { "polyfill": false, "useBuiltIns": true }]
   ],
   "env": {
     "docs-development": {
-      "presets": [
-        "next/babel"
-      ],
       "plugins": [
-        "preval",
+        "./scripts/babel-plugin-preval",
         [
           "module-resolver",
           {
             "alias": {
               "pages": "./pages",
-              "react-swipeable-views": './packages/react-swipeable-views/src',
-              "react-swipeable-views-utils": './packages/react-swipeable-views-utils/src',
-              "react-swipeable-views-core": './packages/react-swipeable-views-core/src',
+              "react-swipeable-views": "./packages/react-swipeable-views/src",
+              "react-swipeable-views-utils": "./packages/react-swipeable-views-utils/src",
+              "react-swipeable-views-core": "./packages/react-swipeable-views-core/src",
               "docs": "./docs"
             }
           }
@@ -25,36 +27,54 @@
       ]
     },
     "docs-production": {
-      "presets": [
-        "next/babel"
-      ],
       "plugins": [
-        "preval",
+        "./scripts/babel-plugin-preval",
         [
           "module-resolver",
           {
             "alias": {
               "pages": "./pages",
-              "react-swipeable-views": './packages/react-swipeable-views/src',
-              "react-swipeable-views-utils": './packages/react-swipeable-views-utils/src',
-              "react-swipeable-views-core": './packages/react-swipeable-views-core/src',
+              "react-swipeable-views": "./packages/react-swipeable-views/src",
+              "react-swipeable-views-utils": "./packages/react-swipeable-views-utils/src",
+              "react-swipeable-views-core": "./packages/react-swipeable-views-core/src",
               "docs": "./docs"
             }
           }
         ],
         "transform-react-constant-elements",
         "transform-dev-warning",
-        "transform-runtime",
-        ["transform-react-remove-prop-types", {"mode": "remove"}]
+        ["transform-react-remove-prop-types", { "mode": "remove" }]
+      ]
+    },
+    "test": {
+      "plugins": [
+        [
+          "module-resolver",
+          {
+            "alias": {
+              "pages": "./pages",
+              "react-swipeable-views": "./packages/react-swipeable-views/src",
+              "react-swipeable-views-utils": "./packages/react-swipeable-views-utils/src",
+              "react-swipeable-views-core": "./packages/react-swipeable-views-core/src",
+              "docs": "./docs"
+            }
+          }
+        ]
       ]
     },
     "production": {
       "plugins": [
         "transform-react-constant-elements",
         "transform-dev-warning",
-        "transform-runtime",
-        ["transform-react-remove-prop-types", {"mode": "wrap"}],
-      ]
+        [
+          "transform-react-remove-prop-types",
+          {
+            "mode": "wrap"
+          }
+        ]
+      ],
+      "ignore": ["**/*.test*"]
     }
-  }
+  },
+  "ignore": ["scripts/*.js"]
 }

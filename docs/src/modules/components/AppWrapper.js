@@ -2,11 +2,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MuiThemeProvider } from 'material-ui/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import getContext from 'docs/src/modules/styles/getContext';
 import JssProvider from 'react-jss/lib/JssProvider';
 import AppFrame from 'docs/src/modules/components/AppFrame';
-import { lightTheme, setPrismTheme } from 'docs/src/modules/utils/prism';
+import { lightTheme, setPrismTheme } from 'docs/src/modules/components/prism';
 
 // Inject the insertion-point-jss after docssearch
 if (process.browser && !global.__INSERTION_POINT__) {
@@ -49,6 +50,7 @@ class AppWrapper extends React.Component {
           theme={this.styleContext.theme}
           sheetsManager={this.styleContext.sheetsManager}
         >
+          <CssBaseline />
           <AppFrame>{children}</AppFrame>
         </MuiThemeProvider>
       </JssProvider>

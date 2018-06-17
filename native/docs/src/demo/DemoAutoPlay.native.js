@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import SwipeableViews from '../../../packages/react-swipeable-views-native/src';
 import { autoPlay } from '../../../packages/react-swipeable-views-utils/src';
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class DemoAutoPlay extends Component {
+class DemoAutoPlay extends React.Component {
   state = {
     index: 0,
   };

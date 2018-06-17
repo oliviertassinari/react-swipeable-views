@@ -1,10 +1,10 @@
-import { Children } from 'react';
+import React from 'react';
 import warning from 'warning';
 
 const checkIndexBounds = props => {
   const { index, children } = props;
 
-  const childrenCount = Children.count(children);
+  const childrenCount = React.Children.count(children);
 
   warning(
     index >= 0 && index <= childrenCount,

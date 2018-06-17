@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class PaginationDot extends Component {
+class PaginationDot extends React.Component {
   handleClick = event => {
     this.props.onClick(event, this.props.index);
   };

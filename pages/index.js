@@ -4,9 +4,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import Head from 'next/head';
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import withRoot from 'docs/src/modules/components/withRoot';
 import Link from 'docs/src/modules/components/Link';
 
@@ -59,19 +59,34 @@ function PageHome(props) {
       <div className={classes.hero}>
         <div className={classes.content}>
           <div className={classes.text}>
-            <Typography type="display2" component="h1" align="center" color="inherit" gutterBottom>
+            <Typography
+              variant="display2"
+              component="h1"
+              align="center"
+              color="inherit"
+              gutterBottom
+            >
               {'react-swipeable-views'}
             </Typography>
-            <Typography type="headline" component="h2" color="inherit" className={classes.headline}>
+            <Typography
+              variant="headline"
+              component="h2"
+              color="inherit"
+              className={classes.headline}
+            >
               {'A React component for swipeable views.'}
             </Typography>
             <Button
-              component={Link}
+              component={linkProps => (
+                <Link
+                  {...linkProps}
+                  variant="button"
+                  prefetch
+                  href="/getting-started/installation"
+                />
+              )}
               className={classes.button}
-              raised
-              prefetch
-              href="/getting-started/installation"
-              variant="button"
+              variant="raised"
             >
               {'Get Started'}
             </Button>
@@ -86,4 +101,7 @@ PageHome.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(withRoot, withStyles(styles))(PageHome);
+export default compose(
+  withRoot,
+  withStyles(styles),
+)(PageHome);

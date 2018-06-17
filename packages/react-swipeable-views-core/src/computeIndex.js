@@ -1,10 +1,10 @@
-import { Children } from 'react';
+import React from 'react';
 import constant from './constant';
 
 export default function computeIndex(params) {
   const { children, startIndex, startX, pageX, viewLength, resistance } = params;
 
-  const indexMax = Children.count(children) - 1;
+  const indexMax = React.Children.count(children) - 1;
   let index = startIndex + (startX - pageX) / viewLength;
   let newStartX;
 

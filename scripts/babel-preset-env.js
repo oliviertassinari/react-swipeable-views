@@ -1,11 +1,7 @@
-const env = require('babel-preset-env');
-
-const ENV = process.env.BABEL_ENV;
-
-const babelPresetEnv = {
+const config = {
   presets: [
     [
-      env,
+      '@babel/preset-env',
       {
         targets: {
           ie: 11,
@@ -15,10 +11,10 @@ const babelPresetEnv = {
           safari: 10,
           node: '6.11',
         },
-        modules: ENV === 'modules' ? false : 'commonjs',
+        modules: 'commonjs',
       },
     ],
   ],
 };
 
-module.exports = babelPresetEnv;
+module.exports = () => config;

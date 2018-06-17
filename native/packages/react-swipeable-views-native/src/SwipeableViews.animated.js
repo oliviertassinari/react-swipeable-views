@@ -2,7 +2,7 @@
 // I'm not sure what version give the best UX experience.
 // I'm keeping the two versions here until we figured out.
 
-import React, { Component, Children, isValidElement } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Animated, Dimensions, PanResponder, StyleSheet, View } from 'react-native';
 import warning from 'warning';
@@ -32,7 +32,7 @@ function getAnimatedValue(animated) {
   return animated._value; // eslint-disable-line no-underscore-dangle
 }
 
-class SwipeableViews extends Component {
+class SwipeableViews extends React.Component {
   static propTypes = {
     /**
      * If `true`, the height of the container will be animated to match the current slide height.
@@ -296,7 +296,7 @@ class SwipeableViews extends Component {
       indexNew = indexLatest;
     }
 
-    const indexMax = Children.count(this.props.children) - 1;
+    const indexMax = React.Children.count(this.props.children) - 1;
 
     if (indexNew < 0) {
       indexNew = 0;
@@ -349,9 +349,9 @@ class SwipeableViews extends Component {
 
     const slideStyleObj = [styles.slide, slideStyle];
 
-    const childrenToRender = Children.map(children, child => {
+    const childrenToRender = React.Children.map(children, child => {
       warning(
-        isValidElement(child),
+        React.isValidElement(child),
         `react-swipeable-view: one of the children provided is invalid: ${child}.
 We are expecting a valid React Element`,
       );
@@ -362,7 +362,7 @@ We are expecting a valid React Element`,
     const sceneContainerStyle = [
       styles.container,
       {
-        width: viewLength * Children.count(children),
+        width: viewLength * React.Children.count(children),
         transform: [
           {
             translateX: indexCurrent.interpolate({

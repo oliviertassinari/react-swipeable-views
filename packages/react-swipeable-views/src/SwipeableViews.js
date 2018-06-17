@@ -1,4 +1,4 @@
-import React, { Component, Children, isValidElement } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import warning from 'warning';
 import transitionInfo from 'dom-helpers/transition/properties';
@@ -223,7 +223,7 @@ export function findNativeHandler(params) {
   });
 }
 
-class SwipeableViews extends Component {
+class SwipeableViews extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -394,9 +394,9 @@ class SwipeableViews extends Component {
 
       this.startIndex =
         -tranformNormalized.pageX /
-        (this.viewLength -
-          parseInt(rootStyle.paddingLeft, 10) -
-          parseInt(rootStyle.paddingRight, 10));
+          (this.viewLength -
+            parseInt(rootStyle.paddingLeft, 10) -
+            parseInt(rootStyle.paddingRight, 10)) || 0;
     }
   };
 
@@ -434,7 +434,7 @@ class SwipeableViews extends Component {
         !resistance &&
         (axis === 'y' || axis === 'y-reverse') &&
         ((this.indexCurrent === 0 && this.startX < touch.pageX) ||
-          (this.indexCurrent === Children.count(this.props.children) - 1 &&
+          (this.indexCurrent === React.Children.count(this.props.children) - 1 &&
             this.startX > touch.pageX))
       ) {
         this.isSwiping = false;
@@ -553,7 +553,7 @@ class SwipeableViews extends Component {
       indexNew = indexLatest;
     }
 
-    const indexMax = Children.count(this.props.children) - 1;
+    const indexMax = React.Children.count(this.props.children) - 1;
 
     if (indexNew < 0) {
       indexNew = 0;
@@ -806,13 +806,13 @@ So animateHeight is most likely having no effect at all.`,
           style={Object.assign({}, containerStyle, styles.container, containerStyleProp)}
           className="react-swipeable-view-container"
         >
-          {Children.map(children, (child, indexChild) => {
+          {React.Children.map(children, (child, indexChild) => {
             if (!disableLazyLoading && isFirstRender && indexChild !== indexLatest) {
               return null;
             }
 
             warning(
-              isValidElement(child),
+              React.isValidElement(child),
               `react-swipeable-view: one of the children provided is invalid: ${child}.
 We are expecting a valid React Element`,
             );

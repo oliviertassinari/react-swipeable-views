@@ -1,18 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import NoSSR from 'docs/src/modules/components/NoSSR';
+import NoSSR from '@material-ui/docs/NoSSR';
 
 const supportsTouch = 'ontouchstart' in global;
-
-function Fragment(props) {
-  return props.children;
-}
 
 function SupportTouch(props) {
   const { children } = props;
 
   return (
-    <Fragment>
+    <React.Fragment>
       <NoSSR>
         {!supportsTouch && (
           <span>
@@ -23,7 +19,7 @@ function SupportTouch(props) {
         )}
       </NoSSR>
       {children}
-    </Fragment>
+    </React.Fragment>
   );
 }
 

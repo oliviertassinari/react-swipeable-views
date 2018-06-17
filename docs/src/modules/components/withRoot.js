@@ -80,24 +80,6 @@ function withRoot(BaseComponent) {
       activePage: PropTypes.object,
     };
 
-    static getInitialProps(ctx) {
-      let initialProps = {};
-
-      if (BaseComponent.getInitialProps) {
-        const baseComponentInitialProps = BaseComponent.getInitialProps(ctx);
-        initialProps = {
-          ...baseComponentInitialProps,
-          ...initialProps,
-        };
-      }
-
-      if (process.browser) {
-        return initialProps;
-      }
-
-      return initialProps;
-    }
-
     getChildContext() {
       return {
         url: this.props.url ? this.props.url : null,
@@ -120,6 +102,24 @@ function withRoot(BaseComponent) {
   WithRoot.propTypes = {
     sheetsRegistry: PropTypes.object,
     url: PropTypes.object,
+  };
+
+  WithRoot.getInitialProps = ctx => {
+    let initialProps = {};
+
+    if (BaseComponent.getInitialProps) {
+      const baseComponentInitialProps = BaseComponent.getInitialProps(ctx);
+      initialProps = {
+        ...baseComponentInitialProps,
+        ...initialProps,
+      };
+    }
+
+    if (process.browser) {
+      return initialProps;
+    }
+
+    return initialProps;
   };
 
   if (process.env.NODE_ENV !== 'production') {
