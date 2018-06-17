@@ -76,6 +76,11 @@ class AppFrame extends React.Component {
 
   render() {
     const { children, classes } = this.props;
+
+    if (!this.context.activePage) {
+      throw new Error('Missing activePage.');
+    }
+
     const title =
       this.context.activePage.title !== false ? pageToTitle(this.context.activePage) : null;
 
