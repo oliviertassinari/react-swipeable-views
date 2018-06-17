@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -17,7 +17,7 @@ const styles = theme => ({
   },
 });
 
-function AppContent(props: Object) {
+function AppContent(props) {
   const { className, classes, children } = props;
 
   return <div className={classNames(classes.root, className)}>{children}</div>;

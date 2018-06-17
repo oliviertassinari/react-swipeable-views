@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Button from 'react-native-button';
 import SwipeableViews from '../../../packages/react-swipeable-views-native/src';
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class DemoTabs extends Component {
+class DemoTabs extends React.Component {
   state = {
     index: 0,
   };

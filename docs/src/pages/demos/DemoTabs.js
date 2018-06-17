@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import Tabs, { Tab } from 'material-ui/Tabs';
-import { MenuItem, Select } from 'material-ui';
+import React from 'react';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import SwipeableViews from 'react-swipeable-views';
 import SupportTouch from 'docs/src/modules/components/SupportTouch';
 
@@ -24,7 +26,7 @@ const styles = {
   },
 };
 
-class DemoTabs extends Component {
+class DemoTabs extends React.Component {
   state = {
     index: 0,
   };
@@ -55,7 +57,7 @@ class DemoTabs extends Component {
           <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
           <div style={Object.assign({}, styles.slide, styles.slide2)}>
             slide n°2
-            <Select value={10}>
+            <Select value={10} autoWidth={false}>
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>

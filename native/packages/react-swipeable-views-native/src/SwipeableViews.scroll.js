@@ -2,7 +2,7 @@
 // I'm not sure what version give the best UX experience.
 // I'm keeping the two versions here until we figured out.
 
-import React, { Component, Children, isValidElement } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, ScrollView, Dimensions } from 'react-native';
 import warning from 'warning';
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class SwipeableViews extends Component {
+class SwipeableViews extends React.Component {
   static propTypes = {
     /**
      * If `true`, the height of the container will be animated to match the current slide height.
@@ -229,13 +229,13 @@ class SwipeableViews extends Component {
       slideStyle,
     ];
 
-    const childrenToRender = Children.map(children, (child, index) => {
+    const childrenToRender = React.Children.map(children, (child, index) => {
       if (disabled && indexLatest !== index) {
         return null;
       }
 
       warning(
-        isValidElement(child),
+        React.isValidElement(child),
         `react-swipeable-view: one of the children provided is invalid: ${child}.
 We are expecting a valid React Element`,
       );

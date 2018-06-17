@@ -1,6 +1,6 @@
 /* eslint-disable react/no-multi-comp */
 
-import React, { Component } from 'react';
+import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import SwipeableViews from '../../../packages/react-swipeable-views-native/src';
 import { virtualize } from '../../../packages/react-swipeable-views-utils/src';
@@ -56,7 +56,7 @@ function slideRenderer(params) {
   );
 }
 
-class DemoVirtualize extends Component {
+class DemoVirtualize extends React.Component {
   state = {
     index: 0,
   };

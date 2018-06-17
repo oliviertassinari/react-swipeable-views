@@ -2,10 +2,10 @@
 
 import { create, SheetsRegistry } from 'jss';
 import preset from 'jss-preset-default';
-import { createMuiTheme } from 'material-ui/styles';
-import amber from 'material-ui/colors/amber';
-import pink from 'material-ui/colors/pink';
-import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
+import { createMuiTheme } from '@material-ui/core/styles';
+import amber from '@material-ui/core/colors/amber';
+import pink from '@material-ui/core/colors/pink';
+import createGenerateClassName from '@material-ui/core/styles/createGenerateClassName';
 
 function getTheme(theme) {
   return createMuiTheme({
@@ -14,6 +14,9 @@ function getTheme(theme) {
       primary: amber,
       secondary: pink,
       type: theme.paletteType,
+    },
+    nprogress: {
+      color: amber[500],
     },
   });
 }

@@ -1,7 +1,7 @@
 defaults: &defaults
   working_directory: /tmp/react-swipeable-views
   docker:
-    - image: circleci/node:6.11
+    - image: circleci/node:8
 restore_repo: &restore_repo
   restore_cache:
     keys:
@@ -26,10 +26,10 @@ jobs:
           key: v1-yarn-sha-{{ checksum "yarn.lock" }}
       - run:
           name: Install js dependencies
-          command: yarn install --frozen-lockfile
+          command: yarn
       - run:
-          name: Lerna
-          command: yarn bootstrap
+          name: Should not have any git not staged
+          command: git diff --exit-code
       - save_cache:
           key: v1-yarn-sha-{{ checksum "yarn.lock" }}
           paths:
@@ -47,7 +47,7 @@ jobs:
           command: yarn lint
       - run:
           name: Is the size acceptable?
-          command: yarn size
+          command: yarn build && yarn size
       - run:
           name: Tests fake browser
           command: yarn test:coverage

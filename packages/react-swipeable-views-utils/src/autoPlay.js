@@ -1,10 +1,10 @@
-import React, { Component, Children } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import { mod } from 'react-swipeable-views-core';
 
 export default function autoPlay(MyComponent) {
-  class AutoPlay extends Component {
+  class AutoPlay extends React.Component {
     static propTypes = {
       /**
        * If `false`, the auto play behavior is disabled.
@@ -115,7 +115,7 @@ export default function autoPlay(MyComponent) {
       }
 
       if (slideCount || children) {
-        indexNew = mod(indexNew, slideCount || Children.count(children));
+        indexNew = mod(indexNew, slideCount || React.Children.count(children));
       }
 
       // Is uncontrolled

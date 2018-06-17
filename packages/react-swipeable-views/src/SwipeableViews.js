@@ -1,4 +1,4 @@
-import React, { Component, Children, isValidElement } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import warning from 'warning';
 import transitionInfo from 'dom-helpers/transition/properties';
@@ -195,7 +195,7 @@ export function getDomTreeShapes(element, rootNode) {
 // We can only have one node at the time claiming ownership for handling the swipe.
 // Otherwise, the UX would be confusing.
 // That's why we use a singleton here.
-let nodeHowClaimedTheScroll = null;
+let nodeWhoClaimedTheScroll = null;
 
 export function findNativeHandler(params) {
   const { domTreeShapes, pageX, startX, axis } = params;
@@ -215,7 +215,7 @@ export function findNativeHandler(params) {
       shape[axisProperties.scrollLength[axis]];
 
     if ((goingForward && areNotAtEnd) || (!goingForward && areNotAtStart)) {
-      nodeHowClaimedTheScroll = shape.element;
+      nodeWhoClaimedTheScroll = shape.element;
       return true;
     }
 
@@ -223,7 +223,7 @@ export function findNativeHandler(params) {
   });
 }
 
-class SwipeableViews extends Component {
+class SwipeableViews extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -394,9 +394,9 @@ class SwipeableViews extends Component {
 
       this.startIndex =
         -tranformNormalized.pageX /
-        (this.viewLength -
-          parseInt(rootStyle.paddingLeft, 10) -
-          parseInt(rootStyle.paddingRight, 10));
+          (this.viewLength -
+            parseInt(rootStyle.paddingLeft, 10) -
+            parseInt(rootStyle.paddingRight, 10)) || 0;
     }
   };
 
@@ -415,7 +415,7 @@ class SwipeableViews extends Component {
     }
 
     // We are not supposed to hanlde this touch move.
-    if (nodeHowClaimedTheScroll !== null && nodeHowClaimedTheScroll !== this.rootNode) {
+    if (nodeWhoClaimedTheScroll !== null && nodeWhoClaimedTheScroll !== this.rootNode) {
       return;
     }
 
@@ -425,8 +425,8 @@ class SwipeableViews extends Component {
 
     // We don't know yet.
     if (this.isSwiping === undefined) {
-      const dx = Math.abs(this.startX - touch.pageX);
-      const dy = Math.abs(this.startY - touch.pageY);
+      const dx = Math.abs(touch.pageX - this.startX);
+      const dy = Math.abs(touch.pageY - this.startY);
 
       const isSwiping = dx > dy && dx > constant.UNCERTAINTY_THRESHOLD;
 
@@ -435,7 +435,7 @@ class SwipeableViews extends Component {
         !resistance &&
         (axis === 'y' || axis === 'y-reverse') &&
         ((this.indexCurrent === 0 && this.startX < touch.pageX) ||
-          (this.indexCurrent === Children.count(this.props.children) - 1 &&
+          (this.indexCurrent === React.Children.count(this.props.children) - 1 &&
             this.startX > touch.pageX))
       ) {
         this.isSwiping = false;
@@ -476,7 +476,7 @@ class SwipeableViews extends Component {
     });
 
     // Add support for native scroll elements.
-    if (nodeHowClaimedTheScroll === null && !ignoreNativeScroll) {
+    if (nodeWhoClaimedTheScroll === null && !ignoreNativeScroll) {
       const domTreeShapes = getDomTreeShapes(event.target, this.rootNode);
       const hasFoundNativeHandler = findNativeHandler({
         domTreeShapes,
@@ -494,8 +494,8 @@ class SwipeableViews extends Component {
     // We are moving toward the edges.
     if (startX) {
       this.startX = startX;
-    } else if (nodeHowClaimedTheScroll === null) {
-      nodeHowClaimedTheScroll = this.rootNode;
+    } else if (nodeWhoClaimedTheScroll === null) {
+      nodeWhoClaimedTheScroll = this.rootNode;
     }
 
     this.setIndexCurrent(index);
@@ -520,7 +520,7 @@ class SwipeableViews extends Component {
   };
 
   handleSwipeEnd = () => {
-    nodeHowClaimedTheScroll = null;
+    nodeWhoClaimedTheScroll = null;
 
     // The touch start event can be cancel.
     // Makes sure that a starting point is set.
@@ -554,7 +554,7 @@ class SwipeableViews extends Component {
       indexNew = indexLatest;
     }
 
-    const indexMax = Children.count(this.props.children) - 1;
+    const indexMax = React.Children.count(this.props.children) - 1;
 
     if (indexNew < 0) {
       indexNew = 0;
@@ -807,13 +807,13 @@ So animateHeight is most likely having no effect at all.`,
           style={Object.assign({}, containerStyle, styles.container, containerStyleProp)}
           className="react-swipeable-view-container"
         >
-          {Children.map(children, (child, indexChild) => {
+          {React.Children.map(children, (child, indexChild) => {
             if (!disableLazyLoading && isFirstRender && indexChild !== indexLatest) {
               return null;
             }
 
             warning(
-              isValidElement(child),
+              React.isValidElement(child),
               `react-swipeable-view: one of the children provided is invalid: ${child}.
 We are expecting a valid React Element`,
             );

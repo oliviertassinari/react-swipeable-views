@@ -1,9 +1,13 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
-import CleanCSS from 'clean-css';
 import getContext from 'docs/src/modules/styles/getContext';
 
-const cleanCSS = new CleanCSS();
+let cleanCSS;
+if (process.env.NODE_ENV === 'production') {
+  const CleanCSS = require('clean-css');
+  cleanCSS = new CleanCSS();
+}
+
 const title = 'react-swipeable-views';
 const description = 'A React component for swipeable views.';
 

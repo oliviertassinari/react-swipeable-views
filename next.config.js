@@ -24,15 +24,15 @@ module.exports = {
           generateStatsFile: true,
           // Will be available at `.next/stats.json`
           statsFilename: 'stats.json',
-        })
+        }),
       );
     }
 
     return Object.assign({}, config, {
       plugins,
-      externals: Object.assign({}, config.externals, {
-        fs: 'fs',
-      }),
+      node: {
+        fs: 'empty',
+      },
       module: Object.assign({}, config.module, {
         rules: config.module.rules.concat([
           {
@@ -51,25 +51,32 @@ module.exports = {
     });
   },
   webpackDevMiddleware: config => config,
-  poweredByHeader: false,
+  // next.js also provide a `defaultPathMap` so we could simplify the logic.
+  // However, we keep it in order to prevent any future regression on the `findPages()` side.
   exportPathMap: () => {
-    const pages = findPages();
-    const map = {
-      '/': { page: '/' },
-    };
+    const map = {};
 
-    pages.forEach(lvl0Page => {
-      if (!lvl0Page.children) {
-        return;
-      }
+    function generateMap(pages) {
+      pages.forEach(page => {
+        if (!page.children) {
+          map[page.pathname] = {
+            page: page.pathname,
+          };
+          return;
+        }
 
-      lvl0Page.children.forEach(lvl1Page => {
-        map[lvl1Page.pathname] = {
-          page: lvl1Page.pathname,
-        };
+        generateMap(page.children);
       });
-    });
+    }
+
+    generateMap(findPages());
 
     return map;
+  },
+  onDemandEntries: {
+    // Period (in ms) where the server will keep pages in the buffer
+    maxInactiveAge: 120 * 1e3, // default 25s
+    // Number of pages that should be kept simultaneously without being disposed
+    pagesBufferLength: 3, // default 2
   },
 };

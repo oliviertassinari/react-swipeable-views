@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LZString from 'lz-string';
-import { withStyles } from 'material-ui/styles';
-import IconButton from 'material-ui/IconButton';
-import Collapse from 'material-ui/transitions/Collapse';
-import ModeEditIcon from 'material-ui-icons/ModeEdit';
-import CodeIcon from 'material-ui-icons/Code';
+import CodeIcon from '@material-ui/icons/Code';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
 import MarkdownElement from 'docs/src/modules/components/MarkdownElement';
-import Tooltip from 'material-ui/Tooltip';
+import ModeEditIcon from '@material-ui/icons/ModeEdit';
+import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   root: {

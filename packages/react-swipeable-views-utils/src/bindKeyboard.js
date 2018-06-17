@@ -1,11 +1,11 @@
-import React, { Component, Children } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import keycode from 'keycode';
 import EventListener from 'react-event-listener';
 import { mod } from 'react-swipeable-views-core';
 
 export default function bindKeyboard(MyComponent) {
-  class BindKeyboard extends Component {
+  class BindKeyboard extends React.Component {
     static propTypes = {
       /**
        * @ignore
@@ -101,7 +101,7 @@ export default function bindKeyboard(MyComponent) {
         }
 
         if (slideCount || children) {
-          indexNew = mod(indexNew, slideCount || Children.count(children));
+          indexNew = mod(indexNew, slideCount || React.Children.count(children));
         }
 
         // Is uncontrolled

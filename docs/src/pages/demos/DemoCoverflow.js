@@ -105,7 +105,7 @@ class DemoCoverflow extends React.Component {
             const translateX = position.interpolate({
               inputRange,
               outputRange: inputRange.map(i => {
-                return 100 / 2 * (i - currentIndex);
+                return (100 / 2) * (i - currentIndex);
               }),
             });
 

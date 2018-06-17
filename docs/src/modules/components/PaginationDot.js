@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 const styles = {
@@ -22,7 +22,7 @@ const styles = {
   },
 };
 
-class PaginationDot extends Component {
+class PaginationDot extends React.Component {
   handleClick = event => {
     this.props.onClick(event, this.props.index);
   };
