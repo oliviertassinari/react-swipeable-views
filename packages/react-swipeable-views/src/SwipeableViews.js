@@ -369,12 +369,6 @@ class SwipeableViews extends Component {
   handleSwipeStart = event => {
     const { axis } = this.props;
 
-    // Latency and rapid rerenders on some devices can leave
-    // a period where rootNode briefly equals null.
-    if (this.rootNode === null) {
-      return;
-    }
-
     const touch = applyRotationMatrix(event.touches[0], axis);
 
     this.viewLength = this.rootNode.getBoundingClientRect()[axisProperties.length[axis]];
@@ -418,12 +412,6 @@ class SwipeableViews extends Component {
     // Makes sure we set a starting point.
     if (!this.started) {
       this.handleTouchStart(event);
-      return;
-    }
-
-    // Latency and rapid rerenders on some devices
-    // can leave a period where rootNode briefly equals null.
-    if (this.rootNode === null) {
       return;
     }
 
