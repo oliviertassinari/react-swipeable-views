@@ -337,6 +337,19 @@ class SwipeableViews extends React.Component {
     }
   }
 
+  setRootNode = node => {
+    this.rootNode = node;
+  };
+
+  setContainerNode = node => {
+    this.containerNode = node;
+  };
+
+  setActiveSlide = node => {
+    this.activeSlide = node;
+    this.updateHeight();
+  };
+
   rootNode = null;
   containerNode = null;
   ignoreNextScrollEvents = false;
@@ -355,12 +368,6 @@ class SwipeableViews extends React.Component {
 
   handleSwipeStart = event => {
     const { axis } = this.props;
-
-    // Latency and rapid rerenders on some devices can leave
-    // a period where rootNode briefly equals null.
-    if (this.rootNode === null) {
-      return;
-    }
 
     const touch = applyRotationMatrix(event.touches[0], axis);
 
@@ -405,12 +412,6 @@ class SwipeableViews extends React.Component {
     // Makes sure we set a starting point.
     if (!this.started) {
       this.handleTouchStart(event);
-      return;
-    }
-
-    // Latency and rapid rerenders on some devices
-    // can leave a period where rootNode briefly equals null.
-    if (this.rootNode === null) {
       return;
     }
 
@@ -790,9 +791,7 @@ So animateHeight is most likely having no effect at all.`,
 
     return (
       <div
-        ref={node => {
-          this.rootNode = node;
-        }}
+        ref={this.setRootNode}
         style={Object.assign({}, axisProperties.root[axis], style)}
         {...other}
         {...touchEvents}
@@ -800,9 +799,7 @@ So animateHeight is most likely having no effect at all.`,
         onScroll={this.handleScroll}
       >
         <div
-          ref={node => {
-            this.containerNode = node;
-          }}
+          ref={this.setContainerNode}
           style={Object.assign({}, containerStyle, styles.container, containerStyleProp)}
           className="react-swipeable-view-container"
         >
@@ -824,10 +821,7 @@ We are expecting a valid React Element`,
               hidden = false;
 
               if (animateHeight) {
-                ref = node => {
-                  this.activeSlide = node;
-                  this.updateHeight();
-                };
+                ref = this.setActiveSlide;
                 slideStyle.overflowY = 'hidden';
               }
             }
