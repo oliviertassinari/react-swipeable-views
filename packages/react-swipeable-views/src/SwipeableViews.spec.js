@@ -11,6 +11,8 @@ function simulateSwipeMove(wrapper, event) {
   });
 }
 
+function noop() {}
+
 describe('SwipeableViews', () => {
   describe('prop: children', () => {
     it('should render the children', () => {
@@ -199,7 +201,7 @@ describe('SwipeableViews', () => {
 
     it('should not use a spring if animateTransitions is false', () => {
       const wrapper = shallow(
-        <SwipeableViews animateTransitions={false}>
+        <SwipeableViews animateTransitions={false} index={1} onTransitionEnd={noop}>
           <div>{'slide n°1'}</div>
         </SwipeableViews>,
         { disableLifecycleMethods: true },
