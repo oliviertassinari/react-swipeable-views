@@ -242,7 +242,6 @@ class SwipeableViews extends React.Component {
       // Let the render method that we are going to display the same slide than previously.
       displaySameSlide: true,
     };
-
     this.setIndexCurrent(this.props.index);
   }
 
