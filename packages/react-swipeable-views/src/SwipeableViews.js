@@ -231,7 +231,6 @@ class SwipeableViews extends React.Component {
       checkIndexBounds(this.props);
     }
 
-    this.setIndexCurrent(this.props.index);
     this.state = {
       indexLatest: this.props.index,
       // Set to true as soon as the component is swiping.
@@ -243,6 +242,7 @@ class SwipeableViews extends React.Component {
       // Let the render method that we are going to display the same slide than previously.
       displaySameSlide: true,
     };
+    this.setIndexCurrent(this.props.index);
   }
 
   getChildContext() {
