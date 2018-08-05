@@ -1,6 +1,6 @@
 {
   "name": "react-swipeable-views-core",
-  "version": "0.12.14",
+  "version": "0.12.16",
   "description": "react-swipeable-views core modules",
   "main": "lib/index.js",
   "scripts": {
