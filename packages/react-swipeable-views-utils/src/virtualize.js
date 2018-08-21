@@ -134,11 +134,17 @@ export default function virtualize(MyComponent) {
         }
       }
 
-      this.setState({
+      const state = {
         indexContainer: beforeAhead,
         indexStart: index - beforeAhead,
         indexStop: index + afterAhead,
-      });
+      }
+
+      if (index !== this.state.index) {
+        state.index = index;
+      }
+
+      this.setState(state);
     }
 
     timer = null;
