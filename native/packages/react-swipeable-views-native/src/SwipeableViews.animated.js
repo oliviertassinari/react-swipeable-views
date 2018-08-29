@@ -33,118 +33,11 @@ function getAnimatedValue(animated) {
 }
 
 class SwipeableViews extends React.Component {
-  static propTypes = {
-    /**
-     * If `true`, the height of the container will be animated to match the current slide height.
-     * Animating another style property has a negative impact regarding performance.
-     */
-    animateHeight: PropTypes.bool,
-    /**
-     * If `false`, changes to the index prop will not cause an animated transition.
-     */
-    animateTransitions: PropTypes.bool,
-    /**
-     * The axis on which the slides will slide.
-     */
-    axis: PropTypes.oneOf(['x', 'x-reverse', 'y', 'y-reverse']),
-    /**
-     * Use this property to provide your slides.
-     */
-    children: PropTypes.node.isRequired,
-    /**
-     * This is the inlined style that will be applied
-     * to each slide container.
-     */
-    containerStyle: Animated.View.propTypes.style,
-    /**
-     * If `true`, it will disable touch events.
-     * This is useful when you want to prohibit the user from changing slides.
-     */
-    disabled: PropTypes.bool,
-    /**
-     * Configure hysteresis between slides. This value determines how far
-     * should user swipe to switch slide.
-     */
-    hysteresis: PropTypes.number,
-    /**
-     * This is the index of the slide to show.
-     * This is useful when you want to change the default slide shown.
-     * Or when you have tabs linked to each slide.
-     */
-    index: PropTypes.number,
-    /**
-     * This is callback prop. It's call by the
-     * component when the shown slide change after a swipe made by the user.
-     * This is useful when you have tabs linked to each slide.
-     *
-     * @param {integer} index This is the current index of the slide.
-     * @param {integer} fromIndex This is the oldest index of the slide.
-     */
-    onChangeIndex: PropTypes.func,
-    /**
-     * This is callback prop. It's called by the
-     * component when the slide switching.
-     * This is useful when you want to implement something
-     * corresponding to the current slide position.
-     *
-     * @param {integer} index This is the current index of the slide.
-     * @param {string} type Can be either `move` or `end`.
-     */
-    onSwitching: PropTypes.func,
-    /**
-     * @ignore
-     */
-    onTouchEnd: PropTypes.func,
-    /**
-     * @ignore
-     */
-    onTouchStart: PropTypes.func,
-    /**
-     * The callback that fires when the animation comes to a rest.
-     * This is useful to defer CPU intensive task.
-     */
-    onTransitionEnd: PropTypes.func,
-    /**
-     * If `true`, it will add bounds effect on the edges.
-     */
-    resistance: PropTypes.bool,
-    /**
-     * This is the inlined style that will be applied
-     * on the slide component.
-     */
-    slideStyle: View.propTypes.style,
-    /**
-     * This is the config given to Animated for the spring.
-     * This is useful to change the dynamic of the transition.
-     */
-    springConfig: PropTypes.shape({
-      tension: PropTypes.number,
-      friction: PropTypes.number,
-    }),
-    /**
-     * This is the inlined style that will be applied
-     * on the root component.
-     */
-    style: View.propTypes.style,
-    /**
-     * This is the threshold used for detecting a quick swipe.
-     * If the computed speed is above this value, the index change.
-     */
-    threshold: PropTypes.number,
-  };
+  panResponder = undefined;
 
-  static defaultProps = {
-    animateTransitions: true,
-    disabled: false,
-    hysteresis: 0.6,
-    index: 0,
-    resistance: false,
-    springConfig: {
-      tension: 300,
-      friction: 30,
-    },
-    threshold: 5,
-  };
+  startX = 0;
+
+  startIndex = 0;
 
   state = {};
 
@@ -211,20 +104,6 @@ class SwipeableViews extends React.Component {
     }
   }
 
-  animateIndexCurrent(index) {
-    // Avoid starting an animation when we are already on the right value.
-    if (getAnimatedValue(this.state.indexCurrent) !== index) {
-      Animated.spring(this.state.indexCurrent, {
-        toValue: index,
-        ...this.props.springConfig,
-      }).start(this.handleAnimationFinished);
-    } else {
-      this.handleAnimationFinished({
-        finished: true,
-      });
-    }
-  }
-
   handleAnimationFinished = params => {
     // The animation can be aborted.
     // We only want to call onTransitionEnd when the animation is finished.
@@ -232,10 +111,6 @@ class SwipeableViews extends React.Component {
       this.props.onTransitionEnd();
     }
   };
-
-  panResponder = undefined;
-  startX = 0;
-  startIndex = 0;
 
   handleTouchStart = (event, gestureState) => {
     if (this.props.onTouchStart) {
@@ -332,6 +207,20 @@ class SwipeableViews extends React.Component {
     }
   };
 
+  animateIndexCurrent(index) {
+    // Avoid starting an animation when we are already on the right value.
+    if (getAnimatedValue(this.state.indexCurrent) !== index) {
+      Animated.spring(this.state.indexCurrent, {
+        toValue: index,
+        ...this.props.springConfig,
+      }).start(this.handleAnimationFinished);
+    } else {
+      this.handleAnimationFinished({
+        finished: true,
+      });
+    }
+  }
+
   render() {
     const {
       children,
@@ -386,5 +275,118 @@ We are expecting a valid React Element`,
     );
   }
 }
+
+SwipeableViews.propTypes = {
+  /**
+   * If `true`, the height of the container will be animated to match the current slide height.
+   * Animating another style property has a negative impact regarding performance.
+   */
+  animateHeight: PropTypes.bool,
+  /**
+   * If `false`, changes to the index prop will not cause an animated transition.
+   */
+  animateTransitions: PropTypes.bool,
+  /**
+   * The axis on which the slides will slide.
+   */
+  axis: PropTypes.oneOf(['x', 'x-reverse', 'y', 'y-reverse']),
+  /**
+   * Use this property to provide your slides.
+   */
+  children: PropTypes.node.isRequired,
+  /**
+   * This is the inlined style that will be applied
+   * to each slide container.
+   */
+  containerStyle: Animated.View.propTypes.style,
+  /**
+   * If `true`, it will disable touch events.
+   * This is useful when you want to prohibit the user from changing slides.
+   */
+  disabled: PropTypes.bool,
+  /**
+   * Configure hysteresis between slides. This value determines how far
+   * should user swipe to switch slide.
+   */
+  hysteresis: PropTypes.number,
+  /**
+   * This is the index of the slide to show.
+   * This is useful when you want to change the default slide shown.
+   * Or when you have tabs linked to each slide.
+   */
+  index: PropTypes.number,
+  /**
+   * This is callback prop. It's call by the
+   * component when the shown slide change after a swipe made by the user.
+   * This is useful when you have tabs linked to each slide.
+   *
+   * @param {integer} index This is the current index of the slide.
+   * @param {integer} fromIndex This is the oldest index of the slide.
+   */
+  onChangeIndex: PropTypes.func,
+  /**
+   * This is callback prop. It's called by the
+   * component when the slide switching.
+   * This is useful when you want to implement something
+   * corresponding to the current slide position.
+   *
+   * @param {integer} index This is the current index of the slide.
+   * @param {string} type Can be either `move` or `end`.
+   */
+  onSwitching: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onTouchEnd: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onTouchStart: PropTypes.func,
+  /**
+   * The callback that fires when the animation comes to a rest.
+   * This is useful to defer CPU intensive task.
+   */
+  onTransitionEnd: PropTypes.func,
+  /**
+   * If `true`, it will add bounds effect on the edges.
+   */
+  resistance: PropTypes.bool,
+  /**
+   * This is the inlined style that will be applied
+   * on the slide component.
+   */
+  slideStyle: View.propTypes.style,
+  /**
+   * This is the config given to Animated for the spring.
+   * This is useful to change the dynamic of the transition.
+   */
+  springConfig: PropTypes.shape({
+    friction: PropTypes.number,
+    tension: PropTypes.number,
+  }),
+  /**
+   * This is the inlined style that will be applied
+   * on the root component.
+   */
+  style: View.propTypes.style,
+  /**
+   * This is the threshold used for detecting a quick swipe.
+   * If the computed speed is above this value, the index change.
+   */
+  threshold: PropTypes.number,
+};
+
+SwipeableViews.defaultProps = {
+  animateTransitions: true,
+  disabled: false,
+  hysteresis: 0.6,
+  index: 0,
+  resistance: false,
+  springConfig: {
+    tension: 300,
+    friction: 30,
+  },
+  threshold: 5,
+};
 
 export default SwipeableViews;

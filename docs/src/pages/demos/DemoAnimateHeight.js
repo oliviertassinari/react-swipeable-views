@@ -36,10 +36,6 @@ for (let i = 0; i < 30; i += 1) {
 }
 
 class Slide4 extends PureComponent {
-  static contextTypes = {
-    swipeableViews: PropTypes.object.isRequired,
-  };
-
   state = {
     large: false,
   };
@@ -49,8 +45,8 @@ class Slide4 extends PureComponent {
   }
 
   handleClick = () => {
-    this.setState(() => ({
-      large: !this.state.large,
+    this.setState(state => ({
+      large: !state.large,
     }));
   };
 
@@ -65,6 +61,10 @@ class Slide4 extends PureComponent {
     );
   }
 }
+
+Slide4.contextTypes = {
+  swipeableViews: PropTypes.object.isRequired,
+};
 
 function DemoAnimateHeight() {
   return (

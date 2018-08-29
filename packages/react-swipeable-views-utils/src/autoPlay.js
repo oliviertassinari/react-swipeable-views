@@ -5,50 +5,11 @@ import { mod } from 'react-swipeable-views-core';
 
 export default function autoPlay(MyComponent) {
   class AutoPlay extends React.Component {
-    static propTypes = {
-      /**
-       * If `false`, the auto play behavior is disabled.
-       */
-      autoplay: PropTypes.bool,
-      /**
-       * @ignore
-       */
-      children: PropTypes.node,
-      /**
-       * This is the auto play direction.
-       */
-      direction: PropTypes.oneOf(['incremental', 'decremental']),
-      /**
-       * @ignore
-       */
-      index: PropTypes.number,
-      /**
-       * Delay between auto play transitions (in ms).
-       */
-      interval: PropTypes.number,
-      /**
-       * @ignore
-       */
-      onChangeIndex: PropTypes.func,
-      /**
-       * @ignore
-       */
-      onSwitching: PropTypes.func,
-      /**
-       * @ignore
-       */
-      slideCount: PropTypes.number,
-    };
+    timer = null;
 
-    static defaultProps = {
-      autoplay: true,
-      direction: 'incremental',
-      interval: 3000,
-    };
-
-    constructor(props, context) {
-      super(props, context);
-      this.state.index = this.props.index || 0;
+    constructor(props) {
+      super(props);
+      this.state.index = props.index || 0;
     }
 
     state = {};
@@ -88,18 +49,6 @@ export default function autoPlay(MyComponent) {
 
     componentWillUnmount() {
       clearInterval(this.timer);
-    }
-
-    timer = null;
-
-    startInterval() {
-      const { autoplay, interval } = this.props;
-
-      clearInterval(this.timer);
-
-      if (autoplay) {
-        this.timer = setInterval(this.handleInterval, interval);
-      }
     }
 
     handleInterval = () => {
@@ -156,12 +105,22 @@ export default function autoPlay(MyComponent) {
       }
     };
 
+    startInterval() {
+      const { autoplay, interval } = this.props;
+
+      clearInterval(this.timer);
+
+      if (autoplay) {
+        this.timer = setInterval(this.handleInterval, interval);
+      }
+    }
+
     render() {
       const {
         autoplay,
         direction,
-        interval,
         index: indexProp,
+        interval,
         onChangeIndex,
         ...other
       } = this.props;
@@ -182,6 +141,47 @@ export default function autoPlay(MyComponent) {
       );
     }
   }
+
+  AutoPlay.propTypes = {
+    /**
+     * If `false`, the auto play behavior is disabled.
+     */
+    autoplay: PropTypes.bool,
+    /**
+     * @ignore
+     */
+    children: PropTypes.node,
+    /**
+     * This is the auto play direction.
+     */
+    direction: PropTypes.oneOf(['incremental', 'decremental']),
+    /**
+     * @ignore
+     */
+    index: PropTypes.number,
+    /**
+     * Delay between auto play transitions (in ms).
+     */
+    interval: PropTypes.number,
+    /**
+     * @ignore
+     */
+    onChangeIndex: PropTypes.func,
+    /**
+     * @ignore
+     */
+    onSwitching: PropTypes.func,
+    /**
+     * @ignore
+     */
+    slideCount: PropTypes.number,
+  };
+
+  AutoPlay.defaultProps = {
+    autoplay: true,
+    direction: 'incremental',
+    interval: 3000,
+  };
 
   return AutoPlay;
 }

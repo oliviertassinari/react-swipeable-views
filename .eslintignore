@@ -1,8 +1,9 @@
 .git
-/.next/
-node_modules
-/flow/interfaces
-lib/
-/next.config.js
+/.next
+/coverage
+/docs/export
 /docs/src/modules/utils/find.js
-/docs/export/
+/flow/interfaces
+/next.config.js
+lib/
+node_modules
