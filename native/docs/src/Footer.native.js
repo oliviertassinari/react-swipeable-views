@@ -18,9 +18,7 @@ const styles = StyleSheet.create({
 function Footer(props) {
   const {
     maintainerName,
-    // maintainerUrl,
     repositoryName,
-    // repositoryUrl,
   } = props;
 
   return (
@@ -37,9 +35,7 @@ function Footer(props) {
 
 Footer.propTypes = {
   maintainerName: PropTypes.string.isRequired,
-  maintainerUrl: PropTypes.string.isRequired,
   repositoryName: PropTypes.string.isRequired,
-  repositoryUrl: PropTypes.string.isRequired,
 };
 
 export default Footer;

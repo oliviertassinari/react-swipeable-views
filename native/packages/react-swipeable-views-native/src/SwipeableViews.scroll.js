@@ -1,3 +1,5 @@
+/* eslint-disable react/no-access-state-in-setstate */
+
 // This is an alternative version that use `ScrollView` and `ViewPagerAndroid`.
 // I'm not sure what version give the best UX experience.
 // I'm keeping the two versions here until we figured out.
@@ -25,86 +27,7 @@ const styles = StyleSheet.create({
 });
 
 class SwipeableViews extends React.Component {
-  static propTypes = {
-    /**
-     * If `true`, the height of the container will be animated to match the current slide height.
-     * Animating another style property has a negative impact regarding performance.
-     */
-    animateHeight: PropTypes.bool,
-    /**
-     * If `false`, changes to the index prop will not cause an animated transition.
-     */
-    animateTransitions: PropTypes.bool,
-    /**
-     * The axis on which the slides will slide.
-     */
-    axis: PropTypes.oneOf(['x', 'x-reverse', 'y', 'y-reverse']),
-    /**
-     * Use this property to provide your slides.
-     */
-    children: PropTypes.node,
-    /**
-     * This is the inlined style that will be applied
-     * to each slide container.
-     */
-    containerStyle: ScrollView.propTypes.style,
-    /**
-     * If `true`, it will disable touch events.
-     * This is useful when you want to prohibit the user from changing slides.
-     */
-    disabled: PropTypes.bool,
-    /**
-     * This is the index of the slide to show.
-     * This is useful when you want to change the default slide shown.
-     * Or when you have tabs linked to each slide.
-     */
-    index: PropTypes.number,
-    /**
-     * This is callback prop. It's call by the
-     * component when the shown slide change after a swipe made by the user.
-     * This is useful when you have tabs linked to each slide.
-     *
-     * @param {integer} index This is the current index of the slide.
-     * @param {integer} fromIndex This is the oldest index of the slide.
-     */
-    onChangeIndex: PropTypes.func,
-    /**
-     * This is callback prop. It's called by the
-     * component when the slide switching.
-     * This is useful when you want to implement something
-     * corresponding to the current slide position.
-     *
-     * @param {integer} index This is the current index of the slide.
-     * @param {string} type Can be either `move` or `end`.
-     */
-    onSwitching: PropTypes.func,
-    /**
-     * The callback that fires when the animation comes to a rest.
-     * This is useful to defer CPU intensive task.
-     */
-    onTransitionEnd: PropTypes.func,
-    /**
-     * If `true`, it will add bounds effect on the edges.
-     */
-    resistance: PropTypes.bool,
-    /**
-     * This is the inlined style that will be applied
-     * on the slide component.
-     */
-    slideStyle: View.propTypes.style,
-    /**
-     * This is the inlined style that will be applied
-     * on the root component.
-     */
-    style: View.propTypes.style,
-  };
-
-  static defaultProps = {
-    animateTransitions: true,
-    disabled: false,
-    index: 0,
-    resistance: false,
-  };
+  scrollViewNode = null;
 
   state = {};
 
@@ -156,8 +79,6 @@ class SwipeableViews extends React.Component {
       );
     }
   }
-
-  scrollViewNode = null;
 
   handleScroll = event => {
     // Filters out when changing the children
@@ -270,5 +191,86 @@ We are expecting a valid React Element`,
     );
   }
 }
+
+SwipeableViews.propTypes = {
+  /**
+   * If `true`, the height of the container will be animated to match the current slide height.
+   * Animating another style property has a negative impact regarding performance.
+   */
+  animateHeight: PropTypes.bool,
+  /**
+   * If `false`, changes to the index prop will not cause an animated transition.
+   */
+  animateTransitions: PropTypes.bool,
+  /**
+   * The axis on which the slides will slide.
+   */
+  axis: PropTypes.oneOf(['x', 'x-reverse', 'y', 'y-reverse']),
+  /**
+   * Use this property to provide your slides.
+   */
+  children: PropTypes.node,
+  /**
+   * This is the inlined style that will be applied
+   * to each slide container.
+   */
+  containerStyle: ScrollView.propTypes.style,
+  /**
+   * If `true`, it will disable touch events.
+   * This is useful when you want to prohibit the user from changing slides.
+   */
+  disabled: PropTypes.bool,
+  /**
+   * This is the index of the slide to show.
+   * This is useful when you want to change the default slide shown.
+   * Or when you have tabs linked to each slide.
+   */
+  index: PropTypes.number,
+  /**
+   * This is callback prop. It's call by the
+   * component when the shown slide change after a swipe made by the user.
+   * This is useful when you have tabs linked to each slide.
+   *
+   * @param {integer} index This is the current index of the slide.
+   * @param {integer} fromIndex This is the oldest index of the slide.
+   */
+  onChangeIndex: PropTypes.func,
+  /**
+   * This is callback prop. It's called by the
+   * component when the slide switching.
+   * This is useful when you want to implement something
+   * corresponding to the current slide position.
+   *
+   * @param {integer} index This is the current index of the slide.
+   * @param {string} type Can be either `move` or `end`.
+   */
+  onSwitching: PropTypes.func,
+  /**
+   * The callback that fires when the animation comes to a rest.
+   * This is useful to defer CPU intensive task.
+   */
+  onTransitionEnd: PropTypes.func,
+  /**
+   * If `true`, it will add bounds effect on the edges.
+   */
+  resistance: PropTypes.bool,
+  /**
+   * This is the inlined style that will be applied
+   * on the slide component.
+   */
+  slideStyle: View.propTypes.style,
+  /**
+   * This is the inlined style that will be applied
+   * on the root component.
+   */
+  style: View.propTypes.style,
+};
+
+SwipeableViews.defaultProps = {
+  animateTransitions: true,
+  disabled: false,
+  index: 0,
+  resistance: false,
+};
 
 export default SwipeableViews;
