@@ -1,33 +1,36 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
-import getContext from 'docs/src/modules/styles/getContext';
+import getPageContext from 'docs/src/modules/styles/getPageContext';
 
+// You can find a benchmark of the available CSS minifiers under
+// https://github.com/GoalSmashers/css-minification-benchmark
+// We have found that clean-css is faster than cssnano but the output is larger.
+// Waiting for https://github.com/cssinjs/jss/issues/279
+// 4% slower but 12% smaller output than doing it in a single step.
+//
+// It's using .browserslistrc
+let prefixer;
 let cleanCSS;
 if (process.env.NODE_ENV === 'production') {
+  const postcss = require('postcss');
+  const autoprefixer = require('autoprefixer');
   const CleanCSS = require('clean-css');
+
+  prefixer = postcss([autoprefixer]);
   cleanCSS = new CleanCSS();
 }
 
-const title = 'react-swipeable-views';
-const description = 'A React component for swipeable views.';
-
 class MyDocument extends Document {
   render() {
-    const { stylesContext } = this.props;
+    const { pageContext } = this.props;
 
     return (
       <html lang="en" dir="ltr">
         <Head>
-          <title>{title}</title>
-          <meta name="description" content={description} />
-          <meta charSet="utf-8" />
           {/* Use minimum-scale=1 to enable GPU rasterization */}
           <meta
             name="viewport"
-            content={
-              'user-scalable=0, initial-scale=1, ' +
-              'minimum-scale=1, width=device-width, height=device-height'
-            }
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
           />
           {/*
             manifest.json provides metadata used when your web app is added to the
@@ -35,31 +38,31 @@ class MyDocument extends Document {
           */}
           <link rel="manifest" href="/static/manifest.json" />
           {/* PWA primary color */}
-          <meta name="theme-color" content={stylesContext.theme.palette.primary[500]} />
+          <meta name="theme-color" content={pageContext.theme.palette.primary.main} />
+          <link rel="shortcut icon" href="/static/favicon.ico" />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
           />
+          {/*
+            Preconnect allows the browser to setup early connections before an HTTP request
+            is actually sent to the server.
+            This includes DNS lookups, TLS negotiations, TCP handshakes.
+          */}
+          <link href="https://fonts.gstatic.com" rel="preconnect" crossOrigin="anonymous" />
           <style id="insertion-point-jss" />
-          {/* Twitter */}
-          <meta name="twitter:card" content="summary" />
-          <meta name="twitter:title" content={title} />
-          <meta name="twitter:description" content={description} />
-          {/* Facebook */}
-          <meta property="og:type" content="website" />
-          <meta property="og:title" content={title} />
-          <meta property="og:description" content={description} />
         </Head>
         <body>
           <Main />
           <NextScript />
+          <script async src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js" />
         </body>
       </html>
     );
   }
 }
 
-MyDocument.getInitialProps = ctx => {
+MyDocument.getInitialProps = async ctx => {
   // Resolution order
   //
   // On the server:
@@ -77,20 +80,22 @@ MyDocument.getInitialProps = ctx => {
   // 1. page.getInitialProps
   // 3. page.render
 
-  // Get the context to collected side effects.
-  const context = getContext();
+  // Get the context of the page to collected side effects.
+  const pageContext = getPageContext();
   const page = ctx.renderPage(Component => props => (
-    <Component sheetsRegistry={context.sheetsRegistry} {...props} />
+    <Component pageContext={pageContext} {...props} />
   ));
 
-  let css = context.sheetsRegistry.toString();
+  let css = pageContext.sheetsRegistry.toString();
   if (process.env.NODE_ENV === 'production') {
+    const result1 = await prefixer.process(css, { from: undefined });
+    css = result1.css;
     css = cleanCSS.minify(css).styles;
   }
 
   return {
     ...page,
-    stylesContext: context,
+    pageContext,
     styles: (
       <style
         id="jss-server-side"

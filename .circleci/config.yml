@@ -3,16 +3,21 @@ defaults: &defaults
   docker:
     - image: circleci/node:8
 restore_repo: &restore_repo
-  restore_cache:
-    keys:
-      - v1-repo-{{ .Branch }}-{{ .Revision }}
+  # The cache logic of CircleCI has been disabled for Security reasons.
+  # We can no longer use it.
+  # restore_cache:
+  #   keys:
+  #     - v1-repo-{{ .Branch }}-{{ .Revision }}
+  run:
+    name: Install js dependencies
+    command: yarn
 version: 2
 jobs:
   checkout:
     <<: *defaults
     steps:
-      - *restore_repo
       - checkout
+      - *restore_repo
       - run:
           name: Check versions and env
           command: |
@@ -41,6 +46,7 @@ jobs:
   test_unit:
     <<: *defaults
     steps:
+      - checkout
       - *restore_repo
       - run:
           name: Lint

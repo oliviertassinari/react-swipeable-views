@@ -3,11 +3,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import getContext from 'docs/src/modules/styles/getContext';
 import JssProvider from 'react-jss/lib/JssProvider';
-import AppFrame from 'docs/src/modules/components/AppFrame';
 import { lightTheme, setPrismTheme } from 'docs/src/modules/components/prism';
+import getPageContext from 'docs/src/modules/styles/getPageContext';
 
 // Inject the insertion-point-jss after docssearch
 if (process.browser && !global.__INSERTION_POINT__) {
@@ -21,9 +19,7 @@ if (process.browser && !global.__INSERTION_POINT__) {
 }
 
 class AppWrapper extends React.Component {
-  componentWillMount() {
-    this.styleContext = getContext();
-  }
+  state = {};
 
   componentDidMount() {
     // Remove the server-side injected CSS.
@@ -35,23 +31,28 @@ class AppWrapper extends React.Component {
     setPrismTheme(lightTheme);
   }
 
-  styleContext = null;
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (typeof prevState.pageContext === 'undefined') {
+      return {
+        pageContext: nextProps.pageContext || getPageContext(),
+      };
+    }
+
+    return null;
+  }
 
   render() {
-    const { children, sheetsRegistry } = this.props;
+    const { children } = this.props;
+    const { pageContext } = this.state;
 
     return (
       <JssProvider
-        registry={sheetsRegistry}
-        jss={this.styleContext.jss}
-        generateClassName={this.styleContext.generateClassName}
+        jss={pageContext.jss}
+        registry={pageContext.sheetsRegistry}
+        generateClassName={pageContext.generateClassName}
       >
-        <MuiThemeProvider
-          theme={this.styleContext.theme}
-          sheetsManager={this.styleContext.sheetsManager}
-        >
-          <CssBaseline />
-          <AppFrame>{children}</AppFrame>
+        <MuiThemeProvider theme={pageContext.theme} sheetsManager={pageContext.sheetsManager}>
+          {children}
         </MuiThemeProvider>
       </JssProvider>
     );
@@ -60,7 +61,8 @@ class AppWrapper extends React.Component {
 
 AppWrapper.propTypes = {
   children: PropTypes.node.isRequired,
-  sheetsRegistry: PropTypes.object,
+  // eslint-disable-next-line react/no-unused-prop-types
+  pageContext: PropTypes.object,
 };
 
 export default AppWrapper;

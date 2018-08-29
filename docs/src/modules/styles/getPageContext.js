@@ -43,7 +43,7 @@ function createContext() {
   };
 }
 
-export default function getContext() {
+export default function getPageContext() {
   // Make sure to create a new store for every server-side request so that data
   // isn't shared between connections (which would be bad)
   if (!process.browser) {

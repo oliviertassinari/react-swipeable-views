@@ -1,5 +1,7 @@
 # API
 
+<p class="description">The API documentation.</p>
+
 ## `SwipeableViews`
 
 | Name | Type | Default | Platform | Description |

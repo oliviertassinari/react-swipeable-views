@@ -39,7 +39,7 @@ class PaginationDot extends React.Component {
     }
 
     return (
-      <button style={styles.root} onClick={this.handleClick}>
+      <button type="button" style={styles.root} onClick={this.handleClick}>
         <div style={styleDot} />
       </button>
     );

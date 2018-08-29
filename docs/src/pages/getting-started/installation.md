@@ -1,5 +1,7 @@
 # Installation
 
+<p class="description">Install react-swipeable-views.</p>
+
 react-swipeable-views is available as a npm packages.
 
 | Package | Version | Download | Size (kB gzipped) |

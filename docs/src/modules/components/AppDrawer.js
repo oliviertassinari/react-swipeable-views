@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Drawer from '@material-ui/core/Drawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
@@ -13,7 +14,7 @@ import { pageToTitle } from 'docs/src/modules/utils/helpers';
 
 const styles = theme => ({
   paper: {
-    width: 250,
+    width: 240,
     backgroundColor: theme.palette.background.paper,
   },
   title: {
@@ -55,16 +56,20 @@ function renderNavItems({ pages, ...params }) {
 }
 
 function reduceChildRoutes({ props, activePage, items, page, depth }) {
+  if (page.displayNav === false) {
+    return items;
+  }
+
   if (page.children && page.children.length > 1) {
     const title = pageToTitle(page);
-    const openImmediately = activePage.pathname.indexOf(page.pathname) === 0;
+    const openImmediately = activePage.pathname.indexOf(`${page.pathname}/`) === 0;
 
     items.push(
       <AppDrawerNavItem depth={depth} key={title} openImmediately={openImmediately} title={title}>
         {renderNavItems({ props, pages: page.children, activePage, depth: depth + 1 })}
       </AppDrawerNavItem>,
     );
-  } else if (page.title !== false) {
+  } else {
     const title = pageToTitle(page);
     page = page.children && page.children.length === 1 ? page.children[0] : page;
 
@@ -82,11 +87,13 @@ function reduceChildRoutes({ props, activePage, items, page, depth }) {
   return items;
 }
 
-const GITHUB_RELEASE_BASE_URL =
-  'https://github.com/oliviertassinari/react-swipeable-views/releases/tag/';
+// iOS is hosted on high-end devices. We can enable the backdrop transition without
+// dropping frames. The performance will be good enough.
+// So: <SwipeableDrawer disableBackdropTransition={false} />
+const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 function AppDrawer(props, context) {
-  const { classes, className, disablePermanent, mobileOpen, onClose } = props;
+  const { classes, className, disablePermanent, mobileOpen, onClose, onOpen } = props;
 
   const drawer = (
     <div className={classes.nav}>
@@ -94,14 +101,11 @@ function AppDrawer(props, context) {
         <div className={classes.toolbar}>
           <Link className={classes.title} href="/" onClick={onClose}>
             <Typography variant="title" color="inherit">
-              Documentation
+              Material-UI
             </Typography>
           </Link>
           {process.env.LIB_VERSION ? (
-            <Link
-              className={classes.anchor}
-              href={`${GITHUB_RELEASE_BASE_URL}v${process.env.LIB_VERSION}`}
-            >
+            <Link className={classes.anchor} href="/versions">
               <Typography variant="caption">{`v${process.env.LIB_VERSION}`}</Typography>
             </Link>
           ) : null}
@@ -113,21 +117,23 @@ function AppDrawer(props, context) {
   );
 
   return (
-    <div className={className}>
-      <Hidden lgUp={!disablePermanent}>
-        <Drawer
+    <nav className={className}>
+      <Hidden lgUp={!disablePermanent} implementation="js">
+        <SwipeableDrawer
           classes={{
             paper: classNames(classes.paper, 'algolia-drawer'),
           }}
+          disableBackdropTransition={!iOS}
           variant="temporary"
           open={mobileOpen}
+          onOpen={onOpen}
           onClose={onClose}
           ModalProps={{
             keepMounted: true,
           }}
         >
           {drawer}
-        </Drawer>
+        </SwipeableDrawer>
       </Hidden>
       {disablePermanent ? null : (
         <Hidden mdDown implementation="css">
@@ -142,7 +148,7 @@ function AppDrawer(props, context) {
           </Drawer>
         </Hidden>
       )}
-    </div>
+    </nav>
   );
 }
 
@@ -152,6 +158,7 @@ AppDrawer.propTypes = {
   disablePermanent: PropTypes.bool.isRequired,
   mobileOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  onOpen: PropTypes.func.isRequired,
 };
 
 AppDrawer.contextTypes = {
