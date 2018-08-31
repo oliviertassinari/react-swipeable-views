@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "lint": "eslint . && echo \"eslint: no lint errors\"",
+    "test": "echo \"ok\"",
     "test:unit": "cross-env NODE_ENV=test mocha",
     "test:watch": "yarn test:unit -w",
     "test:coverage": "cross-env NODE_ENV=test BABEL_ENV=coverage nyc mocha && nyc report -r lcovonly",
