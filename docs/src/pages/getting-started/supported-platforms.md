@@ -1,5 +1,7 @@
 ## Supported platforms
 
+<p class="description">Learn about the platforms, from modern to old, that are supported by Material-UI.</p>
+
 The API is as consistent as possible between the three platforms so
 the same component can be used independently on where it's running.
 

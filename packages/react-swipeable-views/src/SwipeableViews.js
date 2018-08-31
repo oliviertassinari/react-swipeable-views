@@ -224,6 +224,36 @@ export function findNativeHandler(params) {
 }
 
 class SwipeableViews extends React.Component {
+  rootNode = null;
+
+  containerNode = null;
+
+  ignoreNextScrollEvents = false;
+
+  viewLength = 0;
+
+  startX = 0;
+
+  lastX = 0;
+
+  vx = 0;
+
+  startY = 0;
+
+  isSwiping = undefined;
+
+  started = false;
+
+  startIndex = 0;
+
+  transitionListener = null;
+
+  touchMoveListener = null;
+
+  activeSlide = null;
+
+  indexCurrent = null;
+
   constructor(props, context) {
     super(props, context);
 
@@ -349,22 +379,6 @@ class SwipeableViews extends React.Component {
     this.activeSlide = node;
     this.updateHeight();
   };
-
-  rootNode = null;
-  containerNode = null;
-  ignoreNextScrollEvents = false;
-  viewLength = 0;
-  startX = 0;
-  lastX = 0;
-  vx = 0;
-  startY = 0;
-  isSwiping = undefined;
-  started = false;
-  startIndex = 0;
-  transitionListener = null;
-  touchMoveListener = null;
-  activeSlide = null;
-  indexCurrent = null;
 
   handleSwipeStart = event => {
     const { axis } = this.props;
@@ -638,23 +652,6 @@ class SwipeableViews extends React.Component {
     }
   };
 
-  handleTransitionEnd() {
-    if (!this.props.onTransitionEnd) {
-      return;
-    }
-
-    // Filters out when changing the children
-    if (this.state.displaySameSlide) {
-      return;
-    }
-
-    // The rest callback is triggered when swiping. It's just noise.
-    // We filter it out.
-    if (!this.state.isDragging) {
-      this.props.onTransitionEnd();
-    }
-  }
-
   handleScroll = event => {
     if (this.props.onScroll) {
       this.props.onScroll(event);
@@ -698,6 +695,23 @@ class SwipeableViews extends React.Component {
       }
     }
   };
+
+  handleTransitionEnd() {
+    if (!this.props.onTransitionEnd) {
+      return;
+    }
+
+    // Filters out when changing the children
+    if (this.state.displaySameSlide) {
+      return;
+    }
+
+    // The rest callback is triggered when swiping. It's just noise.
+    // We filter it out.
+    if (!this.state.isDragging) {
+      this.props.onTransitionEnd();
+    }
+  }
 
   render() {
     const {
@@ -988,9 +1002,9 @@ SwipeableViews.propTypes = {
    * This is useful to change the dynamic of the transition.
    */
   springConfig: PropTypes.shape({
+    delay: PropTypes.string,
     duration: PropTypes.string,
     easeFunction: PropTypes.string,
-    delay: PropTypes.string,
   }),
   /**
    * This is the inlined style that will be applied

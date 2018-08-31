@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import NoSSR from '@material-ui/docs/NoSSR';
+import NoSsr from '@material-ui/core/NoSsr';
 
 const supportsTouch = 'ontouchstart' in global;
 
@@ -9,7 +9,7 @@ function SupportTouch(props) {
 
   return (
     <React.Fragment>
-      <NoSSR>
+      <NoSsr>
         {!supportsTouch && (
           <span>
             You need a touch device to swipe between the slides.
@@ -17,7 +17,7 @@ function SupportTouch(props) {
             <br />
           </span>
         )}
-      </NoSSR>
+      </NoSsr>
       {children}
     </React.Fragment>
   );

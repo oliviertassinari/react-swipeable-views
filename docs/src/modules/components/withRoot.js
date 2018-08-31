@@ -44,6 +44,7 @@ const pages = [
   },
   {
     pathname: '/',
+    displayNav: false,
     title: false,
   },
 ];

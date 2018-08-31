@@ -4,54 +4,7 @@ import { mod } from 'react-swipeable-views-core';
 
 export default function virtualize(MyComponent) {
   class Virtualize extends PureComponent {
-    static propTypes = {
-      /**
-       * @ignore
-       */
-      children: (props, propName) => {
-        if (props[propName] !== undefined) {
-          return new Error("The children property isn't supported.");
-        }
-
-        return null;
-      },
-      /**
-       * @ignore
-       */
-      index: PropTypes.number,
-      /**
-       * @ignore
-       */
-      onChangeIndex: PropTypes.func,
-      /**
-       * @ignore
-       */
-      onTransitionEnd: PropTypes.func,
-      /**
-       * Number of slide to render after the visible slide.
-       */
-      overscanSlideAfter: PropTypes.number,
-      /**
-       * Number of slide to render before the visible slide.
-       */
-      overscanSlideBefore: PropTypes.number,
-      /**
-       * When set, it's adding a limit to the number of slide: [0, slideCount].
-       */
-      slideCount: PropTypes.number,
-      /**
-       * Responsible for rendering a slide given an index.
-       * ({ index: number }): node.
-       */
-      slideRenderer: PropTypes.func.isRequired,
-    };
-
-    static defaultProps = {
-      overscanSlideAfter: 2,
-      // Render one more slide for going backward as it's more difficult to
-      // keep the window up to date.
-      overscanSlideBefore: 3,
-    };
+    timer = null;
 
     constructor(props, context) {
       super(props, context);
@@ -141,8 +94,6 @@ export default function virtualize(MyComponent) {
       });
     }
 
-    timer = null;
-
     handleChangeIndex = (indexContainer, indexLatest) => {
       const { slideCount, onChangeIndex } = this.props;
 
@@ -212,6 +163,55 @@ export default function virtualize(MyComponent) {
       );
     }
   }
+
+  Virtualize.propTypes = {
+    /**
+     * @ignore
+     */
+    children: (props, propName) => {
+      if (props[propName] !== undefined) {
+        return new Error("The children property isn't supported.");
+      }
+
+      return null;
+    },
+    /**
+     * @ignore
+     */
+    index: PropTypes.number,
+    /**
+     * @ignore
+     */
+    onChangeIndex: PropTypes.func,
+    /**
+     * @ignore
+     */
+    onTransitionEnd: PropTypes.func,
+    /**
+     * Number of slide to render after the visible slide.
+     */
+    overscanSlideAfter: PropTypes.number,
+    /**
+     * Number of slide to render before the visible slide.
+     */
+    overscanSlideBefore: PropTypes.number,
+    /**
+     * When set, it's adding a limit to the number of slide: [0, slideCount].
+     */
+    slideCount: PropTypes.number,
+    /**
+     * Responsible for rendering a slide given an index.
+     * ({ index: number }): node.
+     */
+    slideRenderer: PropTypes.func.isRequired,
+  };
+
+  Virtualize.defaultProps = {
+    overscanSlideAfter: 2,
+    // Render one more slide for going backward as it's more difficult to
+    // keep the window up to date.
+    overscanSlideBefore: 3,
+  };
 
   return Virtualize;
 }

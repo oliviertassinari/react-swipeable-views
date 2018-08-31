@@ -1,5 +1,7 @@
 # Usage
 
+<p class="description">Get started with react-swipeable-views in no time.</p>
+
 ## Simple example
 
 ![usage](/static/usage.gif)
