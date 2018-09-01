@@ -1,6 +1,5 @@
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import SupportTouch from 'docs/src/modules/components/SupportTouch';
 
 const styles = {
   root: {
@@ -27,13 +26,11 @@ const styles = {
 
 function DemoWidth() {
   return (
-    <SupportTouch>
-      <SwipeableViews style={styles.root} slideStyle={styles.slideContainer}>
-        <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
-        <div style={Object.assign({}, styles.slide, styles.slide2)}>slide n°2</div>
-        <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
-      </SwipeableViews>
-    </SupportTouch>
+    <SwipeableViews style={styles.root} slideStyle={styles.slideContainer}>
+      <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
+      <div style={Object.assign({}, styles.slide, styles.slide2)}>slide n°2</div>
+      <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
+    </SwipeableViews>
   );
 }
 

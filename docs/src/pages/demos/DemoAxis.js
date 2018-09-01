@@ -1,6 +1,5 @@
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import SupportTouch from 'docs/src/modules/components/SupportTouch';
 
 const styles = {
   slideContainer: {
@@ -29,15 +28,13 @@ const styles = {
 
 function DemoAxis() {
   return (
-    <SupportTouch>
-      <SwipeableViews containerStyle={styles.slideContainer} axis="y" resistance>
-        <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
-        <div style={Object.assign({}, styles.slide, styles.slide2)}>slide n°2</div>
-        <div style={styles.scroll}>
-          <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
-        </div>
-      </SwipeableViews>
-    </SupportTouch>
+    <SwipeableViews containerStyle={styles.slideContainer} axis="y" resistance>
+      <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
+      <div style={Object.assign({}, styles.slide, styles.slide2)}>slide n°2</div>
+      <div style={styles.scroll}>
+        <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
+      </div>
+    </SwipeableViews>
   );
 }
 

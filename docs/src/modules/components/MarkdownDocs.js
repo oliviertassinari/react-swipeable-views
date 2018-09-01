@@ -35,7 +35,7 @@ const styles = theme => ({
 
 const demoRegexp = /^"demo": "(.*)"/;
 const SOURCE_CODE_ROOT_URL =
-  'https://github.com/oliviertassinari/react-swipeable-views/tree/master/';
+  'https://github.com/oliviertassinari/react-swipeable-views/tree/master';
 
 function MarkdownDocs(props, context) {
   const { classes, demos, disableAd, markdown, markdownLocation: markdownLocationProp } = props;

@@ -2,7 +2,6 @@ import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { virtualize } from 'react-swipeable-views-utils';
 import { mod } from 'react-swipeable-views-core';
-import SupportTouch from 'docs/src/modules/components/SupportTouch';
 
 const VirtualizeSwipeableViews = virtualize(SwipeableViews);
 
@@ -54,11 +53,7 @@ function slideRenderer(params) {
 }
 
 function DemoSimple() {
-  return (
-    <SupportTouch>
-      <VirtualizeSwipeableViews slideRenderer={slideRenderer} />
-    </SupportTouch>
-  );
+  return <VirtualizeSwipeableViews slideRenderer={slideRenderer} />;
 }
 
 export default DemoSimple;
