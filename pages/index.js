@@ -3,11 +3,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
-import Head from 'next/head';
+import Head from 'docs/src/modules/components/Head';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import withRoot from 'docs/src/modules/components/withRoot';
+import AppFrame from 'docs/src/modules/components/AppFrame';
 import Link from 'docs/src/modules/components/Link';
 
 const styles = theme => ({
@@ -52,48 +53,48 @@ function PageHome(props) {
   const classes = props.classes;
 
   return (
-    <div className={classes.root}>
-      <Head>
-        <title>react-swipeable-views</title>
-      </Head>
-      <div className={classes.hero}>
-        <div className={classes.content}>
-          <div className={classes.text}>
-            <Typography
-              variant="display2"
-              component="h1"
-              align="center"
-              color="inherit"
-              gutterBottom
-            >
-              {'react-swipeable-views'}
-            </Typography>
-            <Typography
-              variant="headline"
-              component="h2"
-              color="inherit"
-              className={classes.headline}
-            >
-              {'A React component for swipeable views.'}
-            </Typography>
-            <Button
-              component={linkProps => (
-                <Link
-                  {...linkProps}
-                  variant="button"
-                  prefetch
-                  href="/getting-started/installation"
-                />
-              )}
-              className={classes.button}
-              variant="raised"
-            >
-              {'Get Started'}
-            </Button>
+    <AppFrame>
+      <div className={classes.root}>
+        <Head />
+        <div className={classes.hero}>
+          <div className={classes.content}>
+            <div className={classes.text}>
+              <Typography
+                variant="display2"
+                component="h1"
+                align="center"
+                color="inherit"
+                gutterBottom
+              >
+                {'react-swipeable-views'}
+              </Typography>
+              <Typography
+                variant="headline"
+                component="h2"
+                color="inherit"
+                className={classes.headline}
+              >
+                {'A React component for swipeable views.'}
+              </Typography>
+              <Button
+                component={linkProps => (
+                  <Link
+                    {...linkProps}
+                    variant="button"
+                    prefetch
+                    href="/getting-started/installation"
+                  />
+                )}
+                className={classes.button}
+                variant="raised"
+              >
+                {'Get Started'}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </AppFrame>
   );
 }
 

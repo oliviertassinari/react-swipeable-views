@@ -4,7 +4,6 @@ import Tab from '@material-ui/core/Tab';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import SwipeableViews from 'react-swipeable-views';
-import SupportTouch from 'docs/src/modules/components/SupportTouch';
 
 const styles = {
   tabs: {
@@ -47,7 +46,7 @@ class DemoTabs extends React.Component {
     const { index } = this.state;
 
     return (
-      <SupportTouch>
+      <div>
         <Tabs value={index} fullWidth onChange={this.handleChange} style={styles.tabs}>
           <Tab label="tab n°1" />
           <Tab label="tab n°2" />
@@ -66,7 +65,7 @@ class DemoTabs extends React.Component {
           </div>
           <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
         </SwipeableViews>
-      </SupportTouch>
+      </div>
     );
   }
 }

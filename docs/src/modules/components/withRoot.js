@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import find from 'lodash/find';
 import { withRouter } from 'next/router';
-import pure from 'recompose/pure';
-import wrapDisplayName from 'recompose/wrapDisplayName';
 import AppWrapper from 'docs/src/modules/components/AppWrapper';
 
 const pages = [
@@ -52,7 +50,7 @@ const pages = [
 function findActivePage(currentPages, router) {
   const activePage = find(currentPages, page => {
     if (page.children) {
-      return router.pathname.indexOf(page.pathname) === 0;
+      return router.pathname.indexOf(`${page.pathname}/`) === 0;
     }
 
     // Should be an exact match if no children
@@ -71,10 +69,7 @@ function findActivePage(currentPages, router) {
   return activePage;
 }
 
-function withRoot(BaseComponent) {
-  // Prevent rerendering
-  const PureBaseComponent = pure(BaseComponent);
-
+function withRoot(Component) {
   class WithRoot extends React.Component {
     getChildContext() {
       const { router } = this.props;
@@ -93,47 +88,26 @@ function withRoot(BaseComponent) {
     }
 
     render() {
-      const { sheetsRegistry, ...other } = this.props;
-
+      const { pageContext, ...other } = this.props;
       return (
-        <AppWrapper sheetsRegistry={sheetsRegistry}>
-          <PureBaseComponent initialProps={other} />
-        </AppWrapper>
+        <React.StrictMode>
+          <AppWrapper pageContext={pageContext}>
+            <Component initialProps={other} />
+          </AppWrapper>
+        </React.StrictMode>
       );
     }
   }
 
   WithRoot.propTypes = {
+    pageContext: PropTypes.object,
     router: PropTypes.object.isRequired,
-    sheetsRegistry: PropTypes.object,
   };
 
   WithRoot.childContextTypes = {
     pages: PropTypes.array,
     activePage: PropTypes.object,
   };
-
-  WithRoot.getInitialProps = ctx => {
-    let initialProps = {};
-
-    if (BaseComponent.getInitialProps) {
-      const baseComponentInitialProps = BaseComponent.getInitialProps(ctx);
-      initialProps = {
-        ...baseComponentInitialProps,
-        ...initialProps,
-      };
-    }
-
-    if (process.browser) {
-      return initialProps;
-    }
-
-    return initialProps;
-  };
-
-  if (process.env.NODE_ENV !== 'production') {
-    WithRoot.displayName = wrapDisplayName(BaseComponent, 'withRoot');
-  }
 
   return withRouter(WithRoot);
 }
