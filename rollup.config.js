@@ -41,7 +41,7 @@ export default {
       babelrc: false,
       plugins: [
         '@babel/plugin-transform-object-assign',
-        ['@babel/transform-runtime', { polyfill: false, useBuiltIns: true }],
+        '@babel/transform-runtime',
         'transform-react-constant-elements',
         'transform-dev-warning',
         [
@@ -69,7 +69,6 @@ export default {
             modules: false,
           },
         ],
-        ['@babel/preset-stage-1', { loose: true }],
         '@babel/preset-react',
       ],
     }),
