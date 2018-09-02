@@ -254,6 +254,8 @@ class SwipeableViews extends React.Component {
 
   indexCurrent = null;
 
+  firstRenderTimeoutHandle = null;
+
   constructor(props, context) {
     super(props, context);
 
@@ -315,10 +317,16 @@ class SwipeableViews extends React.Component {
       },
     );
 
-    // eslint-disable-next-line react/no-did-mount-set-state
-    this.setState({
-      isFirstRender: false,
-    });
+    const markNoLongerFirstRender = () => {
+      this.setState({
+        isFirstRender: false,
+      });
+    };
+    if (this.props.disableLazyLoading) {
+      markNoLongerFirstRender();
+    } else {
+      this.firstRenderTimeoutHandle = setTimeout(markNoLongerFirstRender, 0);
+    }
 
     injectStyle();
 
@@ -350,6 +358,7 @@ class SwipeableViews extends React.Component {
   componentWillUnmount() {
     this.transitionListener.remove();
     this.touchMoveListener.remove();
+    clearTimeout(this.firstRenderTimeoutHandle);
   }
 
   setIndexCurrent(indexCurrent) {
