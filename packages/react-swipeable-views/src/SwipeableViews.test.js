@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { assert } from 'chai';
-import { spy, stub } from 'sinon';
+import { spy, stub, useFakeTimers } from 'sinon';
 import SwipeableViews, { findNativeHandler, getDomTreeShapes } from './SwipeableViews';
 
 function simulateSwipeMove(wrapper, event) {
@@ -15,9 +15,9 @@ function noop() {}
 
 describe('SwipeableViews', () => {
   describe('prop: children', () => {
-    it('should render the children', () => {
+    it('should render the children when lazy loading turned off', () => {
       const wrapper = mount(
-        <SwipeableViews>
+        <SwipeableViews disableLazyLoading>
           <div>{'slide n°1'}</div>
           <div>{'slide n°2'}</div>
           <div>{'slide n°3'}</div>
@@ -174,7 +174,7 @@ describe('SwipeableViews', () => {
   describe('prop: animateTransitions', () => {
     it('should use a spring if animateTransitions is true', () => {
       const wrapper = mount(
-        <SwipeableViews>
+        <SwipeableViews disableLazyLoading>
           <div>{'slide n°1'}</div>
         </SwipeableViews>,
         { disableLifecycleMethods: true },
@@ -607,6 +607,7 @@ describe('SwipeableViews', () => {
       });
 
       it('should render all the children during the second render', () => {
+        const clock = useFakeTimers();
         const wrapper = mount(
           <SwipeableViews index={1}>
             <div>{'slide n°1'}</div>
@@ -615,8 +616,10 @@ describe('SwipeableViews', () => {
             <div>{'slide n°4'}</div>
             <div>{'slide n°5'}</div>
           </SwipeableViews>,
-          { disableLifecycleMethods: true },
         );
+        clock.tick(1);
+        wrapper.update();
+        clock.restore();
 
         assert.strictEqual(wrapper.text(), 'slide n°1slide n°2slide n°3slide n°4slide n°5');
         assert.shallowDeepEqual(
