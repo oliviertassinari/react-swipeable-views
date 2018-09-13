@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Animated, Dimensions, PanResponder, StyleSheet, View } from 'react-native';
+import { Animated, Dimensions, PanResponder, StyleSheet, View, ViewPropTypes } from 'react-native';
 import warning from 'warning';
 import {
   constant,
@@ -298,7 +298,7 @@ SwipeableViews.propTypes = {
    * This is the inlined style that will be applied
    * to each slide container.
    */
-  containerStyle: Animated.View.propTypes.style,
+  containerStyle: ViewPropTypes.style,
   /**
    * If `true`, it will disable touch events.
    * This is useful when you want to prohibit the user from changing slides.
@@ -355,7 +355,7 @@ SwipeableViews.propTypes = {
    * This is the inlined style that will be applied
    * on the slide component.
    */
-  slideStyle: View.propTypes.style,
+  slideStyle: ViewPropTypes.style,
   /**
    * This is the config given to Animated for the spring.
    * This is useful to change the dynamic of the transition.
@@ -368,7 +368,7 @@ SwipeableViews.propTypes = {
    * This is the inlined style that will be applied
    * on the root component.
    */
-  style: View.propTypes.style,
+  style: ViewPropTypes.style,
   /**
    * This is the threshold used for detecting a quick swipe.
    * If the computed speed is above this value, the index change.
