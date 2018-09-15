@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, View, ScrollView, Dimensions, ViewPropTypes } from 'react-native';
 import warning from 'warning';
 import { checkIndexBounds, getDisplaySameSlide } from 'react-swipeable-views-core';
 
@@ -258,12 +258,12 @@ SwipeableViews.propTypes = {
    * This is the inlined style that will be applied
    * on the slide component.
    */
-  slideStyle: View.propTypes.style,
+  slideStyle: ViewPropTypes.style,
   /**
    * This is the inlined style that will be applied
    * on the root component.
    */
-  style: View.propTypes.style,
+  style: ViewPropTypes.style,
 };
 
 SwipeableViews.defaultProps = {
