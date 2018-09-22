@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { assert } from 'chai';
-import { spy, stub } from 'sinon';
+import { spy, stub, useFakeTimers } from 'sinon';
 import SwipeableViews, { findNativeHandler, getDomTreeShapes } from './SwipeableViews';
 
 function simulateSwipeMove(wrapper, event) {
@@ -17,7 +17,7 @@ describe('SwipeableViews', () => {
   describe('prop: children', () => {
     it('should render the children', () => {
       const wrapper = mount(
-        <SwipeableViews>
+        <SwipeableViews disableLazyLoading>
           <div>{'slide n°1'}</div>
           <div>{'slide n°2'}</div>
           <div>{'slide n°3'}</div>
@@ -26,11 +26,7 @@ describe('SwipeableViews', () => {
         </SwipeableViews>,
       );
 
-      assert.strictEqual(
-        wrapper.text(),
-        'slide n°1slide n°2slide n°3slide n°4slide n°5',
-        'Should render each slide.',
-      );
+      assert.strictEqual(wrapper.text(), 'slide n°1slide n°2slide n°3slide n°4slide n°5');
     });
   });
 
@@ -139,7 +135,7 @@ describe('SwipeableViews', () => {
       wrapper.simulate('touchStart', {
         touches: [{}],
       });
-      assert.strictEqual(handleTouchStart.callCount, 1, 'Should be called');
+      assert.strictEqual(handleTouchStart.callCount, 1);
     });
 
     it('should trigger when we disable the swipe', () => {
@@ -153,7 +149,7 @@ describe('SwipeableViews', () => {
       wrapper.simulate('touchStart', {
         touches: [{}],
       });
-      assert.strictEqual(handleTouchStart.callCount, 1, 'Should be called');
+      assert.strictEqual(handleTouchStart.callCount, 1);
     });
   });
 
@@ -167,17 +163,16 @@ describe('SwipeableViews', () => {
       );
 
       wrapper.simulate('touchEnd');
-      assert.strictEqual(handleTouchEnd.callCount, 1, 'Should be called');
+      assert.strictEqual(handleTouchEnd.callCount, 1);
     });
   });
 
   describe('prop: animateTransitions', () => {
     it('should use a spring if animateTransitions is true', () => {
       const wrapper = mount(
-        <SwipeableViews>
+        <SwipeableViews disableLazyLoading>
           <div>{'slide n°1'}</div>
         </SwipeableViews>,
-        { disableLifecycleMethods: true },
       );
 
       wrapper.setProps({
@@ -587,6 +582,16 @@ describe('SwipeableViews', () => {
 
   describe('prop: disableLazyLoading', () => {
     describe('false', () => {
+      let clock;
+
+      beforeEach(() => {
+        clock = useFakeTimers();
+      });
+
+      afterEach(() => {
+        clock.restore();
+      });
+
       it('should render the right child', () => {
         const wrapper = shallow(
           <SwipeableViews index={1}>
@@ -615,9 +620,11 @@ describe('SwipeableViews', () => {
             <div>{'slide n°4'}</div>
             <div>{'slide n°5'}</div>
           </SwipeableViews>,
-          { disableLifecycleMethods: true },
         );
 
+        assert.strictEqual(wrapper.text(), 'slide n°2');
+        clock.tick(1);
+        wrapper.update();
         assert.strictEqual(wrapper.text(), 'slide n°1slide n°2slide n°3slide n°4slide n°5');
         assert.shallowDeepEqual(
           wrapper

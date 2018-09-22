@@ -254,25 +254,27 @@ class SwipeableViews extends React.Component {
 
   indexCurrent = null;
 
-  constructor(props, context) {
-    super(props, context);
+  firstRenderTimeout = null;
+
+  constructor(props) {
+    super(props);
 
     if (process.env.NODE_ENV !== 'production') {
-      checkIndexBounds(this.props);
+      checkIndexBounds(props);
     }
 
     this.state = {
-      indexLatest: this.props.index,
+      indexLatest: props.index,
       // Set to true as soon as the component is swiping.
       // It's the state counter part of this.isSwiping.
       isDragging: false,
       // Help with SSR logic and lazy loading logic.
-      isFirstRender: true,
+      renderOnlyActive: !props.disableLazyLoading,
       heightLatest: 0,
       // Let the render method that we are going to display the same slide than previously.
       displaySameSlide: true,
     };
-    this.setIndexCurrent(this.props.index);
+    this.setIndexCurrent(props.index);
   }
 
   getChildContext() {
@@ -315,10 +317,13 @@ class SwipeableViews extends React.Component {
       },
     );
 
-    // eslint-disable-next-line react/no-did-mount-set-state
-    this.setState({
-      isFirstRender: false,
-    });
+    if (!this.props.disableLazyLoading) {
+      this.firstRenderTimeout = setTimeout(() => {
+        this.setState({
+          renderOnlyActive: false,
+        });
+      }, 0);
+    }
 
     injectStyle();
 
@@ -350,6 +355,7 @@ class SwipeableViews extends React.Component {
   componentWillUnmount() {
     this.transitionListener.remove();
     this.touchMoveListener.remove();
+    clearTimeout(this.firstRenderTimeout);
   }
 
   setIndexCurrent(indexCurrent) {
@@ -739,7 +745,13 @@ class SwipeableViews extends React.Component {
       ...other
     } = this.props;
 
-    const { displaySameSlide, heightLatest, isDragging, isFirstRender, indexLatest } = this.state;
+    const {
+      displaySameSlide,
+      heightLatest,
+      indexLatest,
+      isDragging,
+      renderOnlyActive,
+    } = this.state;
     const touchEvents = !disabled
       ? {
           onTouchStart: this.handleTouchStart,
@@ -793,7 +805,7 @@ So animateHeight is most likely having no effect at all.`,
     };
 
     // Apply the styles for SSR considerations
-    if (disableLazyLoading || !isFirstRender) {
+    if (!renderOnlyActive) {
       const transform = axisProperties.transform[axis](this.indexCurrent * 100);
       containerStyle.WebkitTransform = transform;
       containerStyle.transform = transform;
@@ -818,7 +830,7 @@ So animateHeight is most likely having no effect at all.`,
           className="react-swipeable-view-container"
         >
           {React.Children.map(children, (child, indexChild) => {
-            if (!disableLazyLoading && isFirstRender && indexChild !== indexLatest) {
+            if (renderOnlyActive && indexChild !== indexLatest) {
               return null;
             }
 

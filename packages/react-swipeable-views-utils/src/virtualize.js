@@ -6,9 +6,9 @@ export default function virtualize(MyComponent) {
   class Virtualize extends PureComponent {
     timer = null;
 
-    constructor(props, context) {
-      super(props, context);
-      this.state.index = this.props.index || 0;
+    constructor(props) {
+      super(props);
+      this.state.index = props.index || 0;
     }
 
     /**
