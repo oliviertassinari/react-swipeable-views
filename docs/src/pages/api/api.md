@@ -11,7 +11,7 @@
 | animateTransitions | bool | `true` | all | If `false`, changes to the index prop will not cause an animated transition. |
 | axis | enum [`'x'`, `'x-reverse'`, `'y'`, `'y-reverse'`] | `'x'` | browser | The axis on which the slides will slide. |
 | children | node | | all | Use this property to provide your slides. |
-| containerStyle | object | `{}` | all | Whether or not the auto complete is animated as it is toggled. |
+| containerStyle | object | `{}` | all | This is the inlined style that will be applied to each slide container. |
 | disabled | bool | `false` | all | If `true`, it will disable touch events. This is useful when you want to prohibit the user from changing slides. |
 | disableLazyLoading | bool | false | browser | This is the config used to disable lazy loading, if `true` it will render all the views in first rendering. |
 | enableMouseEvents | bool | `false` | browser | If `true`, it will enable mouse events. This will allow the user to perform the relevant swipe actions with a mouse. |
