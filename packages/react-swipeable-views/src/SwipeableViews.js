@@ -20,31 +20,6 @@ function addEventListenerEnhanced(node, event, handler, options) {
   };
 }
 
-let styleInjected = false;
-
-// Support old version of iOS and IE 10.
-// To be deleted in 2019.
-function injectStyle() {
-  // Inject once for all the instances
-  if (!styleInjected) {
-    const style = document.createElement('style');
-    style.innerHTML = `
-      .react-swipeable-view-container {
-        display: -webkit-box;
-        display: -ms-flexbox;
-      }
-      .react-swipeable-view-container > div {
-        -ms-flex-negative: 0;
-      }
-    `;
-
-    if (document.body) {
-      document.body.appendChild(style);
-    }
-    styleInjected = true;
-  }
-}
-
 const styles = {
   container: {
     direction: 'ltr',
@@ -324,8 +299,6 @@ class SwipeableViews extends React.Component {
         });
       }, 0);
     }
-
-    injectStyle();
 
     // Send all functions in an object if action param is set.
     if (this.props.action) {
