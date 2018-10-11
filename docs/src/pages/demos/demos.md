@@ -26,7 +26,7 @@ The container responds dynamically to its children.
 
 {{"demo": "pages/demos/DemoAnimateHeight.js"}}
 
-## Resitance
+## Resistance
 
 With a resistance bounds effet on the edges.
 
