@@ -149,6 +149,7 @@ export default MyComponent;
 - [mastodon](https://github.com/tootsuite/mastodon)
 - [Material-UI](https://github.com/mui-org/material-ui)
 - [Tinder](https://tinder.com)
+- [Uber](https://www.uber.com)
 - Are you using this library? Add your company or project.
 
 ## License
