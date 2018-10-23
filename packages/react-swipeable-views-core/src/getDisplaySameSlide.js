@@ -2,7 +2,7 @@ import React from 'react';
 
 const getDisplaySameSlide = (props, nextProps) => {
   let displaySameSlide = false;
-  const getChildrenKey = (child) => typeof child !== "number" && typeof child !== "string" ? child.key : 'empty';
+  const getChildrenKey = (child) => child.key || 'empty';
 
   if (props.children.length && nextProps.children.length) {
     const oldKeys = React.Children.map(props.children, getChildrenKey);
