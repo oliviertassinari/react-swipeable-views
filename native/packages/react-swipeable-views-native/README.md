@@ -13,15 +13,7 @@ npm install --save react-swipeable-views-native
 yarn add react-swipeable-views-native
 ```
 
-> NOTE: if you using **react-native <0.57**, you should install **0.12.9** version
-```sh
-npm install --save react-swipeable-views-native@0.12.9
-# or
-yarn add react-swipeable-views-native@0.12.9
-```
-
 ## Usage
-
 
 ```jsx
 import React from 'react';
