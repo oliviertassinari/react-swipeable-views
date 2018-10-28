@@ -1,6 +1,6 @@
 {
   "name": "react-swipeable-views-native",
-  "version": "0.12.9",
+  "version": "0.13.1",
   "description": "A React component for swipeable views",
   "main": "lib/index.js",
   "scripts": {
