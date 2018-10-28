@@ -18,17 +18,21 @@
     "swipeable"
   ],
   "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
+  "maintainers": [
+    "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
+    "Roman Rogozhnikov <roman.rogozhnikov@gmail.com> (https://github.com/yacut)"
+  ],
   "bugs": {
     "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
   },
   "dependencies": {
     "babel-runtime": "^6.11.6",
-    "react-swipeable-views-core": "^0.12.9",
+    "react-swipeable-views-core": "^0.13.0",
     "warning": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^15.0.0 || ^16.0.0-alpha.12",
-    "react-native": ">= 0.39.0"
+    "react": "^16.5",
+    "react-native": ">= 0.57.0"
   },
   "devDependencies": {
     "pkgfiles": "^2.3.2"

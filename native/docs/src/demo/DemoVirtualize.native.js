@@ -3,8 +3,8 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import SwipeableViews from '../../../packages/react-swipeable-views-native/src';
-import { virtualize } from '../../../packages/react-swipeable-views-utils/src';
-import { mod } from '../../../packages/react-swipeable-views-core/src';
+import { virtualize } from 'react-swipeable-views-utils';
+import { mod } from 'react-swipeable-views-core';
 
 const VirtualizeSwipeableViews = virtualize(SwipeableViews);
 
