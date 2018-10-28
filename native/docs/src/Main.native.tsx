@@ -42,8 +42,8 @@ function Main() {
           <DemoHocs />
         </Demo>
         <Footer
-          maintainerName="oliviertassinari"
-          maintainerUrl="https://github.com/oliviertassinari"
+          maintainerName="yacut"
+          maintainerUrl="https://github.com/yacut"
           repositoryName="react-swipeable-views"
           repositoryUrl="https://github.com/oliviertassinari/react-swipeable-views"
         />

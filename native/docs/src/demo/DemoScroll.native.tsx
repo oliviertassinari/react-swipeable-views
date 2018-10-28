@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const list = [];
+const list: any = [];
 
 for (let i = 0; i < 30; i += 1) {
   list.push(

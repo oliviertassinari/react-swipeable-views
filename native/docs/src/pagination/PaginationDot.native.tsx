@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -19,7 +18,13 @@ const styles = StyleSheet.create({
   },
 });
 
-class PaginationDot extends React.Component {
+interface Props {
+  active: boolean;
+  index: number;
+  onClick: (event: any, index: number) => void;
+}
+
+class PaginationDot extends React.Component<Props> {
   handleClick = event => {
     this.props.onClick(event, this.props.index);
   };
@@ -42,11 +47,5 @@ class PaginationDot extends React.Component {
     );
   }
 }
-
-PaginationDot.propTypes = {
-  active: PropTypes.bool.isRequired,
-  index: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired,
-};
 
 export default PaginationDot;

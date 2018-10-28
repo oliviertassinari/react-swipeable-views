@@ -1,44 +1,37 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
-  root: {
-    backgroundColor: '#155799',
-    paddingTop: 50,
-    paddingBottom: 35,
-  },
   name: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    color: '#fff',
+    marginTop: 16,
     marginBottom: 16,
-    fontSize: 28,
+    color: '#159957',
+    fontSize: 19,
   },
   description: {
-    textAlign: 'center',
-    color: '#fff',
+    color: '#606c71',
     fontSize: 16,
-    opacity: 0.7,
+    marginBottom: 16,
   },
 });
 
-function Head(props) {
-  const { children, description, name } = props;
+const Demo = props => {
+  const { name, description, children } = props;
 
   return (
-    <View style={styles.root}>
+    <View>
       <Text style={styles.name}>{name}</Text>
       <Text style={styles.description}>{description}</Text>
       {children}
     </View>
   );
-}
+};
 
-Head.propTypes = {
-  children: PropTypes.node,
+Demo.propTypes = {
+  children: PropTypes.node.isRequired,
   description: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
 };
 
-export default Head;
+export default Demo;

@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import SwipeableViews from '../../../packages/react-swipeable-views-native/src';
-import { autoPlay } from '../../../packages/react-swipeable-views-utils/src';
-import Pagination from '../pagination/Pagination';
+import { autoPlay } from 'react-swipeable-views-utils';
+import Pagination from '../pagination/Pagination.native';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class DemoAutoPlay extends React.Component {
+class DemoAutoPlay extends React.Component<{}, {index: number}> {
   state = {
     index: 0,
   };
