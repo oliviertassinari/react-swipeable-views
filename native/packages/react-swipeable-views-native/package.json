@@ -4,7 +4,7 @@
   "description": "A React component for swipeable views",
   "main": "lib/index.js",
   "scripts": {
-    "build": "yarn clean && yarn tsc",
+    "build": "NODE_ENV=production yarn clean && yarn tsc",
     "clean": "rimraf lib",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "prepublish": "yarn build && pkgfiles",
@@ -30,7 +30,6 @@
     "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
   },
   "dependencies": {
-    "babel-runtime": "^6.11.6",
     "react-swipeable-views-core": "^0.13.0",
     "warning": "^3.0.0"
   },
