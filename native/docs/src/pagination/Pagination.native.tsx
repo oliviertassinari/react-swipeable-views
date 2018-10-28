@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import PropTypes from 'prop-types';
 import PaginationDot from './PaginationDot.native';
 
 const styles = StyleSheet.create({
@@ -12,7 +11,13 @@ const styles = StyleSheet.create({
   },
 });
 
-class Pagination extends React.Component {
+interface Props {
+  dots: number;
+  index: number;
+  onChangeIndex: (index: number) => void;
+}
+
+class Pagination extends React.Component<Props> {
   handleClick = (event, index) => {
     this.props.onChangeIndex(index);
   };
@@ -20,7 +25,7 @@ class Pagination extends React.Component {
   render() {
     const { index, dots } = this.props;
 
-    const children = [];
+    const children: any = [];
 
     for (let i = 0; i < dots; i += 1) {
       children.push(
@@ -31,11 +36,5 @@ class Pagination extends React.Component {
     return <View style={styles.root}>{children}</View>;
   }
 }
-
-Pagination.propTypes = {
-  dots: PropTypes.number.isRequired,
-  index: PropTypes.number.isRequired,
-  onChangeIndex: PropTypes.func.isRequired,
-};
 
 export default Pagination;

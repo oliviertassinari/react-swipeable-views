@@ -1,6 +1,4 @@
-/* eslint-disable react/no-multi-comp */
-
-import React from 'react';
+import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import SwipeableViews from '../../../packages/react-swipeable-views-native/src';
 import { virtualize, autoPlay } from 'react-swipeable-views-utils';

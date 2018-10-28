@@ -3,35 +3,42 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
+  root: {
+    backgroundColor: '#155799',
+    paddingTop: 50,
+    paddingBottom: 35,
+  },
   name: {
-    marginTop: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#fff',
     marginBottom: 16,
-    color: '#159957',
-    fontSize: 19,
-  },
+    fontSize: 28,
+  } as any,
   description: {
-    color: '#606c71',
+    textAlign: 'center',
+    color: '#fff',
     fontSize: 16,
-    marginBottom: 16,
-  },
+    opacity: 0.7,
+  } as any,
 });
 
-const Demo = props => {
-  const { name, description, children } = props;
+function Head(props) {
+  const { children, description, name } = props;
 
   return (
-    <View>
+    <View style={styles.root}>
       <Text style={styles.name}>{name}</Text>
       <Text style={styles.description}>{description}</Text>
       {children}
     </View>
   );
-};
+}
 
-Demo.propTypes = {
-  children: PropTypes.node.isRequired,
+Head.propTypes = {
+  children: PropTypes.node,
   description: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
 };
 
-export default Demo;
+export default Head;

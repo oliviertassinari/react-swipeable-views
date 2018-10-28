@@ -1,0 +1,5 @@
+/*
+!/src/*.js
+!/lib/*.js
+!/dist/*
+*.test.js

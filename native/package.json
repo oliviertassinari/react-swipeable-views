@@ -24,6 +24,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-0",
-    "metro-react-native-babel-preset": "^0.45.0"
+    "@types/node": "^10.12.0",
+    "@types/react": "^16.4.18",
+    "@types/react-native": "^0.57.7",
+    "metro-react-native-babel-preset": "^0.45.0",
+    "react-native-typescript-transformer": "^1.2.10"
   }
 }
