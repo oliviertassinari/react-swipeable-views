@@ -11,7 +11,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import warning from 'warning';
+import * as warning from 'warning';
 import {
   constant,
   checkIndexBounds,
