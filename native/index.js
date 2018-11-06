@@ -1,4 +1,4 @@
 // app entry
-import app from './docs/src/app.native';
+import app from './docs/src/App';
 
 app.start();

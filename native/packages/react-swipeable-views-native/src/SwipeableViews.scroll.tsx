@@ -4,7 +4,6 @@
 
 import * as React from 'react';
 import { StyleSheet, View, ScrollView, Dimensions, ViewStyle } from 'react-native';
-import * as warning from 'warning';
 import { checkIndexBounds, getDisplaySameSlide } from 'react-swipeable-views-core';
 
 const { width: windowWidth } = Dimensions.get('window');
@@ -36,7 +35,7 @@ interface Props {
   /**
    * The axis on which the slides will slide.
    */
-  axis: 'x' | 'x-reverse' | 'y' | 'y-reverse';
+  axis?: 'x' | 'x-reverse' | 'y' | 'y-reverse';
   /**
    * This is the inlined style that will be applied
    * to each slide container.
@@ -70,7 +69,7 @@ interface Props {
    * The callback that fires when the animation comes to a rest.
    * This is useful to defer CPU intensive task.
    */
-  onTransitionEnd: () => void,
+  onTransitionEnd?: () => void,
   /**
    * If `true`, it will add bounds effect on the edges.
    */
@@ -123,11 +122,12 @@ class SwipeableViews extends React.Component<Props, State> {
       },
     });
 
-    warning(
-      !this.props.animateHeight,
-      'react-swipeable-view: The animateHeight property is not implement yet.',
-    );
-    warning(!this.props.axis, 'react-swipeable-view: The axis property is not implement yet.');
+    if (this.props.animateHeight !== undefined) {
+      console.warn('react-swipeable-view-native: The animateHeight property is not implement yet.')
+    }
+    if (this.props.axis !== undefined) {
+      console.warn('react-swipeable-view-native: The axis property is not implement yet.')
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -216,7 +216,7 @@ class SwipeableViews extends React.Component<Props, State> {
       style,
       containerStyle,
       disabled,
-      onTransitionEnd, // eslint-disable-line no-unused-vars
+      onTransitionEnd,
       ...other
     } = this.props;
 
@@ -234,12 +234,9 @@ class SwipeableViews extends React.Component<Props, State> {
       if (disabled && indexLatest !== index) {
         return null;
       }
-
-      warning(
-        React.isValidElement(child),
-        `react-swipeable-view: one of the children provided is invalid: ${child}.
-We are expecting a valid React Element`,
-      );
+      if (!React.isValidElement(child)){
+        console.warn(`react-swipeable-view-native: one of the children provided is invalid: ${child}. We are expecting a valid React Element.`)
+      }
 
       return <View style={slideStyleObj}>{child}</View>;
     });
