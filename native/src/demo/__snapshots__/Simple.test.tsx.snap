@@ -1,0 +1,332 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Simple snapshot renders the root 1`] = `
+<View
+  animateTransitions={true}
+  onLayout={[Function]}
+  resistance={false}
+  springConfig={
+    Object {
+      "friction": 30,
+      "tension": 300,
+    }
+  }
+  style={
+    Array [
+      Object {
+        "flex": 1,
+        "overflow": "hidden",
+      },
+      undefined,
+    ]
+  }
+  threshold={5}
+>
+  <View
+    onMoveShouldSetResponder={[Function]}
+    onMoveShouldSetResponderCapture={[Function]}
+    onResponderEnd={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderReject={[Function]}
+    onResponderRelease={[Function]}
+    onResponderStart={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    onStartShouldSetResponderCapture={[Function]}
+    style={
+      Object {
+        "flex": 1,
+        "flexDirection": "row",
+        "transform": Array [
+          Object {
+            "translateX": 0,
+          },
+        ],
+        "width": 2250,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "flex": 1,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "flex": 1,
+              "justifyContent": "center",
+              "padding": 15,
+            },
+            Object {
+              "backgroundColor": "#fbc02d",
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000000",
+                "fontFamily": "Helvetica Neue",
+                "textAlign": "left",
+                "writingDirection": "ltr",
+              },
+              Array [
+                Object {
+                  "color": "rgba(0, 0, 0, 0.87)",
+                  "fontFamily": "Helvetica Neue",
+                  "textAlign": "left",
+                  "writingDirection": "ltr",
+                },
+                Array [
+                  Object {
+                    "fontSize": 24,
+                    "lineHeight": 32,
+                    "marginVertical": 2,
+                  },
+                  Object {
+                    "color": "#ffffff",
+                    "textAlign": "center",
+                  },
+                ],
+                Array [
+                  Object {
+                    "fontSize": 24,
+                    "lineHeight": 32,
+                    "marginVertical": 2,
+                  },
+                  Object {
+                    "color": "#ffffff",
+                    "textAlign": "center",
+                  },
+                ],
+              ],
+            ]
+          }
+          theme={
+            Object {
+              "colors": Object {
+                "accent": "#03dac4",
+                "backdrop": "rgba(0, 0, 0, 0.5)",
+                "background": "#f6f6f6",
+                "disabled": "rgba(0, 0, 0, 0.26)",
+                "error": "#B00020",
+                "placeholder": "rgba(0, 0, 0, 0.54)",
+                "primary": "#6200ee",
+                "surface": "#ffffff",
+                "text": "#000000",
+              },
+              "dark": false,
+              "fonts": Object {
+                "light": "HelveticaNeue-Light",
+                "medium": "HelveticaNeue-Medium",
+                "regular": "Helvetica Neue",
+                "thin": "HelveticaNeue-Thin",
+              },
+              "roundness": 4,
+            }
+          }
+        >
+          slide n°1
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "flex": 1,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "flex": 1,
+              "justifyContent": "center",
+              "padding": 15,
+            },
+            Object {
+              "backgroundColor": "#388e3c",
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000000",
+                "fontFamily": "Helvetica Neue",
+                "textAlign": "left",
+                "writingDirection": "ltr",
+              },
+              Array [
+                Object {
+                  "color": "rgba(0, 0, 0, 0.87)",
+                  "fontFamily": "Helvetica Neue",
+                  "textAlign": "left",
+                  "writingDirection": "ltr",
+                },
+                Array [
+                  Object {
+                    "fontSize": 24,
+                    "lineHeight": 32,
+                    "marginVertical": 2,
+                  },
+                  Object {
+                    "color": "#ffffff",
+                    "textAlign": "center",
+                  },
+                ],
+                Array [
+                  Object {
+                    "fontSize": 24,
+                    "lineHeight": 32,
+                    "marginVertical": 2,
+                  },
+                  Object {
+                    "color": "#ffffff",
+                    "textAlign": "center",
+                  },
+                ],
+              ],
+            ]
+          }
+          theme={
+            Object {
+              "colors": Object {
+                "accent": "#03dac4",
+                "backdrop": "rgba(0, 0, 0, 0.5)",
+                "background": "#f6f6f6",
+                "disabled": "rgba(0, 0, 0, 0.26)",
+                "error": "#B00020",
+                "placeholder": "rgba(0, 0, 0, 0.54)",
+                "primary": "#6200ee",
+                "surface": "#ffffff",
+                "text": "#000000",
+              },
+              "dark": false,
+              "fonts": Object {
+                "light": "HelveticaNeue-Light",
+                "medium": "HelveticaNeue-Medium",
+                "regular": "Helvetica Neue",
+                "thin": "HelveticaNeue-Thin",
+              },
+              "roundness": 4,
+            }
+          }
+        >
+          slide n°2
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "flex": 1,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "flex": 1,
+              "justifyContent": "center",
+              "padding": 15,
+            },
+            Object {
+              "backgroundColor": "#1976d2",
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000000",
+                "fontFamily": "Helvetica Neue",
+                "textAlign": "left",
+                "writingDirection": "ltr",
+              },
+              Array [
+                Object {
+                  "color": "rgba(0, 0, 0, 0.87)",
+                  "fontFamily": "Helvetica Neue",
+                  "textAlign": "left",
+                  "writingDirection": "ltr",
+                },
+                Array [
+                  Object {
+                    "fontSize": 24,
+                    "lineHeight": 32,
+                    "marginVertical": 2,
+                  },
+                  Object {
+                    "color": "#ffffff",
+                    "textAlign": "center",
+                  },
+                ],
+                Array [
+                  Object {
+                    "fontSize": 24,
+                    "lineHeight": 32,
+                    "marginVertical": 2,
+                  },
+                  Object {
+                    "color": "#ffffff",
+                    "textAlign": "center",
+                  },
+                ],
+              ],
+            ]
+          }
+          theme={
+            Object {
+              "colors": Object {
+                "accent": "#03dac4",
+                "backdrop": "rgba(0, 0, 0, 0.5)",
+                "background": "#f6f6f6",
+                "disabled": "rgba(0, 0, 0, 0.26)",
+                "error": "#B00020",
+                "placeholder": "rgba(0, 0, 0, 0.54)",
+                "primary": "#6200ee",
+                "surface": "#ffffff",
+                "text": "#000000",
+              },
+              "dark": false,
+              "fonts": Object {
+                "light": "HelveticaNeue-Light",
+                "medium": "HelveticaNeue-Medium",
+                "regular": "Helvetica Neue",
+                "thin": "HelveticaNeue-Thin",
+              },
+              "roundness": 4,
+            }
+          }
+        >
+          slide n°3
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

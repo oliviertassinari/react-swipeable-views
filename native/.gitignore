@@ -1,5 +1,7 @@
 lib/
 *.log
+.expo
+.jest
 
 # OSX
 #

@@ -3,7 +3,7 @@
 // I'm keeping the two versions here until we figured out.
 
 import * as React from 'react';
-import { 
+import {
   Animated,
   Dimensions,
   PanResponder,
@@ -11,7 +11,6 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import * as warning from 'warning';
 import {
   constant,
   checkIndexBounds,
@@ -185,11 +184,12 @@ class SwipeableViews extends React.Component<Props, State> {
       onPanResponderGrant: this.handleTouchStart,
     });
 
-    warning(
-      !this.props.animateHeight,
-      'react-swipeable-view: The animateHeight property is not implement yet.',
-    );
-    warning(!this.props.axis, 'react-swipeable-view: The axis property is not implement yet.');
+    if (this.props.animateHeight !== undefined){
+      console.warn('react-swipeable-view-native: The animateHeight property is not implement yet.')
+    }
+    if (this.props.axis !== undefined) {
+      console.warn('react-swipeable-view-native: The axis property is not implement yet.')
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -262,7 +262,7 @@ class SwipeableViews extends React.Component<Props, State> {
   };
 
   handleTouchEnd = (event, gestureState) => {
-    const { 
+    const {
       threshold = 0,
       hysteresis = 0,
       onChangeIndex,
@@ -367,11 +367,9 @@ class SwipeableViews extends React.Component<Props, State> {
     const slideStyleObj = [styles.slide, slideStyle];
 
     const childrenToRender = React.Children.map(children, child => {
-      warning(
-        React.isValidElement(child),
-        `react-swipeable-view: one of the children provided is invalid: ${child}.
-We are expecting a valid React Element`,
-      );
+      if (!React.isValidElement(child)) {
+        console.warn(`react-swipeable-view-native: one of the children provided is invalid: ${child}. We are expecting a valid React Element.`)
+      }
 
       return <View style={slideStyleObj}>{child}</View>;
     });
