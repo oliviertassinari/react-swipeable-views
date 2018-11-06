@@ -1,7 +1,9 @@
 # react-swipeable-views-native
 
-[![npm version](https://img.shields.io/npm/v/react-swipeable-views-native.svg)](https://www.npmjs.com/package/react-swipeable-views-native) 
+[![npm version](https://img.shields.io/npm/v/react-swipeable-views-native.svg)](https://www.npmjs.com/package/react-swipeable-views-native)
 [![npm downloads](https://img.shields.io/npm/dm/react-swipeable-views-native.svg)](https://www.npmjs.com/package/react-swipeable-views-native)
+[![Demo](https://img.shields.io/badge/demo-expo-blue.svg)](https://expo.io/@yacut/react-swipeable-views-native)
+[![Donate](https://img.shields.io/badge/$-support-green.svg)](https://paypal.me/yacut)
 
 > A React Native component for swipeable views.
 
