@@ -128,7 +128,7 @@ export default function autoPlay(MyComponent) {
       const { index } = this.state;
 
       if (!autoplay) {
-        return <MyComponent index={index} {...other} />;
+        return <MyComponent index={index} onChangeIndex={onChangeIndex} {...other} />;
       }
 
       return (
