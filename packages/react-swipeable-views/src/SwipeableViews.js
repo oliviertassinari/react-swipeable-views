@@ -345,8 +345,8 @@ class SwipeableViews extends React.Component {
         this.containerNode.style.position = 'relative';
         this.containerNode.style.left = transform;
       } else {
-        this.containerNode.style.WebkitTransform = `translate: ${transform}`;
-        this.containerNode.style.transform = `translate: ${transform}`;
+        this.containerNode.style.WebkitTransform = `translate(${transform}, 0)`;
+        this.containerNode.style.transform = `translate(${transform}, 0)`;
       }
     }
   }
@@ -794,8 +794,8 @@ So animateHeight is most likely having no effect at all.`,
         containerStyle.position = 'relative';
         containerStyle.left = transform;
       } else {
-        containerStyle.WebkitTransform = `translate: ${transform}`;
-        containerStyle.transform = `translate: ${transform}`;
+        containerStyle.WebkitTransform = `translate(${transform}, 0)`;
+        containerStyle.transform = `translate(${transform}, 0)`;
       }
     }
 
