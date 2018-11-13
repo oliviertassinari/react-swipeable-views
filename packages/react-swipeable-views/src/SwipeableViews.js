@@ -888,6 +888,13 @@ SwipeableViews.propTypes = {
    */
   animateTransitions: PropTypes.bool,
   /**
+   * Transform makes the element `position: relative`
+   * and `overflow: hidden`, animating slide transitions
+   * with `left` property does not assume the user wants
+   * these two css styles
+   */
+  animateWithLeft: PropTypes.bool,
+  /**
    * The axis on which the slides will slide.
    */
   axis: PropTypes.oneOf(['x', 'x-reverse', 'y', 'y-reverse']),
@@ -1040,6 +1047,7 @@ SwipeableViews.defaultProps = {
     delay: '0s',
   },
   resistance: false,
+  animateWithLeft: false,
 };
 
 SwipeableViews.childContextTypes = {
