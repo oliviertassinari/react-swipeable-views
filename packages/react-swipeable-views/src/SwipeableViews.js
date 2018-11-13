@@ -21,11 +21,11 @@ function addEventListenerEnhanced(node, event, handler, options) {
 }
 
 const styles = {
-  container: {
+  container: animateWithLeft => ({
     direction: 'ltr',
     display: 'flex',
-    willChange: 'transform',
-  },
+    willChange: animateWithLeft ? 'left' : 'transform',
+  }),
   slide: {
     width: '100%',
     WebkitFlexShrink: 0,
@@ -56,7 +56,7 @@ const axisProperties = {
     'y-reverse': 'column-reverse',
   },
   transform: {
-    x: translate => `translate(${-translate}%, 0)`,
+    x: translate => `${-translate}%`,
     'x-reverse': translate => `translate(${translate}%, 0)`,
     y: translate => `translate(0, ${-translate}%)`,
     'y-reverse': translate => `translate(0, ${translate}%)`,
@@ -339,10 +339,15 @@ class SwipeableViews extends React.Component {
     this.indexCurrent = indexCurrent;
 
     if (this.containerNode) {
-      const { axis } = this.props;
+      const { axis, animateWithLeft } = this.props;
       const transform = axisProperties.transform[axis](indexCurrent * 100);
-      this.containerNode.style.WebkitTransform = transform;
-      this.containerNode.style.transform = transform;
+      if (axis === 'x' && animateWithLeft) {
+        this.containerNode.style.position = 'relative';
+        this.containerNode.style.left = transform;
+      } else {
+        this.containerNode.style.WebkitTransform = `translate: ${transform}`;
+        this.containerNode.style.transform = `translate: ${transform}`;
+      }
     }
   }
 
@@ -715,6 +720,7 @@ class SwipeableViews extends React.Component {
       springConfig,
       style,
       threshold,
+      animateWithLeft,
       ...other
     } = this.props;
 
@@ -759,8 +765,12 @@ So animateHeight is most likely having no effect at all.`,
       transition = 'all 0s ease 0s';
       WebkitTransition = 'all 0s ease 0s';
     } else {
-      transition = createTransition('transform', springConfig);
-      WebkitTransition = createTransition('-webkit-transform', springConfig);
+      if (axis === 'x' && animateWithLeft) {
+        transition = createTransition('left', springConfig);
+      } else {
+        transition = createTransition('transform', springConfig);
+        WebkitTransition = createTransition('-webkit-transform', springConfig);
+      }
 
       if (heightLatest !== 0) {
         const additionalTranstion = `, ${createTransition('height', springConfig)}`;
@@ -779,9 +789,14 @@ So animateHeight is most likely having no effect at all.`,
 
     // Apply the styles for SSR considerations
     if (!renderOnlyActive) {
-      const transform = axisProperties.transform[axis](this.indexCurrent * 100);
-      containerStyle.WebkitTransform = transform;
-      containerStyle.transform = transform;
+      const transform = axisProperties.transform[axis](this.indexCurrent * 100, animateWithLeft);
+      if (axis === 'x' && animateWithLeft) {
+        containerStyle.position = 'relative';
+        containerStyle.left = transform;
+      } else {
+        containerStyle.WebkitTransform = `translate: ${transform}`;
+        containerStyle.transform = `translate: ${transform}`;
+      }
     }
 
     if (animateHeight) {
@@ -799,7 +814,12 @@ So animateHeight is most likely having no effect at all.`,
       >
         <div
           ref={this.setContainerNode}
-          style={Object.assign({}, containerStyle, styles.container, containerStyleProp)}
+          style={Object.assign(
+            {},
+            containerStyle,
+            styles.container(animateWithLeft),
+            containerStyleProp,
+          )}
           className="react-swipeable-view-container"
         >
           {React.Children.map(children, (child, indexChild) => {
