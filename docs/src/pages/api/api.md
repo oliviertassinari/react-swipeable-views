@@ -23,6 +23,7 @@
 | onTransitionEnd | function | | all | The callback that fires when the animation comes to a rest. This is useful to defer CPU intensive task. |
 | resistance | bool | `false` | all | If true, it will add bounds effect on the edges. |
 | style | object | `{}` | all | This is the inlined style that will be applied on the root component. |
+| slideClassName | string || browser | This is the className that will be applied on the slide component. |
 | slideStyle | object | `{}` | all | This is the inlined style that will be applied on the slide component. |
 | springConfig | object | `{duration: '0.3s', easeFunction: '...', delay: '0s'}` | browser | This is the config used to create CSS transitions. This is useful to change the dynamic of the transition. |
 | springConfig | object | `{tension: 300, friction: 30}` | native.animated | This is the config given to Animated for the `spring`. This is useful to change the dynamic of the transition. |
