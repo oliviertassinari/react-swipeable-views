@@ -2,8 +2,8 @@ import React from 'react';
 
 const getDisplaySameSlide = (props, nextProps) => {
   let displaySameSlide = false;
-  let oldChildren = React.Children.toArray(props.children);
-  let nextChildren = React.Children.toArray(nextProps.children);
+  const oldChildren = React.Children.toArray(props.children);
+  const nextChildren = React.Children.toArray(nextProps.children);
   if (oldChildren.length && nextChildren.length) {
     const oldChild = oldChildren[props.index];
     const oldKey = oldChild ? oldChild.key : 'empty';
