@@ -126,4 +126,26 @@ describe('getDisplaySameSlide', () => {
 
     assert.strictEqual(getDisplaySameSlide(oldState.props(), newState.props()), true);
   });
+
+  it('should work with dynamic children in arrays', () => {
+    const oldState = mount(
+      <SwipeableViews index={2}>
+        <div key="1" />
+        {['2', '3', '4'].map(k => (
+          <div key={k} />
+        ))}
+      </SwipeableViews>,
+    );
+
+    const newState = mount(
+      <SwipeableViews index={3}>
+        <div key="1" />
+        {['2', '3', '4'].map(k => (
+          <div key={k} />
+        ))}
+      </SwipeableViews>,
+    );
+
+    assert.strictEqual(getDisplaySameSlide(oldState.props(), newState.props()), false);
+  });
 });

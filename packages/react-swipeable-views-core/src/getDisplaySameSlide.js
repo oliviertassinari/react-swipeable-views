@@ -1,13 +1,16 @@
+import React from 'react';
+
 const getDisplaySameSlide = (props, nextProps) => {
   let displaySameSlide = false;
+  const getChildrenKey = child => (child ? child.key : 'empty');
 
   if (props.children.length && nextProps.children.length) {
-    const oldChildren = props.children[props.index];
-    const oldKey = oldChildren ? oldChildren.key : 'empty';
+    const oldKeys = React.Children.map(props.children, getChildrenKey);
+    const oldKey = oldKeys[props.index];
 
-    if (oldKey !== null) {
-      const newChildren = nextProps.children[nextProps.index];
-      const newKey = newChildren ? newChildren.key : 'empty';
+    if (oldKey !== null && oldKey !== undefined) {
+      const newKeys = React.Children.map(nextProps.children, getChildrenKey);
+      const newKey = newKeys[nextProps.index];
 
       if (oldKey === newKey) {
         displaySameSlide = true;
