@@ -197,6 +197,26 @@ describe('autoPlay', () => {
           done();
         }, 300);
       });
+
+      it('should pass onChangeIndex also when autoplay is disabled', done => {
+        const handleChangeIndex = spy();
+
+        wrapper = shallow(
+          <AutoPlaySwipeableViews index={0} autoplay={false} onChangeIndex={handleChangeIndex}>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
+          </AutoPlaySwipeableViews>,
+        );
+
+        wrapper.find(Empty).simulate('changeIndex', 1, 0);
+        assert.strictEqual(
+          handleChangeIndex.callCount,
+          1,
+          'Should be called the right number of time.',
+        );
+        done();
+      });
     });
   });
 });
