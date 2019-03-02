@@ -2,6 +2,8 @@
 
 <p class="description">Demonstrate some use cases we are supporting.</p>
 
+Note that on desktop, you might have to add the `enableMouseEvents` prop, in order for the demos to work properly.
+
 ## Simple
 
 A Simple case.
