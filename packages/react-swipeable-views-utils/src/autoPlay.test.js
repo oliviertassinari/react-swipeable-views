@@ -217,6 +217,72 @@ describe('autoPlay', () => {
         );
         done();
       });
+
+      it('should be paused when the window is hidden', done => {
+        wrapper = shallow(
+          <AutoPlaySwipeableViews interval={100}>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
+          </AutoPlaySwipeableViews>,
+        );
+        setTimeout(() => {
+          wrapper.simulate('visibilityChange', {
+            target: {
+              hidden: true,
+            },
+          });
+          setTimeout(() => {
+            assert.strictEqual(wrapper.state().index, 1);
+            done();
+          }, 150);
+        }, 150);
+      });
+
+      it('should be resumed when the window is visible', done => {
+        wrapper = shallow(
+          <AutoPlaySwipeableViews interval={100}>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
+          </AutoPlaySwipeableViews>,
+        );
+        setTimeout(() => {
+          wrapper.simulate('visibilityChange', {
+            target: {
+              hidden: true,
+            },
+          });
+          wrapper.simulate('visibilityChange', {
+            target: {
+              hidden: false,
+            },
+          });
+          setTimeout(() => {
+            assert.strictEqual(wrapper.state().index, 2);
+            done();
+          }, 150);
+        }, 150);
+      });
+
+      it('should not be resumed when the window is visible but autoplay is false', done => {
+        wrapper = shallow(
+          <AutoPlaySwipeableViews interval={100} autoplay={false}>
+            <div>{'slide n°1'}</div>
+            <div>{'slide n°2'}</div>
+            <div>{'slide n°3'}</div>
+          </AutoPlaySwipeableViews>,
+        );
+        wrapper.simulate('visibilityChange', {
+          target: {
+            hidden: false,
+          },
+        });
+        setTimeout(() => {
+          assert.strictEqual(wrapper.state().index, 0);
+          done();
+        }, 150);
+      });
     });
   });
 });
