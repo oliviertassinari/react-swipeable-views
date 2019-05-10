@@ -10,6 +10,7 @@ export default function autoPlay(MyComponent) {
 
     constructor(props) {
       super(props);
+
       this.state.index = props.index || 0;
     }
 
