@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import shallowEqual from 'fbjs/lib/shallowEqual';
+import EventListener from 'react-event-listener';
 import { mod } from 'react-swipeable-views-core';
 
 export default function autoPlay(MyComponent) {
@@ -105,6 +106,14 @@ export default function autoPlay(MyComponent) {
       }
     };
 
+    handleVisibilityChange = e => {
+      if (e.target.hidden) {
+        clearInterval(this.timer);
+      } else {
+        this.startInterval();
+      }
+    };
+
     startInterval() {
       const { autoplay, interval } = this.props;
 
@@ -132,12 +141,14 @@ export default function autoPlay(MyComponent) {
       }
 
       return (
-        <MyComponent
-          index={index}
-          onChangeIndex={this.handleChangeIndex}
-          onSwitching={this.handleSwitching}
-          {...other}
-        />
+        <EventListener target="document" onVisibilityChange={this.handleVisibilityChange}>
+          <MyComponent
+            index={index}
+            onChangeIndex={this.handleChangeIndex}
+            onSwitching={this.handleSwitching}
+            {...other}
+          />
+        </EventListener>
       );
     }
   }
