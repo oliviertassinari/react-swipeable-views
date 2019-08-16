@@ -308,7 +308,7 @@ class SwipeableViews extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { index } = nextProps;
 
     if (typeof index === 'number' && index !== this.props.index) {
@@ -394,9 +394,9 @@ class SwipeableViews extends React.Component {
 
       this.startIndex =
         -tranformNormalized.pageX /
-          (this.viewLength -
-            parseInt(rootStyle.paddingLeft, 10) -
-            parseInt(rootStyle.paddingRight, 10)) || 0;
+        (this.viewLength -
+          parseInt(rootStyle.paddingLeft, 10) -
+          parseInt(rootStyle.paddingRight, 10)) || 0;
     }
   };
 
@@ -727,18 +727,18 @@ class SwipeableViews extends React.Component {
     } = this.state;
     const touchEvents = !disabled
       ? {
-          onTouchStart: this.handleTouchStart,
-          onTouchEnd: this.handleTouchEnd,
-        }
+        onTouchStart: this.handleTouchStart,
+        onTouchEnd: this.handleTouchEnd,
+      }
       : {};
     const mouseEvents =
       !disabled && enableMouseEvents
         ? {
-            onMouseDown: this.handleMouseDown,
-            onMouseUp: this.handleMouseUp,
-            onMouseLeave: this.handleMouseLeave,
-            onMouseMove: this.handleMouseMove,
-          }
+          onMouseDown: this.handleMouseDown,
+          onMouseUp: this.handleMouseUp,
+          onMouseLeave: this.handleMouseLeave,
+          onMouseMove: this.handleMouseMove,
+        }
         : {};
 
     // There is no point to animate if we are already providing a height.
