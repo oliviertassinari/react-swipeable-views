@@ -240,6 +240,7 @@ class SwipeableViews extends React.Component {
 
     this.state = {
       indexLatest: props.index,
+      childrenLatest: props.children,
       // Set to true as soon as the component is swiping.
       // It's the state counter part of this.isSwiping.
       isDragging: false,
@@ -342,18 +343,23 @@ class SwipeableViews extends React.Component {
     this.updateHeight();
   };
 
-  static getDerivedStateFromProps(nextProps) {
-    const { index } = nextProps;
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { index, children } = nextProps;
 
-    if (typeof index === 'number' && index !== this.props.index) {
+    if (typeof index === 'number' && index !== prevState.indexLatest) {
       if (process.env.NODE_ENV !== 'production') {
         checkIndexBounds(nextProps);
       }
 
       this.setIndexCurrent(index);
+      const fakeProps = {
+        index: prevState.indexLatest,
+        children: prevState.childrenLatest,
+      };
       return {
         // If true, we are going to change the children. We shoudn't animate it.
-        displaySameSlide: getDisplaySameSlide(this.props, nextProps),
+        displaySameSlide: getDisplaySameSlide(fakeProps, nextProps),
+        childrenLatest: children,
         indexLatest: index,
       };
     }
