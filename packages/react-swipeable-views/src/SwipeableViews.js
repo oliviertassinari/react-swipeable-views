@@ -221,6 +221,8 @@ class SwipeableViews extends React.Component {
 
   startIndex = 0;
 
+  resizeListener = null;
+
   transitionListener = null;
 
   touchMoveListener = null;
@@ -263,6 +265,15 @@ class SwipeableViews extends React.Component {
   }
 
   componentDidMount() {
+    // Subscribe to resize events and update height if animateHeight param is set.
+    this.resizeListener = addEventListenerEnhanced(window, 'resize', event => {
+      if (!this.props.animateHeight) {
+        return;
+      }
+
+      this.updateHeight();
+    });
+
     // Subscribe to transition end events.
     this.transitionListener = addEventListenerEnhanced(
       this.containerNode,
@@ -326,6 +337,7 @@ class SwipeableViews extends React.Component {
   }
 
   componentWillUnmount() {
+    this.resizeListener.remove();
     this.transitionListener.remove();
     this.touchMoveListener.remove();
     clearTimeout(this.firstRenderTimeout);
