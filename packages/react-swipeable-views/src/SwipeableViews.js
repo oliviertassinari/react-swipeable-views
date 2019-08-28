@@ -266,7 +266,7 @@ class SwipeableViews extends React.Component {
 
   componentDidMount() {
     // Subscribe to resize events and update height if animateHeight param is set.
-    this.resizeListener = addEventListenerEnhanced(window, 'resize', event => {
+    this.resizeListener = addEventListenerEnhanced(window, 'resize', () => {
       if (!this.props.animateHeight) {
         return;
       }
