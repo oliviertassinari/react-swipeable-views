@@ -582,7 +582,10 @@ class SwipeableViews extends React.Component {
 
   handleTouchStart = event => {
     if (this.props.onTouchStart) {
-      this.props.onTouchStart(event);
+      const shouldReturn = this.props.onTouchStart(event);
+      if (shouldReturn) {
+        return;
+      }
     }
     this.handleSwipeStart(event);
   };
