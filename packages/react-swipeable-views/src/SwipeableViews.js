@@ -308,23 +308,6 @@ class SwipeableViews extends React.Component {
     }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { index } = nextProps;
-
-    if (typeof index === 'number' && index !== this.props.index) {
-      if (process.env.NODE_ENV !== 'production') {
-        checkIndexBounds(nextProps);
-      }
-
-      this.setIndexCurrent(index);
-      this.setState({
-        // If true, we are going to change the children. We shoudn't animate it.
-        displaySameSlide: getDisplaySameSlide(this.props, nextProps),
-        indexLatest: index,
-      });
-    }
-  }
-
   componentWillUnmount() {
     this.transitionListener.remove();
     this.touchMoveListener.remove();
@@ -674,6 +657,23 @@ class SwipeableViews extends React.Component {
       }
     }
   };
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { index } = nextProps;
+
+    if (typeof index === 'number' && index !== this.props.index) {
+      if (process.env.NODE_ENV !== 'production') {
+        checkIndexBounds(nextProps);
+      }
+
+      this.setIndexCurrent(index);
+      this.setState({
+        // If true, we are going to change the children. We shoudn't animate it.
+        displaySameSlide: getDisplaySameSlide(this.props, nextProps),
+        indexLatest: index,
+      });
+    }
+  }
 
   handleTransitionEnd() {
     if (!this.props.onTransitionEnd) {

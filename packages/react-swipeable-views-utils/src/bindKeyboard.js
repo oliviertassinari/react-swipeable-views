@@ -31,22 +31,6 @@ export default function bindKeyboard(MyComponent) {
 
     state = {};
 
-    UNSAFE_componentWillMount() {
-      this.setState({
-        index: this.props.index || 0,
-      });
-    }
-
-    UNSAFE_componentWillReceiveProps(nextProps) {
-      const { index } = nextProps;
-
-      if (typeof index === 'number' && index !== this.props.index) {
-        this.setState({
-          index,
-        });
-      }
-    }
-
     handleKeyDown = event => {
       let action;
       const { axis = 'x', children, onChangeIndex, slideCount } = this.props;
@@ -129,6 +113,22 @@ export default function bindKeyboard(MyComponent) {
         this.props.onChangeIndex(index, indexLatest);
       }
     };
+
+    UNSAFE_componentWillMount() {
+      this.setState({
+        index: this.props.index || 0,
+      });
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+      const { index } = nextProps;
+
+      if (typeof index === 'number' && index !== this.props.index) {
+        this.setState({
+          index,
+        });
+      }
+    }
 
     render() {
       const { index: indexProp, onChangeIndex, ...other } = this.props;
