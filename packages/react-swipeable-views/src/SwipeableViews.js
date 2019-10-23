@@ -308,7 +308,7 @@ class SwipeableViews extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { index } = nextProps;
 
     if (typeof index === 'number' && index !== this.props.index) {

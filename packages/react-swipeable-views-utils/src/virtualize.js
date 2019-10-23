@@ -22,11 +22,11 @@ export default function virtualize(MyComponent) {
      */
     state = {};
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       this.setWindow(this.state.index);
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
       const { index } = nextProps;
 
       if (typeof index === 'number' && index !== this.props.index) {
