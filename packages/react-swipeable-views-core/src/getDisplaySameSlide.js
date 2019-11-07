@@ -5,11 +5,15 @@ const getDisplaySameSlide = (props, nextProps) => {
   const getChildrenKey = child => (child ? child.key : 'empty');
 
   if (props.children.length && nextProps.children.length) {
-    const oldKeys = React.Children.map(props.children, getChildrenKey);
+    const oldKeys = React.Children.toArray(props.children)
+      .filter(Boolean)
+      .map(getChildrenKey);
     const oldKey = oldKeys[props.index];
 
     if (oldKey !== null && oldKey !== undefined) {
-      const newKeys = React.Children.map(nextProps.children, getChildrenKey);
+      const newKeys = React.Children.toArray(nextProps.children)
+        .filter(Boolean)
+        .map(getChildrenKey);
       const newKey = newKeys[nextProps.index];
 
       if (oldKey === newKey) {

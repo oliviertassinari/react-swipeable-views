@@ -4,7 +4,7 @@ import warning from 'warning';
 const checkIndexBounds = props => {
   const { index, children } = props;
 
-  const childrenCount = React.Children.count(children);
+  const childrenCount = React.Children.toArray(children).filter(Boolean).length;
 
   warning(
     index >= 0 && index <= childrenCount,

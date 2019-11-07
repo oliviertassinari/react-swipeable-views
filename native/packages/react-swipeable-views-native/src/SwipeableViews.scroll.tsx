@@ -230,7 +230,7 @@ class SwipeableViews extends React.Component<Props, State> {
       slideStyle,
     ];
 
-    const childrenToRender = React.Children.map(children, (child, index) => {
+    const childrenToRender = React.Children.toArray(children).filter(Boolean).map((child, index) => {
       if (disabled && indexLatest !== index) {
         return null;
       }

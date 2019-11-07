@@ -101,7 +101,10 @@ export default function bindKeyboard(MyComponent) {
         }
 
         if (slideCount || children) {
-          indexNew = mod(indexNew, slideCount || React.Children.count(children));
+          indexNew = mod(
+            indexNew,
+            slideCount || React.Children.toArray(children).filter(Boolean).length,
+          );
         }
 
         // Is uncontrolled

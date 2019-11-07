@@ -428,7 +428,8 @@ class SwipeableViews extends React.Component {
         !resistance &&
         (axis === 'y' || axis === 'y-reverse') &&
         ((this.indexCurrent === 0 && this.startX < touch.pageX) ||
-          (this.indexCurrent === React.Children.count(this.props.children) - 1 &&
+          (this.indexCurrent ===
+            React.Children.toArray(this.props.children).filter(Boolean).length - 1 &&
             this.startX > touch.pageX))
       ) {
         this.isSwiping = false;
@@ -547,7 +548,7 @@ class SwipeableViews extends React.Component {
       indexNew = indexLatest;
     }
 
-    const indexMax = React.Children.count(this.props.children) - 1;
+    const indexMax = React.Children.toArray(this.props.children).filter(Boolean).length - 1;
 
     if (indexNew < 0) {
       indexNew = 0;
@@ -802,41 +803,43 @@ So animateHeight is most likely having no effect at all.`,
           style={Object.assign({}, containerStyle, styles.container, containerStyleProp)}
           className="react-swipeable-view-container"
         >
-          {React.Children.map(children, (child, indexChild) => {
-            if (renderOnlyActive && indexChild !== indexLatest) {
-              return null;
-            }
-
-            warning(
-              React.isValidElement(child),
-              `react-swipeable-view: one of the children provided is invalid: ${child}.
-We are expecting a valid React Element`,
-            );
-
-            let ref;
-            let hidden = true;
-
-            if (indexChild === indexLatest) {
-              hidden = false;
-
-              if (animateHeight) {
-                ref = this.setActiveSlide;
-                slideStyle.overflowY = 'hidden';
+          {React.Children.toArray(children)
+            .filter(Boolean)
+            .map((child, indexChild) => {
+              if (renderOnlyActive && indexChild !== indexLatest) {
+                return null;
               }
-            }
 
-            return (
-              <div
-                ref={ref}
-                style={slideStyle}
-                className={slideClassName}
-                aria-hidden={hidden}
-                data-swipeable="true"
-              >
-                {child}
-              </div>
-            );
-          })}
+              warning(
+                React.isValidElement(child),
+                `react-swipeable-view: one of the children provided is invalid: ${child}.
+We are expecting a valid React Element`,
+              );
+
+              let ref;
+              let hidden = true;
+
+              if (indexChild === indexLatest) {
+                hidden = false;
+
+                if (animateHeight) {
+                  ref = this.setActiveSlide;
+                  slideStyle.overflowY = 'hidden';
+                }
+              }
+
+              return (
+                <div
+                  ref={ref}
+                  style={slideStyle}
+                  className={slideClassName}
+                  aria-hidden={hidden}
+                  data-swipeable="true"
+                >
+                  {child}
+                </div>
+              );
+            })}
         </div>
       </div>
     );

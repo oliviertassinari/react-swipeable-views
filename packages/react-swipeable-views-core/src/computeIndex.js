@@ -4,7 +4,7 @@ import constant from './constant';
 export default function computeIndex(params) {
   const { children, startIndex, startX, pageX, viewLength, resistance } = params;
 
-  const indexMax = React.Children.count(children) - 1;
+  const indexMax = React.Children.toArray(children).filter(Boolean).length - 1;
   let index = startIndex + (startX - pageX) / viewLength;
   let newStartX;
 

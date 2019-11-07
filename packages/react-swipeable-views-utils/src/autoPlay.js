@@ -66,7 +66,10 @@ export default function autoPlay(MyComponent) {
       }
 
       if (slideCount || children) {
-        indexNew = mod(indexNew, slideCount || React.Children.count(children));
+        indexNew = mod(
+          indexNew,
+          slideCount || React.Children.toArray(children).filter(Boolean).length,
+        );
       }
 
       // Is uncontrolled

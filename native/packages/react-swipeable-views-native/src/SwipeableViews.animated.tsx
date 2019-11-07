@@ -297,7 +297,7 @@ class SwipeableViews extends React.Component<Props, State> {
       indexNew = indexLatest;
     }
 
-    const indexMax = React.Children.count(children) - 1;
+    const indexMax = React.Children.toArray(children).filter(Boolean).length - 1;
 
     if (indexNew < 0) {
       indexNew = 0;
@@ -366,7 +366,7 @@ class SwipeableViews extends React.Component<Props, State> {
 
     const slideStyleObj = [styles.slide, slideStyle];
 
-    const childrenToRender = React.Children.map(children, child => {
+    const childrenToRender = React.Children.toArray(children).filter(Boolean).map(child => {
       if (!React.isValidElement(child)) {
         console.warn(`react-swipeable-view-native: one of the children provided is invalid: ${child}. We are expecting a valid React Element.`)
       }
@@ -377,7 +377,7 @@ class SwipeableViews extends React.Component<Props, State> {
     const sceneContainerStyle = [
       styles.container,
       {
-        width: viewLength * React.Children.count(children),
+        width: viewLength * React.Children.toArray(children).filter(Boolean).length,
         transform: [
           {
             translateX: indexCurrent.interpolate({
