@@ -325,6 +325,15 @@ class SwipeableViews extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    // If animateHeight is on
+    // and has changed children, readjust height
+    const { animateHeight, children } = this.props;
+    if (animateHeight === true && prevProps.children !== children) {
+      this.updateHeight();
+    }
+  }
+
   componentWillUnmount() {
     this.transitionListener.remove();
     this.touchMoveListener.remove();
