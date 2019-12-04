@@ -437,7 +437,7 @@ class SwipeableViews extends React.Component {
       }
 
       // We are likely to be swiping, let's prevent the scroll event.
-      if (dx > dy) {
+      if (dx > dy && event.cancelable) {
         event.preventDefault();
       }
 
@@ -454,7 +454,9 @@ class SwipeableViews extends React.Component {
     }
 
     // We are swiping, let's prevent the scroll event.
-    event.preventDefault();
+    if (event.cancelable) {
+      event.preventDefault();
+    }
 
     // Low Pass filter.
     this.vx = this.vx * 0.5 + (touch.pageX - this.lastX) * 0.5;
