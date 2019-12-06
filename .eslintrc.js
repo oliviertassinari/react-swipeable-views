@@ -99,5 +99,6 @@ module.exports = {
     'jsx-a11y/no-autofocus': 'off', // We are a library, people do what they want.
 
     'prettier/prettier': ['error'],
+    camelcase: ['error', { allow: ['^UNSAFE_'] }],
   },
 };

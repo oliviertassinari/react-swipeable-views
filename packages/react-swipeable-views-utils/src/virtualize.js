@@ -22,19 +22,6 @@ export default function virtualize(MyComponent) {
      */
     state = {};
 
-    componentWillMount() {
-      this.setWindow(this.state.index);
-    }
-
-    componentWillReceiveProps(nextProps) {
-      const { index } = nextProps;
-
-      if (typeof index === 'number' && index !== this.props.index) {
-        const indexDiff = index - this.props.index;
-        this.setIndex(index, this.state.indexContainer + indexDiff, indexDiff);
-      }
-    }
-
     componentWillUnmount() {
       clearInterval(this.timer);
     }
@@ -124,6 +111,19 @@ export default function virtualize(MyComponent) {
         this.props.onTransitionEnd();
       }
     };
+
+    UNSAFE_componentWillMount() {
+      this.setWindow(this.state.index);
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+      const { index } = nextProps;
+
+      if (typeof index === 'number' && index !== this.props.index) {
+        const indexDiff = index - this.props.index;
+        this.setIndex(index, this.state.indexContainer + indexDiff, indexDiff);
+      }
+    }
 
     render() {
       const {
