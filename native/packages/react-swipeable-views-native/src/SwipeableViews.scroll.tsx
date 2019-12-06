@@ -171,8 +171,8 @@ class SwipeableViews extends React.Component<Props, State> {
   };
 
   handleMomentumScrollEnd = event => {
-    const indexNew = event.nativeEvent.contentOffset.x / this.state.viewWidth;
-    const indexLatest = this.state.indexLatest;
+    const indexNew = Math.round(event.nativeEvent.contentOffset.x / this.state.viewWidth);
+    const indexLatest = Math.round(this.state.indexLatest);
 
     this.setState(
       {
