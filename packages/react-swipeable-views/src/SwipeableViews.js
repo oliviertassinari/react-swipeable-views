@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import warning from 'warning';
 import transitionInfo from 'dom-helpers/transition/properties';
-import addEventListener from 'dom-helpers/events/on';
-import removeEventListener from 'dom-helpers/events/off';
+import addEventListener from 'dom-helpers/addEventListener';
+import removeEventListener from 'dom-helpers/removeEventListener';
 import {
   constant,
   checkIndexBounds,
