@@ -221,6 +221,8 @@ class SwipeableViews extends React.Component {
 
   startIndex = 0;
 
+  resizeListener = null;
+
   transitionListener = null;
 
   touchMoveListener = null;
@@ -263,6 +265,15 @@ class SwipeableViews extends React.Component {
   }
 
   componentDidMount() {
+    // Subscribe to resize events and update height if animateHeight param is set.
+    this.resizeListener = addEventListenerEnhanced(window, 'resize', () => {
+      if (!this.props.animateHeight) {
+        return;
+      }
+
+      this.updateHeight();
+    });
+
     // Subscribe to transition end events.
     this.transitionListener = addEventListenerEnhanced(
       this.containerNode,
@@ -326,15 +337,17 @@ class SwipeableViews extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    // If animateHeight is on
+    // If animateHeight or adjustHeight is on
     // and has changed children, readjust height
-    const { animateHeight, children } = this.props;
-    if (animateHeight === true && prevProps.children !== children) {
+    const { animateHeight, children, adjustHeight } = this.props;
+    const animate = animateHeight === true || adjustHeight === true;
+    if (animate && prevProps.children !== children) {
       this.updateHeight();
     }
   }
 
   componentWillUnmount() {
+    this.resizeListener.remove();
     this.transitionListener.remove();
     this.touchMoveListener.remove();
     clearTimeout(this.firstRenderTimeout);
@@ -704,6 +717,7 @@ class SwipeableViews extends React.Component {
   render() {
     const {
       action,
+      adjustHeight,
       animateHeight,
       animateTransitions,
       axis,
@@ -771,7 +785,7 @@ So animateHeight is most likely having no effect at all.`,
       transition = createTransition('transform', springConfig);
       WebkitTransition = createTransition('-webkit-transform', springConfig);
 
-      if (heightLatest !== 0) {
+      if (heightLatest !== 0 && animateHeight) {
         const additionalTranstion = `, ${createTransition('height', springConfig)}`;
         transition += additionalTranstion;
         WebkitTransition += additionalTranstion;
@@ -793,7 +807,7 @@ So animateHeight is most likely having no effect at all.`,
       containerStyle.transform = transform;
     }
 
-    if (animateHeight) {
+    if (animateHeight || adjustHeight) {
       containerStyle.height = heightLatest;
     }
 
@@ -828,7 +842,7 @@ We are expecting a valid React Element`,
             if (indexChild === indexLatest) {
               hidden = false;
 
-              if (animateHeight) {
+              if (animateHeight || adjustHeight) {
                 ref = this.setActiveSlide;
                 slideStyle.overflowY = 'hidden';
               }
@@ -867,6 +881,11 @@ SwipeableViews.propTypes = {
    * that can be triggered programmatically.
    */
   action: PropTypes.func,
+  /**
+   * If `true`, the height of the container will be adjusted to match the current slide height.
+   * Does not animate.
+   */
+  adjustHeight: PropTypes.bool,
   /**
    * If `true`, the height of the container will be animated to match the current slide height.
    * Animating another style property has a negative impact regarding performance.
@@ -1013,6 +1032,7 @@ SwipeableViews.propTypes = {
 };
 
 SwipeableViews.defaultProps = {
+  adjustHeight: false,
   animateHeight: false,
   animateTransitions: true,
   axis: 'x',
