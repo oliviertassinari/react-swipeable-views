@@ -36,7 +36,12 @@ module.exports = {
       },
     ],
     '@babel/plugin-transform-object-assign',
-    '@babel/plugin-transform-runtime',
+    [
+      '@babel/plugin-transform-runtime',
+      {
+        version: '^7.0.0',
+      },
+    ],
   ],
   env: {
     coverage: {
