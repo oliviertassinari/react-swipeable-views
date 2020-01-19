@@ -20,16 +20,6 @@ export default function autoPlay(MyComponent) {
       this.startInterval();
     }
 
-    componentWillReceiveProps(nextProps) {
-      const { index } = nextProps;
-
-      if (typeof index === 'number' && index !== this.props.index) {
-        this.setState({
-          index,
-        });
-      }
-    }
-
     componentDidUpdate(prevProps) {
       const shouldResetInterval = !shallowEqual(
         {
@@ -114,6 +104,16 @@ export default function autoPlay(MyComponent) {
         this.startInterval();
       }
     };
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+      const { index } = nextProps;
+
+      if (typeof index === 'number' && index !== this.props.index) {
+        this.setState({
+          index,
+        });
+      }
+    }
 
     startInterval() {
       const { autoplay, interval } = this.props;

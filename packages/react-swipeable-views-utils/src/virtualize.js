@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { mod } from 'react-swipeable-views-core';
 
 export default function virtualize(MyComponent) {
-  class Virtualize extends PureComponent {
+  class Virtualize extends React.Component {
     timer = null;
 
     constructor(props) {
@@ -21,19 +21,6 @@ export default function virtualize(MyComponent) {
      *  -2    -1   0    1    2    3    4    5
      */
     state = {};
-
-    componentWillMount() {
-      this.setWindow(this.state.index);
-    }
-
-    componentWillReceiveProps(nextProps) {
-      const { index } = nextProps;
-
-      if (typeof index === 'number' && index !== this.props.index) {
-        const indexDiff = index - this.props.index;
-        this.setIndex(index, this.state.indexContainer + indexDiff, indexDiff);
-      }
-    }
 
     componentWillUnmount() {
       clearInterval(this.timer);
@@ -124,6 +111,19 @@ export default function virtualize(MyComponent) {
         this.props.onTransitionEnd();
       }
     };
+
+    UNSAFE_componentWillMount() {
+      this.setWindow(this.state.index);
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+      const { index } = nextProps;
+
+      if (typeof index === 'number' && index !== this.props.index) {
+        const indexDiff = index - this.props.index;
+        this.setIndex(index, this.state.indexContainer + indexDiff, indexDiff);
+      }
+    }
 
     render() {
       const {

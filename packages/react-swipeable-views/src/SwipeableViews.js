@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import warning from 'warning';
 import transitionInfo from 'dom-helpers/transition/properties';
-import addEventListener from 'dom-helpers/events/on';
-import removeEventListener from 'dom-helpers/events/off';
+import addEventListener from 'dom-helpers/addEventListener';
+import removeEventListener from 'dom-helpers/removeEventListener';
 import {
   constant,
   checkIndexBounds,
@@ -221,6 +221,8 @@ class SwipeableViews extends React.Component {
 
   startIndex = 0;
 
+  resizeListener = null;
+
   transitionListener = null;
 
   touchMoveListener = null;
@@ -264,6 +266,15 @@ class SwipeableViews extends React.Component {
   }
 
   componentDidMount() {
+    // Subscribe to resize events and update height if animateHeight param is set.
+    this.resizeListener = addEventListenerEnhanced(window, 'resize', () => {
+      if (!this.props.animateHeight) {
+        return;
+      }
+
+      this.updateHeight();
+    });
+
     // Subscribe to transition end events.
     this.transitionListener = addEventListenerEnhanced(
       this.containerNode,
@@ -310,6 +321,7 @@ class SwipeableViews extends React.Component {
   }
 
   componentWillUnmount() {
+    this.resizeListener.remove();
     this.transitionListener.remove();
     this.touchMoveListener.remove();
     clearTimeout(this.firstRenderTimeout);
@@ -327,6 +339,8 @@ class SwipeableViews extends React.Component {
       const transform = axisProperties.transform[axis](indexCurrent * 100);
       this.containerNode.style.WebkitTransform = transform;
       this.containerNode.style.transform = transform;
+      // Prevent animation jumping before DOM is updated
+      this.containerNode.style.transition = 'all 0s ease 0s';
     }
   }
 
@@ -374,7 +388,11 @@ class SwipeableViews extends React.Component {
 
     const touch = applyRotationMatrix(event.touches[0], axis);
 
-    this.viewLength = this.rootNode.getBoundingClientRect()[axisProperties.length[axis]];
+    const rootStyle = window.getComputedStyle(this.rootNode);
+    this.viewLength =
+      this.rootNode.getBoundingClientRect()[axisProperties.length[axis]] -
+      parseInt(rootStyle.paddingLeft, 10) -
+      parseInt(rootStyle.paddingRight, 10);
     this.startX = touch.pageX;
     this.lastX = touch.pageX;
     this.vx = 0;
@@ -392,7 +410,6 @@ class SwipeableViews extends React.Component {
         .split('(')[1]
         .split(')')[0]
         .split(',');
-      const rootStyle = window.getComputedStyle(this.rootNode);
 
       const tranformNormalized = applyRotationMatrix(
         {
@@ -402,11 +419,7 @@ class SwipeableViews extends React.Component {
         axis,
       );
 
-      this.startIndex =
-        -tranformNormalized.pageX /
-          (this.viewLength -
-            parseInt(rootStyle.paddingLeft, 10) -
-            parseInt(rootStyle.paddingRight, 10)) || 0;
+      this.startIndex = -tranformNormalized.pageX / this.viewLength || 0;
     }
   };
 
@@ -446,7 +459,7 @@ class SwipeableViews extends React.Component {
       }
 
       // We are likely to be swiping, let's prevent the scroll event.
-      if (dx > dy) {
+      if (dx > dy && event.cancelable) {
         event.preventDefault();
       }
 
@@ -463,7 +476,9 @@ class SwipeableViews extends React.Component {
     }
 
     // We are swiping, let's prevent the scroll event.
-    event.preventDefault();
+    if (event.cancelable) {
+      event.preventDefault();
+    }
 
     // Low Pass filter.
     this.vx = this.vx * 0.5 + (touch.pageX - this.lastX) * 0.5;
@@ -592,7 +607,10 @@ class SwipeableViews extends React.Component {
 
   handleTouchStart = event => {
     if (this.props.onTouchStart) {
-      this.props.onTouchStart(event);
+      const shouldReturn = this.props.onTouchStart(event);
+      if (shouldReturn) {
+        return;
+      }
     }
     this.handleSwipeStart(event);
   };
@@ -684,6 +702,23 @@ class SwipeableViews extends React.Component {
       }
     }
   };
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { index } = nextProps;
+
+    if (typeof index === 'number' && index !== this.props.index) {
+      if (process.env.NODE_ENV !== 'production') {
+        checkIndexBounds(nextProps);
+      }
+
+      this.setIndexCurrent(index);
+      this.setState({
+        // If true, we are going to change the children. We shoudn't animate it.
+        displaySameSlide: getDisplaySameSlide(this.props, nextProps),
+        indexLatest: index,
+      });
+    }
+  }
 
   handleTransitionEnd() {
     if (!this.props.onTransitionEnd) {
@@ -786,6 +821,11 @@ So animateHeight is most likely having no effect at all.`,
       WebkitTransition,
       transition,
     };
+
+    // Overwrite transition set directly to the ref in this.setIndexCurrent
+    if (this.containerNode) {
+      this.containerNode.style.transition = transition;
+    }
 
     // Apply the styles for SSR considerations
     if (!renderOnlyActive) {
