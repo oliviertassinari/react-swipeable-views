@@ -242,6 +242,7 @@ class SwipeableViews extends React.Component {
 
     this.state = {
       indexLatest: props.index,
+      childrenLatest: props.children,
       // Set to true as soon as the component is swiping.
       // It's the state counter part of this.isSwiping.
       isDragging: false,
@@ -319,32 +320,6 @@ class SwipeableViews extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { index } = nextProps;
-
-    if (typeof index === 'number' && index !== this.props.index) {
-      if (process.env.NODE_ENV !== 'production') {
-        checkIndexBounds(nextProps);
-      }
-
-      this.setIndexCurrent(index);
-      this.setState({
-        // If true, we are going to change the children. We shoudn't animate it.
-        displaySameSlide: getDisplaySameSlide(this.props, nextProps),
-        indexLatest: index,
-      });
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    // If animateHeight is on
-    // and has changed children, readjust height
-    const { animateHeight, children } = this.props;
-    if (animateHeight === true && prevProps.children !== children) {
-      this.updateHeight();
-    }
-  }
-
   componentWillUnmount() {
     this.resizeListener.remove();
     this.transitionListener.remove();
@@ -381,6 +356,32 @@ class SwipeableViews extends React.Component {
     this.activeSlide = node;
     this.updateHeight();
   };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { index, children } = nextProps;
+
+    if (typeof index === 'number' && index !== prevState.indexLatest) {
+      if (process.env.NODE_ENV !== 'production') {
+        checkIndexBounds(nextProps);
+      }
+
+      // this.setIndexCurrent(index);
+      // this method heavily realies on having access to the class :/
+      const fakeProps = {
+        index: prevState.indexLatest,
+        children: prevState.childrenLatest,
+      };
+      return {
+        // If true, we are going to change the children. We shoudn't animate it.
+        displaySameSlide: getDisplaySameSlide(fakeProps, nextProps),
+        childrenLatest: children,
+        indexLatest: index,
+      };
+    }
+
+    // no change to the state
+    return null;
+  }
 
   handleSwipeStart = event => {
     const { axis } = this.props;
