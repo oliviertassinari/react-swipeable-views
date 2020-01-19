@@ -21,7 +21,7 @@
     "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
   },
   "dependencies": {
-    "@babel/runtime": "7.0.0",
+    "@babel/runtime": "^7.0.0",
     "dom-helpers": "^5.1.3",
     "prop-types": "^15.5.4",
     "react-swipeable-views-core": "^0.13.1",
