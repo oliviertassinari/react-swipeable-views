@@ -1,7 +1,7 @@
 {
   "name": "react-swipeable-views",
-  "version": "0.13.5",
-  "private": true,
+  "version": "0.13.6",
+  "private": false,
   "scripts": {
     "lint": "eslint . && echo \"eslint: no lint errors\"",
     "test": "echo \"ok\"",
@@ -112,6 +112,6 @@
     "test": "test"
   },
   "dependencies": {
-    "react-swipeable-views-core": "^0.13.4"
+    "react-swipeable-views-core": "^0.13.6"
   }
 }
