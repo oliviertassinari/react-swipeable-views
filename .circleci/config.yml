@@ -1,7 +1,7 @@
 defaults: &defaults
   working_directory: /tmp/react-swipeable-views
   docker:
-    - image: circleci/node:8
+    - image: circleci/node:10
 restore_repo: &restore_repo
   # The cache logic of CircleCI has been disabled for Security reasons.
   # We can no longer use it.
