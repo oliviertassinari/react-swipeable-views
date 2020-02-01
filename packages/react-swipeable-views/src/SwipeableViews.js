@@ -1,24 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import warning from 'warning';
-import transitionInfo from 'dom-helpers/transition/properties';
-import addEventListener from 'dom-helpers/events/on';
-import removeEventListener from 'dom-helpers/events/off';
+import transitionEnd from 'dom-helpers/transitionEnd';
+import listen from 'dom-helpers/listen';
 import {
   constant,
   checkIndexBounds,
   computeIndex,
   getDisplaySameSlide,
 } from 'react-swipeable-views-core';
-
-function addEventListenerEnhanced(node, event, handler, options) {
-  addEventListener(node, event, handler, options);
-  return {
-    remove() {
-      removeEventListener(node, event, handler, options);
-    },
-  };
-}
 
 const styles = {
   container: {
@@ -264,20 +254,15 @@ class SwipeableViews extends React.Component {
 
   componentDidMount() {
     // Subscribe to transition end events.
-    this.transitionListener = addEventListenerEnhanced(
-      this.containerNode,
-      transitionInfo.end,
-      event => {
-        if (event.target !== this.containerNode) {
-          return;
-        }
-
-        this.handleTransitionEnd();
-      },
-    );
+    this.transitionListener = transitionEnd(this.containerNode, event => {
+      if (event.target !== this.containerNode) {
+        return;
+      }
+      this.handleTransitionEnd();
+    });
 
     // Block the thread to handle that event.
-    this.touchMoveListener = addEventListenerEnhanced(
+    this.touchMoveListener = listen(
       this.rootNode,
       'touchmove',
       event => {
