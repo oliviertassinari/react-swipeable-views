@@ -1,7 +1,7 @@
 {
   "name": "react-swipeable-views",
   "version": "0.13.6",
-  "private": false,
+  "private": true,
   "scripts": {
     "lint": "eslint . && echo \"eslint: no lint errors\"",
     "test": "echo \"ok\"",
