@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
-    "dom-helpers": "^3.2.1",
     "prop-types": "^15.5.4",
     "react-swipeable-views-core": "^0.13.7",
     "react-swipeable-views-utils": "^0.13.7",
