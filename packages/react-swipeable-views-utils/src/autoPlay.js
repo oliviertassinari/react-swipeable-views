@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import shallowEqual from 'fbjs/lib/shallowEqual';
+import { shallowEqualObjects } from 'shallow-equal';
 import EventListener from 'react-event-listener';
 import { mod } from 'react-swipeable-views-core';
 
@@ -31,7 +31,7 @@ export default function autoPlay(MyComponent) {
     }
 
     componentDidUpdate(prevProps) {
-      const shouldResetInterval = !shallowEqual(
+      const shouldResetInterval = !shallowEqualObjects(
         {
           index: prevProps.index,
           interval: prevProps.interval,
