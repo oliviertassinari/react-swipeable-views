@@ -20,17 +20,13 @@ export default function autoPlay(MyComponent) {
       this.startInterval();
     }
 
-    componentWillReceiveProps(nextProps) {
-      const { index } = nextProps;
-
-      if (typeof index === 'number' && index !== this.props.index) {
-        this.setState({
-          index,
-        });
-      }
-    }
-
     componentDidUpdate(prevProps) {
+      const { index } = this.props;
+      if (typeof index === 'number' && prevProps.index !== index) {
+        // eslint-disable-next-line react/no-did-update-set-state
+        this.setState({ index });
+      }
+
       const shouldResetInterval = !shallowEqualObjects(
         {
           index: prevProps.index,
@@ -38,7 +34,7 @@ export default function autoPlay(MyComponent) {
           autoplay: prevProps.autoplay,
         },
         {
-          index: this.props.index,
+          index,
           interval: this.props.interval,
           autoplay: this.props.autoplay,
         },

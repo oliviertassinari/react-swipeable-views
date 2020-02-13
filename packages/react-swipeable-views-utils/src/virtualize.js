@@ -26,11 +26,11 @@ export default function virtualize(MyComponent) {
       this.setWindow(this.state.index);
     }
 
-    componentWillReceiveProps(nextProps) {
-      const { index } = nextProps;
+    componentDidUpdate(prevProps) {
+      const { index } = this.props;
 
-      if (typeof index === 'number' && index !== this.props.index) {
-        const indexDiff = index - this.props.index;
+      if (typeof index === 'number' && index !== prevProps.index) {
+        const indexDiff = index - prevProps.index;
         this.setIndex(index, this.state.indexContainer + indexDiff, indexDiff);
       }
     }

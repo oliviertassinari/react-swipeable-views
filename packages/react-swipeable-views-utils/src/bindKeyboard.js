@@ -37,10 +37,11 @@ export default function bindKeyboard(MyComponent) {
       });
     }
 
-    componentWillReceiveProps(nextProps) {
-      const { index } = nextProps;
+    componentDidUpdate(prevProps) {
+      const { index } = this.props;
 
-      if (typeof index === 'number' && index !== this.props.index) {
+      if (typeof index === 'number' && index !== prevProps.index) {
+        // eslint-disable-next-line react/no-did-update-set-state
         this.setState({
           index,
         });

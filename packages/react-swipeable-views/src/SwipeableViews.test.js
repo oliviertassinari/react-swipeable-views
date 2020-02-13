@@ -179,6 +179,10 @@ describe('SwipeableViews', () => {
         index: 1,
       });
 
+      // Added to solve an issue where enzyme doesn't trigger componentDidUpdate with setProps
+      // https://github.com/airbnb/enzyme/issues/34#issuecomment-515133794
+      wrapper.update();
+
       assert.include(
         wrapper
           .childAt(0)
