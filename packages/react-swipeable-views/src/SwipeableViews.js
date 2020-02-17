@@ -128,7 +128,7 @@ export function getDomTreeShapes(element, rootNode) {
 
   while (element && element !== rootNode) {
     // We reach a Swipeable View, no need to look higher in the dom tree.
-    if (element.hasAttribute('data-swipeable')) {
+    if (typeof element.hasAttribute !== 'function' || element.hasAttribute('data-swipeable')) {
       break;
     }
 
