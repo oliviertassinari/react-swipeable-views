@@ -15,6 +15,18 @@
 [![TypeScript definitions on DefinitelyTyped](https://img.shields.io/badge/style-.d.ts-green.svg?style=flat&label=DefinitelyTyped)](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-swipeable-views)
 [![Coverage Status](https://img.shields.io/codecov/c/github/oliviertassinari/react-swipeable-views/master.svg)](https://codecov.io/gh/oliviertassinari/react-swipeable-views/branch/master)
 
+## Documentation
+### Get started
+- [Installation](https://react-swipeable-views.com/getting-started/installation/)
+- [Usage](https://react-swipeable-views.com/getting-started/usage/)
+- [Example projects](https://react-swipeable-views.com/getting-started/example-projects/)
+- [Supported projects](https://react-swipeable-views.com/getting-started/example-projects/)
+### Component API
+- [Component API](https://react-swipeable-views.com/api/api/)
+### More
+- [Supported projects](https://react-swipeable-views.com/getting-started/example-projects/)
+- [Demos](https://react-swipeable-views.com/demos/demos/)
+
 ## Installation
 
 ### Browser
