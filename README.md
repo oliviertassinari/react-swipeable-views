@@ -146,6 +146,7 @@ export default MyComponent;
 ## Who's using react-swipeable-views?
 
 - [Doctolib](https://github.com/doctolib)
+- [Hakkiri](https://www.hakkiri.io)
 - [mastodon](https://github.com/tootsuite/mastodon)
 - [Material-UI](https://github.com/mui-org/material-ui)
 - [Tinder](https://tinder.com)
