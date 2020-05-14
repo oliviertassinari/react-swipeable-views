@@ -31,13 +31,13 @@ export default function bindKeyboard(MyComponent) {
 
     state = {};
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       this.setState({
         index: this.props.index || 0,
       });
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
       const { index } = nextProps;
 
       if (typeof index === 'number' && index !== this.props.index) {
