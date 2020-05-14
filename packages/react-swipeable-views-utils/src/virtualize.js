@@ -22,10 +22,12 @@ export default function virtualize(MyComponent) {
      */
     state = {};
 
+    // eslint-disable-next-line camelcase,react/sort-comp
     UNSAFE_componentWillMount() {
       this.setWindow(this.state.index);
     }
 
+    // eslint-disable-next-line camelcase,react/sort-comp
     UNSAFE_componentWillReceiveProps(nextProps) {
       const { index } = nextProps;
 

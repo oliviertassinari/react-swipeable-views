@@ -31,12 +31,14 @@ export default function bindKeyboard(MyComponent) {
 
     state = {};
 
+    // eslint-disable-next-line camelcase,react/sort-comp
     UNSAFE_componentWillMount() {
       this.setState({
         index: this.props.index || 0,
       });
     }
 
+    // eslint-disable-next-line camelcase,react/sort-comp
     UNSAFE_componentWillReceiveProps(nextProps) {
       const { index } = nextProps;
 
