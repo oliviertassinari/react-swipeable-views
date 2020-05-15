@@ -401,7 +401,7 @@ class SwipeableViews extends React.Component {
       return;
     }
 
-    // We are not supposed to hanlde this touch move.
+    // We are not supposed to handle this touch move.
     if (nodeWhoClaimedTheScroll !== null && nodeWhoClaimedTheScroll !== this.rootNode) {
       return;
     }
