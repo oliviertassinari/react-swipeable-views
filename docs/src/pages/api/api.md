@@ -12,6 +12,7 @@
 | axis | enum [`'x'`, `'x-reverse'`, `'y'`, `'y-reverse'`] | `'x'` | browser | The axis on which the slides will slide. |
 | children | node | | all | Use this property to provide your slides. |
 | containerStyle | object | `{}` | all | This is the inlined style that will be applied to each slide container. |
+| deltaRatio | double | `1` | all | Ranges within `0` to `1`. This is the delta ratio for counter axis to current axis, which depends on current axis, whether `'x'` or `'y'`. |
 | disabled | bool | `false` | all | If `true`, it will disable touch events. This is useful when you want to prohibit the user from changing slides. |
 | disableLazyLoading | bool | false | browser | This is the config used to disable lazy loading, if `true` it will render all the views in first rendering. |
 | enableMouseEvents | bool | `false` | browser | If `true`, it will enable mouse events. This will allow the user to perform the relevant swipe actions with a mouse. |

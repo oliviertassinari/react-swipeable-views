@@ -406,7 +406,7 @@ class SwipeableViews extends React.Component {
       return;
     }
 
-    const { axis, children, ignoreNativeScroll, onSwitching, resistance } = this.props;
+    const { axis, children, ignoreNativeScroll, onSwitching, resistance, deltaRatio } = this.props;
     const touch = applyRotationMatrix(event.touches[0], axis);
 
     // We don't know yet.
@@ -414,7 +414,9 @@ class SwipeableViews extends React.Component {
       const dx = Math.abs(touch.pageX - this.startX);
       const dy = Math.abs(touch.pageY - this.startY);
 
-      const isSwiping = dx > dy && dx > constant.UNCERTAINTY_THRESHOLD;
+      const currentDeltaRatio = dy / dx;
+      const isSwiping =
+        dx > dy && dx > constant.UNCERTAINTY_THRESHOLD && currentDeltaRatio <= deltaRatio;
 
       // We let the parent handle the scroll.
       if (
@@ -708,6 +710,7 @@ class SwipeableViews extends React.Component {
       springConfig,
       style,
       threshold,
+      deltaRatio,
       ...other
     } = this.props;
 
@@ -836,6 +839,21 @@ We are expecting a valid React Element`,
   }
 }
 
+const validateDeltaRatio = (props, propName, componentName) => {
+  const deltaRatio = props[propName];
+  if (typeof deltaRatio !== 'number') {
+    return new Error(
+      `Invalid prop ${propName} supplied to ${componentName}. ${propName} must be a number.`,
+    );
+  }
+  if (deltaRatio < 0 || deltaRatio > 1) {
+    return new Error(
+      `Invalid prop ${propName} supplied to ${componentName}. ${propName} must be within 0 to 1`,
+    );
+  }
+  return null;
+};
+
 // Added as an ads for people using the React dev tools in production.
 // So they know, the tool used to build the awesome UI they
 // are looking at/retro engineering.
@@ -877,6 +895,12 @@ SwipeableViews.propTypes = {
    * If `true`, it will disable touch events.
    * This is useful when you want to prohibit the user from changing slides.
    */
+  /**
+   * Ranges within `0` to `1`.
+   * This is the delta ratio for counter axis to current axis,
+   * which depends on current axis, whether 'x' or 'y'.
+   * */
+  deltaRatio: validateDeltaRatio,
   disabled: PropTypes.bool,
   /**
    * This is the config used to disable lazyloding,
@@ -1013,6 +1037,7 @@ SwipeableViews.defaultProps = {
     delay: '0s',
   },
   resistance: false,
+  deltaRatio: 1,
 };
 
 SwipeableViews.childContextTypes = {
