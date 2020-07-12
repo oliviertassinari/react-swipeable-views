@@ -19,6 +19,7 @@ export interface SpringConfig {
 export interface SwipeableViewsProps extends React.HTMLProps<HTMLDivElement> {
   animateHeight?: boolean;
   animateTransitions?: boolean;
+  action?: (hooks: SwipeableViewsHooks) => void;
   axis?: AxisType;
   containerStyle?: React.CSSProperties;
   disabled?: boolean;
