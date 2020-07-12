@@ -20,7 +20,8 @@
     "prop-types": "^15.6.0",
     "react-event-listener": "^0.6.0",
     "react-swipeable-views-core": "^0.13.7",
-    "shallow-equal": "^1.2.1"
+    "shallow-equal": "^1.2.1",
+    "@material-ui/types": "^4.0.0"
   },
   "devDependencies": {
     "pkgfiles": "^2.3.2"
