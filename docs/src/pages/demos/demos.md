@@ -32,7 +32,7 @@ The container responds dynamically to its children.
 
 With a resistance bounds effet on the edges.
 
-{{"demo": "pages/demos/DemoResitance.js"}}
+{{"demo": "pages/demos/DemoResistance.js"}}
 
 ## Nested
 

@@ -4,8 +4,8 @@ import SwipeableViews from '../../packages/react-swipeable-views-native/src';
 import { Headline } from 'react-native-paper';
 import styles from '../styles';
 
-class DemoResitance extends React.Component<{}> {
-  static title = "Resitance";
+class DemoResistance extends React.Component<{}> {
+  static title = "Resistance";
   static description = "With a resistance bounds effet on the edges";
 
   render() {
@@ -25,4 +25,4 @@ class DemoResitance extends React.Component<{}> {
   }
 }
 
-export default DemoResitance;
+export default DemoResistance;

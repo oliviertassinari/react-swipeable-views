@@ -1,13 +1,13 @@
 import 'react-native';
 import * as React from 'react';
-import Resitance from './Resitance';
+import Resistance from './Resistance';
 import * as renderer from 'react-test-renderer';
 
-describe('Resitance snapshot', () => {
+describe('Resistance snapshot', () => {
   jest.useFakeTimers();
 
   it('renders the root', async () => {
-    const tree = renderer.create(<Resitance />).toJSON();
+    const tree = renderer.create(<Resistance />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

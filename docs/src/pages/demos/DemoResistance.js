@@ -18,7 +18,7 @@ const styles = {
   },
 };
 
-function DemoResitance() {
+function DemoResistance() {
   return (
     <SwipeableViews resistance>
       <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
@@ -28,4 +28,4 @@ function DemoResitance() {
   );
 }
 
-export default DemoResitance;
+export default DemoResistance;

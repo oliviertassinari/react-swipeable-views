@@ -36,11 +36,11 @@ module.exports = require('fs')
   .readFileSync(require.resolve('docs/src/pages/demos/DemoAnimateHeight'), 'utf8')
 `,
         },
-        'pages/demos/DemoResitance.js': {
-          js: require('docs/src/pages/demos/DemoResitance').default,
+        'pages/demos/DemoResistance.js': {
+          js: require('docs/src/pages/demos/DemoResistance').default,
           raw: preval`
 module.exports = require('fs')
-  .readFileSync(require.resolve('docs/src/pages/demos/DemoResitance'), 'utf8')
+  .readFileSync(require.resolve('docs/src/pages/demos/DemoResistance'), 'utf8')
 `,
         },
         'pages/demos/DemoNested.js': {
