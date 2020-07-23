@@ -179,7 +179,9 @@ export function findNativeHandler(params) {
       goingForward = !goingForward;
     }
 
-    const scrollPosition = shape[axisProperties.scrollPosition[axis]];
+    // scrollTop is not always be an integer.
+    // https://github.com/jquery/api.jquery.com/issues/608
+    const scrollPosition = Math.round(shape[axisProperties.scrollPosition[axis]]);
 
     const areNotAtStart = scrollPosition > 0;
     const areNotAtEnd =
