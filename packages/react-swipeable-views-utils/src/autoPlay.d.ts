@@ -1,4 +1,5 @@
 import { OnChangeIndexCallback, OnSwitchingCallback } from 'react-swipeable-views';
+import { PropInjector } from '@material-ui/types';
 
 export interface WithAutoPlay {
   index: number;

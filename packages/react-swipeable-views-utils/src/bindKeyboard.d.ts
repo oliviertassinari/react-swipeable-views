@@ -1,3 +1,4 @@
+import { PropInjector } from '@material-ui/types';
 import { OnChangeIndexCallback } from 'react-swipeable-views';
 
 export interface WithBindKeyboard {
