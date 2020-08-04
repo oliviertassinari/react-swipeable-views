@@ -11,7 +11,7 @@
     "access": "restricted",
     "registry": "https://npm.pkg.github.com/"
   },
-  "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
+  "author": "gaudiy",
   "repository": {
     "type": "git",
     "url": "https://github.com/gaudiy/react-swipeable-views.git"
