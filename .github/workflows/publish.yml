@@ -24,7 +24,7 @@ jobs:
       - name: install
         run: yarn install
       - name: build
-        run: npm run build
+        run: yarn pre-publish
       # まだpublishされていないバージョンならpublishする
       - name: publish
         run: |
