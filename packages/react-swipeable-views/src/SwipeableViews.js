@@ -222,6 +222,10 @@ class SwipeableViews extends React.Component {
 
   touchMoveListener = null;
 
+  touchStartListener = null;
+
+  touchEndListener = null;
+
   activeSlide = null;
 
   indexCurrent = null;
@@ -271,7 +275,7 @@ class SwipeableViews extends React.Component {
 
     // Block the thread to handle that event.
     this.touchMoveListener = addEventListener(
-      this.rootNode,
+      this.props.listner === 'document' ? document : this.rootNode,
       'touchmove',
       event => {
         // Handling touch events is disabled.
@@ -279,6 +283,37 @@ class SwipeableViews extends React.Component {
           return;
         }
         this.handleSwipeMove(event);
+      },
+      {
+        passive: false,
+      },
+    );
+
+    // Block the thread to handle that event.
+    this.touchStartListener = addEventListener(
+      this.props.listner === 'document' ? document : this.rootNode,
+      'touchstart',
+      event => {
+        // Handling touch events is disabled.
+        if (this.props.disabled) {
+          return;
+        }
+        this.handleTouchStart(event);
+      },
+      {
+        passive: false,
+      },
+    );
+
+    this.touchEndListener = addEventListener(
+      this.props.listner === 'document' ? document : this.rootNode,
+      'touchend',
+      event => {
+        // Handling touch events is disabled.
+        if (this.props.disabled) {
+          return;
+        }
+        this.handleTouchEnd(event);
       },
       {
         passive: false,
@@ -321,6 +356,8 @@ class SwipeableViews extends React.Component {
   componentWillUnmount() {
     this.transitionListener.remove();
     this.touchMoveListener.remove();
+    this.touchStartListener.remove();
+    this.touchEndListener.remove();
     clearTimeout(this.firstRenderTimeout);
   }
 
@@ -718,12 +755,7 @@ class SwipeableViews extends React.Component {
       isDragging,
       renderOnlyActive,
     } = this.state;
-    const touchEvents = !disabled
-      ? {
-          onTouchStart: this.handleTouchStart,
-          onTouchEnd: this.handleTouchEnd,
-        }
-      : {};
+
     const mouseEvents =
       !disabled && enableMouseEvents
         ? {
@@ -786,7 +818,6 @@ So animateHeight is most likely having no effect at all.`,
         ref={this.setRootNode}
         style={Object.assign({}, axisProperties.root[axis], style)}
         {...other}
-        {...touchEvents}
         {...mouseEvents}
         onScroll={this.handleScroll}
       >
@@ -905,6 +936,10 @@ SwipeableViews.propTypes = {
    */
   index: PropTypes.number,
   /**
+   * The axis on which the slides will slide.
+   */
+  listner: PropTypes.oneOf(['root', 'document']),
+  /**
    * This is callback prop. It's call by the
    * component when the shown slide change after a swipe made by the user.
    * This is useful when you have tabs linked to each slide.
@@ -1013,6 +1048,7 @@ SwipeableViews.defaultProps = {
     delay: '0s',
   },
   resistance: false,
+  listner: 'root',
 };
 
 SwipeableViews.childContextTypes = {
