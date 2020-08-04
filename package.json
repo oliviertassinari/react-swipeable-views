@@ -3,41 +3,52 @@
   "version": "0.0.1",
   "description": "A React component for swipeable views",
   "main": "lib/index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "publishConfig": {
     "access": "restricted",
     "registry": "https://npm.pkg.github.com/"
   },
+  "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gaudiy/react-swipeable-views.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gaudiy/react-swipeable-views/issues"
+  },
   "scripts": {
     "prepublish": "pkgfiles",
-    "build": "babel --config-file ./babel.config.js src --out-dir lib --ignore test.js",
+    "build": "NODE_ENV=production babel --config-file ./babel.config.js src --out-dir lib --ignore **/*.test.js",
     "build:copy-files": "node ./scripts/copy-files.js",
     "pre-publish": "rm -rf packages/*/lib && yarn build && yarn build:copy-files",
     "lint": "eslint . && echo \"eslint: no lint errors\"",
     "prettier": "find . -name \"*.js\" | grep -v -f .eslintignore | xargs prettier --write --single-quote --trailing-comma all --print-width 100"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gaudiy/react-swipeable-views.git"
-  },
-  "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
-  "bugs": {
-    "url": "https://github.com/gaudiy/react-swipeable-views/issues"
-  },
   "dependencies": {
     "@babel/runtime": "7.0.0",
     "prop-types": "^15.5.4",
-    "react-swipeable-views-core": "^0.13.7",
-    "react-swipeable-views-utils": "^0.13.9",
-    "warning": "^4.0.1"
+    "react-swipeable-views-core": "^0.13.7"
   },
   "peerDependencies": {
     "react": "^15.3.0 || ^16.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.0",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
+    "@babel/plugin-transform-object-assign": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "babel-plugin-react-remove-properties": "^0.3.0",
+    "babel-plugin-transform-dev-warning": "^0.1.1",
+    "babel-plugin-transform-react-constant-elements": "^6.23.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "fs-extra": "^9.0.1",
     "pkgfiles": "^2.3.2"
-  },
-  "license": "MIT",
-  "engines": {
-    "node": ">=6.0.0"
   }
 }

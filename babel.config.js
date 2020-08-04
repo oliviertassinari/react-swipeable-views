@@ -85,23 +85,5 @@ module.exports = {
         ],
       ],
     },
-    test: {
-      sourceMaps: 'both',
-      plugins: [
-        [
-          'babel-plugin-module-resolver',
-          {
-            root: ['./'],
-            alias: {
-              'react-swipeable-views': './packages/react-swipeable-views/src',
-              'react-swipeable-views-core': './packages/react-swipeable-views-core/src',
-              'react-swipeable-views-utils': './packages/react-swipeable-views-utils/src',
-              docs: './docs',
-              pages: './pages',
-            },
-          },
-        ],
-      ],
-    },
   },
 };
