@@ -6,14 +6,12 @@ forked from https://github.com/oliviertassinari/react-swipeable-views
 
 ## Installation
 
-### Browser
-
 ```sh
 npm install @gaudiy/react-swipeable-views
 ```
 
 ```sh
-npm add @gaudiy/react-swipeable-views
+yarn add @gaudiy/react-swipeable-views
 ```
 
 ## License
