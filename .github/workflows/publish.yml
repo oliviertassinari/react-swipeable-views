@@ -1,0 +1,41 @@
+name: publish
+env:
+  CI: true
+# masterブランチにpushした時のみ実行するワークフロー
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - "!*"
+
+jobs:
+  release:
+    name: Setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v1
+      - name: setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          registry-url: 'https://npm.pkg.github.com'
+      - name: install
+        run: yarn install
+      - name: build
+        run: npm run build
+      # まだpublishされていないバージョンならpublishする
+      - name: publish
+        run: |
+          npx can-npm-publish --verbose && yarn publish || echo "Does not publish"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # まだtagがないバージョンなら、Git Tagをpushする
+      - name: package-version-to-git-tag
+        uses: pkgdeps/action-package-version-to-git-tag@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_repo: ${{ github.repository }}
+          git_commit_sha: ${{ github.sha }}
+          git_tag_prefix: "v"

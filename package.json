@@ -1,26 +1,26 @@
 {
-  "name": "react-swipeable-views",
-  "version": "0.13.9",
+  "name": "@gaudiy/react-swipeable-views",
+  "version": "0.0.1",
   "description": "A React component for swipeable views",
-  "main": "src/index.js",
+  "main": "lib/index.js",
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "prepublish": "pkgfiles",
     "build": "babel --config-file ./babel.config.js src --out-dir lib --ignore test.js",
+    "build:copy-files": "node ./scripts/copy-files.js",
+    "pre-publish": "rm -rf packages/*/lib && yarn build && yarn build:copy-files",
     "prettier": "find . -name \"*.js\" | grep -v -f .eslintignore | xargs prettier --write --single-quote --trailing-comma all --print-width 100"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oliviertassinari/react-swipeable-views.git"
+    "url": "https://github.com/gaudiy/react-swipeable-views.git"
   },
-  "keywords": [
-    "react",
-    "component",
-    "swipe",
-    "swipeable"
-  ],
   "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
   "bugs": {
-    "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
+    "url": "https://github.com/gaudiy/react-swipeable-views/issues"
   },
   "dependencies": {
     "@babel/runtime": "7.0.0",
