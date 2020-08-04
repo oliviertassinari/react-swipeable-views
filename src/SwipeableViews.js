@@ -128,20 +128,11 @@ export function getDomTreeShapes(element, rootNode) {
 
   while (element && element !== rootNode) {
     // We reach a Swipeable View, no need to look higher in the dom tree.
-    if (element.hasAttribute('data-swipeable')) {
+    if (element.hasAttribute && element.hasAttribute('data-swipeable')) {
       break;
     }
 
-    const style = window.getComputedStyle(element);
-
     if (
-      // Ignore the scroll children if the element is absolute positioned.
-      style.getPropertyValue('position') === 'absolute' ||
-      // Ignore the scroll children if the element has an overflowX hidden
-      style.getPropertyValue('overflow-x') === 'hidden'
-    ) {
-      domTreeShapes = [];
-    } else if (
       (element.clientWidth > 0 && element.scrollWidth > element.clientWidth) ||
       (element.clientHeight > 0 && element.scrollHeight > element.clientHeight)
     ) {
@@ -424,9 +415,9 @@ class SwipeableViews extends React.Component {
 
       this.startIndex =
         -tranformNormalized.pageX /
-          (this.viewLength -
-            parseInt(rootStyle.paddingLeft, 10) -
-            parseInt(rootStyle.paddingRight, 10)) || 0;
+        (this.viewLength -
+          parseInt(rootStyle.paddingLeft, 10) -
+          parseInt(rootStyle.paddingRight, 10)) || 0;
     }
   };
 
@@ -759,11 +750,11 @@ class SwipeableViews extends React.Component {
     const mouseEvents =
       !disabled && enableMouseEvents
         ? {
-            onMouseDown: this.handleMouseDown,
-            onMouseUp: this.handleMouseUp,
-            onMouseLeave: this.handleMouseLeave,
-            onMouseMove: this.handleMouseMove,
-          }
+          onMouseDown: this.handleMouseDown,
+          onMouseUp: this.handleMouseUp,
+          onMouseLeave: this.handleMouseLeave,
+          onMouseMove: this.handleMouseMove,
+        }
         : {};
 
     // There is no point to animate if we are already providing a height.

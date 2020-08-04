@@ -24,7 +24,7 @@ jobs:
       - name: install
         run: yarn install
       - name: build
-        run: yarn pre-publish
+        run: yarn prepublish
       # まだpublishされていないバージョンならpublishする
       - name: publish
         run: |
