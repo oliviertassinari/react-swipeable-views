@@ -1,6 +1,6 @@
 {
   "name": "@gaudiy/react-swipeable-views",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A React component for swipeable views",
   "main": "lib/index.js",
   "license": "MIT",
@@ -8,7 +8,7 @@
     "node": ">=10.0.0"
   },
   "publishConfig": {
-    "access": "restricted",
+    "access": "public",
     "registry": "https://npm.pkg.github.com/"
   },
   "author": "gaudiy",
@@ -32,7 +32,7 @@
     "react-swipeable-views-core": "^0.13.7"
   },
   "peerDependencies": {
-    "react": "^15.3.0 || ^16.0.0"
+    "react": "^16.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
