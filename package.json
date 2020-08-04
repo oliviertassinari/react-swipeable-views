@@ -12,6 +12,7 @@
     "build": "babel --config-file ./babel.config.js src --out-dir lib --ignore test.js",
     "build:copy-files": "node ./scripts/copy-files.js",
     "pre-publish": "rm -rf packages/*/lib && yarn build && yarn build:copy-files",
+    "lint": "eslint . && echo \"eslint: no lint errors\"",
     "prettier": "find . -name \"*.js\" | grep -v -f .eslintignore | xargs prettier --write --single-quote --trailing-comma all --print-width 100"
   },
   "repository": {
