@@ -39,63 +39,7 @@ module.exports = {
     '@babel/plugin-transform-runtime',
   ],
   env: {
-    coverage: {
-      plugins: [
-        'babel-plugin-istanbul',
-        [
-          'babel-plugin-module-resolver',
-          {
-            root: ['./'],
-            alias: {
-              pages: './pages',
-              'react-swipeable-views': './packages/react-swipeable-views/src',
-              'react-swipeable-views-utils': './packages/react-swipeable-views-utils/src',
-              'react-swipeable-views-core': './packages/react-swipeable-views-core/src',
-              docs: './docs',
-            },
-          },
-        ],
-      ],
-    },
     development: {},
-    'docs-development': {
-      plugins: [
-        'babel-plugin-preval',
-        [
-          'babel-plugin-module-resolver',
-          {
-            alias: {
-              'react-swipeable-views': './packages/react-swipeable-views/src',
-              'react-swipeable-views-core': './packages/react-swipeable-views-core/src',
-              'react-swipeable-views-utils': './packages/react-swipeable-views-utils/src',
-              docs: './docs',
-              pages: './pages',
-            },
-          },
-        ],
-      ],
-    },
-    'docs-production': {
-      plugins: [
-        'babel-plugin-preval',
-        [
-          'babel-plugin-module-resolver',
-          {
-            alias: {
-              'react-swipeable-views': './packages/react-swipeable-views/src',
-              'react-swipeable-views-core': './packages/react-swipeable-views-core/src',
-              'react-swipeable-views-utils': './packages/react-swipeable-views-utils/src',
-              docs: './docs',
-              pages: './pages',
-            },
-          },
-        ],
-        'transform-react-constant-elements',
-        'transform-dev-warning',
-        ['react-remove-properties', { properties: ['data-mui-test'] }],
-        ['transform-react-remove-prop-types', { mode: 'remove' }],
-      ],
-    },
     es: {
       plugins: [
         'transform-react-constant-elements',
