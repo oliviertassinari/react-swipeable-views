@@ -14,6 +14,10 @@ npm install @gaudiy/react-swipeable-views
 yarn add @gaudiy/react-swipeable-views
 ```
 
+## Mod
+
+- switch which node of touch event listen to. `rootNode` or `document`
+
 ## License
 
 The original project is licensed under the terms of the
