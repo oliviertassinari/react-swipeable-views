@@ -4,7 +4,7 @@ import { List, Divider, withTheme } from 'react-native-paper';
 import DemoSimple from './demo/Simple';
 import DemoTabs from './demo/Tabs';
 import DemoScroll from './demo/Scroll';
-import DemoResitance from './demo/Resitance';
+import DemoResistance from './demo/Resistance';
 import DemoAutoPlay from './demo/AutoPlay';
 import DemoVirtualize from './demo/Virtualize';
 import DemoHocs from './demo/Hocs';
@@ -23,7 +23,7 @@ export const demos = {
   simple: DemoSimple,
   tabs: DemoTabs,
   scroll: DemoScroll,
-  resitance: DemoResitance,
+  resistance: DemoResistance,
   autoplay: DemoAutoPlay,
   virtualize: DemoVirtualize,
   hocs: DemoHocs,
