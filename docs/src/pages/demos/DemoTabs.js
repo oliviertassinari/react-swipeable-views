@@ -47,7 +47,7 @@ class DemoTabs extends React.Component {
 
     return (
       <div>
-        <Tabs value={index} fullWidth onChange={this.handleChange} style={styles.tabs}>
+        <Tabs value={index} fullWidth centered onChange={this.handleChange} style={styles.tabs}>
           <Tab label="tab n°1" />
           <Tab label="tab n°2" />
           <Tab label="tab n°3" />
