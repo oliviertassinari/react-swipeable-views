@@ -1,6 +1,6 @@
 {
   "name": "react-swipeable-views-workspace",
-  "version": "0.13.6",
+  "version": "0.13.9",
   "private": true,
   "scripts": {
     "lint": "eslint . && echo \"eslint: no lint errors\"",
@@ -18,7 +18,7 @@
     "size:why": "size-limit --why packages/react-swipeable-views/lib/index.js",
     "watch": "lerna exec --concurrency 99 -- babel src --out-dir lib --watch",
     "build": "rm -rf packages/*/lib && cross-env NODE_ENV=production lerna exec -- babel --config-file ../../babel.config.js src --out-dir lib --ignore test.js",
-    "release": "yarn build && yarn lerna exec yarn prepublish && lerna publish",
+    "release": "yarn build && yarn lerna exec yarn prepublish && lerna publish --force-publish *",
     "postrelease": "yarn docs:deploy"
   },
   "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
