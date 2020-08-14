@@ -155,7 +155,8 @@ class SwipeableViews extends React.Component<Props, State> {
 
   startIndex = 0;
 
-  componentWillMount() {
+  // eslint-disable-next-line camelcase,react/sort-comp
+  UNSAFE_componentWillMount() {
     if (process.env.NODE_ENV !== 'production') {
       checkIndexBounds(this.props);
     }
@@ -192,7 +193,8 @@ class SwipeableViews extends React.Component<Props, State> {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  // eslint-disable-next-line camelcase,react/sort-comp
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { index, animateTransitions } = nextProps;
 
     if (typeof index === 'number' && index !== this.props.index) {

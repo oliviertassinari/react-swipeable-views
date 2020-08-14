@@ -20,7 +20,8 @@ export default function autoPlay(MyComponent) {
       this.startInterval();
     }
 
-    componentWillReceiveProps(nextProps) {
+    // eslint-disable-next-line camelcase,react/sort-comp
+    UNSAFE_componentWillReceiveProps(nextProps) {
       const { index } = nextProps;
 
       if (typeof index === 'number' && index !== this.props.index) {

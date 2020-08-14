@@ -31,13 +31,15 @@ export default function bindKeyboard(MyComponent) {
 
     state = {};
 
-    componentWillMount() {
+    // eslint-disable-next-line camelcase,react/sort-comp
+    UNSAFE_componentWillMount() {
       this.setState({
         index: this.props.index || 0,
       });
     }
 
-    componentWillReceiveProps(nextProps) {
+    // eslint-disable-next-line camelcase,react/sort-comp
+    UNSAFE_componentWillReceiveProps(nextProps) {
       const { index } = nextProps;
 
       if (typeof index === 'number' && index !== this.props.index) {
