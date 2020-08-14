@@ -17,7 +17,9 @@
     "size": "size-limit",
     "size:why": "size-limit --why packages/react-swipeable-views/lib/index.js",
     "watch": "lerna exec --concurrency 99 -- babel src --out-dir lib --watch",
-    "build": "rm -rf packages/*/lib && cross-env NODE_ENV=production lerna exec -- babel --config-file ../../babel.config.js src --out-dir lib --ignore test.js",
+    "build": "yarn prebuild && cross-env NODE_ENV=production lerna exec -- babel --config-file ../../babel.config.js src --out-dir lib --ignore test.js && yarn build:copy-files",
+    "prebuild": "rm -rf packages/*/lib",
+    "build:copy-files": "lerna exec node ../../scripts/copy-files.js",
     "release": "yarn build && yarn lerna exec yarn prepublish && lerna publish",
     "postrelease": "yarn docs:deploy"
   },
