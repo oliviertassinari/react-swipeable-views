@@ -18,7 +18,8 @@ yarn add react-swipeable-views-native
 ## Usage
 
 ```jsx
-import * as React from 'react'; import {
+import * as React from 'react'; 
+import {
   StyleSheet,
   Text,
   View,
