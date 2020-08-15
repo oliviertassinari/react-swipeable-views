@@ -293,9 +293,9 @@ class SwipeableViews extends React.Component {
       }, 0);
     }
 
-    // Send all functions in an object if action param is set.
-    if (this.props.action) {
-      this.props.action({
+    // Send all functions in an object if actionCallbacks param is set.
+    if (this.props.actionCallbacks) {
+      this.props.actionCallbacks({
         updateHeight: this.updateHeight,
       });
     }
@@ -688,7 +688,6 @@ class SwipeableViews extends React.Component {
 
   render() {
     const {
-      action,
       animateHeight,
       animateTransitions,
       axis,
@@ -848,10 +847,10 @@ SwipeableViews.propTypes = {
    * This is useful when you want to trigger an action programmatically.
    * It currently only supports updateHeight() action.
    *
-   * @param {object} actions This object contains all posible actions
+   * @param {object} actionCallbacks This object contains all posible actions
    * that can be triggered programmatically.
    */
-  action: PropTypes.func,
+  actionCallbacks: PropTypes.func,
   /**
    * If `true`, the height of the container will be animated to match the current slide height.
    * Animating another style property has a negative impact regarding performance.

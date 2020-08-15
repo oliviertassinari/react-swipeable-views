@@ -661,12 +661,12 @@ describe('SwipeableViews', () => {
     });
   });
 
-  describe('prop: action', () => {
+  describe('prop: actionCallbacks', () => {
     it('should be able to access updateHeight function', () => {
       let swipeableActions = {};
       mount(
         <SwipeableViews
-          action={actions => {
+          actionCallbacks={actions => {
             swipeableActions = actions;
           }}
         >
