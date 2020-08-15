@@ -688,6 +688,7 @@ class SwipeableViews extends React.Component {
 
   render() {
     const {
+      actionCallbacks,
       animateHeight,
       animateTransitions,
       axis,
