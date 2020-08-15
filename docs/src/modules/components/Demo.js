@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import LZString from 'lz-string';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -39,7 +39,7 @@ function getDemo(props) {
     files: {
       'demo.js': props.raw,
       'index.js': `
-import React from 'react';
+import * as React from 'react';
 import { render } from 'react-dom';
 import Demo from './demo';
 

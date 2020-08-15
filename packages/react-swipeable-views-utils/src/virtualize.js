@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import { mod } from 'react-swipeable-views-core';
 
 export default function virtualize(MyComponent) {
-  class Virtualize extends PureComponent {
+  class Virtualize extends React.PureComponent {
     timer = null;
 
     constructor(props) {

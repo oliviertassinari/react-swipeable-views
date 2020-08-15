@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { spy, useFakeTimers } from 'sinon';
 import { assert } from 'chai';

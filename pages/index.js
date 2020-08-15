@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import Head from 'docs/src/modules/components/Head';

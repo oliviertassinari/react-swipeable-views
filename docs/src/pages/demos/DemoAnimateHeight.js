@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 
@@ -34,7 +34,7 @@ for (let i = 0; i < 30; i += 1) {
   list.push(<div key={i}>{`item n°${i + 1}`}</div>);
 }
 
-class Slide4 extends PureComponent {
+class Slide4 extends React.PureComponent {
   state = {
     large: false,
   };

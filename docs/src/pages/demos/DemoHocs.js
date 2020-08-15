@@ -1,6 +1,6 @@
 /* eslint-disable react/no-multi-comp */
 
-import React from 'react';
+import * as React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay, virtualize, bindKeyboard } from 'react-swipeable-views-utils';
 import { mod } from 'react-swipeable-views-core';

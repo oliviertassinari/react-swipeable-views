@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import JssProvider from 'react-jss/lib/JssProvider';

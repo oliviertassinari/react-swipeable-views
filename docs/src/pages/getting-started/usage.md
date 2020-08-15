@@ -9,8 +9,7 @@
 ### Browser
 
 ```jsx
-import React from 'react';
-import SwipeableViews from 'react-swipeable-views';
+import * as React from 'react'; import SwipeableViews from 'react-swipeable-views';
 
 const styles = {
   slide: {
@@ -53,8 +52,7 @@ I start to think that lower level abstraction to share the implementation betwee
 We have two different implementations of the react-swipeable-views API.
 
 ```jsx
-import React from 'react';
-import {
+import * as React from 'react'; import {
   StyleSheet,
   Text,
   View,
@@ -121,8 +119,7 @@ It's highly inspired by [react-virtualized](https://github.com/bvaughn/react-vir
 Let's see an example with the browser:
 
 ```jsx
-import React from 'react';
-import SwipeableViews from 'react-swipeable-views';
+import * as React from 'react'; import SwipeableViews from 'react-swipeable-views';
 import { virtualize } from 'react-swipeable-views-utils';
 
 const VirtualizeSwipeableViews = virtualize(SwipeableViews);
@@ -148,8 +145,7 @@ You can have a look at *Demo 7* to see it in action.
 Let's see an example with the browser:
 
 ```jsx
-import React from 'react';
-import SwipeableViews from 'react-swipeable-views';
+import * as React from 'react'; import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -172,8 +168,7 @@ You can have a look at *Demo 9* to see it in action.
 Let's see an example with the browser:
 
 ```jsx
-import React from 'react';
-import SwipeableViews from 'react-swipeable-views';
+import * as React from 'react'; import SwipeableViews from 'react-swipeable-views';
 import { bindKeyboard } from 'react-swipeable-views-utils';
 
 const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);

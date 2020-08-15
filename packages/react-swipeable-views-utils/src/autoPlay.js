@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import { shallowEqualObjects } from 'shallow-equal';
 import EventListener from 'react-event-listener';

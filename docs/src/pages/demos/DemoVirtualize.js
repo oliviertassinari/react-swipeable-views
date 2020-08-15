@@ -1,6 +1,6 @@
 /* eslint-disable react/no-multi-comp */
 
-import React from 'react';
+import * as React from 'react';
 import Button from '@material-ui/core/Button';
 import SwipeableViews from 'react-swipeable-views';
 import { virtualize, bindKeyboard } from 'react-swipeable-views-utils';

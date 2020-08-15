@@ -1,6 +1,6 @@
 /* eslint-disable react/no-multi-comp */
 
-import React from 'react';
+import * as React from 'react';
 import { assert } from 'chai';
 import { shallow } from 'enzyme';
 import { spy } from 'sinon';

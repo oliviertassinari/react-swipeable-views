@@ -53,7 +53,7 @@ It's tiny (<10 kB gzipped), it quickly renders the first slide, then lazy-loads 
 ### Browser
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 
 const styles = {
@@ -97,7 +97,7 @@ I start to think that lower level abstraction to share the implementation betwee
 We have two different implementations of the react-swipeable-views API.
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import {
   StyleSheet,
   Text,

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import React from 'react';
+import * as React from 'react';
 import { stub } from 'sinon';
 import { assert } from 'chai';
 import checkIndexBounds from './checkIndexBounds';

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import find from 'lodash/find';
 import { withRouter } from 'next/router';
