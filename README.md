@@ -162,6 +162,7 @@ export default MyComponent;
 - [Material-UI](https://github.com/mui-org/material-ui)
 - [Tinder](https://tinder.com)
 - [Uber](https://www.uber.com)
+- [GuestBell](https://guestbell.com)
 - Are you using this library? Add your company or project.
 
 ## License
