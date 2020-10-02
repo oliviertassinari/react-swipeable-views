@@ -53,7 +53,7 @@ function slideRenderer(params) {
 }
 
 function DemoSimple() {
-  return <VirtualizeSwipeableViews slideRenderer={slideRenderer} />;
+  return <VirtualizeSwipeableViews slideRenderer={slideRenderer} enableMouseEvents/>;
 }
 
 export default DemoSimple;
