@@ -77,6 +77,7 @@ class DemoVirtualize extends React.Component {
           index={this.state.index}
           onChangeIndex={this.handleChangeIndex}
           slideRenderer={slideRenderer}
+          enableMouseEvents
         />
         <br />
         <Button onClick={this.handleClick}>{'go to slide n°50'}</Button>
