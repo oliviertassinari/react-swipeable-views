@@ -85,6 +85,7 @@ class DemoCoverflow extends React.Component {
         style={styles.root}
         onChangeIndex={this.handleChangeIndex}
         onSwitching={this.handleSwitch}
+        enableMouseEvents
       >
         {albums.map((album, currentIndex) => {
           const inputRange = albums.map((_, i) => i);
