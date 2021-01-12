@@ -126,7 +126,7 @@ function adaptMouse(event) {
 export function getDomTreeShapes(element, rootNode) {
   let domTreeShapes = [];
 
-  while (element && element !== rootNode) {
+  while (element && element !== rootNode && element !== document.body) {
     // We reach a Swipeable View, no need to look higher in the dom tree.
     if (element.hasAttribute('data-swipeable')) {
       break;
