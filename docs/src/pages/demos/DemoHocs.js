@@ -53,7 +53,7 @@ function slideRenderer(params) {
 }
 
 function DemoHocs() {
-  return <EnhancedSwipeableViews slideCount={10} slideRenderer={slideRenderer} enableMouseEvents/>;
+  return <EnhancedSwipeableViews slideCount={10} slideRenderer={slideRenderer} enableMouseEvents />;
 }
 
 export default DemoHocs;
