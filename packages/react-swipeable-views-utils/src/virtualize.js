@@ -96,7 +96,7 @@ export default function virtualize(MyComponent) {
       });
     }
 
-    handleChangeIndex = (indexContainer, indexLatest) => {
+    handleChangeIndex = (indexContainer, indexLatest, meta) => {
       const { slideCount, onChangeIndex } = this.props;
 
       const indexDiff = indexContainer - indexLatest;
@@ -112,7 +112,7 @@ export default function virtualize(MyComponent) {
       }
 
       if (onChangeIndex) {
-        onChangeIndex(index, this.state.index);
+        onChangeIndex(index, this.state.index, meta);
       }
     };
 
