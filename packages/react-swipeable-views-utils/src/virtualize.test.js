@@ -280,7 +280,7 @@ describe('virtualize', () => {
       );
 
       wrapper.find(Empty).simulate('changeIndex', 1, 0);
-      assert.deepEqual(handleChangeIndex.args, [[11, 10]]);
+      assert.deepEqual(handleChangeIndex.args, [[11, 10, undefined]]);
       assert.strictEqual(wrapper.state().index, 10, 'should not update the state index');
     });
   });
