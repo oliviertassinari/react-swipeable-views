@@ -82,7 +82,7 @@ export default function autoPlay(MyComponent) {
       }
     };
 
-    handleChangeIndex = (index, indexLatest) => {
+    handleChangeIndex = (index, indexLatest, meta) => {
       // Is uncontrolled
       if (this.props.index === undefined) {
         this.setState({
@@ -91,7 +91,7 @@ export default function autoPlay(MyComponent) {
       }
 
       if (this.props.onChangeIndex) {
-        this.props.onChangeIndex(index, indexLatest);
+        this.props.onChangeIndex(index, indexLatest, meta);
       }
     };
 

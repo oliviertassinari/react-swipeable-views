@@ -88,7 +88,7 @@ describe('bindKeyboard', () => {
         onChangeIndex: handleChangeIndex,
       });
       wrapper.find(Empty).simulate('changeIndex', 1, 0);
-      assert.deepEqual(handleChangeIndex.args, [[1, 0]]);
+      assert.deepEqual(handleChangeIndex.args, [[1, 0, undefined]]);
       assert.strictEqual(wrapper.state().index, 0, 'should no update the state index');
     });
   });
