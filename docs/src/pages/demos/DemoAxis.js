@@ -28,7 +28,7 @@ const styles = {
 
 function DemoAxis() {
   return (
-    <SwipeableViews containerStyle={styles.slideContainer} axis="y" resistance>
+    <SwipeableViews containerStyle={styles.slideContainer} axis="y" resistance enableMouseEvents>
       <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
       <div style={Object.assign({}, styles.slide, styles.slide2)}>slide n°2</div>
       <div style={styles.scroll}>

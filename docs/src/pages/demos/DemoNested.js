@@ -48,7 +48,7 @@ function DemoNested() {
         </div>
         slide n°2
         <div style={styles.divider} />
-        <SwipeableViews>
+        <SwipeableViews enableMouseEvents>
           <div style={Object.assign({}, styles.slide, styles.slide1)}>nested slide n°2.1</div>
           <div style={Object.assign({}, styles.slide, styles.slide3)}>nested slide n°2.2</div>
         </SwipeableViews>
@@ -56,7 +56,7 @@ function DemoNested() {
       <div style={Object.assign({}, styles.slide, styles.slide3)}>
         slide n°3
         <div style={styles.divider} />
-        <SwipeableViews axis="y" containerStyle={styles.slideContainerY}>
+        <SwipeableViews axis="y" containerStyle={styles.slideContainerY} enableMouseEvents>
           <div style={Object.assign({}, styles.slide, styles.slide1)}>nested slide n°3.1</div>
           <div style={Object.assign({}, styles.slide, styles.slide2)}>nested slide n°3.2</div>
         </SwipeableViews>

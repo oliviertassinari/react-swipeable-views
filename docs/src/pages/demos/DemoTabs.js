@@ -52,7 +52,7 @@ class DemoTabs extends React.Component {
           <Tab label="tab n°2" />
           <Tab label="tab n°3" />
         </Tabs>
-        <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
+        <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex} enableMouseEvents>
           <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
           <div style={Object.assign({}, styles.slide, styles.slide2)}>
             slide n°2

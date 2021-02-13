@@ -67,7 +67,7 @@ Slide4.contextTypes = {
 
 function DemoAnimateHeight() {
   return (
-    <SwipeableViews animateHeight>
+    <SwipeableViews animateHeight enableMouseEvents>
       <div style={Object.assign({}, styles.slide, styles.slide1)}>{list.slice(0, 10)}</div>
       <div style={Object.assign({}, styles.slide, styles.slide2)}>
         {'This slide has a max-height limit:'}
