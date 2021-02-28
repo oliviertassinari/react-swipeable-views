@@ -246,7 +246,7 @@ class SwipeableViews extends React.Component {
       renderOnlyActive: !props.disableLazyLoading,
       heightLatest: 0,
       // Let the render method that we are going to display the same slide than previously.
-      displaySameSlide: true,
+      displaySameSlide: false,
     };
     this.setIndexCurrent(props.index);
   }
