@@ -1,4 +1,4 @@
-import React, { PureComponent, useContext } from 'react';
+import React, { PureComponent } from 'react';
 import SwipeableViews, { swipeableViewsContext } from 'react-swipeable-views';
 
 const styles = {
@@ -34,12 +34,14 @@ for (let i = 0; i < 30; i += 1) {
 }
 
 class Slide4 extends PureComponent {
+  static contentType = swipeableViewsContext;
+
   state = {
     large: false,
   };
 
   componentDidUpdate() {
-    const { slideUpdateHeight } = useContext(swipeableViewsContext);
+    const { slideUpdateHeight } = this.context;
     slideUpdateHeight();
   }
 
