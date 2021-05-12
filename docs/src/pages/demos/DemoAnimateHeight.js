@@ -34,7 +34,7 @@ for (let i = 0; i < 30; i += 1) {
 }
 
 class Slide4 extends PureComponent {
-  static contentType = swipeableViewsContext;
+  static contextType = swipeableViewsContext;
 
   state = {
     large: false,
