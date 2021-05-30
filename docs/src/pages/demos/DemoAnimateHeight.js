@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import SwipeableViews, { swipeableViewsContext } from 'react-swipeable-views';
+import SwipeableViews, { SwipeableViewsContext } from 'react-swipeable-views';
 
 const styles = {
   slide: {
@@ -34,7 +34,7 @@ for (let i = 0; i < 30; i += 1) {
 }
 
 class Slide4 extends PureComponent {
-  static contextType = swipeableViewsContext;
+  static contextType = SwipeableViewsContext;
 
   state = {
     large: false,
@@ -54,6 +54,12 @@ class Slide4 extends PureComponent {
   render() {
     return (
       <div style={Object.assign({}, styles.slide, styles.slide4)}>
+        <SwipeableViewsContext.Consumer>
+          {value => {
+            this.context = value;
+            return null;
+          }}
+        </SwipeableViewsContext.Consumer>
         {list.slice(0, this.state.large ? 8 : 3)}
         <button onClick={this.handleClick} type="button" style={styles.button}>
           {this.state.large ? 'Collaspe' : 'Expand'}

@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import warning from 'warning';
 import {
@@ -195,7 +195,11 @@ export function findNativeHandler(params) {
   });
 }
 
-export const swipeableViewsContext = createContext();
+export const SwipeableViewsContext = React.createContext();
+
+if (process.env.NODE_ENV !== 'production') {
+  SwipeableViewsContext.displayName = 'SwipeableViewsContext';
+}
 
 class SwipeableViews extends React.Component {
   rootNode = null;
@@ -782,10 +786,8 @@ So animateHeight is most likely having no effect at all.`,
       containerStyle.height = heightLatest;
     }
 
-    const SwipeableViewsProvider = swipeableViewsContext.Provider;
-
     return (
-      <SwipeableViewsProvider value={this.getSwipeableViewsContext()}>
+      <SwipeableViewsContext.Provider value={this.getSwipeableViewsContext()}>
         <div
           ref={this.setRootNode}
           style={Object.assign({}, axisProperties.root[axis], style)}
@@ -836,7 +838,7 @@ So animateHeight is most likely having no effect at all.`,
             })}
           </div>
         </div>
-      </SwipeableViewsProvider>
+      </SwipeableViewsContext.Provider>
     );
   }
 }
