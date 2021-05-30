@@ -201,10 +201,15 @@ describe('SwipeableViews', () => {
         </SwipeableViews>,
         { disableLifecycleMethods: true },
       );
-
-      assert.include(wrapper.childAt(0).props().style, {
-        transition: 'all 0s ease 0s',
-      });
+      assert.include(
+        wrapper
+          .childAt(0)
+          .childAt(0)
+          .props().style,
+        {
+          transition: 'all 0s ease 0s',
+        },
+      );
     });
   });
 
@@ -605,10 +610,16 @@ describe('SwipeableViews', () => {
         );
 
         assert.strictEqual(wrapper.text(), 'slide n°2');
-        assert.shallowDeepEqual(wrapper.childAt(0).props().style, {
-          transition: 'all 0s ease 0s',
-          transform: undefined,
-        });
+        assert.shallowDeepEqual(
+          wrapper
+            .childAt(0)
+            .childAt(0)
+            .props().style,
+          {
+            transition: 'all 0s ease 0s',
+            transform: undefined,
+          },
+        );
       });
 
       it('should render all the children during the second render', () => {
@@ -653,10 +664,16 @@ describe('SwipeableViews', () => {
         );
 
         assert.strictEqual(wrapper.text(), 'slide n°1slide n°2slide n°3slide n°4slide n°5');
-        assert.shallowDeepEqual(wrapper.childAt(0).props().style, {
-          transition: 'all 0s ease 0s',
-          transform: 'translate(-100%, 0)',
-        });
+        assert.shallowDeepEqual(
+          wrapper
+            .childAt(0)
+            .childAt(0)
+            .props().style,
+          {
+            transition: 'all 0s ease 0s',
+            transform: 'translate(-100%, 0)',
+          },
+        );
       });
     });
   });

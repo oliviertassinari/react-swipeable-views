@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
+import SwipeableViews, { SwipeableViewsContext } from 'react-swipeable-views';
 
 const styles = {
   slide: {
@@ -35,12 +34,15 @@ for (let i = 0; i < 30; i += 1) {
 }
 
 class Slide4 extends PureComponent {
+  static contextType = SwipeableViewsContext;
+
   state = {
     large: false,
   };
 
   componentDidUpdate() {
-    this.context.swipeableViews.slideUpdateHeight();
+    const { slideUpdateHeight } = this.context;
+    slideUpdateHeight();
   }
 
   handleClick = () => {
@@ -52,6 +54,12 @@ class Slide4 extends PureComponent {
   render() {
     return (
       <div style={Object.assign({}, styles.slide, styles.slide4)}>
+        <SwipeableViewsContext.Consumer>
+          {value => {
+            this.context = value;
+            return null;
+          }}
+        </SwipeableViewsContext.Consumer>
         {list.slice(0, this.state.large ? 8 : 3)}
         <button onClick={this.handleClick} type="button" style={styles.button}>
           {this.state.large ? 'Collaspe' : 'Expand'}
@@ -60,10 +68,6 @@ class Slide4 extends PureComponent {
     );
   }
 }
-
-Slide4.contextTypes = {
-  swipeableViews: PropTypes.object.isRequired,
-};
 
 function DemoAnimateHeight() {
   return (
