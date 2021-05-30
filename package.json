@@ -1,6 +1,6 @@
 {
   "name": "react-swipeable-views-workspace",
-  "version": "0.13.9",
+  "version": "0.14.0",
   "private": true,
   "scripts": {
     "lint": "eslint . && echo \"eslint: no lint errors\"",
@@ -37,7 +37,7 @@
     "@babel/register": "7.0.0",
     "@babel/runtime": "7.0.0",
     "@material-ui/core": "^3.0.0",
-    "@material-ui/docs": "^1.0.0-alpha.3",
+    "@material-ui/docs": "^3.0.0-alpha.6",
     "@material-ui/icons": "^3.0.0",
     "animated": "^0.2.1",
     "autoprefixer": "^9.1.3",

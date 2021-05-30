@@ -156,7 +156,7 @@ class SwipeableViews extends React.Component<Props, State> {
   startIndex = 0;
 
   // eslint-disable-next-line camelcase,react/sort-comp
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     if (process.env.NODE_ENV !== 'production') {
       checkIndexBounds(this.props);
     }
@@ -194,16 +194,16 @@ class SwipeableViews extends React.Component<Props, State> {
   }
 
   // eslint-disable-next-line camelcase,react/sort-comp
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { index, animateTransitions } = nextProps;
+  getSnapshotBeforeUpdate(prevProps) {
+    const { index, animateTransitions } = this.props;
 
-    if (typeof index === 'number' && index !== this.props.index) {
+    if (typeof index === 'number' && index !== prevProps.index) {
       if (process.env.NODE_ENV !== 'production') {
-        checkIndexBounds(nextProps);
+        checkIndexBounds(this.props);
       }
 
       // If true, we are going to change the children. We shoudn't animate it.
-      const displaySameSlide = getDisplaySameSlide(this.props, nextProps);
+      const displaySameSlide = getDisplaySameSlide(prevProps, this.props);
 
       if (animateTransitions && !displaySameSlide) {
         this.setState(
