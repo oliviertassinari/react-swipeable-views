@@ -413,7 +413,7 @@ class SwipeableViews extends React.Component {
       return;
     }
 
-    const { axis, children, ignoreNativeScroll, onSwitching, resistance } = this.props;
+    const { axis, children, ignoreNativeScroll, onSwitching, resistance, moveRate } = this.props;
     const touch = applyRotationMatrix(event.touches[0], axis);
 
     // We don't know yet.
@@ -466,6 +466,7 @@ class SwipeableViews extends React.Component {
       startIndex: this.startIndex,
       startX: this.startX,
       viewLength: this.viewLength,
+      moveRate,
     });
 
     // Add support for native scroll elements.
@@ -715,6 +716,7 @@ class SwipeableViews extends React.Component {
       springConfig,
       style,
       threshold,
+      moveRate,
       ...other
     } = this.props;
 
