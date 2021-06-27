@@ -28,13 +28,13 @@ describe('checkIndexBounds', () => {
 
   it('should warn when the index is out of bounds', () => {
     checkIndexBounds({
-      index: 3,
+      index: 2,
       children,
     });
     assert.strictEqual(consoleStub.callCount, 1);
     assert.strictEqual(
       consoleStub.args[0][0],
-      'Warning: react-swipeable-view: the new index: 3 is out of bounds: [0-2].',
+      'Warning: react-swipeable-view: the new index: 2 is out of bounds: [0-1].',
     );
   });
 });

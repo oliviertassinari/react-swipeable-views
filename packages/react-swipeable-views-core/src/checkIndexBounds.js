@@ -7,8 +7,8 @@ const checkIndexBounds = props => {
   const childrenCount = React.Children.count(children);
 
   warning(
-    index >= 0 && index <= childrenCount,
-    `react-swipeable-view: the new index: ${index} is out of bounds: [0-${childrenCount}].`,
+    index >= 0 && index < childrenCount,
+    `react-swipeable-view: the new index: ${index} is out of bounds: [0-${childrenCount - 1}].`,
   );
 };
 
