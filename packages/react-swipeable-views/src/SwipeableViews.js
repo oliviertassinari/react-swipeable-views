@@ -100,6 +100,12 @@ const axisProperties = {
     y: 'clientHeight',
     'y-reverse': 'clientHeight',
   },
+  padding: {
+    x: ['paddingLeft', 'paddingRight'],
+    'x-reverse': ['paddingRight', 'paddingLeft'],
+    y: ['paddingTop', 'paddingBottom'],
+    'y-reverse': ['paddingBottom', 'paddingTop'],
+  },
 };
 
 function createTransition(property, options) {
@@ -363,8 +369,13 @@ class SwipeableViews extends React.Component {
     const { axis } = this.props;
 
     const touch = applyRotationMatrix(event.touches[0], axis);
+    const rootStyle = window.getComputedStyle(this.rootNode);
 
-    this.viewLength = this.rootNode.getBoundingClientRect()[axisProperties.length[axis]];
+    this.viewLength =
+      this.rootNode.getBoundingClientRect()[axisProperties.length[axis]] -
+      parseInt(rootStyle[axisProperties.padding[axis][0]], 10) -
+      parseInt(rootStyle[axisProperties.padding[axis][1]], 10);
+
     this.startX = touch.pageX;
     this.lastX = touch.pageX;
     this.vx = 0;
@@ -382,7 +393,6 @@ class SwipeableViews extends React.Component {
         .split('(')[1]
         .split(')')[0]
         .split(',');
-      const rootStyle = window.getComputedStyle(this.rootNode);
 
       const tranformNormalized = applyRotationMatrix(
         {
@@ -392,11 +402,7 @@ class SwipeableViews extends React.Component {
         axis,
       );
 
-      this.startIndex =
-        -tranformNormalized.pageX /
-          (this.viewLength -
-            parseInt(rootStyle.paddingLeft, 10) -
-            parseInt(rootStyle.paddingRight, 10)) || 0;
+      this.startIndex = -tranformNormalized.pageX / this.viewLength;
     }
   };
 
