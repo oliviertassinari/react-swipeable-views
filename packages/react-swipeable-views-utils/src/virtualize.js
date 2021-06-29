@@ -116,6 +116,21 @@ export default function virtualize(MyComponent) {
       }
     };
 
+    handleSwitching = (indexContainer, type) => {
+      const { slideCount, onSwitching } = this.props;
+      const { indexStart } = this.state;
+
+      let index = indexContainer + indexStart;
+
+      if (slideCount) {
+        index = mod(index, slideCount);
+      }
+
+      if (onSwitching) {
+        onSwitching(index, type);
+      }
+    };
+
     handleTransitionEnd = () => {
       // Delay the update of the window to fix an issue with react-motion.
       this.timer = setTimeout(() => {
@@ -132,6 +147,7 @@ export default function virtualize(MyComponent) {
         children,
         index: indexProp,
         onChangeIndex,
+        onSwitching,
         onTransitionEnd,
         overscanSlideAfter,
         overscanSlideBefore,
@@ -157,6 +173,7 @@ export default function virtualize(MyComponent) {
         <MyComponent
           index={indexContainer}
           onChangeIndex={this.handleChangeIndex}
+          onSwitching={this.handleSwitching}
           onTransitionEnd={this.handleTransitionEnd}
           {...other}
         >

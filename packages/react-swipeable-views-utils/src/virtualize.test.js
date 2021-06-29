@@ -284,4 +284,20 @@ describe('virtualize', () => {
       assert.strictEqual(wrapper.state().index, 10, 'should not update the state index');
     });
   });
+
+  describe('prop: onSwitching', () => {
+    it('should be called with the right arguments', () => {
+      const handleSwitching = spy();
+      const wrapper = shallow(
+        <VirtualizeSwipeableViews
+          index={10}
+          slideRenderer={slideRenderer}
+          onSwitching={handleSwitching}
+        />,
+      );
+
+      wrapper.find(Empty).simulate('switching', 3.05, 'move');
+      assert.deepEqual(handleSwitching.args, [[10.05, 'move']]);
+    });
+  });
 });
