@@ -104,30 +104,38 @@ class SwipeableViews extends React.Component<Props, State> {
     disabled: false,
     index: 0,
     resistance: false,
-  }
+  };
 
-  // eslint-disable-next-line camelcase,react/sort-comp
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+
     if (process.env.NODE_ENV !== 'production') {
-      checkIndexBounds(this.props);
+      checkIndexBounds(props);
     }
 
-    const { index = 0 } = this.props;
+    const { index = 0 } = props;
 
-    this.setState({
+    this.state = {
       indexLatest: index,
       viewWidth: windowWidth,
       offset: {
         x: windowWidth * index,
         y: 0,
       },
-    });
+    };
 
     if (this.props.animateHeight !== undefined) {
       console.warn('react-swipeable-view-native: The animateHeight property is not implement yet.')
     }
     if (this.props.axis !== undefined) {
       console.warn('react-swipeable-view-native: The axis property is not implement yet.')
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot?: any) {
+    if (snapshot) {
+      const { updateState } = snapshot;
+      updateState();
     }
   }
 
@@ -143,22 +151,26 @@ class SwipeableViews extends React.Component<Props, State> {
       // If true, we are going to change the children. We shoudn't animate it.
       const displaySameSlide = getDisplaySameSlide(prevProps, this.props);
 
-      this.setState(
-        {
-          displaySameSlide,
-          indexLatest: index,
-        },
-        () => {
-          if (this.scrollViewNode) {
-            this.scrollViewNode.scrollTo({
-              x: this.state.viewWidth * index,
-              y: 0,
-              animated: prevProps.animateTransitions && !displaySameSlide,
-            });
-          }
-        },
-      );
+      return {
+        updateState: () =>
+          this.setState(
+            {
+              displaySameSlide,
+              indexLatest: index,
+            },
+            () => {
+              if (this.scrollViewNode) {
+                this.scrollViewNode.scrollTo({
+                  x: this.state.viewWidth * index,
+                  y: 0,
+                  animated: prevProps.animateTransitions && !displaySameSlide,
+                });
+              }
+            },
+          ),
+      };
     }
+    return null;
   }
 
   handleScroll = event => {

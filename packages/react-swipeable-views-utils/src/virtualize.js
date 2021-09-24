@@ -8,7 +8,11 @@ export default function virtualize(MyComponent) {
 
     constructor(props) {
       super(props);
-      this.state.index = props.index || 0;
+      const index = props.index || 0;
+      this.state = {
+        index,
+        ...this.getWindowState(index),
+      };
     }
 
     /**
@@ -23,17 +27,24 @@ export default function virtualize(MyComponent) {
     state = {};
 
     // eslint-disable-next-line camelcase,react/sort-comp
-    componentDidMount() {
-      this.setWindow(this.state.index);
-    }
-
-    // eslint-disable-next-line camelcase,react/sort-comp
     getSnapshotBeforeUpdate(prevProps) {
       const { index } = this.props;
 
       if (typeof index === 'number' && index !== prevProps.index) {
         const indexDiff = index - prevProps.index;
-        this.setIndex(index, this.state.indexContainer + indexDiff, indexDiff);
+        return {
+          index,
+          indexDiff,
+          indexContainer: this.state.indexContainer + indexDiff,
+        };
+      }
+      return null;
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+      if (snapshot) {
+        const { index, indexContainer, indexDiff } = snapshot;
+        this.setIndex(index, indexContainer, indexDiff);
       }
     }
 
@@ -73,7 +84,7 @@ export default function virtualize(MyComponent) {
       this.setState(nextState);
     }
 
-    setWindow(index = this.state.index) {
+    getWindowState(index) {
       const { slideCount } = this.props;
 
       let beforeAhead = this.props.overscanSlideBefore;
@@ -89,10 +100,16 @@ export default function virtualize(MyComponent) {
         }
       }
 
-      this.setState({
+      return {
         indexContainer: beforeAhead,
         indexStart: index - beforeAhead,
         indexStop: index + afterAhead,
+      };
+    }
+
+    setWindow(index = this.state.index) {
+      this.setState({
+        ...this.getWindowState(index),
       });
     }
 

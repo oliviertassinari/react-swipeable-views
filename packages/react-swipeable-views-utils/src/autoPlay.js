@@ -11,7 +11,9 @@ export default function autoPlay(MyComponent) {
     constructor(props) {
       super(props);
 
-      this.state.index = props.index || 0;
+      this.state = {
+        index: props.index || 0,
+      };
     }
 
     state = {};
@@ -25,13 +27,17 @@ export default function autoPlay(MyComponent) {
       const { index } = this.props;
 
       if (typeof index === 'number' && index !== prevProps.index) {
-        this.setState({
+        return {
           index,
-        });
+        };
       }
+      return null;
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+      if (snapshot) {
+        this.updateState(snapshot);
+      }
       const shouldResetInterval = !shallowEqualObjects(
         {
           index: prevProps.index,
@@ -115,6 +121,12 @@ export default function autoPlay(MyComponent) {
         this.startInterval();
       }
     };
+
+    updateState(snapshot) {
+      this.setState({
+        ...snapshot,
+      });
+    }
 
     startInterval() {
       const { autoplay, interval } = this.props;

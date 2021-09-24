@@ -299,8 +299,14 @@ class SwipeableViews extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (snapshot) {
+      this.onUpdate(snapshot);
+    }
+  }
+
   // eslint-disable-next-line camelcase,react/sort-comp
-  componentDidUpdate(prevProps) {
+  getSnapshotBeforeUpdate(prevProps) {
     const { index } = this.props;
 
     if (typeof index === 'number' && index !== prevProps.index) {
@@ -309,18 +315,25 @@ class SwipeableViews extends React.Component {
       }
 
       this.setIndexCurrent(index);
-      this.setState({
+      return {
         // If true, we are going to change the children. We shoudn't animate it.
         displaySameSlide: getDisplaySameSlide(prevProps, this.props),
         indexLatest: index,
-      });
+      };
     }
+    return null;
   }
 
   componentWillUnmount() {
     this.transitionListener.remove();
     this.touchMoveListener.remove();
     clearTimeout(this.firstRenderTimeout);
+  }
+
+  onUpdate(snapshot) {
+    this.setState({
+      ...snapshot,
+    });
   }
 
   getSwipeableViewsContext() {

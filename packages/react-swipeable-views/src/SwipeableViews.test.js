@@ -179,6 +179,8 @@ describe('SwipeableViews', () => {
         index: 1,
       });
 
+      wrapper.update();
+
       assert.include(
         wrapper
           .childAt(0)

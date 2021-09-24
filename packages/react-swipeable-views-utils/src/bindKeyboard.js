@@ -29,13 +29,14 @@ export default function bindKeyboard(MyComponent) {
       slideCount: PropTypes.number,
     };
 
-    state = {};
+    state = {
+      index: this.props.index || 0,
+    };
 
-    // eslint-disable-next-line camelcase,react/sort-comp
-    componentDidMount() {
-      this.setState({
-        index: this.props.index || 0,
-      });
+    componentDidUpdate(prevProps, prevState, snapshot) {
+      if (snapshot) {
+        this.updateState(snapshot);
+      }
     }
 
     // eslint-disable-next-line camelcase,react/sort-comp
@@ -43,10 +44,11 @@ export default function bindKeyboard(MyComponent) {
       const { index } = this.props;
 
       if (typeof index === 'number' && index !== prevProps.index) {
-        this.setState({
+        return {
           index,
-        });
+        };
       }
+      return null;
     }
 
     handleKeyDown = event => {
@@ -131,6 +133,12 @@ export default function bindKeyboard(MyComponent) {
         this.props.onChangeIndex(index, indexLatest, meta);
       }
     };
+
+    updateState(snapshot) {
+      this.setState({
+        ...snapshot,
+      });
+    }
 
     render() {
       const { index: indexProp, onChangeIndex, ...other } = this.props;

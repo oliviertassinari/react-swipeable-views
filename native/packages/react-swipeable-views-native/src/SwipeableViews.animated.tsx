@@ -155,19 +155,20 @@ class SwipeableViews extends React.Component<Props, State> {
 
   startIndex = 0;
 
-  // eslint-disable-next-line camelcase,react/sort-comp
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+
     if (process.env.NODE_ENV !== 'production') {
-      checkIndexBounds(this.props);
+      checkIndexBounds(props);
     }
 
-    const { index = 0 } = this.props;
+    const { index = 0 } = props;
 
-    this.setState({
+    this.state = {
       indexLatest: index,
       indexCurrent: new Animated.Value(index),
       viewLength: Dimensions.get('window').width,
-    });
+    };
 
     this.panResponder = PanResponder.create({
       // So it's working inside a Modal
@@ -193,6 +194,13 @@ class SwipeableViews extends React.Component<Props, State> {
     }
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot?: any) {
+    if (snapshot) {
+      const { updateState } = snapshot;
+      updateState();
+    }
+  }
+
   // eslint-disable-next-line camelcase,react/sort-comp
   getSnapshotBeforeUpdate(prevProps) {
     const { index, animateTransitions } = this.props;
@@ -205,22 +213,27 @@ class SwipeableViews extends React.Component<Props, State> {
       // If true, we are going to change the children. We shoudn't animate it.
       const displaySameSlide = getDisplaySameSlide(prevProps, this.props);
 
-      if (animateTransitions && !displaySameSlide) {
-        this.setState(
-          {
-            indexLatest: index,
-          },
-          () => {
-            this.animateIndexCurrent(index);
-          },
-        );
-      } else {
-        this.setState({
-          indexLatest: index,
-          indexCurrent: new Animated.Value(index),
-        });
-      }
+      return {
+        updateState: () => {
+          if (animateTransitions && !displaySameSlide) {
+            this.setState(
+              {
+                indexLatest: index,
+              },
+              () => {
+                this.animateIndexCurrent(index);
+              },
+            );
+          } else {
+            this.setState({
+              indexLatest: index,
+              indexCurrent: new Animated.Value(index),
+            });
+          }
+        },
+      };
     }
+    return null;
   }
 
   handleAnimationFinished = params => {
