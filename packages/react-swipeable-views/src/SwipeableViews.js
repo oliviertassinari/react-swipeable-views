@@ -264,7 +264,7 @@ class SwipeableViews extends React.Component {
   componentDidMount() {
     // Subscribe to transition end events.
     this.transitionListener = addEventListener(this.containerNode, 'transitionend', event => {
-      if (event.target !== this.containerNode) {
+      if (event.target !== this.rootNode) {
         return;
       }
 
