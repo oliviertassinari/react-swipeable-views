@@ -1,31 +1,31 @@
 {
-  "name": "react-swipeable-views-core",
-  "version": "0.14.0",
-  "description": "react-swipeable-views core modules",
-  "main": "lib/index.js",
-  "scripts": {
-    "prepublish": "pkgfiles"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/oliviertassinari/react-swipeable-views.git"
-  },
-  "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
-  "bugs": {
-    "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
-  },
-  "dependencies": {
-    "@babel/runtime": "7.0.0",
-    "warning": "^4.0.1"
-  },
-  "devDependencies": {
-    "pkgfiles": "^2.3.2"
-  },
-  "peerDependencies": {
-    "react": "^15.3.0 || ^16.0.0 || ^17.0.0"
-  },
-  "license": "MIT",
-  "engines": {
-    "node": ">=6.0.0"
-  }
+    "name": "react-swipeable-views-core",
+    "version": "0.14.0",
+    "description": "react-swipeable-views core modules",
+    "main": "lib/index.js",
+    "scripts": {
+        "prepublish": "pkgfiles"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/oliviertassinari/react-swipeable-views.git"
+    },
+    "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
+    "bugs": {
+        "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
+    },
+    "dependencies": {
+        "@babel/runtime": "7.0.0",
+        "warning": "^4.0.1"
+    },
+    "devDependencies": {
+        "pkgfiles": "^2.3.2"
+    },
+    "peerDependencies": {
+        "react": "^15.3.0 || ^16.0.0 || ^17.0.0 || ^18.0.0"
+    },
+    "license": "MIT",
+    "engines": {
+        "node": ">=6.0.0"
+    }
 }
