@@ -4,6 +4,18 @@
 forked from https://github.com/oliviertassinari/react-swipeable-views
 
 
+## Documentation
+### Get started
+- [Installation](https://react-swipeable-views.com/getting-started/installation/)
+- [Usage](https://react-swipeable-views.com/getting-started/usage/)
+- [Example projects](https://react-swipeable-views.com/getting-started/example-projects/)
+- [Supported projects](https://react-swipeable-views.com/getting-started/example-projects/)
+### Component API
+- [Component API](https://react-swipeable-views.com/api/api/)
+### More
+- [Supported projects](https://react-swipeable-views.com/getting-started/example-projects/)
+- [Demos](https://react-swipeable-views.com/demos/demos/)
+
 ## Installation
 
 ```sh
