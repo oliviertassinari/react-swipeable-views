@@ -31,9 +31,6 @@
     "prop-types": "^15.5.4",
     "react-swipeable-views-core": "^0.13.7"
   },
-  "peerDependencies": {
-    "react": "^16.0.0"
-  },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.0",
