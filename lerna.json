@@ -1,9 +1,10 @@
 {
-  "lerna": "2.0.0",
-  "npmClient": "yarn",
-  "version": "0.14.0",
+  "lerna": "22.09.30",
+  "npmClient": "npmClient",
+  "version": "22.09.30",
   "packages": [
-    "packages/*"
-  ],
+    "packages/react-swipeable-views",
+    "packages/react-swipeable-views-utils",
+    "packages/react-swipeable-views-core"  ],
   "useWorkspaces": true
 }
