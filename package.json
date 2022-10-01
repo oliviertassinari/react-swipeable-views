@@ -1,6 +1,6 @@
 {
   "name": "react-swipeable-views-workspace-22",
-  "version": "22.09.33",
+  "version": "22.09.34",
   "private": false,
   "scripts": {
     "lint": "eslint . && echo \"eslint: no lint errors\"",

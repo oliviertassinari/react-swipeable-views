@@ -1,6 +1,6 @@
 {
   "name": "react-swipeable-views-utils-22",
-  "version": "22.09.33",
+  "version": "22.09.34",
   "description": "react-swipeable-views utility modules",
   "main": "lib/index.js",
   "scripts": {

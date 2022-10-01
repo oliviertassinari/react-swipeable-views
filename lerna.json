@@ -1,10 +1,10 @@
 {
-  "lerna": "22.09.33",
+  "lerna": "22.09.34",
   "npmClient": "npmClient",
-  "version": "22.09.33",
+  "version": "22.09.34",
   "packages": [
     "packages/react-swipeable-views",
     "packages/react-swipeable-views-utils",
     "packages/react-swipeable-views-core"  ],
-  "useWorkspaces": true
+  "useWorkspaces": false
 }
