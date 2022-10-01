@@ -1629,7 +1629,7 @@
   "resolved" "https://registry.npmjs.org/@types/minimist/-/minimist-1.2.2.tgz"
   "version" "1.2.2"
 
-"@types/node@*":
+"@types/node@*", "@types/node@^18.0.0":
   "integrity" "sha512-DWNcCHolDq0ZKGizjx2DZjR/PqsYwAcYUJmfMWqtVU2MBMG5Mo+xFZrhGId5r/O5HOuMPyQEcM6KUBp5lBZZBg=="
   "resolved" "https://registry.npmjs.org/@types/node/-/node-18.7.23.tgz"
   "version" "18.7.23"
@@ -6779,7 +6779,7 @@
 
 "react-swipeable-views-22@file:/Users/suntzuping/Documents/github-28/ajassy/liu-server-vision/react-swipeable-views-22/packages/react-swipeable-views":
   "resolved" "file:packages/react-swipeable-views"
-  "version" "22.09.30"
+  "version" "22.09.33"
   dependencies:
     "@babel/runtime" "^7.0.0"
     "prop-types" "^15.5.4"
@@ -6789,14 +6789,14 @@
 
 "react-swipeable-views-core-22@^22.09.30", "react-swipeable-views-core-22@file:/Users/suntzuping/Documents/github-28/ajassy/liu-server-vision/react-swipeable-views-22/packages/react-swipeable-views-core":
   "resolved" "file:packages/react-swipeable-views-core"
-  "version" "22.09.30"
+  "version" "22.09.33"
   dependencies:
     "@babel/runtime" "^7.0.0"
     "warning" "^4.0.1"
 
 "react-swipeable-views-utils-22@^22.09.30", "react-swipeable-views-utils-22@file:/Users/suntzuping/Documents/github-28/ajassy/liu-server-vision/react-swipeable-views-22/packages/react-swipeable-views-utils":
   "resolved" "file:packages/react-swipeable-views-utils"
-  "version" "22.09.30"
+  "version" "22.09.33"
   dependencies:
     "@babel/runtime" "^7.0.0"
     "keycode" "^2.1.7"

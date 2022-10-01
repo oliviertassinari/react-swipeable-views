@@ -1,7 +1,7 @@
 {
-  "lerna": "22.09.30",
+  "lerna": "22.09.33",
   "npmClient": "npmClient",
-  "version": "22.09.30",
+  "version": "22.09.33",
   "packages": [
     "packages/react-swipeable-views",
     "packages/react-swipeable-views-utils",
