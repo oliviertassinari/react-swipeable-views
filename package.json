@@ -21,7 +21,7 @@
     "release": "yarn build && yarn lerna exec yarn prepublish && lerna publish",
     "postrelease": "yarn docs:deploy"
   },
-  "author": "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
+  "author": "https://github.com/oliviertassinari",
   "license": "MIT",
   "repository": {
     "type": "git",
