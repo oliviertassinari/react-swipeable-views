@@ -21,12 +21,6 @@
     "release": "yarn build && yarn lerna exec yarn prepublish && lerna publish",
     "postrelease": "yarn docs:deploy"
   },
-  "author": "https://github.com/oliviertassinari",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/oliviertassinari/react-swipeable-views.git"
-  },
   "devDependencies": {
     "@babel/cli": "7.0.0",
     "@babel/core": "7.0.0",
