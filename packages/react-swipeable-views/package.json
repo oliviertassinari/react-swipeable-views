@@ -16,7 +16,10 @@
     "swipe",
     "swipeable"
   ],
-  "author": "https://github.com/oliviertassinari",
+  "author": {
+    "name": "Olivier Tassinari",
+    "url": "https://github.com/oliviertassinari"
+  },
   "bugs": {
     "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
   },

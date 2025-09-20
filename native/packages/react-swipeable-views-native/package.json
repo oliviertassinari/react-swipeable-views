@@ -21,11 +21,10 @@
     "swipe",
     "swipeable"
   ],
-  "author": "https://github.com/oliviertassinari",
-  "maintainers": [
-    "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
-    "Roman Rogozhnikov <roman.rogozhnikov@gmail.com> (https://github.com/yacut)"
-  ],
+  "author": {
+    "name": "Olivier Tassinari",
+    "url": "https://github.com/oliviertassinari"
+  },
   "bugs": {
     "url": "https://github.com/oliviertassinari/react-swipeable-views/issues"
   },
