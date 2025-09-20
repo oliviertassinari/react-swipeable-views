@@ -8,16 +8,6 @@
     "eject": "expo eject",
     "test": "node ./node_modules/jest/bin/jest.js --watchAll"
   },
-  "author": "https://github.com/oliviertassinari",
-  "maintainers": [
-    "Olivier Tassinari <olivier.tassinari@gmail.com> (https://github.com/oliviertassinari)",
-    "Roman Rogozhnikov <roman.rogozhnikov@gmail.com> (https://github.com/yacut)"
-  ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/oliviertassinari/react-swipeable-views.git"
-  },
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
     "expo": "^31.0.2",
