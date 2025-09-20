@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oliviertassinari/react-swipeable-views.git"
+    "url": "git+https://github.com/oliviertassinari/react-swipeable-views.git"
   },
   "author": "https://github.com/oliviertassinari",
   "bugs": {

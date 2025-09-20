@@ -16,7 +16,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oliviertassinari/react-swipeable-views.git"
+    "url": "git+https://github.com/oliviertassinari/react-swipeable-views.git"
   },
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
