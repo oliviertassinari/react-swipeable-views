@@ -28,7 +28,8 @@
 - [Demos](https://react-swipeable-views.com/demos/demos/)
 
 ## Installation
-
+### React Versions
+- React version ^18.0.0 is not supported. 
 ### Browser
 
 ```sh
